@@ -26,7 +26,7 @@
                 <div>
                     Ingreso<br>
                     <span>
-                        SISO
+                        GPCI
                     </span>
                 </div>
             </div>

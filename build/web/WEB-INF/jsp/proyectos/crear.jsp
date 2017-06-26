@@ -12,7 +12,7 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>GPCI: Gestión de Proyectos</title>
-        <link rel="icon" href='<c:url value="/resources/favicon.ico" />' type="image/x-icon" />
+        <link rel="icon" href='<c:url value="/resources/imagenes/favicon.ico" />' type="image/x-icon" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>
@@ -186,7 +186,7 @@
                         </table>
                         <div class="alert alert-info" style="margin-top:20px;">
                             <strong>Objetivos Específicos</strong>
-                            <button class="btn btn-dark" onclick="$('#objetivosEspecificosModal').modal('show'); return false;">
+                            <button class="btn btn-dark" onclick="mostrarVentanaNuevoObjetivoEspecifico(); return false;">
                                 <i class="glyphicon glyphicon-plus"></i>
                             </button>                            
                         </div>  
@@ -206,7 +206,8 @@
                                         <table class="tblform3">
                                             <tr>
                                                 <td>
-                                                    <textarea id="objetivoEspecifico" name="objetivoEspecifico" class="form-control objetivoEspecifico"></textarea>
+                                                    <textarea id="objetivoEspecifico" name="objetivoEspecifico" class="form-control"></textarea>
+                                                    <input type="hidden" id="consecutivo" name="consecutivo" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -218,23 +219,38 @@
                                 </div>
                             </div>  
                         </div>
+                        <c:if test = "${objetivosEspecificosJSON != null}">
+                        <table class="table table-hover" style="width: 90%" align="center">
+                            <tr class="table-row">
+                                <th style="width: 90%;text-align: center">Objetivo</th>
+                                <th style="width: 5%">&nbsp;</th>
+                                <th style="width: 5%">&nbsp;</th>
+                            </tr>
+                        </table>
+                        </c:if>
                         <table class="table table-hover" style="width: 90%" data-bind="foreach: { data: objetivosEspecificos }" align="center">
                             <tr class="table-row">
                                 <td style="width: 90%">
                                     <span data-bind="text: descripcion" ></span>
                                     <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'objetivosEspecificos[' + $index() + '].descripcion'  }">
                                 </td>
-                                <td style="width: 10%">
+                                <td style="width: 5%">
                                     <button class="btn btn-dark" data-bind="click: $root.eliminarObjetivoEspecifico">
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </button>
                                     <input type="hidden" data-bind="value: idObjetivoEspecifico, attr: { 'name': 'objetivosEspecificos[' + $index() + '].idObjetivoEspecifico'  }" />
+                                    <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'objetivosEspecificos[' + $index() + '].consecutivo'  }" />
+                                </td>
+                                <td style="width: 5%">
+                                    <button class="btn btn-dark" data-bind="click: $root.editarObjetivoEspecifico">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </button>
                                 </td>
                             </tr>
                         </table>
                         <div class="alert alert-info" style="margin-top:20px;">
                             <strong>Profesores</strong>
-                            <button class="btn btn-dark" onclick="$('#profesoresModal').modal('show'); return false;">
+                            <button class="btn btn-dark" onclick="mostrarVentanaNuevoProfesorProyecto(); return false;">
                                 <i class="glyphicon glyphicon-plus"></i>
                             </button>
                         </div>
@@ -250,6 +266,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-body">
+                                        <div id="alert_placeholder_profesores"></div>
                                         <table class="tblform3">
                                             <tr>
                                                 <td width="45%">Tipo de identificación:</td>
@@ -291,6 +308,18 @@
                                                 </td>                                    
                                             </tr>
                                             <tr>
+                                                <td>Correo electrónico:</td>
+                                                <td>Contacto:</td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="email" id="correoElectronicoProfesor" name="correoElectronicoProfesor" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="contactoProfesor" name="contactoProfesor" class="form-control" />
+                                                </td>                                    
+                                            </tr>
+                                            <tr>
                                                 <td>Facultad</td>
                                                 <td>Rol</td> 
                                             </tr>
@@ -326,10 +355,10 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input type="text" id="porcentajePIProfesor" name="porcentajePIProfesor" class="form-control numbersOnly" />
+                                                    <input type="text" id="porcentajePIProfesor" name="porcentajePIProfesor" class="form-control numbersOnly" maxlength="3" />
                                                 </td>
                                                 <td>
-                                                    <input type="text" id="horasSemanaProfesor" name="horasSemanaProfesor" class="form-control numbersOnly" />
+                                                    <input type="text" id="horasSemanaProfesor" name="horasSemanaProfesor" class="form-control numbersOnly" maxlength="3" />
                                                 </td>
                                             </tr>
                                             <tr>
@@ -338,10 +367,10 @@
                                             </tr>
                                             <tr>
                                                 <td>
-                                                    <input type="text" id="mesesDedicadosProfesor" name="mesesDedicadosProfesor" class="form-control numbersOnly" />
+                                                    <input type="text" id="mesesDedicadosProfesor" name="mesesDedicadosProfesor" class="form-control numbersOnly" maxlength="5" />
                                                 </td>
                                                 <td>
-                                                    <input type="text" id="horasSemanaFueraPlanProfesor" name="horasSemanaFueraPlanProfesor" class="form-control numbersOnly" />
+                                                    <input type="text" id="horasSemanaFueraPlanProfesor" name="horasSemanaFueraPlanProfesor" class="form-control numbersOnly" maxlength="3" />
                                                 </td>
                                             </tr>                                
                                             <tr>
@@ -349,18 +378,84 @@
                                             </tr>
                                             <tr>
                                                 <td colspan="2">
-                                                    <input type="text" id="mesesFueraPlanProfesor" name="horasSemanaFueraPlanProfesor" class="form-control numbersOnly" />
+                                                    <input type="text" id="mesesFueraPlanProfesor" name="mesesFueraPlanProfesor" class="form-control numbersOnly" maxlength="5" />
                                                 </td>
                                             </tr>                            
                                         </table>
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary">Aceptar</button>
+                                        <button type="button" class="btn btn-primary" data-bind="click: adicionarProfesorProyecto">Aceptar</button>
                                     </div>
                                 </div>
                             </div>
-                        </div>                                      
+                        </div>   
+                        <c:if test = "${profesoresProyectoJSON != null}">
+                            <table class="table table-hover" style="width: 90%" align="center" border="1">
+                                <tr class="table-row">
+                                    <th style="width: 20%;text-align: center">Tipo de identificación</th>
+                                    <th style="width: 20%;text-align: center">Número de identificación</th>
+                                    <th style="width: 18%;text-align: center">Nombres</th>
+                                    <th style="width: 17%;text-align: center">Apellidos</th>
+                                    <th style="width: 5%;text-align: center">Rol</th>
+                                    <th style="width: 10%;text-align: center">Facultad</th>
+                                    <th style="width: 5%">&nbsp;</th>
+                                    <th style="width: 5%">&nbsp;</th>
+                                </tr>
+                            </table>
+                        </c:if>
+                        <table class="table table-hover" style="width: 90%" data-bind="foreach: { data: profesoresProyecto }" align="center">
+                            <tr class="table-row">
+                                <td style="width: 20%">
+                                    <span data-bind="text: descripcionTipoIdentificacion" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].idTipoIdentificacion'  }">
+                                </td>
+                                <td style="width: 20%">
+                                    <span data-bind="text: numeroIdentificacion" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].numeroIdentificacion'  }">
+                                </td>
+                                <td style="width: 18%">
+                                    <span data-bind="text: nombres" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'profesoresProyecto[' + $index() + '].nombres'  }">
+                                </td>
+                                <td style="width: 17%">
+                                    <span data-bind="text: apellidos" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'profesoresProyecto[' + $index() + '].apellidos'  }">
+                                </td>
+                                <td style="width: 5%">
+                                    <span data-bind="text: descripcionRol" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionRol'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'profesoresProyecto[' + $index() + '].idRol'  }">
+                                </td>
+                                <td style="width: 10%">
+                                    <span data-bind="text: descripcionFacultad" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'profesoresProyecto[' + $index() + '].correoElectronico'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'profesoresProyecto[' + $index() + '].contacto'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: descripcionFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionFacultad'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: idFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].idFacultad'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: codigoVinculacionUdeA, attr: { 'name': 'profesoresProyecto[' + $index() + '].codigoVinculacionUdeA'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'profesoresProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: porcentajePI, attr: { 'name': 'profesoresProyecto[' + $index() + '].porcentajePI' }">
+                                    <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemana' }">
+                                    <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'profesoresProyecto[' + $index() + '].mesesDedicados' }">
+                                    <input type="hidden" class="form-control" data-bind="value: horasSemanaFueraPlan, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemanaFueraPlan' }">
+                                    <input type="hidden" class="form-control" data-bind="value: mesesFueraPlan, attr: { 'name': 'profesoresProyecto[' + $index() + '].mesesFueraPlan' }">
+                                    <input type="hidden" data-bind="value: idProfesor, attr: { 'name': 'profesoresProyecto[' + $index() + '].idProfesor'  }" />
+                                    <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'profesoresProyecto[' + $index() + '].consecutivo'  }" />
+                                </td>
+                                <td style="width: 5%" align="center">
+                                    <button class="btn btn-dark" data-bind="click: $root.eliminarProfesorProyecto">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                </td>
+                                <td style="width: 5%" align="center">
+                                    <button class="btn btn-dark" data-bind="click: $root.editarProfesorProyecto">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>                                
                     </form:form>
                 </div>
             </div>  <!-- InstanceEndEditable -->
@@ -397,36 +492,205 @@
                 noneSelectedText: ''
             });
 
-            var ObjetivoEspecificoModel = function (objetivosEspecificos) {
-                var self = this;
+            var ProyectoModel = function (objetivosEspecificos, profesoresProyectoArray) {
+                self = this;
                 self.objetivosEspecificos = ko.observableArray(objetivosEspecificos);
 
                 self.adicionarObjetivoEspecifico = function () {
-                    if ($('.objetivoEspecifico').val() == "") {
+                    if ($('#objetivoEspecifico').val() == "") {
                         bootstrap_alert_objetivosEspecificos.warning('Debe ingresar el objetivo específico');
                         return false;
                     }
                     $('#objetivosEspecificosModal').modal('toggle');
                     bootstrap_alert_objetivosEspecificos.removeWarning();
-                    self.objetivosEspecificos.push({
-                        idObjetivoEspecifico: 0,
-                        idProyecto: 0,
-                        descripcion: $('.objetivoEspecifico').val()
-                    });
-                    $('.objetivoEspecifico').val("");
+                    if($('#consecutivo').val() == "") {
+                        self.objetivosEspecificos.push({
+                            idObjetivoEspecifico: ko.observable(0),
+                            consecutivo: ko.observable(self.objetivosEspecificos().length + 1),
+                            descripcion: ko.observable($('#objetivoEspecifico').val())
+                        });
+                    } else {
+                        var consecutivo = parseInt($('#consecutivo').val(), 10);
+                        var indice = 0;
+                        for(i = 0; i < self.objetivosEspecificos().length; i++) {
+                           if(self.objetivosEspecificos()[i].consecutivo() == consecutivo){
+                              indice = i; 
+                              break;
+                           }
+                        }
+                        self.objetivosEspecificos()[indice].descripcion($('#objetivoEspecifico').val());
+                    }
+                    
+                    limpiarDatosVentanaObjetivoEspecifico();
                 };
 
                 self.eliminarObjetivoEspecifico = function (objetivoEspecifico) {
                     self.objetivosEspecificos.remove(objetivoEspecifico);
                 };
+                
+                self.editarObjetivoEspecifico = function (objetivoEspecifico) {
+                    $('#objetivoEspecifico').val(objetivoEspecifico.descripcion());
+                    $('#consecutivo').val(objetivoEspecifico.consecutivo());
+                    $('#objetivosEspecificosModal').modal('show'); 
+                };
+
+                self.profesoresProyecto = ko.observableArray(profesoresProyectoArray);
+
+                self.adicionarProfesorProyecto = function () {
+                    if ($('#tipoIdentificacionProfesor').val() == "") {
+                        bootstrap_alert_profesoresProyecto.warning('Debe seleccionar el tipo de identificación');
+                        return false;
+                    }
+                    if ($('#numeroIdentificacionProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar el número de identificación');
+                        return false;
+                    }
+                    if ($('#nombresProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar los nombres');
+                        return false;
+                    }
+                    if ($('#apellidosProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar los apellidos');
+                        return false;
+                    }                    
+                    if ($('#correoElectronicoProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar el correo electrónico');
+                        return false;
+                    }                    
+                    if ($('#contactoProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar el contacto');
+                        return false;
+                    }                    
+                    if ($('#facultadProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe seleccionar la facultad');
+                        return false;
+                    }
+                    if ($('#rolProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe seleccionar el rol');
+                        return false;
+                    }
+                    if ($('#codigoVinculacionUdeAProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar el código de vinculación a la U de A');
+                        return false;
+                    }
+                    if ($('#porcentajePIProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar el porcentaje PI');
+                        return false;
+                    }
+                    if ($('#horasSemanaProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar las horas semanales');
+                        return false;
+                    }
+                    if ($('#mesesDedicadosProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar los meses dedicados');
+                        return false;
+                    }
+                    
+                    if($('#consecutivo').val() == "") {
+                        
+                        for(i = 0; i < self.profesoresProyecto().length; i++) {
+                            if(self.profesoresProyecto()[i].idTipoIdentificacion() == $('#tipoIdentificacionProfesor').val() && 
+                               self.profesoresProyecto()[i].numeroIdentificacion() == $('#numeroIdentificacionProfesor').val()) {
+                               bootstrap_alert_profesores_proyecto.warning('El profesor ya hace parte del proyecto');
+                               return false;                               
+                            }
+                        }
+                        
+                        self.profesoresProyecto.push({
+                            idProfesor: ko.observable(0),
+                            idTipoIdentificacion: ko.observable($('#tipoIdentificacionProfesor').val()),
+                            descripcionTipoIdentificacion: ko.observable($('#tipoIdentificacionProfesor option:selected').text()),
+                            numeroIdentificacion: ko.observable($('#numeroIdentificacionProfesor').val()),
+                            nombres: ko.observable($('#nombresProfesor').val()),
+                            apellidos: ko.observable($('#apellidosProfesor').val()),
+                            correoElectronico : ko.observable($('#correoElectronicoProfesor').val()),
+                            contacto : ko.observable($('#contactoProfesor').val()),
+                            idFacultad: ko.observable($('#facultadProfesor').val()),
+                            descripcionFacultad: ko.observable($('#facultadProfesor option:selected').text()),
+                            idRol: ko.observable($('#rolProfesor').val()),
+                            descripcionRol: ko.observable($('#rolProfesor option:selected').text()),
+                            codigoVinculacionUdeA: ko.observable($('#codigoVinculacionUdeAProfesor').val()),
+                            cartaCesionDerechosPatrimonio: ko.observable($('#cartaCesionDerechosPatrimonioProfesor').is(":checked")),
+                            porcentajePI: ko.observable($('#porcentajePIProfesor').val()),
+                            horasSemana: ko.observable($('#horasSemanaProfesor').val()),
+                            mesesDedicados: ko.observable($('#mesesDedicadosProfesor').val()),
+                            horasSemanaFueraPlan: ko.observable($('#horasSemanaFueraPlanProfesor').val()),
+                            mesesFueraPlan: ko.observable($('#mesesFueraPlanProfesor').val()),
+                            consecutivo: ko.observable(self.profesoresProyecto().length + 1)
+                        });
+                    } else {
+                            var consecutivo = parseInt($('#consecutivo').val(), 10);
+                            var indice = 0;
+                            for(i = 0; i < self.profesoresProyecto().length; i++) {
+                                if(self.profesoresProyecto()[i].consecutivo() == consecutivo){
+                                   indice = i; 
+                                   break;
+                                }
+                            }
+                            self.profesoresProyecto()[indice].idTipoIdentificacion($('#tipoIdentificacionProfesor').val());
+                            self.profesoresProyecto()[indice].descripcionTipoIdentificacion($('#tipoIdentificacionProfesor option:selected').text());
+                            self.profesoresProyecto()[indice].numeroIdentificacion($('#numeroIdentificacionProfesor').val());
+                            self.profesoresProyecto()[indice].nombres( $('#nombresProfesor').val());
+                            self.profesoresProyecto()[indice].apellidos( $('#apellidosProfesor').val());
+                            self.profesoresProyecto()[indice].correoElectronico( $('#correoElectronicoProfesor').val());
+                            self.profesoresProyecto()[indice].contacto($('#contactoProfesor').val());
+                            self.profesoresProyecto()[indice].idFacultad( $('#facultadProfesor').val());
+                            self.profesoresProyecto()[indice].descripcionFacultad( $('#facultadProfesor option:selected').text());
+                            self.profesoresProyecto()[indice].idRol( $('#rolProfesor').val());
+                            self.profesoresProyecto()[indice].descripcionRol($('#rolProfesor option:selected').text());
+                            self.profesoresProyecto()[indice].codigoVinculacionUdeA( $('#codigoVinculacionUdeAProfesor').val());
+                            self.profesoresProyecto()[indice].cartaCesionDerechosPatrimonio( $('#cartaCesionDerechosPatrimonioProfesor').is(":checked"));
+                            self.profesoresProyecto()[indice].porcentajePI( $('#porcentajePIProfesor').val());
+                            self.profesoresProyecto()[indice].horasSemana( $('#horasSemanaProfesor').val());
+                            self.profesoresProyecto()[indice].mesesDedicados( $('#mesesDedicadosProfesor').val());
+                            self.profesoresProyecto()[indice].horasSemanaFueraPlan($('#horasSemanaFueraPlanProfesor').val());
+                            self.profesoresProyecto()[indice].mesesFueraPlan( $('#mesesFueraPlanProfesor').val());
+                    }
+
+                   $('#profesoresModal').modal('toggle');
+                   bootstrap_alert_profesores_proyecto.removeWarning();
+                   limpiarDatosVentanaProfesorProyecto();
+                };
+
+                self.eliminarProfesorProyecto = function (profesor) {
+                    self.profesoresProyecto.remove(profesor);
+                };
+
+                self.editarProfesorProyecto = function (profesorProyecto) {
+                    $('#consecutivo').val(pprofesorProyecto.consecutivo());
+                    $('#tipoIdentificacionProfesor').val(profesorProyecto.idTipoIdentificacion());
+                    $('#numeroIdentificacionProfesor').val(profesorProyecto.numeroIdentificacion());
+                    $('#nombresProfesor').val(profesorProyecto.nombres());
+                    $('#apellidosProfesor').val(profesorProyecto.apellidos());
+                    $('#correoElectronicoProfesor').val(profesorProyecto.correoElectronico());
+                    $('#contactoProfesor').val(profesorProyecto.contacto());
+                    $('#facultadProfesor').val(profesorProyecto.idFacultad());
+                    $('#rolProfesor').val(profesorProyecto.idRol());
+                    $('#codigoVinculacionUdeAProfesor').val(profesorProyecto.codigoVinculacionUdeA());
+                    $('#cartaCesionDerechosPatrimonioProfesor').prop('checked', profesorProyecto.cartaCesionDerechosPatrimonio());
+                    $('#porcentajePIProfesor').val(profesorProyecto.porcentajePI());
+                    $('#horasSemanaProfesor').val(profesorProyecto.horasSemana());
+                    $('#mesesDedicadosProfesor').val(profesorProyecto.mesesDedicados());
+                    $('#horasSemanaFueraPlanProfesor').val(profesorProyecto.horasSemanaFueraPlan());
+                    $('#mesesFueraPlanProfesor').val(profesorProyecto.mesesFueraPlan());
+                    
+                    $('#profesoresModal').modal('show');
+                };
             };
 
-            var viewModelObjetivoEspecifico = new ObjetivoEspecificoModel();
-            <c:if test = "${objetivosEspecificosJSON != null}">
-            viewModelObjetivoEspecifico = new ObjetivoEspecificoModel(${objetivosEspecificosJSON});
+            var objetivosEspecificos = Array();
+        
+            var profesoresProyecto = new Array();   
+            <c:if test = "${objetivosEspecificosJSON != null && profesoresProyectoJSON != null}">
+            objetivosEspecificos = ${objetivosEspecificosJSON};
             </c:if>
 
-            ko.applyBindings(viewModelObjetivoEspecifico);
+            <c:if test = "${profesoresProyectoJSON != null}">
+            profesoresProyecto = ${profesoresProyectoJSON};
+            </c:if>
+
+            var proyectoModel = new ProyectoModel(objetivosEspecificos, profesoresProyecto);
+            ko.applyBindings(proyectoModel);
 
             bootstrap_alert_objetivosEspecificos = function () { };
             bootstrap_alert_objetivosEspecificos.warning = function (message) {
@@ -435,6 +699,88 @@
             bootstrap_alert_objetivosEspecificos.removeWarning = function () {
                 $('#alert_placeholder_objetivosEspecificos').html('');
             };
+
+            bootstrap_alert_profesores_proyecto = function () { };
+            bootstrap_alert_profesores_proyecto.warning = function (message) {
+                $('#alert_placeholder_profesores').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_profesores_proyecto.removeWarning = function () {
+                $('#alert_placeholder_profesores').html('');
+            };
+        
+           function mostrarVentanaNuevoProfesorProyecto() {
+                limpiarDatosVentanaProfesorProyecto();
+                $('#profesoresModal').modal('show'); 
+           }
+        
+           function limpiarDatosVentanaProfesorProyecto() {
+                $('#consecutivo').val("");
+                $('#tipoIdentificacionProfesor').val("");
+                $('#descripcionTipoIdentificacionProfesor').val("");
+                $('#numeroIdentificacionProfesor').val("");
+                $('#nombresProfesor').val("");
+                $('#apellidosProfesor').val("");
+                $('#contactoProfesor').val("");
+                $('#correoElectronicoProfesor').val("");
+                $('#facultadProfesor').val("");
+                $('#rolProfesor').val("");
+                $('#codigoVinculacionUdeAProfesor').val("");
+                $('#cartaCesionDerechosPatrimonioProfesor').prop('checked', false);
+                $('#porcentajePIProfesor').val("");
+                $('#horasSemanaProfesor').val("");
+                $('#mesesDedicadosProfesor').val("");
+                $('#horasSemanaFueraPlanProfesor').val("");
+                $('#mesesFueraPlanProfesor').val("");            
+           }
+        
+            function mostrarVentanaNuevoObjetivoEspecifico() {
+                limpiarDatosVentanaObjetivoEspecifico();
+                $('#objetivosEspecificosModal').modal('show'); 
+            }
+        
+            function limpiarDatosVentanaObjetivoEspecifico() {
+                $('#objetivoEspecifico').val("");
+                $('#consecutivo').val("");
+            }
+        
+            function buscarProfesor() {
+                var tipoIdentificacion = $('#tipoIdentificacionProfesor').val();
+                var numeroIdentificacion = $('#numeroIdentificacionProfesor').val();
+
+                if(tipoIdentificacion != "" && numeroIdentificacion != ""){
+                    $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/proyectos/buscarProfesor",
+                        data: "tipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                        success: function(response){
+                           if(response != "") {
+                             var profesor = JSON.parse(response);
+                             $('#nombresProfesor').val(profesor.nombres);
+                             $('#apellidosProfesor').val(profesor.apellidos);
+                             $('#correoElectronicoProfesor').val(profesor.correoElectronico);
+                             $('#contactoProfesor').val(profesor.contacto);
+                           } else {
+                             $('#nombresProfesor').val("");
+                             $('#apellidosProfesor').val("");
+                             $('#contactoProfesor').val("");
+                             $('#correoElectronicoProfesor').val("");
+                           }    
+                        },
+                        error: function(e){
+                            bootstrap_alert_profesoresProyecto.warning(e);
+                        }
+                    });
+                } else {
+                    if ($('#tipoIdentificacionProfesor').val() == "") {
+                        bootstrap_alert_profesoresProyecto.warning('Debe seleccionar el tipo de identificación');
+                        return false;
+                    }
+                    if ($('#numeroIdentificacionProfesor').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar el número de identificación');
+                        return false;
+                    }
+                }
+           }
         </script>
     </body>
 </html>

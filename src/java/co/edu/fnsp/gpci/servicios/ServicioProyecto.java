@@ -5,6 +5,7 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
+import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.repositorios.IRepositorioProyecto;
@@ -63,6 +64,11 @@ public class ServicioProyecto implements IServicioProyecto {
     @Override
     public ArrayList<ReporteProyecto> obtenerProyectos() {
         return repositorioProyecto.obtenerProyectos();
+    }
+
+    @Override
+    public Profesor obtenerProfesor(long numeroIdentificacion, int idTipoIdentificacion) {
+        return repositorioProyecto.obtenerProfesor(numeroIdentificacion, idTipoIdentificacion);
     }
 
 }

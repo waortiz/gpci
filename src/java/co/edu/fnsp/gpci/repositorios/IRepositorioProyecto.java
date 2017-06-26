@@ -5,6 +5,7 @@
  */
 package co.edu.fnsp.gpci.repositorios;
 
+import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import java.util.ArrayList;
@@ -18,4 +19,5 @@ public interface IRepositorioProyecto {
    void actualizarProyecto(Proyecto proyecto); 
    Proyecto obtenerProyecto(long idProyecto); 
    ArrayList<ReporteProyecto> obtenerProyectos(); 
+   Profesor obtenerProfesor(long numeroIdentificacion, int idTipoIdentificacion);
 }

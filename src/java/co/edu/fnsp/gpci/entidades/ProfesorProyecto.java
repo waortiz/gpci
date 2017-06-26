@@ -11,6 +11,46 @@ package co.edu.fnsp.gpci.entidades;
  */
 public class ProfesorProyecto {
 
+    private Profesor profesor;
+    private long idProyecto;
+    private Rol rol;
+    private Facultad facultad;
+    private String codigoVinculacionUdeA;
+    private boolean cartaCesionDerechosPatrimonio;
+    private double porcentajePI;
+    private int horasSemana;
+    private int mesesDedicados;
+    private int horasSemanaFueraPlan;
+    private int mesesFueraPlan;
+
+    /**
+     * @return the facultad
+     */
+    public Facultad getFacultad() {
+        return facultad;
+    }
+
+    /**
+     * @param facultad the facultad to set
+     */
+    public void setFacultad(Facultad facultad) {
+        this.facultad = facultad;
+    }
+
+    /**
+     * @return the profesor
+     */
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    /**
+     * @param profesor the profesor to set
+     */
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
     /**
      * @return the rol
      */
@@ -24,33 +64,7 @@ public class ProfesorProyecto {
     public void setRol(Rol rol) {
         this.rol = rol;
     }
-
-    private long idProfesor;
-    private long idProyecto;
-    private Rol rol;
-    private Facultad facultad;
-    private String codigoVinculacionUDEA;
-    private boolean cartaCesionDerechosPatrimonio;
-    private double porcentajePI;
-    private int horasSemana;
-    private int mesesDedicados;
-    private int horasSemanaFueraPlan;
-    private int mesesFueraPlan;
-
-    /**
-     * @return the idProfesor
-     */
-    public long getIdProfesor() {
-        return idProfesor;
-    }
-
-    /**
-     * @param idProfesor the idProfesor to set
-     */
-    public void setIdProfesor(long idProfesor) {
-        this.idProfesor = idProfesor;
-    }
-
+    
     /**
      * @return the idProyecto
      */
@@ -66,17 +80,17 @@ public class ProfesorProyecto {
     }
 
     /**
-     * @return the codigoVinculacionUDEA
+     * @return the codigoVinculacionUdeA
      */
-    public String getCodigoVinculacionUDEA() {
-        return codigoVinculacionUDEA;
+    public String getCodigoVinculacionUdeA() {
+        return codigoVinculacionUdeA;
     }
 
     /**
-     * @param codigoVinculacionUDEA the codigoVinculacionUDEA to set
+     * @param codigoVinculacionUdeA the codigoVinculacionUdeA to set
      */
-    public void setCodigoVinculacionUDEA(String codigoVinculacionUDEA) {
-        this.codigoVinculacionUDEA = codigoVinculacionUDEA;
+    public void setCodigoVinculacionUdeA(String codigoVinculacionUdeA) {
+        this.codigoVinculacionUdeA = codigoVinculacionUdeA;
     }
 
     /**

@@ -38,6 +38,7 @@ public class Proyecto {
     private String objetivoGeneral;
     private EstadoProyecto estado;
     private ArrayList<ObjetivoEspecifico> objetivosEspecificos = new ArrayList<>();
+    private ArrayList<ProfesorProyecto> profesoresProyecto = new ArrayList<>();
 
     /**
      * @return the idProyecto
@@ -347,6 +348,105 @@ public class Proyecto {
         this.codigo = codigo;
     }
 
+    /**
+     * @return the objetivosEspecificos
+     */
+    public ArrayList<ObjetivoEspecifico> getObjetivosEspecificos() {
+        return objetivosEspecificos;
+    }
+
+    /**
+     * @param objetivosEspecificos the objetivosEspecificos to set
+     */
+    public void setObjetivosEspecificos(ArrayList<ObjetivoEspecifico> objetivosEspecificos) {
+        this.objetivosEspecificos = objetivosEspecificos;
+    }
+
+    /**
+     * @return the objetivosEspecificos JSON
+     */
+    public String getObjetivosEspecificosJSON() {
+        String jscriptArray = "";
+
+        if (this.objetivosEspecificos.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < this.objetivosEspecificos.size(); i++) {
+                ObjetivoEspecifico objetivoEspecifico = this.objetivosEspecificos.get(i);
+                jscriptArray = jscriptArray
+                        + "{idObjetivoEspecifico: ko.observable(" + objetivoEspecifico.getIdObjetivoEspecifico()+ "),"
+                        + "descripcion:ko.observable('" + objetivoEspecifico.getDescripcion()+ "'),"
+                        + "consecutivo:ko.observable(" + i + ")"
+                        + "}";
+                if (i < this.profesoresProyecto.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+
+    }
+
+    /**
+     * @return the profesoresProyecto
+     */
+    public ArrayList<ProfesorProyecto> getProfesoresProyecto() {
+        return profesoresProyecto;
+    }
+
+    /**
+     * @param profesoresProyecto the profesoresProyecto to set
+     */
+    public void setProfesoresProyecto(ArrayList<ProfesorProyecto> profesoresProyecto) {
+        this.profesoresProyecto = profesoresProyecto;
+    }
+
+    /**
+     * @return the profesores proyecto JSON
+     */
+    public String getProfesoresProyectoJSON() {
+        String jscriptArray = "";
+
+        if (this.profesoresProyecto.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < this.profesoresProyecto.size(); i++) {
+                ProfesorProyecto profesorProyecto = this.profesoresProyecto.get(i);
+                jscriptArray = jscriptArray
+                        + "{apellidos: ko.observable('" + profesorProyecto.getApellidos() + "'),"
+                        + "nombres:ko.observable('" + profesorProyecto.getNombres() + "'),"
+                        + "codigoVinculacionUdeA():ko.observable('" + profesorProyecto.getCodigoVinculacionUdeA() + "'),"
+                        + "contacto():ko.observable('" + profesorProyecto.getContacto() + "'),"
+                        + "correoElectronico():ko.observable('" + profesorProyecto.getCorreoElectronico() + "'),"
+                        + "descripcionFacultad:ko.observable('" + profesorProyecto.getDescripcionFacultad() + "'),"
+                        + "descripcionRol:ko.observable('" + profesorProyecto.getDescripcionRol() + "'),"
+                        + "descripcionTipoIdentificacion():ko.observable('" + profesorProyecto.getDescripcionTipoIdentificacion() + "'),"
+                        + "horasSemana:ko.observable(" + profesorProyecto.getHorasSemana() + "),"
+                        + "horasSemanaFueraPlan:ko.observable(" + profesorProyecto.getHorasSemanaFueraPlan() + "),"
+                        + "idFacultad:ko.observable(" + profesorProyecto.getIdFacultad() + "),"
+                        + "idProfesor:ko.observable(" + profesorProyecto.getIdProfesor() + "),"
+                        + "idRol:ko.observable(" + profesorProyecto.getIdRol() + "),"
+                        + "idTipoIdentificacion:ko.observable(" + profesorProyecto.getIdTipoIdentificacion() + "),"
+                        + "mesesDedicados:ko.observable(" + profesorProyecto.getMesesDedicados() + "),"
+                        + "mesesFueraPlan:ko.observable(" + profesorProyecto.getMesesFueraPlan() + "),"
+                        + "numeroIdentificacion:ko.observable(" + profesorProyecto.getNumeroIdentificacion() + "),"
+                        + "porcentajePI:ko.observable(" + profesorProyecto.getPorcentajePI() + "),"
+                        + "consecutivo:ko.observable(" + i + ")"
+                        + "}";
+                if (i < this.profesoresProyecto.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+    }
+
     @Override
     public String toString() {
         String listadoObjetivosEspecificos = "";
@@ -379,29 +479,4 @@ public class Proyecto {
                 + listadoObjetivosEspecificos
                 + "]}";
     }
-
-    /**
-     * @return the objetivosEspecificos
-     */
-    public ArrayList<ObjetivoEspecifico> getObjetivosEspecificos() {
-        return objetivosEspecificos;
-    }
-
-    /**
-     * @param objetivosEspecificos the objetivosEspecificos to set
-     */
-    public void setObjetivosEspecificos(ArrayList<ObjetivoEspecifico> objetivosEspecificos) {
-        this.objetivosEspecificos = objetivosEspecificos;
-    }
-
-    /**
-     * @return the objetivosEspecificos
-     */
-    public String getObjetivosEspecificosJSON() {
-        Gson gson = new Gson();
-        String jscriptArray = gson.toJson(objetivosEspecificos);
-
-        return jscriptArray;
-    }
-
 }
