@@ -328,7 +328,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varIdTipoIdentificacion", idTipoIdentificacion);
         Map resultado = obtenerProfesor.execute(parametros);
 
-        if (resultado.size() > 0) {
+        if (resultado.get("varIdProfesor") != null) {
             profesor = new Profesor();
             profesor.setNombres((String) resultado.get("varNombres"));
             profesor.setApellidos((String) resultado.get("varApellidos"));

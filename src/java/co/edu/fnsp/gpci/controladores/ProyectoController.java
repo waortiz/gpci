@@ -459,7 +459,7 @@ public class ProyectoController {
 
     @RequestMapping(value = "/buscarProfesor", method = RequestMethod.POST)
     public @ResponseBody
-    String buscarProfesor(@ModelAttribute(value = "busquedaPersona") BusquedaPersona busquedaPersona) {
+    String buscarProfesor(@ModelAttribute(value = "busquedaPersona") BusquedaPersona busquedaPersona, Model model) {
 
         Profesor profesor = servicioProyecto.obtenerProfesor(busquedaPersona.getNumeroIdentificacion(), busquedaPersona.getIdTipoIdentificacion());
         Gson gson = new Gson();

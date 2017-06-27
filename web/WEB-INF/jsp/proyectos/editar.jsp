@@ -11,7 +11,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
     <head>
         <title>GPCI: Gestión de Proyectos</title>
-        <link rel="icon" href='<c:url value="/resources/favicon.ico" />' type="image/x-icon" />
+        <link rel="icon" href='<c:url value="/resources/imagenes/favicon.ico" />' type="image/x-icon" />
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>

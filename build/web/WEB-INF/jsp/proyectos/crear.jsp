@@ -278,7 +278,7 @@
                                                     <select name="tipoIdentificacionProfesor" id="tipoIdentificacionProfesor" class="form-control">
                                                         <option value=""></option>
                                                     <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
-                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}}">${tipoIdentificacion.getNombre()}</option>
+                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
                                                     </c:forEach>
                                                     </select>    
                                                 </td>
@@ -328,7 +328,7 @@
                                                     <select name="facultadProfesor" id="facultadProfesor" class="form-control">
                                                         <option value=""></option>
                                                     <c:forEach var="facultad" items="${facultades}">
-                                                        <option value="${facultad.getIdFacultad()}}">${facultad.getNombre()}</option>
+                                                        <option value="${facultad.getIdFacultad()}">${facultad.getNombre()}</option>
                                                     </c:forEach>
                                                     </select>                                                        
                                                 </td>
@@ -336,7 +336,7 @@
                                                     <select name="rolProfesor" id="rolProfesor" class="form-control">
                                                         <option value=""></option>
                                                     <c:forEach var="rol" items="${roles}">
-                                                        <option value="${rol.getIdRol()}}">${rol.getNombre()}</option>
+                                                        <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
                                                     </c:forEach>
                                                     </select>      
                                                 </td>
@@ -455,7 +455,8 @@
                                     </button>
                                 </td>
                             </tr>
-                        </table>                                
+                        </table>
+                        <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form:form>
                 </div>
             </div>  <!-- InstanceEndEditable -->
@@ -748,12 +749,16 @@
                 var numeroIdentificacion = $('#numeroIdentificacionProfesor').val();
 
                 if(tipoIdentificacion != "" && numeroIdentificacion != ""){
-                    $.ajax({
+                      $.ajax({
                         type: "POST",
                         url: "${pageContext.request.contextPath}/proyectos/buscarProfesor",
-                        data: "tipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                        data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                        beforeSend: function(xhr){
+                           xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                        },                        
                         success: function(response){
                            if(response != "") {
+                             alert(response);
                              var profesor = JSON.parse(response);
                              $('#nombresProfesor').val(profesor.nombres);
                              $('#apellidosProfesor').val(profesor.apellidos);

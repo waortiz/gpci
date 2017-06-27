@@ -9,7 +9,7 @@
 <html><!-- InstanceBegin template="/Templates/tema1.dwt.php" codeOutsideHTMLIsLocked="false" -->
     <head>
         <title>GPCI: Gestión de Proyectos</title>
-        <link rel="icon" href='<c:url value="/resources/favicon.ico" />' type="image/x-icon" />
+        <link rel="icon" href='<c:url value="/resources/imagenes/favicon.ico" />' type="image/x-icon" />
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
     </head>
@@ -89,7 +89,7 @@
                 </table>
             </div>
         </div>
-        <script src='<c:url value="/resources/js/jquery-1.12.4.js" />'></script>
+        <script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
         <script src='<c:url value="/resources/js/jquery-ui.js" />'></script>
         <script src='<c:url value="/resources/js/bootstrap.js" />'></script>              
     </body>
