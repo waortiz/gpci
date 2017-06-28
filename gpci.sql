@@ -409,6 +409,7 @@ CREATE TABLE `estudiantes` (
   `correoElectronico` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
   `contacto` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`idEstudiante`),
+  UNIQUE KEY `numeroIdentificacion_UNIQUE` (`numeroIdentificacion`,`idTipoIdentificacion`),
   KEY `estudiantes_tiposestudiantes_idtipoidentificacion_idx` (`idTipoIdentificacion`),
   KEY `estudiantes_tiposestudiantes_idtipoestudiante_idx` (`idTipoEstudiante`),
   CONSTRAINT `estudiantes_tiposestudiantes_idtipoestudiante` FOREIGN KEY (`idTipoEstudiante`) REFERENCES `tiposestudiantes` (`idTipoEstudiante`) ON DELETE NO ACTION ON UPDATE NO ACTION,
@@ -606,6 +607,7 @@ CREATE TABLE `personalexterno` (
   `correoElectronico` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   `entidad` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idPersonalExterno`),
+  UNIQUE KEY `numeroIdentificacion_UNIQUE` (`numeroIdentificacion`,`idTipoIdentificacion`),
   KEY `personalexterno_tiposidentificacion_idtipoidentificacion_idx` (`idTipoIdentificacion`),
   CONSTRAINT `personalexterno_tiposidentificacion_idtipoidentificacion` FOREIGN KEY (`idTipoIdentificacion`) REFERENCES `tiposidentificacion` (`idTipoIdentificacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
@@ -730,9 +732,10 @@ CREATE TABLE `profesores` (
   `correoElectronico` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
   `contacto` varchar(100) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`idProfesor`),
+  UNIQUE KEY `numeroIdentificacion_UNIQUE` (`numeroIdentificacion`,`idTipoIdentificacion`),
   KEY `profesores_tiposestudiantes_idtipoidentificacion_idx` (`idTipoIdentificacion`),
   CONSTRAINT `profesores_tiposidentificacion_idtipoidentificacion` FOREIGN KEY (`idTipoIdentificacion`) REFERENCES `tiposidentificacion` (`idTipoIdentificacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -741,6 +744,7 @@ CREATE TABLE `profesores` (
 
 LOCK TABLES `profesores` WRITE;
 /*!40000 ALTER TABLE `profesores` DISABLE KEYS */;
+INSERT INTO `profesores` VALUES (1,1,'William','Ortiz',71984823,'waortiz@hotmail.com','En la facultad');
 /*!40000 ALTER TABLE `profesores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1143,6 +1147,67 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ActualizarProfesorProyecto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarProfesorProyecto`(
+ varIdProyecto bigint(20), 
+ varIdProfesor bigint(20),
+ varIdTipoIdentificacion int(11),
+ varNombres varchar(250),
+ varApellidos varchar(250),
+ varNumeroIdentificacion bigint(20),
+ varCorreoElectronico varchar(250),
+ varContacto varchar(100),
+ varidRol int(11),
+ varidFacultad int(11),
+ varcodigoVinculacionUDEA varchar(45),
+ varcartaCesionDerechosPatrimonio tinyint(1),
+ varporcentajePI decimal(18,2),
+ varhorasSemana int(11),
+ varmesesDedicados int(11),
+ varhorasSemanaFueraPlan int(11),
+ varmesesFueraPlan int(11)
+)
+BEGIN
+
+  DECLARE varCantidad int;
+     
+  UPDATE profesores
+  SET nombres = varNombres,
+	 apellidos = varApellidos,
+	 correoElectronico = varCorreoElectronico,
+	 contacto = varContacto,
+	 idtipoidentificacion = varIdTipoIdentificacion,
+	 numeroIdentificacion = varNumeroIdentificacion       
+  WHERE idProfesor = varIdProfesor;
+
+  UPDATE profesoresproyectos
+  SET	idRol = varidRol,
+        idFacultad = varidFacultad,
+		codigoVinculacionUDEA = varcodigoVinculacionUDEA,
+		cartaCesionDerechosPatrimonio = varcartaCesionDerechosPatrimonio,
+		porcentajePI = varporcentajePI,
+		horasSemana = varhorasSemana,
+		mesesDedicados = varmesesDedicados,
+		horasSemanaFueraPlan = varhorasSemanaFueraPlan,
+		mesesFueraPlan = varmesesFueraPlan
+  WHERE idProfesor = varidProfesor 
+    AND idProyecto = varidProyecto;  
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ActualizarProyecto` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1233,6 +1298,32 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `EliminarProfesorProyecto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarProfesorProyecto`(
+ varIdProyecto bigint(20), 
+ varIdProfesor bigint(20)
+)
+BEGIN
+
+  DELETE FROM profesoresproyectos
+  WHERE idProyecto = varIdProyecto
+    and idProfesor = varIdProfesor;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `IngresarObjetivoEspecificoProyecto` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1256,6 +1347,106 @@ INSERT INTO `objetivosespecificos`
 VALUES
 (varIdProyecto,
  varDescripcion);
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `IngresarProfesorProyecto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `IngresarProfesorProyecto`(
+ varIdProyecto bigint(20), 
+ varIdTipoIdentificacion int(11),
+ varNombres varchar(250),
+ varApellidos varchar(250),
+ varNumeroIdentificacion bigint(20),
+ varCorreoElectronico varchar(250),
+ varContacto varchar(100),
+ varidRol int(11),
+ varidFacultad int(11),
+ varcodigoVinculacionUDEA varchar(45),
+ varcartaCesionDerechosPatrimonio tinyint(1),
+ varporcentajePI decimal(18,2),
+ varhorasSemana int(11),
+ varmesesDedicados int(11),
+ varhorasSemanaFueraPlan int(11),
+ varmesesFueraPlan int(11)
+)
+BEGIN
+
+  DECLARE varIdProfesor bigint(20);
+  
+  SELECT idProfesor 
+  INTO varIdProfesor
+  FROM profesores
+  WHERE idtipoidentificacion = varIdTipoIdentificacion
+   AND numeroIdentificacion = varNumeroIdentificacion;
+   
+  IF  varIdProfesor IS NOT NULL THEN
+	 UPDATE profesores
+	 SET nombres = varNombres,
+			apellidos = varApellidos,
+			correoElectronico = varCorreoElectronico,
+			contacto = varContacto
+	 WHERE idProfesor = varIdProfesor;
+  
+  ELSE
+  
+     INSERT INTO profesores
+     (idTipoIdentificacion,
+      nombres,
+      apellidos,
+      numeroIdentificacion,
+      correoElectronico,
+      contacto)
+     VALUES
+	 (varidTipoIdentificacion,
+	 varnombres,
+	 varapellidos,
+	 varnumeroIdentificacion,
+	 varcorreoElectronico,
+	 varcontacto
+     );
+  
+    SET varIdProfesor = LAST_INSERT_ID();
+  
+  END if;
+  
+	INSERT INTO profesoresproyectos
+	(idProfesor,
+	idProyecto,
+	idRol,
+	idFacultad,
+	codigoVinculacionUDEA,
+	cartaCesionDerechosPatrimonio,
+	porcentajePI,
+	horasSemana,
+	mesesDedicados,
+	horasSemanaFueraPlan,
+	mesesFueraPlan)
+	VALUES
+	(varidProfesor,
+	 varidProyecto,
+	 varidRol,
+	 varidFacultad,
+	 varcodigoVinculacionUDEA,
+	 varcartaCesionDerechosPatrimonio,
+	 varporcentajePI,
+	 varhorasSemana,
+	 varmesesDedicados,
+	 varhorasSemanaFueraPlan,
+	 varmesesFueraPlan);
+    
 
 END ;;
 DELIMITER ;
@@ -1534,6 +1725,95 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerProfesor` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerProfesor`(
+	in varNumeroIdentificacion bigint(20),
+    in varIdTipoIdentificacion int(11),
+    out varIdProfesor bigint(20),
+	out varNombres varchar(250),
+	out varApellidos varchar(250),
+    out varContacto varchar(100),
+    out varCorreoElectronico varchar(250)
+)
+BEGIN
+SELECT 
+   idProfesor,
+   nombres,
+   apellidos,
+   contacto,
+   correoElectronico
+INTO
+   varidProfesor,
+   varnombres,
+   varapellidos,
+   varcontacto,
+   varcorreoElectronico
+FROM profesores
+WHERE numeroIdentificacion = varNumeroIdentificacion
+and idTipoIdentificacion = varIdTipoIdentificacion;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerProfesoresProyecto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerProfesoresProyecto`(
+ varIdProyecto bigint(20)
+)
+BEGIN
+
+SELECT pp.idProfesor,
+       pp.idRol,
+       r.nombre descripcionRol,
+       pp.idFacultad,
+       f.nombre descripcionfacultad,
+       pp.codigoVinculacionUDEA,
+       pp.cartaCesionDerechosPatrimonio,
+       pp.porcentajePI,
+       pp.horasSemana,
+       pp.mesesDedicados,
+       pp.horasSemanaFueraPlan,
+       pp.mesesFueraPlan,
+       pro.idTipoIdentificacion,
+       ti.nombre descripcionTipoIdentificacion,
+       pro.nombres,
+       pro.apellidos,
+       pro.numeroIdentificacion,
+       pro.correoElectronico,
+       pro.contacto       
+FROM profesoresproyectos pp
+  INNER JOIN profesores pro on pp.idprofesor = pro.idprofesor
+  INNER JOIN tiposIdentificacion ti on ti.idTipoIdentificacion = pro.idTipoIdentificacion
+  INNER JOIN roles r on r.idrol = pp.idrol
+  INNER JOIN facultades f on f.idfacultad = pp.idFacultad
+WHERE idProyecto = varIdProyecto;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ObtenerProyecto` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -1665,7 +1945,8 @@ DELIMITER ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerProyectos`(
-
+   varFechaInicio datetime,
+   varFechaFinal datetime
 )
 BEGIN
 SELECT 
@@ -1696,6 +1977,7 @@ FROM proyectos pro
   inner join enfoquesMetodologicos em on pro.idEnfoqueMetodologico = em.idEnfoqueMetodologico
   inner join convocatorias con on pro.idConvocatoria = con.idConvocatoria
   inner join estadosProyecto est on pro.idEstado = est.idEstadoProyecto
+where pro.fechaCreacion between varFechaInicio and varFechaFinal
 ORDER BY pro.nombreCompletoProyecto;
 
 END ;;
@@ -1876,4 +2158,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-06-22 18:43:00
+-- Dump completed on 2017-06-28  6:27:15
