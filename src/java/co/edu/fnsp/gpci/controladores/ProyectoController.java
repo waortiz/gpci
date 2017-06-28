@@ -30,14 +30,18 @@ import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import co.edu.fnsp.gpci.entidades.Usuario;
 import co.edu.fnsp.gpci.entidadesVista.BusquedaPersona;
+import co.edu.fnsp.gpci.entidadesVista.BusquedaProyectos;
 import co.edu.fnsp.gpci.entidadesVista.ProyectoEdicion;
 import co.edu.fnsp.gpci.servicios.IServicioMaestro;
 import co.edu.fnsp.gpci.servicios.IServicioProyecto;
 import com.google.gson.Gson;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -70,13 +74,30 @@ public class ProyectoController {
      */
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String obtenerProyectos(Model model) {
-        List<ReporteProyecto> proyectos = servicioProyecto.obtenerProyectos();
-
-        model.addAttribute("proyectos", proyectos);
+       
+        model.addAttribute("proyectos", new ArrayList<>());
 
         return "proyectos/index";
     }
 
+    @RequestMapping(value = "/buscarProyectos", method = RequestMethod.POST)
+    public String buscarProfesor(@ModelAttribute(value = "busquedaProyectos") BusquedaProyectos busquedaProyectos, Model model) {
+
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
+        try {
+            Date fechaFinal = formatter.parse(busquedaProyectos.getFechaFinal());
+            Date fechaInicial = formatter.parse(busquedaProyectos.getFechaInicio());
+            proyectos = servicioProyecto.obtenerProyectos(fechaInicial, fechaFinal);
+        } catch (ParseException ex) {
+            Logger.getLogger(ProyectoController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        model.addAttribute("proyectos", proyectos);
+
+        return "proyectos/index";
+    }
+    
     /**
      *
      * @param model
@@ -180,8 +201,7 @@ public class ProyectoController {
             nuevoProyecto.setProfesoresProyecto(profesoresProyecto);
             servicioProyecto.ingresarProyecto(nuevoProyecto);
 
-            List<ReporteProyecto> proyectos = servicioProyecto.obtenerProyectos();
-            model.addAttribute("proyectos", proyectos);
+            model.addAttribute("proyectos", new ArrayList<ReporteProyecto>());
             model.addAttribute("mensaje", "El proyecto se ha ingreasado exitosamente");
 
             return "proyectos/index";

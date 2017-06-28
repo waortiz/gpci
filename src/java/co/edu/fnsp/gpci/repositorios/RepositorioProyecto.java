@@ -213,8 +213,12 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     }
 
     @Override
-    public ArrayList<ReporteProyecto> obtenerProyectos() {
-        Map resultado = obtenerProyectos.execute(new HashMap<>());
+    public ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varFechaInicio", fechaInicio);
+        parametros.addValue("varFechaFinal", fechaFinal);
+
+        Map resultado = obtenerProyectos.execute(parametros);
         ArrayList<ReporteProyecto> proyectos = (ArrayList<ReporteProyecto>) resultado.get("proyectos");
 
         return proyectos;

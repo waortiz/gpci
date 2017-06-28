@@ -9,6 +9,7 @@ import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -18,6 +19,6 @@ public interface IRepositorioProyecto {
    void ingresarProyecto(Proyecto proyecto); 
    void actualizarProyecto(Proyecto proyecto); 
    Proyecto obtenerProyecto(long idProyecto); 
-   ArrayList<ReporteProyecto> obtenerProyectos(); 
+   ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal); 
    Profesor obtenerProfesor(long numeroIdentificacion, int idTipoIdentificacion);
 }

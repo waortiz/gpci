@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.repositorios.IRepositorioProyecto;
 import java.util.ArrayList;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
@@ -62,8 +63,8 @@ public class ServicioProyecto implements IServicioProyecto {
     }
 
     @Override
-    public ArrayList<ReporteProyecto> obtenerProyectos() {
-        return repositorioProyecto.obtenerProyectos();
+    public ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal) {
+        return repositorioProyecto.obtenerProyectos(fechaInicio, fechaFinal);
     }
 
     @Override
