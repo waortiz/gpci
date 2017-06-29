@@ -14,6 +14,7 @@
         <link rel="icon" href='<c:url value="/resources/imagenes/favicon.ico" />' type="image/x-icon" />
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
+        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>
     </head>
     <body>
         <nav class="navbar barraPrincipal">
@@ -51,14 +52,14 @@
                                        <td style="vertical-align: middle">Fecha inicial:</td>
                                        <td>
                                            <div class="input-group date">
-                                               <input id="fechaInicio" name="fechaInicio" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" />
+                                               <form:input path="fechaInicio" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" />
                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                            </div>
                                        </td>
                                        <td style="vertical-align: middle">Fecha final:</td>
                                        <td>
                                            <div class="input-group date">
-                                               <input id="fechaFinal" name="fechaFinal" class="form-control datepicker" data-date-format="dd/mm/yyyy" data-validation="required" data-validation-error-msg="Debe ingresar fecha de fin" readonly="true"/>
+                                               <form:input path="fechaFinal" class="form-control datepicker" data-date-format="dd/mm/yyyy" data-validation="required" data-validation-error-msg="Debe ingresar fecha de fin" readonly="true"/>
                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                            </div>
                                        </td>
@@ -70,34 +71,45 @@
                                 <table class='table table-hover' style='font-size:12px;'> 
                                     <tr  class='text-success'>
                                         <th width='20%'>Nombre corto</th>
-                                        <th width='20%'>Fecha de inicio</th> 
-                                        <th width='20%'>Fecha finalizaci&oacute;n</th> 
+                                        <th width='15%'>Fecha de creación</th> 
+                                        <th width='15%'>Fecha de inicio</th> 
+                                        <th width='15%'>Fecha finalizaci&oacute;n</th> 
                                         <th width='15%'>Tipo de proyecto</th> 
-                                        <th width='15%'>Estado</th> 
+                                        <th width='10%'>Estado</th> 
                                         <th width='10%'>Modificar</th> 
                                     </tr> 
-                                    <c:forEach var="proyecto" items="${proyectos}">   
+                                    <c:if test = "${proyectos.size() > 0}">
+                                        <c:forEach var="proyecto" items="${proyectos}">   
+                                            <tr>
+                                                <td>
+                                                    ${proyecto.getNombreCortoProyecto()}
+                                                </td>
+                                                <td>
+                                                    ${proyecto.getFechaCreacionFormato()}
+                                                </td>
+                                                <td>
+                                                    ${proyecto.getFechaInicioFormato()}
+                                                </td>
+                                                <td>
+                                                    ${proyecto.getFechaFinalizacionFormato()}
+                                                </td>
+                                                <td>
+                                                    ${proyecto.getTipoProyecto()}
+                                                </td>   
+                                                <td>
+                                                    ${proyecto.getEstadoProyecto()}
+                                                </td>  
+                                                <td>
+                                                    <a href="${pageContext.request.contextPath}/proyectos/editar/${proyecto.getIdProyecto()}" class="btn-sm btn-warning">Editar</a>
+                                                </td>  
+                                            </tr>
+                                        </c:forEach>  
+                                    </c:if>
+                                    <c:if test = "${proyectos.size() == 0}">
                                         <tr>
-                                            <td>
-                                                ${proyecto.getNombreCortoProyecto()}
-                                            </td>
-                                            <td>
-                                                ${proyecto.getFechaInicioFormato()}
-                                            </td>
-                                            <td>
-                                                ${proyecto.getFechaFinalizacionFormato()}
-                                            </td>
-                                            <td>
-                                                ${proyecto.getTipoProyecto()}
-                                            </td>   
-                                            <td>
-                                                ${proyecto.getEstadoProyecto()}
-                                            </td>  
-                                            <td>
-                                                <a href="${pageContext.request.contextPath}/proyectos/editar/${proyecto.getIdProyecto()}" class="btn-sm btn-warning">Editar</a>
-                                            </td>  
+                                            <td colspan="7">No se encontraron proyectos</td>
                                         </tr>
-                                    </c:forEach>  
+                                    </c:if>
                                 </table> 
                             </form:form>
                         </div>
@@ -120,7 +132,6 @@
         <script src='<c:url value="/resources/js/bootstrap.js" />'></script>  
         <script src='<c:url value="/resources/js/bootstrap-datepicker.min.js" />'></script>  
         <script src='<c:url value="/resources/js/bootstrap-datepicker.es.min.js" />' charset="UTF-8"></script>
-        <script src='<c:url value="/resources/js/bootstrap-select.js" />'></script>
         <script>
             $.validate({
                 validateOnBlur: false, // disable validation when input looses focus
@@ -133,11 +144,6 @@
                 autoclose: true,
                 format: "dd/mm/yyyy",
                 todayHighlight: true
-            });
-
-            $('.selectpicker').selectpicker({
-                size: 4,
-                noneSelectedText: ''
             });
         </script>
     </body>

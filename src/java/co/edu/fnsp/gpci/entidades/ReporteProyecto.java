@@ -14,6 +14,53 @@ import java.util.Date;
  * @author William
  */
 public class ReporteProyecto {
+   
+    private long idProyecto;
+    private String nombreCompletoProyecto;
+    private String nombreCortoProyecto;
+    private Date fechaCreacion;
+    private Date fechaInicio;
+    private Date fechaFinalizacion;
+    private String areaTematica;
+    private boolean ingresadoSIGEP;
+    private boolean ingresadoSIIU;
+    private boolean ingresadoSIU;
+    private String codigoSIIU;
+    private String codigoCOLCIENCIAS;
+    private String codigoSIU;
+    private String codigo;
+    private boolean participacionInternacional;
+    private String tipoProyecto;
+    private String grupoInvestigacion;
+    private String riesgoEtico;
+    private String tipoContrato;
+    private String enfoqueMetodologico;
+    private String convocatoria;
+    private String objetivoGeneral;
+    private String estadoProyecto;
+    private final DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+
+    
+    /**
+     * @return the fechaCreacion
+     */
+    public Date getFechaCreacion() {
+        return fechaCreacion;
+    }
+
+    /**
+     * @return the fechaCreacion
+     */
+    public String getFechaCreacionFormato() {
+        return formatter.format(fechaCreacion);
+    }
+    
+    /**
+     * @param fechaCreacion the fechaCreacion to set
+     */
+    public void setFechaCreacion(Date fechaCreacion) {
+        this.fechaCreacion = fechaCreacion;
+    }
 
     /**
      * @return the estadoProyecto
@@ -56,31 +103,6 @@ public class ReporteProyecto {
     public void setNombreCortoProyecto(String nombreCortoProyecto) {
         this.nombreCortoProyecto = nombreCortoProyecto;
     }
-
-    
-    private long idProyecto;
-    private String nombreCompletoProyecto;
-    private String nombreCortoProyecto;
-    private Date fechaInicio;
-    private Date fechaFinalizacion;
-    private String areaTematica;
-    private boolean ingresadoSIGEP;
-    private boolean ingresadoSIIU;
-    private boolean ingresadoSIU;
-    private String codigoSIIU;
-    private String codigoCOLCIENCIAS;
-    private String codigoSIU;
-    private String codigo;
-    private boolean participacionInternacional;
-    private String tipoProyecto;
-    private String grupoInvestigacion;
-    private String riesgoEtico;
-    private String tipoContrato;
-    private String enfoqueMetodologico;
-    private String convocatoria;
-    private String objetivoGeneral;
-    private String estadoProyecto;
-    private final DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
     
     /**
      * @return the idProyecto

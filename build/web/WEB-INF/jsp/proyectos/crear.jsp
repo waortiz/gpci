@@ -66,7 +66,7 @@
                             <tr>
                                 <td>
                                     <div class="input-group date">
-                                        <form:input path="fechaInicio" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" />
+                                        <form:input path="fechaInicio" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" />
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                 </td>
@@ -219,17 +219,13 @@
                                 </div>
                             </div>  
                         </div>
-                        <c:if test = "${objetivosEspecificosJSON != null}">
                         <table class="table table-hover" style="width: 90%" align="center">
                             <tr class="table-row">
                                 <th style="width: 90%;text-align: center">Objetivo</th>
                                 <th style="width: 5%">&nbsp;</th>
                                 <th style="width: 5%">&nbsp;</th>
                             </tr>
-                        </table>
-                        </c:if>
-                        <table class="table table-hover" style="width: 90%" data-bind="foreach: { data: objetivosEspecificos }" align="center">
-                            <tr class="table-row">
+                            <tr class="table-row" data-bind="foreach: { data: objetivosEspecificos }">
                                 <td style="width: 90%">
                                     <span data-bind="text: descripcion" ></span>
                                     <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'objetivosEspecificos[' + $index() + '].descripcion'  }">
@@ -390,22 +386,18 @@
                                 </div>
                             </div>
                         </div>   
-                        <c:if test = "${profesoresProyectoJSON != null}">
-                            <table class="table table-hover" style="width: 90%" align="center" border="1">
-                                <tr class="table-row">
-                                    <th style="width: 20%;text-align: center">Tipo de identificación</th>
-                                    <th style="width: 20%;text-align: center">Número de identificación</th>
-                                    <th style="width: 18%;text-align: center">Nombres</th>
-                                    <th style="width: 17%;text-align: center">Apellidos</th>
-                                    <th style="width: 5%;text-align: center">Rol</th>
-                                    <th style="width: 10%;text-align: center">Facultad</th>
-                                    <th style="width: 5%">&nbsp;</th>
-                                    <th style="width: 5%">&nbsp;</th>
-                                </tr>
-                            </table>
-                        </c:if>
-                        <table class="table table-hover" style="width: 90%" data-bind="foreach: { data: profesoresProyecto }" align="center">
+                        <table class="table table-hover" style="width: 90%" align="center">
                             <tr class="table-row">
+                                <th style="width: 20%;text-align: center">Tipo de identificación</th>
+                                <th style="width: 20%;text-align: center">Número de identificación</th>
+                                <th style="width: 18%;text-align: center">Nombres</th>
+                                <th style="width: 17%;text-align: center">Apellidos</th>
+                                <th style="width: 5%;text-align: center">Rol</th>
+                                <th style="width: 10%;text-align: center">Facultad</th>
+                                <th style="width: 5%">&nbsp;</th>
+                                <th style="width: 5%">&nbsp;</th>
+                            </tr>
+                            <tr class="table-row" data-bind="foreach: { data: profesoresProyecto }">
                                 <td style="width: 20%">
                                     <span data-bind="text: descripcionTipoIdentificacion" ></span>
                                     <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
@@ -486,11 +478,6 @@
                 autoclose: true,
                 format: "dd/mm/yyyy",
                 todayHighlight: true
-            });
-
-            $('.selectpicker').selectpicker({
-                size: 4,
-                noneSelectedText: ''
             });
 
             var ProyectoModel = function (objetivosEspecificos, profesoresProyectoArray) {
@@ -758,7 +745,6 @@
                         },                        
                         success: function(response){
                            if(response != "") {
-                             alert(response);
                              var profesor = JSON.parse(response);
                              $('#nombresProfesor').val(profesor.nombres);
                              $('#apellidosProfesor').val(profesor.apellidos);

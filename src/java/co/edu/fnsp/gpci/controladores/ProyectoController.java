@@ -76,7 +76,8 @@ public class ProyectoController {
     public String obtenerProyectos(Model model) {
        
         model.addAttribute("proyectos", new ArrayList<>());
-
+        model.addAttribute("busquedaProyectos", new BusquedaProyectos());
+        
         return "proyectos/index";
     }
 
