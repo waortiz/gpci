@@ -12,10 +12,10 @@ package co.edu.fnsp.gpci.entidades;
 public class Estudiante {
 
     private long idEstudiante;
-    private TipoIdentificacion tipoIdentificacion;
+    private TipoIdentificacion tipoIdentificacion = new TipoIdentificacion();
     private String nombres;
     private String apellidos;
-    private TipoEstudiante tipoEstudiante;
+    private TipoEstudiante tipoEstudiante = new TipoEstudiante();
     private long numeroIdentificacion;
     private String correoElectronico;
     private String contacto;

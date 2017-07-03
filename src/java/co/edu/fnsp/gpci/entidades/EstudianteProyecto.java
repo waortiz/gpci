@@ -12,17 +12,17 @@ package co.edu.fnsp.gpci.entidades;
 public class EstudianteProyecto {
 
     /**
-     * @return the idEstudiante
+     * @return the estudiante
      */
-    public long getIdEstudiante() {
-        return idEstudiante;
+    public Estudiante getEstudiante() {
+        return estudiante;
     }
 
     /**
-     * @param idEstudiante the idEstudiante to set
+     * @param estudiante the estudiante to set
      */
-    public void setIdEstudiante(long idEstudiante) {
-        this.idEstudiante = idEstudiante;
+    public void setEstudiante(Estudiante estudiante) {
+        this.estudiante = estudiante;
     }
 
     /**
@@ -123,7 +123,7 @@ public class EstudianteProyecto {
         this.semestre = semestre;
     }
     
-    private long idEstudiante;
+    private Estudiante estudiante;
     private long idProyecto;
     private Programa programa;
     private Rol rol;

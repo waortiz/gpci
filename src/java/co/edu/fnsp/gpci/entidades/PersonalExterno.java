@@ -11,6 +11,14 @@ package co.edu.fnsp.gpci.entidades;
  */
 public class PersonalExterno {
 
+    private long idPersonalExterno;
+    private long numeroIdentificacion;
+    private TipoIdentificacion tipoIdentificacion = new TipoIdentificacion();
+    private String nombres;
+    private String apellidos;
+    private String correoElectronico;
+    private String entidad;
+    
     /**
      * @return the idPersonalExterno
      */
@@ -25,6 +33,21 @@ public class PersonalExterno {
         this.idPersonalExterno = idPersonalExterno;
     }
 
+
+    /**
+     * @return the tipoIdentificacion
+     */
+    public TipoIdentificacion getTipoIdentificacion() {
+        return tipoIdentificacion;
+    }
+
+    /**
+     * @param tipoIdentificacion the tipoIdentificacion to set
+     */
+    public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
+        this.tipoIdentificacion = tipoIdentificacion;
+    }
+
     /**
      * @return the numeroIdentificacion
      */
@@ -37,20 +60,6 @@ public class PersonalExterno {
      */
     public void setNumeroIdentificacion(long numeroIdentificacion) {
         this.numeroIdentificacion = numeroIdentificacion;
-    }
-
-    /**
-     * @return the idTipoIdentificacion
-     */
-    public int getIdTipoIdentificacion() {
-        return idTipoIdentificacion;
-    }
-
-    /**
-     * @param idTipoIdentificacion the idTipoIdentificacion to set
-     */
-    public void setIdTipoIdentificacion(int idTipoIdentificacion) {
-        this.idTipoIdentificacion = idTipoIdentificacion;
     }
 
     /**
@@ -109,11 +118,4 @@ public class PersonalExterno {
         this.entidad = entidad;
     }
     
-    private long idPersonalExterno;
-    private long numeroIdentificacion;
-    private int idTipoIdentificacion;
-    private String nombres;
-    private String apellidos;
-    private String correoElectronico;
-    private String entidad;
 }

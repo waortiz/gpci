@@ -5,8 +5,8 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
+import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
-import com.google.gson.Gson;
 import java.util.ArrayList;
 
 /**
@@ -39,6 +39,9 @@ public class ProyectoEdicion {
     private String estado;
     private ArrayList<ObjetivoEspecifico> objetivosEspecificos = new ArrayList<>();
     private ArrayList<ProfesorProyecto> profesoresProyecto = new ArrayList<>();
+    private ArrayList<EstudianteProyecto> estudiantesProyecto = new ArrayList<>();
+    private ArrayList<PersonalExternoProyecto> personalExternoProyecto = new ArrayList<>();
+    private ArrayList<CompromisoProyecto> compromisosProyecto = new ArrayList<>();
 
     /**
      * @return the areaTematica
@@ -378,7 +381,7 @@ public class ProyectoEdicion {
                         + "descripcion:ko.observable('" + objetivoEspecifico.getDescripcion()+ "'),"
                         + "consecutivo:ko.observable(" + i + ")"
                         + "}";
-                if (i < this.profesoresProyecto.size() - 1) {
+                if (i < this.objetivosEspecificos.size() - 1) {
                     jscriptArray = jscriptArray + ",";
                 }
             }
@@ -418,20 +421,21 @@ public class ProyectoEdicion {
                 jscriptArray = jscriptArray
                         + "{apellidos: ko.observable('" + profesorProyecto.getApellidos() + "'),"
                         + "nombres:ko.observable('" + profesorProyecto.getNombres() + "'),"
-                        + "codigoVinculacionUdeA():ko.observable('" + profesorProyecto.getCodigoVinculacionUdeA() + "'),"
-                        + "contacto():ko.observable('" + profesorProyecto.getContacto() + "'),"
-                        + "correoElectronico():ko.observable('" + profesorProyecto.getCorreoElectronico() + "'),"
+                        + "cartaCesionDerechosPatrimonio:ko.observable('" + profesorProyecto.isCartaCesionDerechosPatrimonio()+ "'),"
+                        + "codigoVinculacionUdeA:ko.observable('" + profesorProyecto.getCodigoVinculacionUdeA() + "'),"
+                        + "contacto:ko.observable('" + profesorProyecto.getContacto() + "'),"
+                        + "correoElectronico:ko.observable('" + profesorProyecto.getCorreoElectronico() + "'),"
                         + "descripcionFacultad:ko.observable('" + profesorProyecto.getDescripcionFacultad() + "'),"
                         + "descripcionRol:ko.observable('" + profesorProyecto.getDescripcionRol() + "'),"
-                        + "descripcionTipoIdentificacion():ko.observable('" + profesorProyecto.getDescripcionTipoIdentificacion() + "'),"
+                        + "descripcionTipoIdentificacion:ko.observable('" + profesorProyecto.getDescripcionTipoIdentificacion() + "'),"
                         + "horasSemana:ko.observable(" + profesorProyecto.getHorasSemana() + "),"
-                        + "horasSemanaFueraPlan:ko.observable(" + profesorProyecto.getHorasSemanaFueraPlan() + "),"
+                        + "horasSemanaFueraPlan:ko.observable('" + profesorProyecto.getHorasSemanaFueraPlan() + "'),"
                         + "idFacultad:ko.observable(" + profesorProyecto.getIdFacultad() + "),"
                         + "idProfesor:ko.observable(" + profesorProyecto.getIdProfesor() + "),"
                         + "idRol:ko.observable(" + profesorProyecto.getIdRol() + "),"
                         + "idTipoIdentificacion:ko.observable(" + profesorProyecto.getIdTipoIdentificacion() + "),"
                         + "mesesDedicados:ko.observable(" + profesorProyecto.getMesesDedicados() + "),"
-                        + "mesesFueraPlan:ko.observable(" + profesorProyecto.getMesesFueraPlan() + "),"
+                        + "mesesFueraPlan:ko.observable('" + profesorProyecto.getMesesFueraPlan() + "'),"
                         + "numeroIdentificacion:ko.observable(" + profesorProyecto.getNumeroIdentificacion() + "),"
                         + "porcentajePI:ko.observable(" + profesorProyecto.getPorcentajePI() + "),"
                         + "consecutivo:ko.observable(" + i + ")"
@@ -445,5 +449,159 @@ public class ProyectoEdicion {
         }
 
         return jscriptArray;
+    }
+    
+        /**
+     * @return the estudiantesProyecto
+     */
+    public ArrayList<EstudianteProyecto> getEstudiantesProyecto() {
+        return estudiantesProyecto;
+    }
+
+    /**
+     * @param estudiantesProyecto the estudiantesProyecto to set
+     */
+    public void setEstudiantesProyecto(ArrayList<EstudianteProyecto> estudiantesProyecto) {
+        this.estudiantesProyecto = estudiantesProyecto;
+    }
+    
+      /**
+     * @return the estudiantes proyecto JSON
+     */
+    public String getEstudiantesProyectoJSON() {
+        String jscriptArray = "";
+
+        if (this.estudiantesProyecto.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < this.estudiantesProyecto.size(); i++) {
+                EstudianteProyecto estudianteProyecto = this.estudiantesProyecto.get(i);
+                jscriptArray = jscriptArray
+                        + "{apellidos: ko.observable('" + estudianteProyecto.getApellidos() + "'),"
+                        + "nombres:ko.observable('" + estudianteProyecto.getNombres() + "'),"
+                        + "contacto:ko.observable('" + estudianteProyecto.getContacto() + "'),"
+                        + "correoElectronico:ko.observable('" + estudianteProyecto.getCorreoElectronico() + "'),"
+                        + "descripcionPrograma:ko.observable('" + estudianteProyecto.getDescripcionPrograma()+ "'),"
+                        + "descripcionRol:ko.observable('" + estudianteProyecto.getDescripcionRol() + "'),"
+                        + "descripcionTipoIdentificacion:ko.observable('" + estudianteProyecto.getDescripcionTipoIdentificacion() + "'),"
+                        + "horasSemana:ko.observable(" + estudianteProyecto.getHorasSemana() + "),"
+                        + "descripcionTipoEstudiante:ko.observable('" + estudianteProyecto.getDescripcionTipoEstudiante() + "'),"
+                        + "idPrograma:ko.observable(" + estudianteProyecto.getIdPrograma()+ "),"
+                        + "idEstudiante:ko.observable(" + estudianteProyecto.getIdEstudiante()+ "),"
+                        + "idRol:ko.observable(" + estudianteProyecto.getIdRol() + "),"
+                        + "idTipoIdentificacion:ko.observable(" + estudianteProyecto.getIdTipoIdentificacion() + "),"
+                        + "idTipoEstudiante:ko.observable(" + estudianteProyecto.getIdTipoEstudiante()+ "),"
+                        + "mesesDedicados:ko.observable(" + estudianteProyecto.getMesesDedicados() + "),"
+                        + "semestre:ko.observable('" + estudianteProyecto.getSemestre()+ "'),"
+                        + "numeroIdentificacion:ko.observable(" + estudianteProyecto.getNumeroIdentificacion() + "),"
+                        + "porcentajePropiedadIntelectual:ko.observable(" + estudianteProyecto.getPorcentajePropiedadIntelectual()+ "),"
+                        + "consecutivo:ko.observable(" + i + ")"
+                        + "}";
+                if (i < this.estudiantesProyecto.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+    }
+    
+    
+    /**
+     * @return the personalExternoProyecto
+     */
+    public ArrayList<PersonalExternoProyecto> getPersonalExternoProyecto() {
+        return personalExternoProyecto;
+    }
+
+    /**
+     * @param personalExternoProyecto the personalExternoProyecto to set
+     */
+    public void setPersonalExternoProyecto(ArrayList<PersonalExternoProyecto> personalExternoProyecto) {
+        this.personalExternoProyecto = personalExternoProyecto;
+    }
+    
+     /**
+     * @return the personal externo proyecto JSON
+     */
+    public String getPersonalExternoProyectoJSON() {
+        String jscriptArray = "";
+
+        if (this.personalExternoProyecto.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < this.personalExternoProyecto.size(); i++) {
+                PersonalExternoProyecto personalExternoProyecto = this.personalExternoProyecto.get(i);
+                jscriptArray = jscriptArray
+                        + "{apellidos: ko.observable('" + personalExternoProyecto.getApellidos() + "'),"
+                        + "nombres:ko.observable('" + personalExternoProyecto.getNombres() + "'),"
+                        + "cartaCesionDerechosPatrimonio:ko.observable('" + personalExternoProyecto.isCartaCesionDerechosPatrimonio()+ "'),"
+                        + "entidad:ko.observable('" + personalExternoProyecto.getEntidad()+ "'),"
+                        + "correoElectronico:ko.observable('" + personalExternoProyecto.getCorreoElectronico() + "'),"
+                        + "descripcionRol:ko.observable('" + personalExternoProyecto.getDescripcionRol() + "'),"
+                        + "descripcionTipoIdentificacion:ko.observable('" + personalExternoProyecto.getDescripcionTipoIdentificacion() + "'),"
+                        + "horasSemana:ko.observable(" + personalExternoProyecto.getHorasSemana() + "),"
+                        + "idPersonalExterno:ko.observable(" + personalExternoProyecto.getIdPersonalExterno()+ "),"
+                        + "idRol:ko.observable(" + personalExternoProyecto.getIdRol() + "),"
+                        + "idTipoIdentificacion:ko.observable(" + personalExternoProyecto.getIdTipoIdentificacion() + "),"
+                        + "mesesDedicados:ko.observable(" + personalExternoProyecto.getMesesDedicados() + "),"
+                        + "numeroIdentificacion:ko.observable(" + personalExternoProyecto.getNumeroIdentificacion() + "),"
+                        + "porcentajePropiedadIntelectual:ko.observable(" + personalExternoProyecto.getPorcentajePropiedadIntelectual()+ "),"
+                        + "consecutivo:ko.observable(" + i + ")"
+                        + "}";
+                if (i < this.profesoresProyecto.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+    }
+    
+    
+    /**
+     * @return the compromisosProyecto
+     */
+    public ArrayList<CompromisoProyecto> getCompromisosProyecto() {
+        return compromisosProyecto;
+    }
+
+    /**
+     * @param compromisosProyecto the compromisosProyecto to set
+     */
+    public void setCompromisosProyecto(ArrayList<CompromisoProyecto> compromisosProyecto) {
+        this.compromisosProyecto = compromisosProyecto;
+    }
+    
+    /**
+    * @return the compromisosProyecto
+    */
+    public String getCompromisosProyectoJSON() {
+        String jscriptArray = "";
+
+        if (this.compromisosProyecto.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < this.compromisosProyecto.size(); i++) {
+                CompromisoProyecto compromisoProyecto = this.compromisosProyecto.get(i);
+                jscriptArray = jscriptArray
+                        + "{idCompromisoProyecto: ko.observable(" + compromisoProyecto.getIdCompromisoProyecto()+ "),"
+                        + "descripcion:ko.observable('" + compromisoProyecto.getDescripcion()+ "'),"
+                        + "consecutivo:ko.observable(" + i + ")"
+                        + "}";
+                if (i < this.compromisosProyecto.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+
     }
 }

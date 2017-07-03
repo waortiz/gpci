@@ -3,40 +3,37 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.fnsp.gpci.entidades;
+package co.edu.fnsp.gpci.entidadesVista;
 
 /**
  *
  * @author William
  */
-public class Profesor {
+public class Estudiante {
+
+    private long idEstudiante;
+    private int idTipoIdentificacion;
+    private String descripcionTipoIdentificacion;
+    private String nombres;
+    private String apellidos;
+    private int idTipoEstudiante;
+    private String descripcionTipoEstudiante;
+    private long numeroIdentificacion;
+    private String correoElectronico;
+    private String contacto;
 
     /**
-     * @return the tipoIdentificacion
+     * @return the idEstudiante
      */
-    public TipoIdentificacion getTipoIdentificacion() {
-        return tipoIdentificacion;
+    public long getIdEstudiante() {
+        return idEstudiante;
     }
 
     /**
-     * @param tipoIdentificacion the tipoIdentificacion to set
+     * @param idEstudiante the idEstudiante to set
      */
-    public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
-        this.tipoIdentificacion = tipoIdentificacion;
-    }
-
-    /**
-     * @return the idProfesor
-     */
-    public long getIdProfesor() {
-        return idProfesor;
-    }
-
-    /**
-     * @param idProfesor the idProfesor to set
-     */
-    public void setIdProfesor(long idProfesor) {
-        this.idProfesor = idProfesor;
+    public void setIdEstudiante(long idEstudiante) {
+        this.idEstudiante = idEstudiante;
     }
 
     /**
@@ -108,12 +105,46 @@ public class Profesor {
     public void setContacto(String contacto) {
         this.contacto = contacto;
     }
+    
+        /**
+     * @return the idTipoIdentificacion
+     */
+    public int getIdTipoIdentificacion() {
+        return idTipoIdentificacion;
+    }
 
-    private long idProfesor;
-    private TipoIdentificacion tipoIdentificacion = new TipoIdentificacion();
-    private String nombres;
-    private String apellidos;
-    private long numeroIdentificacion;
-    private String correoElectronico;
-    private String contacto;
+    /**
+     * @return the descripcionTipoIdentificacion
+     */
+    public String getDescripcionTipoIdentificacion() {
+        return descripcionTipoIdentificacion;
+    }
+
+    /**
+     * @return the idTipoEstudiante
+     */
+    public int getIdTipoEstudiante() {
+        return idTipoEstudiante;
+    }
+
+    /**
+     * @param idTipoEstudiante the idTipoEstudiante to set
+     */
+    public void setIdTipoEstudiante(int idTipoEstudiante) {
+        this.idTipoEstudiante = idTipoEstudiante;
+    }
+
+    /**
+     * @return the descripcionTipoEstudiante
+     */
+    public String getDescripcionTipoEstudiante() {
+        return descripcionTipoEstudiante;
+    }
+
+    /**
+     * @param descripcionTipoEstudiante the descripcionTipoEstudiante to set
+     */
+    public void setDescripcionTipoEstudiante(String descripcionTipoEstudiante) {
+        this.descripcionTipoEstudiante = descripcionTipoEstudiante;
+    }
 }

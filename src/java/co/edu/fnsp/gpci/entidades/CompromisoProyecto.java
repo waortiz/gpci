@@ -14,6 +14,20 @@ import java.util.Date;
 public class CompromisoProyecto {
 
     /**
+     * @return the descripcion
+     */
+    public String getDescripcion() {
+        return descripcion;
+    }
+
+    /**
+     * @param descripcion the descripcion to set
+     */
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    /**
      * @return the idCompromisoProyecto
      */
     public int getIdCompromisoProyecto() {
@@ -25,20 +39,6 @@ public class CompromisoProyecto {
      */
     public void setIdCompromisoProyecto(int idCompromisoProyecto) {
         this.idCompromisoProyecto = idCompromisoProyecto;
-    }
-
-    /**
-     * @return the idProyecto
-     */
-    public long getIdProyecto() {
-        return idProyecto;
-    }
-
-    /**
-     * @param idProyecto the idProyecto to set
-     */
-    public void setIdProyecto(long idProyecto) {
-        this.idProyecto = idProyecto;
     }
 
     /**
@@ -55,22 +55,7 @@ public class CompromisoProyecto {
         this.fechaCompromiso = fechaCompromiso;
     }
 
-    /**
-     * @return the homologado
-     */
-    public String getHomologado() {
-        return homologado;
-    }
-
-    /**
-     * @param homologado the homologado to set
-     */
-    public void setHomologado(String homologado) {
-        this.homologado = homologado;
-    }
-
     private int idCompromisoProyecto;
-    private long idProyecto;
     private Date fechaCompromiso;
-    private String homologado;
+    private String descripcion;
 }

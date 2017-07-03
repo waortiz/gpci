@@ -28,8 +28,8 @@ public class ProfesorProyecto {
     private double porcentajePI;
     private int horasSemana;
     private int mesesDedicados;
-    private int horasSemanaFueraPlan;
-    private int mesesFueraPlan;
+    private String horasSemanaFueraPlan;
+    private String mesesFueraPlan;
     
     /**
      * @return the idTipoIdentificacion
@@ -158,34 +158,6 @@ public class ProfesorProyecto {
     }
 
     /**
-     * @return the horasSemanaFueraPlan
-     */
-    public int getHorasSemanaFueraPlan() {
-        return horasSemanaFueraPlan;
-    }
-
-    /**
-     * @param horasSemanaFueraPlan the horasSemanaFueraPlan to set
-     */
-    public void setHorasSemanaFueraPlan(int horasSemanaFueraPlan) {
-        this.horasSemanaFueraPlan = horasSemanaFueraPlan;
-    }
-
-    /**
-     * @return the mesesFueraPlan
-     */
-    public int getMesesFueraPlan() {
-        return mesesFueraPlan;
-    }
-
-    /**
-     * @param mesesFueraPlan the mesesFueraPlan to set
-     */
-    public void setMesesFueraPlan(int mesesFueraPlan) {
-        this.mesesFueraPlan = mesesFueraPlan;
-    }
-
-    /**
      * @return the idProfesor
      */
     public long getIdProfesor() {
@@ -295,5 +267,39 @@ public class ProfesorProyecto {
      */
     public void setDescripcionFacultad(String descripcionFacultad) {
         this.descripcionFacultad = descripcionFacultad;
+    }
+    
+    /**
+     * @return the horasSemanaFueraPlan
+     */
+    public String getHorasSemanaFueraPlan() {
+        if(horasSemanaFueraPlan == null) {
+            return "";
+        }
+        return horasSemanaFueraPlan;
+    }
+
+    /**
+     * @param horasSemanaFueraPlan the horasSemanaFueraPlan to set
+     */
+    public void setHorasSemanaFueraPlan(String horasSemanaFueraPlan) {
+        this.horasSemanaFueraPlan = horasSemanaFueraPlan;
+    }
+
+    /**
+     * @return the mesesFueraPlan
+     */
+    public String getMesesFueraPlan() {
+        if(mesesFueraPlan == null) {
+            return "";
+        }
+        return mesesFueraPlan;
+    }
+
+    /**
+     * @param mesesFueraPlan the mesesFueraPlan to set
+     */
+    public void setMesesFueraPlan(String mesesFueraPlan) {
+        this.mesesFueraPlan = mesesFueraPlan;
     }
 }

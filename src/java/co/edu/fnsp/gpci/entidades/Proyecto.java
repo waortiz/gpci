@@ -30,37 +30,35 @@ public class Proyecto {
     private String codigoSIU;
     private String codigo;
     private boolean participacionInternacional;
-    private TipoProyecto tipoProyecto;
-    private GrupoInvestigacion grupoInvestigacion;
-    private RiesgoEtico riesgoEtico;
-    private TipoContrato tipoContrato;
-    private EnfoqueMetodologico enfoqueMetodologico;
-    private Convocatoria convocatoria;
+    private TipoProyecto tipoProyecto = new TipoProyecto();
+    private GrupoInvestigacion grupoInvestigacion = new GrupoInvestigacion();
+    private RiesgoEtico riesgoEtico = new RiesgoEtico();
+    private TipoContrato tipoContrato = new TipoContrato();
+    private EnfoqueMetodologico enfoqueMetodologico = new EnfoqueMetodologico();
+    private Convocatoria convocatoria = new Convocatoria();
     private String objetivoGeneral;
-    private EstadoProyecto estado;
+    private EstadoProyecto estado = new EstadoProyecto();
     private Date fechaCreacion;
-    private Usuario usuarioCreacion;
-    private ArrayList<ActaProyecto> actasProyecto;
-    private ArrayList<CompromisoProyecto> compromisosProyecto;
-    private ArrayList<EntidadInternacionalProyecto> entidadesInternacionalesProyecto;
-    private ArrayList<EstudianteProyecto> estudiantesProyecto;
-    private ArrayList<GrupoInvestigacionProyecto> gruposInvestigacionProyecto;
-    private ArrayList<ObjetivoEspecifico> objetivosEspecificos;
-    private ArrayList<PersonalExternoProyecto> personalExternoProyecto;
-    private ArrayList<ProfesorProyecto> profesoresProyecto;
-    private ArrayList<Prorroga> prorrogas;
+    private Usuario usuarioCreacion = new Usuario();
+    private ArrayList<CompromisoProyecto> compromisosProyecto = new ArrayList<>();
+    private ArrayList<co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto> estudiantesProyecto = new ArrayList<>();
+    private ArrayList<ObjetivoEspecifico> objetivosEspecificos = new ArrayList<>();
+    private ArrayList<co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto> personalExternoProyecto = new ArrayList<>();
+    private ArrayList<co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto> profesoresProyecto = new ArrayList<>();
+    private ArrayList<ActaProyecto> actasProyecto = new ArrayList<>();
+    private ArrayList<Prorroga> prorrogas = new ArrayList<>();
 
     /**
      * @return the personalExternoProyecto
      */
-    public ArrayList<PersonalExternoProyecto> getPersonalExternoProyecto() {
+    public ArrayList<co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto> getPersonalExternoProyecto() {
         return personalExternoProyecto;
     }
 
     /**
      * @param personalExternoProyecto the personalExternoProyecto to set
      */
-    public void setPersonalExternoProyecto(ArrayList<PersonalExternoProyecto> personalExternoProyecto) {
+    public void setPersonalExternoProyecto(ArrayList<co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto> personalExternoProyecto) {
         this.personalExternoProyecto = personalExternoProyecto;
     }
 
@@ -81,14 +79,14 @@ public class Proyecto {
     /**
      * @return the profesoresProyecto
      */
-    public ArrayList<ProfesorProyecto> getProfesoresProyecto() {
+    public ArrayList<co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto> getProfesoresProyecto() {
         return profesoresProyecto;
     }
 
     /**
      * @param profesoresProyecto the profesoresProyecto to set
      */
-    public void setProfesoresProyecto(ArrayList<ProfesorProyecto> profesoresProyecto) {
+    public void setProfesoresProyecto(ArrayList<co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto> profesoresProyecto) {
         this.profesoresProyecto = profesoresProyecto;
     }
 
@@ -107,46 +105,17 @@ public class Proyecto {
     }
 
     /**
-     * @return the entidadesInternacionalesProyecto
-     */
-    public ArrayList<EntidadInternacionalProyecto> getEntidadesInternacionalesProyecto() {
-        return entidadesInternacionalesProyecto;
-    }
-
-    /**
-     * @param entidadesInternacionalesProyecto the
-     * entidadesInternacionalesProyecto to set
-     */
-    public void setEntidadesInternacionalesProyecto(ArrayList<EntidadInternacionalProyecto> entidadesInternacionalesProyecto) {
-        this.entidadesInternacionalesProyecto = entidadesInternacionalesProyecto;
-    }
-
-    /**
      * @return the estudiantesProyecto
      */
-    public ArrayList<EstudianteProyecto> getEstudiantesProyecto() {
+    public ArrayList<co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto> getEstudiantesProyecto() {
         return estudiantesProyecto;
     }
 
     /**
      * @param estudiantesProyecto the estudiantesProyecto to set
      */
-    public void setEstudiantesProyecto(ArrayList<EstudianteProyecto> estudiantesProyecto) {
+    public void setEstudiantesProyecto(ArrayList<co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto> estudiantesProyecto) {
         this.estudiantesProyecto = estudiantesProyecto;
-    }
-
-    /**
-     * @return the gruposInvestigacionProyecto
-     */
-    public ArrayList<GrupoInvestigacionProyecto> getGruposInvestigacionProyecto() {
-        return gruposInvestigacionProyecto;
-    }
-
-    /**
-     * @param gruposInvestigacionProyecto the gruposInvestigacionProyecto to set
-     */
-    public void setGruposInvestigacionProyecto(ArrayList<GrupoInvestigacionProyecto> gruposInvestigacionProyecto) {
-        this.gruposInvestigacionProyecto = gruposInvestigacionProyecto;
     }
 
     /**

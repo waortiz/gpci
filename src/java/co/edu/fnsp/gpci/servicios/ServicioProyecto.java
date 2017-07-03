@@ -5,9 +5,11 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
+import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
+import co.edu.fnsp.gpci.entidadesVista.Estudiante;
 import co.edu.fnsp.gpci.repositorios.IRepositorioProyecto;
 import java.util.ArrayList;
 import java.util.Date;
@@ -72,4 +74,13 @@ public class ServicioProyecto implements IServicioProyecto {
         return repositorioProyecto.obtenerProfesor(numeroIdentificacion, idTipoIdentificacion);
     }
 
+    @Override
+    public Estudiante obtenerEstudiante(long numeroIdentificacion, int idTipoIdentificacion) {
+        return repositorioProyecto.obtenerEstudiante(numeroIdentificacion, idTipoIdentificacion);
+    }
+
+    @Override
+    public PersonalExterno obtenerPersonalExterno(long numeroIdentificacion, int idTipoIdentificacion) {
+        return repositorioProyecto.obtenerPersonalExterno(numeroIdentificacion, idTipoIdentificacion);
+    }
 }

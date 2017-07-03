@@ -11,10 +11,10 @@ package co.edu.fnsp.gpci.entidades;
  */
 public class ProfesorProyecto {
 
-    private Profesor profesor;
+    private Profesor profesor = new Profesor();
     private long idProyecto;
-    private Rol rol;
-    private Facultad facultad;
+    private Rol rol = new Rol();
+    private Facultad facultad = new Facultad();
     private String codigoVinculacionUdeA;
     private boolean cartaCesionDerechosPatrimonio;
     private double porcentajePI;

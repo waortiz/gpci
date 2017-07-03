@@ -5,15 +5,19 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 /**
  *
  * @author William
  */
 public class BusquedaProyectos {
-    
+
     private String fechaInicio;
     private String fechaFinal;
-    
+
     /**
      * @return the fechaInicio
      */
@@ -41,5 +45,21 @@ public class BusquedaProyectos {
     public String getFechaFinal() {
         return fechaFinal;
     }
-   
+    
+    public void establecerFechaInicioIncial() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, -15);
+        fechaInicio = formatter.format(calendar.getTime());
+    }
+
+    public void establecerFechaInicioFinal() {
+        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Date());
+        calendar.add(Calendar.DATE, 15);
+        fechaFinal = formatter.format(calendar.getTime());
+    }
+
 }

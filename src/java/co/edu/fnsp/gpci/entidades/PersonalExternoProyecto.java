@@ -11,20 +11,28 @@ package co.edu.fnsp.gpci.entidades;
  */
 public class PersonalExternoProyecto {
 
+    private PersonalExterno personalExterno;
+    private long idProyecto;
+    private Rol rol;
+    private double porcentajePropiedadIntelectual;
+    private int horasSemana;
+    private int mesesDedicados;
+    private boolean cartaCesionDerechosPatrimonio;
+    
     /**
-     * @return the idPersonalExterno
+     * @return the personalExterno
      */
-    public long getIdPersonalExterno() {
-        return idPersonalExterno;
+    public PersonalExterno getPersonalExterno() {
+        return personalExterno;
     }
 
     /**
-     * @param idPersonalExterno the idPersonalExterno to set
+     * @param personalExterno the personalExterno to set
      */
-    public void setIdPersonalExterno(long idPersonalExterno) {
-        this.idPersonalExterno = idPersonalExterno;
+    public void setPersonalExterno(PersonalExterno personalExterno) {
+        this.personalExterno = personalExterno;
     }
-
+    
     /**
      * @return the idProyecto
      */
@@ -108,11 +116,4 @@ public class PersonalExternoProyecto {
     public void setCartaCesionDerechosPatrimonio(boolean cartaCesionDerechosPatrimonio) {
         this.cartaCesionDerechosPatrimonio = cartaCesionDerechosPatrimonio;
     }
-    private long idPersonalExterno;
-    private long idProyecto;
-    private Rol rol;
-    private double porcentajePropiedadIntelectual;
-    private int horasSemana;
-    private int mesesDedicados;
-    private boolean cartaCesionDerechosPatrimonio;
 }

@@ -50,7 +50,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
 
         Collection<? extends GrantedAuthority> roles = usuario.getRoles();
         
-        return new UsernamePasswordAuthenticationToken(username, password, roles);
+        return new UsernamePasswordAuthenticationToken(usuario, password, roles);
     }
 
     @Override

@@ -3,7 +3,7 @@
     Created on : 21-may-2017, 8:18:12
     Author     : William
 --%>
-<%@ page contentType="text/html;charset=UTF-8"%>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
 
@@ -219,13 +219,15 @@
                                 </div>
                             </div>  
                         </div>
-                        <table class="table table-hover" style="width: 90%" align="center">
+                        <table class="table table-hover" style="width: 90%" align="center" >
                             <tr class="table-row">
                                 <th style="width: 90%;text-align: center">Objetivo</th>
                                 <th style="width: 5%">&nbsp;</th>
                                 <th style="width: 5%">&nbsp;</th>
                             </tr>
-                            <tr class="table-row" data-bind="foreach: { data: objetivosEspecificos }">
+                        </table>
+                        <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: objetivosEspecificos }">
+                            <tr class="table-row">
                                 <td style="width: 90%">
                                     <span data-bind="text: descripcion" ></span>
                                     <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'objetivosEspecificos[' + $index() + '].descripcion'  }">
@@ -245,12 +247,74 @@
                             </tr>
                         </table>
                         <div class="alert alert-info" style="margin-top:20px;">
+                            <strong>Compromisos</strong>
+                            <button class="btn btn-dark" onclick="mostrarVentanaNuevoCompromisoProyecto(); return false;">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>                            
+                        </div>  
+                        <div class="modal fade" id="compromisosProyectoModal" tabindex="-1" role="dialog" aria-labelledby="compromisoProyectoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="alert alert-info">
+                                            <strong>Compromiso</strong>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="alert_placeholder_compromisos_proyecto"></div>
+                                        <table class="tblform3">
+                                            <tr>
+                                                <td>
+                                                    <textarea id="compromisoProyecto" name="compromisoProyecto" class="form-control"></textarea>
+                                                    <input type="hidden" id="consecutivo" name="consecutivo" />
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary" data-bind="click: adicionarCompromisoProyecto">Aceptar</button>
+                                    </div>                                    
+                                </div>
+                            </div>  
+                        </div>
+                        <table class="table table-hover" style="width: 90%" align="center" >
+                            <tr class="table-row">
+                                <th style="width: 90%;text-align: center">Compromiso</th>
+                                <th style="width: 5%">&nbsp;</th>
+                                <th style="width: 5%">&nbsp;</th>
+                            </tr>
+                        </table>
+                        <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: compromisosProyecto }">
+                            <tr class="table-row">
+                                <td style="width: 90%">
+                                    <span data-bind="text: descripcion" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'compromisosProyecto[' + $index() + '].descripcion'  }">
+                                </td>
+                                <td style="width: 5%">
+                                    <button class="btn btn-dark" data-bind="click: $root.eliminarCompromisoProyecto">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                    <input type="hidden" data-bind="value: idCompromisoProyecto, attr: { 'name': 'compromisosProyecto[' + $index() + '].idCompromisoProyecto'  }" />
+                                    <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'compromisosProyecto[' + $index() + '].consecutivo'  }" />
+                                </td>
+                                <td style="width: 5%">
+                                    <button class="btn btn-dark" data-bind="click: $root.editarCompromisoProyecto">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="alert alert-info" style="margin-top:20px;">
                             <strong>Profesores</strong>
                             <button class="btn btn-dark" onclick="mostrarVentanaNuevoProfesorProyecto(); return false;">
                                 <i class="glyphicon glyphicon-plus"></i>
                             </button>
                         </div>
-                        <div class="modal fade" id="profesoresModal" tabindex="-1" role="dialog" aria-labelledby="profesorModalLabel" aria-hidden="true">
+                        <div class="modal fade" id="profesorProyectoModal" tabindex="-1" role="dialog" aria-labelledby="profesorProyectoModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
                                 <div class="modal-content">
                                     <div class="modal-header">
@@ -262,7 +326,7 @@
                                         </div>
                                     </div>
                                     <div class="modal-body">
-                                        <div id="alert_placeholder_profesores"></div>
+                                        <div id="alert_placeholder_profesores_proyecto"></div>
                                         <table class="tblform3">
                                             <tr>
                                                 <td width="45%">Tipo de identificación:</td>
@@ -346,7 +410,7 @@
                                                 <td><input type="checkbox" id="cartaCesionDerechosPatrimonioProfesor" name="cartaCesionDerechosPatrimonioProfesor" cssClass="form-control" /></td>
                                             </tr>
                                             <tr>
-                                                <td>Porcentaje PI:</td>
+                                                <td>Porcentaje de propiedad intelectual:</td>
                                                 <td>Horas semana:</td>
                                             </tr>
                                             <tr>
@@ -397,7 +461,9 @@
                                 <th style="width: 5%">&nbsp;</th>
                                 <th style="width: 5%">&nbsp;</th>
                             </tr>
-                            <tr class="table-row" data-bind="foreach: { data: profesoresProyecto }">
+                        </table>
+                        <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: profesoresProyecto }">
+                            <tr class="table-row">
                                 <td style="width: 20%">
                                     <span data-bind="text: descripcionTipoIdentificacion" ></span>
                                     <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
@@ -448,6 +514,392 @@
                                 </td>
                             </tr>
                         </table>
+                        <div class="alert alert-info" style="margin-top:20px;">
+                            <strong>Estudiantes</strong>
+                            <button class="btn btn-dark" onclick="mostrarVentanaNuevoEstudianteProyecto(); return false;">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                        </div>
+                        <div class="modal fade" id="estudianteProyectoModal" tabindex="-1" role="dialog" aria-labelledby="estudianteModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="alert alert-info">
+                                            <strong>Datos Estudiante</strong>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="alert_placeholder_estudiantes_proyecto"></div>
+                                        <table class="tblform3">
+                                            <tr>
+                                                <td width="45%">Tipo de identificación:</td>
+                                                <td width="45%">Número de identificación:</td>
+                                                <td width="10%">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <select name="tipoIdentificacionEstudiante" id="tipoIdentificacionEstudiante" class="form-control">
+                                                        <option value=""></option>
+                                                    <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                    </c:forEach>
+                                                    </select>    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionEstudiante" name="numeroIdentificacionEstudiante" />
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-dark" onclick="buscarEstudiante(); return false;">
+                                                            <i class="glyphicon glyphicon-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                         </table>
+                                        <table class="tblform3">
+                                            <tr>
+                                                <td>Nombres:</td>
+                                                <td>Apellidos:</td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" id="nombresEstudiante" name="nombresEstudiante" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="apellidosEstudiante" name="nombresEstudiante" class="form-control" />
+                                                </td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>Correo electrónico:</td>
+                                                <td>Contacto:</td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="email" id="correoElectronicoEstudiante" name="correoElectronicoEstudiante" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="contactoEstudiante" name="contactoEstudiante" class="form-control" />
+                                                </td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>Tipo de estudiante</td>
+                                                <td>Rol</td> 
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <select name="tipoEstudiante" id="tipoEstudiante" class="form-control">
+                                                        <option value=""></option>
+                                                    <c:forEach var="tipoEstudiante" items="${tiposEstudiante}">
+                                                        <option value="${tipoEstudiante.getIdTipoEstudiante()}">${tipoEstudiante.getNombre()}</option>
+                                                    </c:forEach>
+                                                    </select>                                                        
+                                                </td>
+                                                <td>
+                                                    <select name="rolEstudiante" id="rolEstudiante" class="form-control">
+                                                        <option value=""></option>
+                                                    <c:forEach var="rol" items="${roles}">
+                                                        <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
+                                                    </c:forEach>
+                                                    </select>      
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Porcentaje de propiedad intelectual:</td>
+                                                <td>Horas semana:</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" id="porcentajePropiedadIntelectualEstudiante" name="porcentajePIEstudiante" class="form-control numbersOnly" maxlength="3" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="horasSemanaEstudiante" name="horasSemanaEstudiante" class="form-control numbersOnly" maxlength="3" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Meses dedicados:</td>
+                                                <td>Semestre:</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" id="mesesDedicadosEstudiante" name="mesesDedicadosEstudiante" class="form-control numbersOnly" maxlength="5" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="semestreEstudiante" name="semestreEstudiante" class="form-control numbersOnly" maxlength="2" />
+                                                </td>
+                                            </tr>                                
+                                            <tr>
+                                                <td colspan="2">Programa</td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2">
+                                                    <select name="programaEstudiante" id="programaEstudiante" class="form-control">
+                                                        <option value=""></option>
+                                                    <c:forEach var="programa" items="${programas}">
+                                                        <option value="${programa.getIdPrograma()}">${programa.getNombre()}</option>
+                                                    </c:forEach>
+                                                    </select>      
+                                                </td>
+                                            </tr>                            
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary" data-bind="click: adicionarEstudianteProyecto">Aceptar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                        <table class="table table-hover" style="width: 90%" align="center">
+                            <tr class="table-row">
+                                <th style="width: 20%;text-align: center">Tipo de identificación</th>
+                                <th style="width: 20%;text-align: center">Número de identificación</th>
+                                <th style="width: 18%;text-align: center">Nombres</th>
+                                <th style="width: 17%;text-align: center">Apellidos</th>
+                                <th style="width: 5%;text-align: center">Rol</th>
+                                <th style="width: 10%;text-align: center">Programa</th>
+                                <th style="width: 5%">&nbsp;</th>
+                                <th style="width: 5%">&nbsp;</th>
+                            </tr>
+                        </table>
+                        <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: estudiantesProyecto }">
+                            <tr class="table-row">
+                                <td style="width: 20%">
+                                    <span data-bind="text: descripcionTipoIdentificacion" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idTipoIdentificacion'  }">
+                                </td>
+                                <td style="width: 20%">
+                                    <span data-bind="text: numeroIdentificacion" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].numeroIdentificacion'  }">
+                                </td>
+                                <td style="width: 18%">
+                                    <span data-bind="text: nombres" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'estudiantesProyecto[' + $index() + '].nombres'  }">
+                                </td>
+                                <td style="width: 17%">
+                                    <span data-bind="text: apellidos" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'estudiantesProyecto[' + $index() + '].apellidos'  }">
+                                </td>
+                                <td style="width: 5%">
+                                    <span data-bind="text: descripcionRol" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionRol'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idRol'  }">
+                                </td>
+                                <td style="width: 10%">
+                                    <span data-bind="text: descripcionPrograma" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'estudiantesProyecto[' + $index() + '].correoElectronico'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'estudiantesProyecto[' + $index() + '].contacto'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: descripcionTipoEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionTipoEstudiante'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: idTipoEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idTipoEstudiante'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: descripcionPrograma, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionPrograma'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: idPrograma, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idPrograma'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: porcentajePropiedadIntelectual, attr: { 'name': 'estudiantesProyecto[' + $index() + '].porcentajePropiedadIntelectual' }">
+                                    <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'estudiantesProyecto[' + $index() + '].horasSemana' }">
+                                    <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'estudiantesProyecto[' + $index() + '].mesesDedicados' }">
+                                    <input type="hidden" class="form-control" data-bind="value: semestre, attr: { 'name': 'estudiantesProyecto[' + $index() + '].semestre' }">
+                                    <input type="hidden" data-bind="value: idEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idEstudiante'  }" />
+                                    <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'estudiantesProyecto[' + $index() + '].consecutivo'  }" />
+                                </td>
+                                <td style="width: 5%" align="center">
+                                    <button class="btn btn-dark" data-bind="click: $root.eliminarEstudianteProyecto">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                </td>
+                                <td style="width: 5%" align="center">
+                                    <button class="btn btn-dark" data-bind="click: $root.editarEstudianteProyecto">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>
+                        <div class="alert alert-info" style="margin-top:20px;">
+                            <strong>Personal Externo</strong>
+                            <button class="btn btn-dark" onclick="mostrarVentanaNuevoPersonalExternoProyecto(); return false;">
+                                <i class="glyphicon glyphicon-plus"></i>
+                            </button>
+                        </div>
+                        <div class="modal fade" id="personalExternoProyectoModal" tabindex="-1" role="dialog" aria-labelledby="personalExternoProyectoModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="alert alert-info">
+                                            <strong>Datos Personal Externo</strong>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div id="alert_placeholder_personalExterno_proyecto"></div>
+                                        <table class="tblform3">
+                                            <tr>
+                                                <td width="45%">Tipo de identificación:</td>
+                                                <td width="45%">Número de identificación:</td>
+                                                <td width="10%">&nbsp;</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <select name="tipoIdentificacionPersonalExterno" id="tipoIdentificacionPersonalExterno" class="form-control">
+                                                        <option value=""></option>
+                                                    <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                    </c:forEach>
+                                                    </select>    
+                                                </td>
+                                                <td>
+                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonalExterno" name="numeroIdentificacionPersonalExterno" />
+                                                </td>
+                                                <td>
+                                                    <div class="btn-group">
+                                                        <button class="btn btn-dark" onclick="buscarPersonalExterno(); return false;">
+                                                            <i class="glyphicon glyphicon-search"></i>
+                                                        </button>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                         </table>
+                                        <table class="tblform3">
+                                            <tr>
+                                                <td>Nombres:</td>
+                                                <td>Apellidos:</td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" id="nombresPersonalExterno" name="nombresPersonalExterno" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="apellidosPersonalExterno" name="nombresPersonalExterno" class="form-control" />
+                                                </td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>Correo electrónico:</td>
+                                                <td>Entidad:</td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="email" id="correoElectronicoPersonalExterno" name="correoElectronicoPersonalExterno" class="form-control" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="entidadPersonalExterno" name="entidadPersonalExterno" class="form-control" />
+                                                </td>                                    
+                                            </tr>
+                                            <tr>
+                                                <td>Rol</td> 
+                                                <td>Porcentaje de propiedad intelectual:</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <select name="rolPersonalExterno" id="rolPersonalExterno" class="form-control">
+                                                        <option value=""></option>
+                                                    <c:forEach var="rol" items="${roles}">
+                                                        <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
+                                                    </c:forEach>
+                                                    </select>      
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="porcentajePropiedadIntelectualPersonalExterno" name="porcentajePropiedadIntelectualPersonalExterno" class="form-control numbersOnly" maxlength="3" />
+                                                </td>
+                                            </tr>
+                                            <tr>
+                                                <td>Horas semana:</td>
+                                                <td>Meses dedicados:</td>
+                                            </tr>
+                                            <tr>
+                                                <td>
+                                                    <input type="text" id="horasSemanaPersonalExterno" name="horasSemanaPersonalExterno" class="form-control numbersOnly" maxlength="3" />
+                                                </td>
+                                                <td>
+                                                    <input type="text" id="mesesDedicadosPersonalExterno" name="mesesDedicadosPersonalExterno" class="form-control numbersOnly" maxlength="5" />
+                                                </td>
+                                            </tr>                                
+                                        </table>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                        <button type="button" class="btn btn-primary" data-bind="click: adicionarPersonalExternoProyecto">Aceptar</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                        <table class="table table-hover" style="width: 90%" align="center">
+                            <tr class="table-row">
+                                <th style="width: 20%;text-align: center">Tipo de identificación</th>
+                                <th style="width: 20%;text-align: center">Número de identificación</th>
+                                <th style="width: 18%;text-align: center">Nombres</th>
+                                <th style="width: 17%;text-align: center">Apellidos</th>
+                                <th style="width: 5%;text-align: center">Rol</th>
+                                <th style="width: 10%;text-align: center">Entidad</th>
+                                <th style="width: 5%">&nbsp;</th>
+                                <th style="width: 5%">&nbsp;</th>
+                            </tr>
+                        </table>
+                        <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: personalExternoProyecto }">
+                            <tr class="table-row">
+                                <td style="width: 20%">
+                                    <span data-bind="text: descripcionTipoIdentificacion" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idTipoIdentificacion'  }">
+                                </td>
+                                <td style="width: 20%">
+                                    <span data-bind="text: numeroIdentificacion" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].numeroIdentificacion'  }">
+                                </td>
+                                <td style="width: 18%">
+                                    <span data-bind="text: nombres" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'personalExternoProyecto[' + $index() + '].nombres'  }">
+                                </td>
+                                <td style="width: 17%">
+                                    <span data-bind="text: apellidos" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'personalExternoProyecto[' + $index() + '].apellidos'  }">
+                                </td>
+                                <td style="width: 5%">
+                                    <span data-bind="text: descripcionRol" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'personalExternoProyecto[' + $index() + '].descripcionRol'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idRol'  }">
+                                </td>
+                                <td style="width: 10%">
+                                    <span data-bind="text: entidad" ></span>
+                                    <input type="hidden" class="form-control" data-bind="value: entidad, attr: { 'name': 'personalExternoProyecto[' + $index() + '].entidad'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'personalExternoProyecto[' + $index() + '].correoElectronico'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'personalExternoProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
+                                    <input type="hidden" class="form-control" data-bind="value: porcentajePropiedadIntelectual, attr: { 'name': 'personalExternoProyecto[' + $index() + '].porcentajePropiedadIntelectual' }">
+                                    <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'personalExternoProyecto[' + $index() + '].horasSemana' }">
+                                    <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'personalExternoProyecto[' + $index() + '].mesesDedicados' }">
+                                    <input type="hidden" data-bind="value: idPersonalExterno, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idPersonalExterno'  }" />
+                                    <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'personalExternoProyecto[' + $index() + '].consecutivo'  }" />
+                                </td>
+                                <td style="width: 5%" align="center">
+                                    <button class="btn btn-dark" data-bind="click: $root.eliminarPersonalExternoProyecto">
+                                        <i class="glyphicon glyphicon-trash"></i>
+                                    </button>
+                                </td>
+                                <td style="width: 5%" align="center">
+                                    <button class="btn btn-dark" data-bind="click: $root.editarPersonalExternoProyecto">
+                                        <i class="glyphicon glyphicon-edit"></i>
+                                    </button>
+                                </td>
+                            </tr>
+                        </table>                                
+                                
+                        <table class='table table-hover' style='font-size:12px;'> 
+                            <tr>
+                                <td align="right">
+                                    <a href='crear'  title='Registrar Proyecto' >
+                                        <form:hidden path="idProyecto" />
+                                        <c:if test = "${proyecto.getIdProyecto() == 0}">
+                                            <input type="submit" value="Registrar Proyecto" class="btn-sm btn-success" />
+                                        </c:if>
+                                        <c:if test = "${proyecto.getIdProyecto() > 0}">
+                                            <input type="submit" value="Actualizar Proyecto" class="btn-sm btn-success" />
+                                        </c:if>
+                                    </a> 
+                                </td>
+                            </tr>
+                        </table>                                  
                         <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                     </form:form>
                 </div>
@@ -480,10 +932,10 @@
                 todayHighlight: true
             });
 
-            var ProyectoModel = function (objetivosEspecificos, profesoresProyectoArray) {
+            var ProyectoModel = function (objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto) {
                 self = this;
-                self.objetivosEspecificos = ko.observableArray(objetivosEspecificos);
 
+                self.objetivosEspecificos = ko.observableArray(objetivosEspecificos);
                 self.adicionarObjetivoEspecifico = function () {
                     if ($('#objetivoEspecifico').val() == "") {
                         bootstrap_alert_objetivosEspecificos.warning('Debe ingresar el objetivo específico');
@@ -511,22 +963,56 @@
                     
                     limpiarDatosVentanaObjetivoEspecifico();
                 };
-
                 self.eliminarObjetivoEspecifico = function (objetivoEspecifico) {
                     self.objetivosEspecificos.remove(objetivoEspecifico);
                 };
-                
                 self.editarObjetivoEspecifico = function (objetivoEspecifico) {
                     $('#objetivoEspecifico').val(objetivoEspecifico.descripcion());
                     $('#consecutivo').val(objetivoEspecifico.consecutivo());
                     $('#objetivosEspecificosModal').modal('show'); 
                 };
 
-                self.profesoresProyecto = ko.observableArray(profesoresProyectoArray);
+                self.compromisosProyecto = ko.observableArray(compromisosProyecto);
+                self.adicionarCompromisoProyecto = function () {
+                    if ($('#compromisoProyecto').val() == "") {
+                        bootstrap_alert_compromisos_proyecto.warning('Debe ingresar el compromiso');
+                        return false;
+                    }
+                    $('#compromisosProyectoModal').modal('toggle');
+                    bootstrap_alert_compromisos_proyecto.removeWarning();
+                    if($('#consecutivo').val() == "") {
+                        self.compromisosProyecto.push({
+                            idCompromisoProyecto: ko.observable(0),
+                            consecutivo: ko.observable(self.compromisosProyecto().length + 1),
+                            descripcion: ko.observable($('#compromisoProyecto').val())
+                        });
+                    } else {
+                        var consecutivo = parseInt($('#consecutivo').val(), 10);
+                        var indice = 0;
+                        for(i = 0; i < self.compromisosProyecto().length; i++) {
+                           if(self.compromisosProyecto()[i].consecutivo() == consecutivo){
+                              indice = i; 
+                              break;
+                           }
+                        }
+                        self.compromisosProyecto()[indice].descripcion($('#compromisoProyecto').val());
+                    }
+                    
+                    limpiarDatosVentanaCompromisoProyecto();
+                };
+                self.eliminarCompromisoProyecto = function (compromisoProyecto) {
+                    self.compromisosProyecto.remove(compromisoProyecto);
+                };
+                self.editarCompromisoProyecto = function (compromisoProyecto) {
+                    $('#compromisoProyecto').val(compromisoProyecto.descripcion());
+                    $('#consecutivo').val(compromisoProyecto.consecutivo());
+                    $('#compromisosProyectoModal').modal('show'); 
+                };
 
+                self.profesoresProyecto = ko.observableArray(profesoresProyecto);
                 self.adicionarProfesorProyecto = function () {
                     if ($('#tipoIdentificacionProfesor').val() == "") {
-                        bootstrap_alert_profesoresProyecto.warning('Debe seleccionar el tipo de identificación');
+                        bootstrap_alert_profesores_proyecto.warning('Debe seleccionar el tipo de identificación');
                         return false;
                     }
                     if ($('#numeroIdentificacionProfesor').val() == "") {
@@ -562,7 +1048,7 @@
                         return false;
                     }
                     if ($('#porcentajePIProfesor').val() == "") {
-                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar el porcentaje PI');
+                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar el porcentaje de propiedad intelectual');
                         return false;
                     }
                     if ($('#horasSemanaProfesor').val() == "") {
@@ -635,17 +1121,15 @@
                             self.profesoresProyecto()[indice].mesesFueraPlan( $('#mesesFueraPlanProfesor').val());
                     }
 
-                   $('#profesoresModal').modal('toggle');
+                   $('#profesorProyectoModal').modal('toggle');
                    bootstrap_alert_profesores_proyecto.removeWarning();
                    limpiarDatosVentanaProfesorProyecto();
                 };
-
                 self.eliminarProfesorProyecto = function (profesor) {
                     self.profesoresProyecto.remove(profesor);
                 };
-
                 self.editarProfesorProyecto = function (profesorProyecto) {
-                    $('#consecutivo').val(pprofesorProyecto.consecutivo());
+                    $('#consecutivo').val(profesorProyecto.consecutivo());
                     $('#tipoIdentificacionProfesor').val(profesorProyecto.idTipoIdentificacion());
                     $('#numeroIdentificacionProfesor').val(profesorProyecto.numeroIdentificacion());
                     $('#nombresProfesor').val(profesorProyecto.nombres());
@@ -662,22 +1146,285 @@
                     $('#horasSemanaFueraPlanProfesor').val(profesorProyecto.horasSemanaFueraPlan());
                     $('#mesesFueraPlanProfesor').val(profesorProyecto.mesesFueraPlan());
                     
-                    $('#profesoresModal').modal('show');
+                    $('#profesorProyectoModal').modal('show');
+                };
+
+                self.estudiantesProyecto = ko.observableArray(estudiantesProyecto);
+                self.adicionarEstudianteProyecto = function () {
+                    if ($('#tipoIdentificacionEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe seleccionar el tipo de identificación');
+                        return false;
+                    }
+                    if ($('#numeroIdentificacionEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar el número de identificación');
+                        return false;
+                    }
+                    if ($('#nombresEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar los nombres');
+                        return false;
+                    }
+                    if ($('#apellidosEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar los apellidos');
+                        return false;
+                    }                    
+                    if ($('#correoElectronicoEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar el correo electrónico');
+                        return false;
+                    }                    
+                    if ($('#contactoEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar el contacto');
+                        return false;
+                    }                    
+                    if ($('#tipoEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe seleccionar el tipo de estudiante');
+                        return false;
+                    }
+                    if ($('#programaEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe seleccionar el programa');
+                        return false;
+                    }
+                    if ($('#rolEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe seleccionar el rol');
+                        return false;
+                    }
+                    if ($('#porcentajePropiedadIntelectualEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar el porcentaje de propiedad intelectual');
+                        return false;
+                    }
+                    if ($('#horasSemanaEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar las horas semanales');
+                        return false;
+                    }
+                    if ($('#mesesDedicadosEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar los meses dedicados');
+                        return false;
+                    }
+                    
+                    if($('#consecutivo').val() == "") {
+                        
+                        for(i = 0; i < self.estudiantesProyecto().length; i++) {
+                            if(self.estudiantesProyecto()[i].idTipoIdentificacion() == $('#tipoIdentificacionEstudiante').val() && 
+                               self.estudiantesProyecto()[i].numeroIdentificacion() == $('#numeroIdentificacionEstudiante').val()) {
+                               bootstrap_alert_estudiantes_proyecto.warning('El estudiante ya hace parte del proyecto');
+                               return false;                               
+                            }
+                        }
+                        self.estudiantesProyecto.push({
+                            idEstudiante: ko.observable(0),
+                            idTipoIdentificacion: ko.observable($('#tipoIdentificacionEstudiante').val()),
+                            descripcionTipoIdentificacion: ko.observable($('#tipoIdentificacionEstudiante option:selected').text()),
+                            numeroIdentificacion: ko.observable($('#numeroIdentificacionEstudiante').val()),
+                            nombres: ko.observable($('#nombresEstudiante').val()),
+                            apellidos: ko.observable($('#apellidosEstudiante').val()),
+                            correoElectronico : ko.observable($('#correoElectronicoEstudiante').val()),
+                            contacto : ko.observable($('#contactoEstudiante').val()),
+                            idTipoEstudiante: ko.observable($('#tipoEstudiante').val()),
+                            descripcionTipoEstudiante: ko.observable($('#tipoEstudiante option:selected').text()),
+                            idPrograma: ko.observable($('#programaEstudiante').val()),
+                            descripcionPrograma: ko.observable($('#programaEstudiante option:selected').text()),
+                            idRol: ko.observable($('#rolEstudiante').val()),
+                            descripcionRol: ko.observable($('#rolEstudiante option:selected').text()),
+                            porcentajePropiedadIntelectual: ko.observable($('#porcentajePropiedadIntelectualEstudiante').val()),
+                            horasSemana: ko.observable($('#horasSemanaEstudiante').val()),
+                            mesesDedicados: ko.observable($('#mesesDedicadosEstudiante').val()),
+                            semestre: ko.observable($('#semestreEstudiante').val()),
+                            consecutivo: ko.observable(self.estudiantesProyecto().length + 1)
+                        });
+                    } else {
+                            var consecutivo = parseInt($('#consecutivo').val(), 10);
+                            var indice = 0;
+                            for(i = 0; i < self.estudiantesProyecto().length; i++) {
+                                if(self.estudiantesProyecto()[i].consecutivo() == consecutivo){
+                                   indice = i; 
+                                   break;
+                                }
+                            }
+                            self.estudiantesProyecto()[indice].idTipoIdentificacion($('#tipoIdentificacionEstudiante').val());
+                            self.estudiantesProyecto()[indice].descripcionTipoIdentificacion($('#tipoIdentificacionEstudiante option:selected').text());
+                            self.estudiantesProyecto()[indice].numeroIdentificacion($('#numeroIdentificacionEstudiante').val());
+                            self.estudiantesProyecto()[indice].nombres( $('#nombresEstudiante').val());
+                            self.estudiantesProyecto()[indice].apellidos( $('#apellidosEstudiante').val());
+                            self.estudiantesProyecto()[indice].correoElectronico( $('#correoElectronicoEstudiante').val());
+                            self.estudiantesProyecto()[indice].contacto($('#contactoEstudiante').val());
+                            self.estudiantesProyecto()[indice].idTipoEstudiante( $('#tipoEstudiante').val());
+                            self.estudiantesProyecto()[indice].descripcionTipoEstudiante( $('#tipoEstudiante option:selected').text());
+                            self.estudiantesProyecto()[indice].idPrograma( $('#programaEstudiante').val());
+                            self.estudiantesProyecto()[indice].descripcionPrograma( $('#programaEstudiante option:selected').text());
+                            self.estudiantesProyecto()[indice].idRol( $('#rolEstudiante').val());
+                            self.estudiantesProyecto()[indice].descripcionRol($('#rolEstudiante option:selected').text());
+                            self.estudiantesProyecto()[indice].porcentajePropiedadIntelectual( $('#porcentajePropiedadIntelectualEstudiante').val());
+                            self.estudiantesProyecto()[indice].horasSemana( $('#horasSemanaEstudiante').val());
+                            self.estudiantesProyecto()[indice].mesesDedicados( $('#mesesDedicadosEstudiante').val());
+                            self.estudiantesProyecto()[indice].semestre($('#semestreEstudiante').val());
+                    }
+
+                   $('#estudianteProyectoModal').modal('toggle');
+                   bootstrap_alert_estudiantes_proyecto.removeWarning();
+                   limpiarDatosVentanaEstudianteProyecto();
+                };
+                self.eliminarEstudianteProyecto = function (estudiante) {
+                    self.estudiantesProyecto.remove(estudiante);
+                };
+                self.editarEstudianteProyecto = function (estudianteProyecto) {
+                    $('#consecutivo').val(estudianteProyecto.consecutivo());
+                    $('#tipoIdentificacionEstudiante').val(estudianteProyecto.idTipoIdentificacion());
+                    $('#numeroIdentificacionEstudiante').val(estudianteProyecto.numeroIdentificacion());
+                    $('#nombresEstudiante').val(estudianteProyecto.nombres());
+                    $('#apellidosEstudiante').val(estudianteProyecto.apellidos());
+                    $('#correoElectronicoEstudiante').val(estudianteProyecto.correoElectronico());
+                    $('#contactoEstudiante').val(estudianteProyecto.contacto());
+                    $('#programaEstudiante').val(estudianteProyecto.idPrograma());
+                    $('#tipoEstudiante').val(estudianteProyecto.idTipoEstudiante());
+                    $('#rolEstudiante').val(estudianteProyecto.idRol());
+                    $('#porcentajePropiedadIntelectualEstudiante').val(estudianteProyecto.porcentajePropiedadIntelectual());
+                    $('#horasSemanaEstudiante').val(estudianteProyecto.horasSemana());
+                    $('#mesesDedicadosEstudiante').val(estudianteProyecto.mesesDedicados());
+                    $('#semestreEstudiante').val(estudianteProyecto.semestre());
+                    
+                    $('#estudianteProyectoModal').modal('show');
+                };
+
+                self.personalExternoProyecto = ko.observableArray(personalExternoProyecto);
+                self.adicionarPersonalExternoProyecto = function () {
+                    if ($('#tipoIdentificacionPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExternoProyecto.warning('Debe seleccionar el tipo de identificación');
+                        return false;
+                    }
+                    if ($('#numeroIdentificacionPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar el número de identificación');
+                        return false;
+                    }
+                    if ($('#nombresPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar los nombres');
+                        return false;
+                    }
+                    if ($('#apellidosPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar los apellidos');
+                        return false;
+                    }                    
+                    if ($('#correoElectronicoPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar el correo electrónico');
+                        return false;
+                    }                    
+                    if ($('#entidadPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar la entidad');
+                        return false;
+                    }                    
+                    if ($('#rolPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe seleccionar el rol');
+                        return false;
+                    }
+                    if ($('#porcentajePropiedadIntelectualPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar el porcentaje de propiedad intelectual');
+                        return false;
+                    }
+                    if ($('#horasSemanaPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar las horas semanales');
+                        return false;
+                    }
+                    if ($('#mesesDedicadosPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar los meses dedicados');
+                        return false;
+                    }
+                    
+                    if($('#consecutivo').val() == "") {
+                        
+                        for(i = 0; i < self.personalExternoProyecto().length; i++) {
+                            if(self.personalExternoProyecto()[i].idTipoIdentificacion() == $('#tipoIdentificacionPersonalExterno').val() && 
+                               self.personalExternoProyecto()[i].numeroIdentificacion() == $('#numeroIdentificacionPersonalExterno').val()) {
+                               bootstrap_alert_personalExterno_proyecto.warning('El personal externo ya hace parte del proyecto');
+                               return false;                               
+                            }
+                        }
+                        self.personalExternoProyecto.push({
+                            idPersonalExterno: ko.observable(0),
+                            idTipoIdentificacion: ko.observable($('#tipoIdentificacionPersonalExterno').val()),
+                            descripcionTipoIdentificacion: ko.observable($('#tipoIdentificacionPersonalExterno option:selected').text()),
+                            numeroIdentificacion: ko.observable($('#numeroIdentificacionPersonalExterno').val()),
+                            nombres: ko.observable($('#nombresPersonalExterno').val()),
+                            apellidos: ko.observable($('#apellidosPersonalExterno').val()),
+                            correoElectronico : ko.observable($('#correoElectronicoPersonalExterno').val()),
+                            entidad : ko.observable($('#entidadPersonalExterno').val()),
+                            idRol: ko.observable($('#rolPersonalExterno').val()),
+                            descripcionRol: ko.observable($('#rolPersonalExterno option:selected').text()),
+                            cartaCesionDerechosPatrimonio: ko.observable($('#cartaCesionDerechosPatrimonioPersonalExterno').is(":checked")),
+                            porcentajePropiedadIntelectual: ko.observable($('#porcentajePropiedadIntelectualPersonalExterno').val()),
+                            horasSemana: ko.observable($('#horasSemanaPersonalExterno').val()),
+                            mesesDedicados: ko.observable($('#mesesDedicadosPersonalExterno').val()),
+                            consecutivo: ko.observable(self.personalExternoProyecto().length + 1)
+                        });
+                    } else {
+                            var consecutivo = parseInt($('#consecutivo').val(), 10);
+                            var indice = 0;
+                            for(i = 0; i < self.personalExternoProyecto().length; i++) {
+                                if(self.personalExternoProyecto()[i].consecutivo() == consecutivo){
+                                   indice = i; 
+                                   break;
+                                }
+                            }
+                            self.personalExternoProyecto()[indice].idTipoIdentificacion($('#tipoIdentificacionPersonalExterno').val());
+                            self.personalExternoProyecto()[indice].descripcionTipoIdentificacion($('#tipoIdentificacionPersonalExterno option:selected').text());
+                            self.personalExternoProyecto()[indice].numeroIdentificacion($('#numeroIdentificacionPersonalExterno').val());
+                            self.personalExternoProyecto()[indice].nombres( $('#nombresPersonalExterno').val());
+                            self.personalExternoProyecto()[indice].apellidos( $('#apellidosPersonalExterno').val());
+                            self.personalExternoProyecto()[indice].correoElectronico( $('#correoElectronicoPersonalExterno').val());
+                            self.personalExternoProyecto()[indice].entidad($('#entidadPersonalExterno').val());
+                            self.personalExternoProyecto()[indice].idRol( $('#rolPersonalExterno').val());
+                            self.personalExternoProyecto()[indice].descripcionRol($('#rolPersonalExterno option:selected').text());
+                            self.personalExternoProyecto()[indice].cartaCesionDerechosPatrimonio( $('#cartaCesionDerechosPatrimonioPersonalExterno').is(":checked"));
+                            self.personalExternoProyecto()[indice].porcentajePropiedadIntelectual( $('#porcentajePropiedadIntelectualPersonalExterno').val());
+                            self.personalExternoProyecto()[indice].horasSemana( $('#horasSemanaPersonalExterno').val());
+                            self.personalExternoProyecto()[indice].mesesDedicados( $('#mesesDedicadosPersonalExterno').val());
+                    }
+
+                   $('#personalExternoProyectoModal').modal('toggle');
+                   bootstrap_alert_personalExterno_proyecto.removeWarning();
+                   limpiarDatosVentanaPersonalExternoProyecto();
+                };
+                self.eliminarPersonalExternoProyecto = function (personalExterno) {
+                    self.personalExternoProyecto.remove(personalExterno);
+                };
+                self.editarPersonalExternoProyecto = function (personalExterno) {
+                    $('#consecutivo').val(personalExterno.consecutivo());
+                    $('#tipoIdentificacionPersonalExterno').val(personalExterno.idTipoIdentificacion());
+                    $('#numeroIdentificacionPersonalExterno').val(personalExterno.numeroIdentificacion());
+                    $('#nombresPersonalExterno').val(personalExterno.nombres());
+                    $('#apellidosPersonalExterno').val(personalExterno.apellidos());
+                    $('#correoElectronicoPersonalExterno').val(personalExterno.correoElectronico());
+                    $('#entidadPersonalExterno').val(personalExterno.entidad());
+                    $('#rolPersonalExterno').val(personalExterno.idRol());
+                    $('#porcentajePropiedadIntelectualPersonalExterno').val(personalExterno.porcentajePropiedadIntelectual());
+                    $('#horasSemanaPersonalExterno').val(personalExterno.horasSemana());
+                    $('#mesesDedicadosPersonalExterno').val(personalExterno.mesesDedicados());
+                    $('#cartaCesionDerechosPatrimonioPersonalExterno').prop('checked', personalExterno.cartaCesionDerechosPatrimonio());
+                    
+                    $('#personalExternoProyectoModal').modal('show');
                 };
             };
 
-            var objetivosEspecificos = Array();
-        
+            var objetivosEspecificos = new Array();
             var profesoresProyecto = new Array();   
-            <c:if test = "${objetivosEspecificosJSON != null && profesoresProyectoJSON != null}">
+            var estudiantesProyecto = new Array();
+            var personalExternoProyecto = new Array();
+            var compromisosProyecto = new Array();
+            
+            <c:if test = "${objetivosEspecificosJSON != null}">
             objetivosEspecificos = ${objetivosEspecificosJSON};
             </c:if>
-
             <c:if test = "${profesoresProyectoJSON != null}">
             profesoresProyecto = ${profesoresProyectoJSON};
             </c:if>
-
-            var proyectoModel = new ProyectoModel(objetivosEspecificos, profesoresProyecto);
+            <c:if test = "${estudiantesProyectoJSON != null}">
+            estudiantesProyecto = ${estudiantesProyectoJSON};
+            </c:if>
+            <c:if test = "${personalExternoProyectoJSON != null}">
+            personalExternoProyecto = ${personalExternoProyectoJSON};
+            </c:if>
+            <c:if test = "${compromisosProyectoJSON != null}">
+            compromisosProyecto = ${compromisosProyectoJSON};
+            </c:if>
+                
+            var proyectoModel = new ProyectoModel(objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto);
             ko.applyBindings(proyectoModel);
 
             bootstrap_alert_objetivosEspecificos = function () { };
@@ -687,21 +1434,43 @@
             bootstrap_alert_objetivosEspecificos.removeWarning = function () {
                 $('#alert_placeholder_objetivosEspecificos').html('');
             };
+            function mostrarVentanaNuevoObjetivoEspecifico() {
+                limpiarDatosVentanaObjetivoEspecifico();
+                $('#objetivosEspecificosModal').modal('show'); 
+            }
+            function limpiarDatosVentanaObjetivoEspecifico() {
+                $('#objetivoEspecifico').val("");
+                $('#consecutivo').val("");
+            }
+
+            bootstrap_alert_compromisos_proyecto = function () { };
+            bootstrap_alert_compromisos_proyecto.warning = function (message) {
+                $('#alert_placeholder_compromisos_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_compromisos_proyecto.removeWarning = function () {
+                $('#alert_placeholder_compromisos_proyecto').html('');
+            };
+            function mostrarVentanaNuevoCompromisoProyecto() {
+                limpiarDatosVentanaCompromisoProyecto();
+                $('#compromisosProyectoModal').modal('show'); 
+            }
+            function limpiarDatosVentanaCompromisoProyecto() {
+                $('#compromisoProyecto').val("");
+                $('#consecutivo').val("");
+            }
 
             bootstrap_alert_profesores_proyecto = function () { };
             bootstrap_alert_profesores_proyecto.warning = function (message) {
-                $('#alert_placeholder_profesores').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+                $('#alert_placeholder_profesores_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
             bootstrap_alert_profesores_proyecto.removeWarning = function () {
-                $('#alert_placeholder_profesores').html('');
+                $('#alert_placeholder_profesores_proyecto').html('');
             };
-        
-           function mostrarVentanaNuevoProfesorProyecto() {
+            function mostrarVentanaNuevoProfesorProyecto() {
                 limpiarDatosVentanaProfesorProyecto();
-                $('#profesoresModal').modal('show'); 
-           }
-        
-           function limpiarDatosVentanaProfesorProyecto() {
+                $('#profesorProyectoModal').modal('show'); 
+            }
+            function limpiarDatosVentanaProfesorProyecto() {
                 $('#consecutivo').val("");
                 $('#tipoIdentificacionProfesor').val("");
                 $('#descripcionTipoIdentificacionProfesor').val("");
@@ -719,18 +1488,7 @@
                 $('#mesesDedicadosProfesor').val("");
                 $('#horasSemanaFueraPlanProfesor').val("");
                 $('#mesesFueraPlanProfesor').val("");            
-           }
-        
-            function mostrarVentanaNuevoObjetivoEspecifico() {
-                limpiarDatosVentanaObjetivoEspecifico();
-                $('#objetivosEspecificosModal').modal('show'); 
             }
-        
-            function limpiarDatosVentanaObjetivoEspecifico() {
-                $('#objetivoEspecifico').val("");
-                $('#consecutivo').val("");
-            }
-        
             function buscarProfesor() {
                 var tipoIdentificacion = $('#tipoIdentificacionProfesor').val();
                 var numeroIdentificacion = $('#numeroIdentificacionProfesor').val();
@@ -758,16 +1516,156 @@
                            }    
                         },
                         error: function(e){
-                            bootstrap_alert_profesoresProyecto.warning(e);
+                            bootstrap_alert_profesores_proyecto.warning(e);
                         }
                     });
                 } else {
                     if ($('#tipoIdentificacionProfesor').val() == "") {
-                        bootstrap_alert_profesoresProyecto.warning('Debe seleccionar el tipo de identificación');
+                        bootstrap_alert_profesores_proyecto.warning('Debe seleccionar el tipo de identificación');
                         return false;
                     }
                     if ($('#numeroIdentificacionProfesor').val() == "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe ingresar el número de identificación');
+                        return false;
+                    }
+                }
+           }
+           
+            bootstrap_alert_estudiantes_proyecto = function () { };
+            bootstrap_alert_estudiantes_proyecto.warning = function (message) {
+                $('#alert_placeholder_estudiantes_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_estudiantes_proyecto.removeWarning = function () {
+                $('#alert_placeholder_estudiantes_proyecto').html('');
+            };
+            function mostrarVentanaNuevoEstudianteProyecto() {
+                limpiarDatosVentanaEstudianteProyecto();
+                $('#estudianteProyectoModal').modal('show'); 
+            }
+            function limpiarDatosVentanaEstudianteProyecto() {
+                $('#consecutivo').val("");
+                $('#tipoIdentificacionEstudiante').val("");
+                $('#descripcionTipoIdentificacionEstudiante').val("");
+                $('#numeroIdentificacionEstudiante').val("");
+                $('#nombresEstudiante').val("");
+                $('#apellidosEstudiante').val("");
+                $('#contactoEstudiante').val("");
+                $('#correoElectronicoEstudiante').val("");
+                $('#programaEstudiante').val("");
+                $('#rolEstudiante').val("");
+                $('#tipoEstudiante').val("");
+                $('#porcentajePropiedadIntelectualEstudiante').val("");
+                $('#horasSemanaEstudiante').val("");
+                $('#mesesDedicadosEstudiante').val("");
+                $('#semestreEstudiante').val("");            
+            }
+            function buscarEstudiante() {
+                var tipoIdentificacion = $('#tipoIdentificacionEstudiante').val();
+                var numeroIdentificacion = $('#numeroIdentificacionEstudiante').val();
+
+                if(tipoIdentificacion != "" && numeroIdentificacion != ""){
+                      $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/proyectos/buscarEstudiante",
+                        data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                        beforeSend: function(xhr){
+                           xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                        },                        
+                        success: function(response){
+                           if(response != "") {
+                             var estudiante = JSON.parse(response);
+                             $('#nombresEstudiante').val(estudiante.nombres);
+                             $('#apellidosEstudiante').val(estudiante.apellidos);
+                             $('#correoElectronicoEstudiante').val(estudiante.correoElectronico);
+                             $('#contactoEstudiante').val(estudiante.contacto);
+                             $('#tipoEstudiante').val(estudiante.idTipoEstudiante);
+                           } else {
+                             $('#nombresEstudiante').val("");
+                             $('#apellidosEstudiante').val("");
+                             $('#contactoEstudiante').val("");
+                             $('#correoElectronicoEstudiante').val("");
+                             $('#tipoEstudiante').val("");
+                           }    
+                        },
+                        error: function(e){
+                            bootstrap_alert_estudiantes_proyecto.warning(e);
+                        }
+                    });
+                } else {
+                    if ($('#tipoIdentificacionEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe seleccionar el tipo de identificación');
+                        return false;
+                    }
+                    if ($('#numeroIdentificacionEstudiante').val() == "") {
+                        bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar el número de identificación');
+                        return false;
+                    }
+                }
+           }
+           
+            bootstrap_alert_personalExterno_proyecto = function () { };
+            bootstrap_alert_personalExterno_proyecto.warning = function (message) {
+                $('#alert_placeholder_personalExterno_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_personalExterno_proyecto.removeWarning = function () {
+                $('#alert_placeholder_personalExterno_proyecto').html('');
+            };
+            function mostrarVentanaNuevoPersonalExternoProyecto() {
+                limpiarDatosVentanaPersonalExternoProyecto();
+                $('#personalExternoProyectoModal').modal('show'); 
+            }
+            function limpiarDatosVentanaPersonalExternoProyecto() {
+                $('#consecutivo').val("");
+                $('#tipoIdentificacionPersonalExterno').val("");
+                $('#descripcionTipoIdentificacionPersonalExterno').val("");
+                $('#numeroIdentificacionPersonalExterno').val("");
+                $('#nombresPersonalExterno').val("");
+                $('#apellidosPersonalExterno').val("");
+                $('#entidadPersonalExterno').val("");
+                $('#correoElectronicoPersonalExterno').val("");
+                $('#rolPersonalExterno').val("");
+                $('#porcentajePropiedadIntelectualPersonalExterno').val("");
+                $('#horasSemanaPersonalExterno').val("");
+                $('#mesesDedicadosPersonalExterno').val("");
+                $('#cartaCesionDerechosPatrimonioPersonalExterno').prop('checked', false);
+            }
+            function buscarPersonalExterno() {
+                var tipoIdentificacion = $('#tipoIdentificacionPersonalExterno').val();
+                var numeroIdentificacion = $('#numeroIdentificacionPersonalExterno').val();
+
+                if(tipoIdentificacion != "" && numeroIdentificacion != ""){
+                      $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/proyectos/buscarPersonalExterno",
+                        data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                        beforeSend: function(xhr){
+                           xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                        },                        
+                        success: function(response){
+                           if(response != "") {
+                             var personalExterno = JSON.parse(response);
+                             $('#nombresPersonalExterno').val(personalExterno.nombres);
+                             $('#apellidosPersonalExterno').val(personalExterno.apellidos);
+                             $('#correoElectronicoPersonalExterno').val(personalExterno.correoElectronico);
+                             $('#entidadPersonalExterno').val(personalExterno.entidad);
+                           } else {
+                             $('#nombresPersonalExterno').val("");
+                             $('#apellidosPersonalExterno').val("");
+                             $('#correoElectronicoPersonalExterno').val("");
+                             $('#entidadPersonalExterno').val("");
+                           }    
+                        },
+                        error: function(e){
+                            bootstrap_alert_personalExterno_proyecto.warning(e);
+                        }
+                    });
+                } else {
+                    if ($('#tipoIdentificacionPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe seleccionar el tipo de identificación');
+                        return false;
+                    }
+                    if ($('#numeroIdentificacionPersonalExterno').val() == "") {
+                        bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar el número de identificación');
                         return false;
                     }
                 }

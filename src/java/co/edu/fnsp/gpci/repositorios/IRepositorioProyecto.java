@@ -5,9 +5,11 @@
  */
 package co.edu.fnsp.gpci.repositorios;
 
+import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
+import co.edu.fnsp.gpci.entidadesVista.Estudiante;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -21,4 +23,6 @@ public interface IRepositorioProyecto {
    Proyecto obtenerProyecto(long idProyecto); 
    ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal); 
    Profesor obtenerProfesor(long numeroIdentificacion, int idTipoIdentificacion);
+   Estudiante obtenerEstudiante(long numeroIdentificacion, int idTipoIdentificacion);
+   PersonalExterno obtenerPersonalExterno(long numeroIdentificacion, int idTipoIdentificacion);
 }

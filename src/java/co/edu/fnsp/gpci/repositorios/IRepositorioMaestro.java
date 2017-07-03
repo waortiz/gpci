@@ -11,9 +11,11 @@ import co.edu.fnsp.gpci.entidades.EnfoqueMetodologico;
 import co.edu.fnsp.gpci.entidades.EstadoProyecto;
 import co.edu.fnsp.gpci.entidades.Facultad;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.Programa;
 import co.edu.fnsp.gpci.entidades.RiesgoEtico;
 import co.edu.fnsp.gpci.entidades.Rol;
 import co.edu.fnsp.gpci.entidades.TipoContrato;
+import co.edu.fnsp.gpci.entidades.TipoEstudiante;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import java.util.ArrayList;
@@ -45,4 +47,8 @@ public interface IRepositorioMaestro {
     ArrayList<Rol> obtenerRoles();
     
     ArrayList<Facultad> obtenerFacultades();
+
+    ArrayList<TipoEstudiante> obtenerTiposEstudiante();
+
+    ArrayList<Programa> obtenerProgramas();
 }

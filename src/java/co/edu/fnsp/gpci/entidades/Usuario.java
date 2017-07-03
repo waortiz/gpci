@@ -5,13 +5,14 @@
  */
 package co.edu.fnsp.gpci.entidades;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  *
  * @author William
  */
-public class Usuario {
+public class Usuario implements Serializable {
 
     /**
      * @return the idUsuario

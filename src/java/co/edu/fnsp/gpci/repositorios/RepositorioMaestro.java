@@ -11,9 +11,11 @@ import co.edu.fnsp.gpci.entidades.EnfoqueMetodologico;
 import co.edu.fnsp.gpci.entidades.EstadoProyecto;
 import co.edu.fnsp.gpci.entidades.Facultad;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.Programa;
 import co.edu.fnsp.gpci.entidades.RiesgoEtico;
 import co.edu.fnsp.gpci.entidades.Rol;
 import co.edu.fnsp.gpci.entidades.TipoContrato;
+import co.edu.fnsp.gpci.entidades.TipoEstudiante;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import java.util.ArrayList;
@@ -44,6 +46,8 @@ public class RepositorioMaestro implements IRepositorioMaestro {
     private SimpleJdbcCall obtenerTiposIdentificacion;
     private SimpleJdbcCall obtenerRoles;
     private SimpleJdbcCall obtenerFacultades;
+    private SimpleJdbcCall obtenerTiposEstudiante;
+    private SimpleJdbcCall obtenerProgramas;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -72,6 +76,10 @@ public class RepositorioMaestro implements IRepositorioMaestro {
                 returningResultSet("roles", BeanPropertyRowMapper.newInstance(Rol.class));
         this.obtenerFacultades = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerFacultades").
                 returningResultSet("facultades", BeanPropertyRowMapper.newInstance(Facultad.class));
+        this.obtenerTiposEstudiante = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerTiposEstudiante").
+                returningResultSet("tiposEstudiante", BeanPropertyRowMapper.newInstance(TipoEstudiante.class));
+        this.obtenerProgramas = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProgramas").
+                returningResultSet("programas", BeanPropertyRowMapper.newInstance(Programa.class));
     }
 
     @Override
@@ -160,6 +168,22 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         ArrayList<Facultad> facultades = (ArrayList<Facultad>) resultado.get("facultades");
 
         return facultades;    
+    }
+
+    @Override
+    public ArrayList<TipoEstudiante> obtenerTiposEstudiante() {
+        Map resultado = obtenerTiposEstudiante.execute(new HashMap<>());
+        ArrayList<TipoEstudiante> tiposEstudiante = (ArrayList<TipoEstudiante>) resultado.get("tiposEstudiante");
+
+        return tiposEstudiante;   
+    }
+
+    @Override
+    public ArrayList<Programa> obtenerProgramas() {
+        Map resultado = obtenerProgramas.execute(new HashMap<>());
+        ArrayList<Programa> programas = (ArrayList<Programa>) resultado.get("programas");
+
+        return programas;   
     }
 
 }
