@@ -132,40 +132,40 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         Map resultado = ingresarProyecto.execute(parametros);
 
         long idProyecto = (long) resultado.get("varIdProyecto");
-        MapSqlParameterSource parametrosObjetivoEspecifico = new MapSqlParameterSource();
-        parametrosObjetivoEspecifico.addValue("varIdProyecto", idProyecto);
+        MapSqlParameterSource parametrosIngresoObjetivoEspecifico = new MapSqlParameterSource();
+        parametrosIngresoObjetivoEspecifico.addValue("varIdProyecto", idProyecto);
         for (ObjetivoEspecifico objetivo : proyecto.getObjetivosEspecificos()) {
-            parametrosObjetivoEspecifico.addValue("varDescripcion", objetivo.getDescripcion());
-            ingresarObjetivoEspecificoProyecto.execute(parametrosObjetivoEspecifico);
+            parametrosIngresoObjetivoEspecifico.addValue("varDescripcion", objetivo.getDescripcion());
+            ingresarObjetivoEspecificoProyecto.execute(parametrosIngresoObjetivoEspecifico);
         }
 
-        MapSqlParameterSource parametrosProfesorProyecto = new MapSqlParameterSource();
-        parametrosProfesorProyecto.addValue("varIdProyecto", idProyecto);
+        MapSqlParameterSource parametrosIngresoProfesorProyecto = new MapSqlParameterSource();
+        parametrosIngresoProfesorProyecto.addValue("varIdProyecto", idProyecto);
         for (co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto profesorProyecto : proyecto.getProfesoresProyecto()) {
-            parametrosProfesorProyecto.addValue("varCodigoVinculacionUdeA", profesorProyecto.getCodigoVinculacionUdeA());
-            parametrosProfesorProyecto.addValue("varCartacesionderechospatrimonio", profesorProyecto.isCartaCesionDerechosPatrimonio());
-            parametrosProfesorProyecto.addValue("varIdFacultad", profesorProyecto.getIdFacultad());
-            parametrosProfesorProyecto.addValue("varHorasSemana", profesorProyecto.getHorasSemana());
+            parametrosIngresoProfesorProyecto.addValue("varCodigoVinculacionUdeA", profesorProyecto.getCodigoVinculacionUdeA());
+            parametrosIngresoProfesorProyecto.addValue("varCartacesionderechospatrimonio", profesorProyecto.isCartaCesionDerechosPatrimonio());
+            parametrosIngresoProfesorProyecto.addValue("varIdFacultad", profesorProyecto.getIdFacultad());
+            parametrosIngresoProfesorProyecto.addValue("varHorasSemana", profesorProyecto.getHorasSemana());
             if (profesorProyecto.getHorasSemanaFueraPlan().length() == 0) {
-                parametrosProfesorProyecto.addValue("varHorasSemanaFueraPlan", null);
+                parametrosIngresoProfesorProyecto.addValue("varHorasSemanaFueraPlan", null);
             } else {
-                parametrosProfesorProyecto.addValue("varHorasSemanaFueraPlan", profesorProyecto.getHorasSemanaFueraPlan());
+                parametrosIngresoProfesorProyecto.addValue("varHorasSemanaFueraPlan", profesorProyecto.getHorasSemanaFueraPlan());
             }
             if (profesorProyecto.getMesesFueraPlan().length() == 0) {
-                parametrosProfesorProyecto.addValue("varMesesFueraPlan", null);
+                parametrosIngresoProfesorProyecto.addValue("varMesesFueraPlan", null);
             } else {
-                parametrosProfesorProyecto.addValue("varMesesFueraPlan", profesorProyecto.getMesesFueraPlan());
+                parametrosIngresoProfesorProyecto.addValue("varMesesFueraPlan", profesorProyecto.getMesesFueraPlan());
             }
-            parametrosProfesorProyecto.addValue("varMesesDedicados", profesorProyecto.getMesesDedicados());
-            parametrosProfesorProyecto.addValue("varPorcentajePI", profesorProyecto.getPorcentajePI());
-            parametrosProfesorProyecto.addValue("varIdRol", profesorProyecto.getIdRol());
-            parametrosProfesorProyecto.addValue("varApellidos", profesorProyecto.getApellidos());
-            parametrosProfesorProyecto.addValue("varContacto", profesorProyecto.getContacto());
-            parametrosProfesorProyecto.addValue("varCorreoElectronico", profesorProyecto.getCorreoElectronico());
-            parametrosProfesorProyecto.addValue("varNombres", profesorProyecto.getNombres());
-            parametrosProfesorProyecto.addValue("varNumeroIdentificacion", profesorProyecto.getNumeroIdentificacion());
-            parametrosProfesorProyecto.addValue("varIdTipoIdentificacion", profesorProyecto.getIdTipoIdentificacion());
-            ingresarProfesorProyecto.execute(parametrosProfesorProyecto);
+            parametrosIngresoProfesorProyecto.addValue("varMesesDedicados", profesorProyecto.getMesesDedicados());
+            parametrosIngresoProfesorProyecto.addValue("varPorcentajePI", profesorProyecto.getPorcentajePI());
+            parametrosIngresoProfesorProyecto.addValue("varIdRol", profesorProyecto.getIdRol());
+            parametrosIngresoProfesorProyecto.addValue("varApellidos", profesorProyecto.getApellidos());
+            parametrosIngresoProfesorProyecto.addValue("varContacto", profesorProyecto.getContacto());
+            parametrosIngresoProfesorProyecto.addValue("varCorreoElectronico", profesorProyecto.getCorreoElectronico());
+            parametrosIngresoProfesorProyecto.addValue("varNombres", profesorProyecto.getNombres());
+            parametrosIngresoProfesorProyecto.addValue("varNumeroIdentificacion", profesorProyecto.getNumeroIdentificacion());
+            parametrosIngresoProfesorProyecto.addValue("varIdTipoIdentificacion", profesorProyecto.getIdTipoIdentificacion());
+            ingresarProfesorProyecto.execute(parametrosIngresoProfesorProyecto);
         }
 
         MapSqlParameterSource parametrosIngresoEstudianteProyecto = new MapSqlParameterSource();
@@ -193,28 +193,28 @@ public class RepositorioProyecto implements IRepositorioProyecto {
             ingresarEstudianteProyecto.execute(parametrosIngresoEstudianteProyecto);
         }
 
-        MapSqlParameterSource parametrosPersonalExternoProyecto = new MapSqlParameterSource();
-        parametrosPersonalExternoProyecto.addValue("varIdProyecto", idProyecto);
+        MapSqlParameterSource parametrosIngresoPersonalExternoProyecto = new MapSqlParameterSource();
+        parametrosIngresoPersonalExternoProyecto.addValue("varIdProyecto", idProyecto);
         for (co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto profesorProyecto : proyecto.getPersonalExternoProyecto()) {
-            parametrosPersonalExternoProyecto.addValue("varCartacesionderechospatrimonio", profesorProyecto.isCartaCesionDerechosPatrimonio());
-            parametrosPersonalExternoProyecto.addValue("varHorasSemana", profesorProyecto.getHorasSemana());
-            parametrosPersonalExternoProyecto.addValue("varMesesDedicados", profesorProyecto.getMesesDedicados());
-            parametrosPersonalExternoProyecto.addValue("varPorcentajePropiedadIntelectual", profesorProyecto.getPorcentajePropiedadIntelectual());
-            parametrosPersonalExternoProyecto.addValue("varIdRol", profesorProyecto.getIdRol());
-            parametrosPersonalExternoProyecto.addValue("varApellidos", profesorProyecto.getApellidos());
-            parametrosPersonalExternoProyecto.addValue("varEntidad", profesorProyecto.getEntidad());
-            parametrosPersonalExternoProyecto.addValue("varCorreoElectronico", profesorProyecto.getCorreoElectronico());
-            parametrosPersonalExternoProyecto.addValue("varNombres", profesorProyecto.getNombres());
-            parametrosPersonalExternoProyecto.addValue("varNumeroIdentificacion", profesorProyecto.getNumeroIdentificacion());
-            parametrosPersonalExternoProyecto.addValue("varIdTipoIdentificacion", profesorProyecto.getIdTipoIdentificacion());
-            ingresarPersonalExternoProyecto.execute(parametrosPersonalExternoProyecto);
+            parametrosIngresoPersonalExternoProyecto.addValue("varCartacesionderechospatrimonio", profesorProyecto.isCartaCesionDerechosPatrimonio());
+            parametrosIngresoPersonalExternoProyecto.addValue("varHorasSemana", profesorProyecto.getHorasSemana());
+            parametrosIngresoPersonalExternoProyecto.addValue("varMesesDedicados", profesorProyecto.getMesesDedicados());
+            parametrosIngresoPersonalExternoProyecto.addValue("varPorcentajePropiedadIntelectual", profesorProyecto.getPorcentajePropiedadIntelectual());
+            parametrosIngresoPersonalExternoProyecto.addValue("varIdRol", profesorProyecto.getIdRol());
+            parametrosIngresoPersonalExternoProyecto.addValue("varApellidos", profesorProyecto.getApellidos());
+            parametrosIngresoPersonalExternoProyecto.addValue("varEntidad", profesorProyecto.getEntidad());
+            parametrosIngresoPersonalExternoProyecto.addValue("varCorreoElectronico", profesorProyecto.getCorreoElectronico());
+            parametrosIngresoPersonalExternoProyecto.addValue("varNombres", profesorProyecto.getNombres());
+            parametrosIngresoPersonalExternoProyecto.addValue("varNumeroIdentificacion", profesorProyecto.getNumeroIdentificacion());
+            parametrosIngresoPersonalExternoProyecto.addValue("varIdTipoIdentificacion", profesorProyecto.getIdTipoIdentificacion());
+            ingresarPersonalExternoProyecto.execute(parametrosIngresoPersonalExternoProyecto);
         }
 
-        MapSqlParameterSource parametrosCompromiso = new MapSqlParameterSource();
-        parametrosCompromiso.addValue("varIdProyecto", idProyecto);
+        MapSqlParameterSource parametrosIngresoCompromiso = new MapSqlParameterSource();
+        parametrosIngresoCompromiso.addValue("varIdProyecto", idProyecto);
         for (CompromisoProyecto compromiso : proyecto.getCompromisosProyecto()) {
-            parametrosCompromiso.addValue("varDescripcion", compromiso.getDescripcion());
-            ingresarCompromisoProyecto.execute(parametrosCompromiso);
+            parametrosIngresoCompromiso.addValue("varDescripcion", compromiso.getDescripcion());
+            ingresarCompromisoProyecto.execute(parametrosIngresoCompromiso);
         }
     }
 

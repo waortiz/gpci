@@ -301,7 +301,7 @@ public class ProyectoController {
      * @return
      */
     @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
-    public String mostrarEdicionProyecto(@PathVariable long id, Model model) {
+    public String obtenerProyecto(@PathVariable long id, Model model) {
         List<AreaTematica> areasTematicas = servicioMaestro.obtenerAreasTematicas();
         List<TipoProyecto> tiposProyecto = servicioMaestro.obtenerTiposProyecto();
         List<GrupoInvestigacion> gruposInvestigacion = servicioMaestro.obtenerGruposInvestigacion();

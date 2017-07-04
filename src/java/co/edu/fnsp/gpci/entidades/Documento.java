@@ -10,25 +10,10 @@ package co.edu.fnsp.gpci.entidades;
  * @author William
  */
 public class Documento {
-    private long idDocumento;
     private String nombre;
     private String tipoContenido;
     private byte[] contenido;
     
-    /**
-     * @return the idDocumento
-     */
-    public long getIdDocumento() {
-        return idDocumento;
-    }
-
-    /**
-     * @param idDocumento the idDocumento to set
-     */
-    public void setIdDocumento(long idDocumento) {
-        this.idDocumento = idDocumento;
-    }
-
     /**
      * @return the nombre
      */

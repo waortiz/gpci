@@ -206,7 +206,7 @@
                                         <table class="tblform3">
                                             <tr>
                                                 <td>
-                                                    <textarea id="objetivoEspecifico" name="objetivoEspecifico" class="form-control"></textarea>
+                                                    <textarea id="objetivoEspecifico" name="objetivoEspecifico" class="form-control" rows="5"></textarea>
                                                     <input type="hidden" id="consecutivo" name="consecutivo" />
                                                 </td>
                                             </tr>

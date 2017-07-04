@@ -13,10 +13,8 @@ import java.util.Date;
  */
 public class Adenda {
      private long idAdenda;
-     private long idProyecto;
      private Date fecha;
      private String modificacion;
-     private int consecutivo;
 
     /**
      * @return the idAdenda
@@ -30,20 +28,6 @@ public class Adenda {
      */
     public void setIdAdenda(long idAdenda) {
         this.idAdenda = idAdenda;
-    }
-
-    /**
-     * @return the idProyecto
-     */
-    public long getIdProyecto() {
-        return idProyecto;
-    }
-
-    /**
-     * @param idProyecto the idProyecto to set
-     */
-    public void setIdProyecto(long idProyecto) {
-        this.idProyecto = idProyecto;
     }
 
     /**
@@ -72,19 +56,5 @@ public class Adenda {
      */
     public void setModificacion(String modificacion) {
         this.modificacion = modificacion;
-    }
-
-    /**
-     * @return the consecutivo
-     */
-    public int getConsecutivo() {
-        return consecutivo;
-    }
-
-    /**
-     * @param consecutivo the consecutivo to set
-     */
-    public void setConsecutivo(int consecutivo) {
-        this.consecutivo = consecutivo;
     }
 }

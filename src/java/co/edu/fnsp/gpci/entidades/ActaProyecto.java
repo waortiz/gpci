@@ -12,11 +12,11 @@ import java.util.Date;
  * @author William
  */
 public class ActaProyecto {
+
     private long idActa;
-    private long idProyecto;
     private String nombre;
-    private Date fechaActa;
-    private String observacionesActa;
+    private Date fecha;
+    private String observaciones;
 
     /**
      * @return the idActa
@@ -30,20 +30,6 @@ public class ActaProyecto {
      */
     public void setIdActa(long idActa) {
         this.idActa = idActa;
-    }
-
-    /**
-     * @return the idProyecto
-     */
-    public long getIdProyecto() {
-        return idProyecto;
-    }
-
-    /**
-     * @param idProyecto the idProyecto to set
-     */
-    public void setIdProyecto(long idProyecto) {
-        this.idProyecto = idProyecto;
     }
 
     /**
@@ -61,30 +47,30 @@ public class ActaProyecto {
     }
 
     /**
-     * @return the fechaActa
+     * @return the fecha
      */
-    public Date getFechaActa() {
-        return fechaActa;
+    public Date getFecha() {
+        return fecha;
     }
 
     /**
-     * @param fechaActa the fechaActa to set
+     * @param fecha the fecha to set
      */
-    public void setFechaActa(Date fechaActa) {
-        this.fechaActa = fechaActa;
+    public void setFecha(Date fecha) {
+        this.fecha = fecha;
+    }
+    
+    /**
+    * @return the observaciones
+    */
+    public String getObservaciones() {
+        return observaciones;
     }
 
     /**
-     * @return the observacionesActa
+     * @param observaciones the observaciones to set
      */
-    public String getObservacionesActa() {
-        return observacionesActa;
-    }
-
-    /**
-     * @param observacionesActa the observacionesActa to set
-     */
-    public void setObservacionesActa(String observacionesActa) {
-        this.observacionesActa = observacionesActa;
+    public void setObservaciones(String observaciones) {
+        this.observaciones = observaciones;
     }
 }

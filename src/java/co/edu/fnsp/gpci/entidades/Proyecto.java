@@ -47,7 +47,9 @@ public class Proyecto {
     private ArrayList<co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto> profesoresProyecto = new ArrayList<>();
     private ArrayList<ActaProyecto> actasProyecto = new ArrayList<>();
     private ArrayList<Prorroga> prorrogas = new ArrayList<>();
-
+    private ArrayList<Adenda> adendas = new ArrayList<>();
+    private ArrayList<Adicion> adiciones = new ArrayList<>();
+    
     /**
      * @return the personalExternoProyecto
      */
@@ -505,5 +507,33 @@ public class Proyecto {
                 + ", Convocatoria: " + convocatoria
                 + ", objetivoGeneral: " + objetivoGeneral
                 + ", EstadoProyecto: " + estado + "}";
+    }
+
+    /**
+     * @return the adendas
+     */
+    public ArrayList<Adenda> getAdendas() {
+        return adendas;
+    }
+
+    /**
+     * @param adendas the adendas to set
+     */
+    public void setAdendas(ArrayList<Adenda> adendas) {
+        this.adendas = adendas;
+    }
+
+    /**
+     * @return the adiciones
+     */
+    public ArrayList<Adicion> getAdiciones() {
+        return adiciones;
+    }
+
+    /**
+     * @param adiciones the adiciones to set
+     */
+    public void setAdiciones(ArrayList<Adicion> adiciones) {
+        this.adiciones = adiciones;
     }
 }
