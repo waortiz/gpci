@@ -88,7 +88,7 @@ public class ProyectoController {
     }
 
     @RequestMapping(value = "/buscarProyectos", method = RequestMethod.POST)
-    public String buscarProfesor(@ModelAttribute(value = "busquedaProyectos") BusquedaProyectos busquedaProyectos, Model model) {
+    public String buscarProyectos(@ModelAttribute(value = "busquedaProyectos") BusquedaProyectos busquedaProyectos, Model model) {
 
         SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
