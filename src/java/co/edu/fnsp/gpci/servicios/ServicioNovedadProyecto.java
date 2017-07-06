@@ -14,6 +14,10 @@ import java.util.ArrayList;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
+import org.springframework.transaction.TransactionStatus;
+import org.springframework.transaction.support.DefaultTransactionDefinition;
 
 /**
  *
@@ -25,6 +29,9 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
     @Autowired
     private IRepositorioNovedadProyecto repositorioNovedadProyecto;
 
+    @Autowired
+    private PlatformTransactionManager transactionManager;
+    
     @Override
     public Proyecto obtenerProyecto(long idProyecto) {
         return repositorioNovedadProyecto.obtenerProyecto(idProyecto);
@@ -37,7 +44,15 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void guardarActaProyecto(long idProyecto, ActaProyecto actaProyecto, Documento documento) {
-        repositorioNovedadProyecto.guardarActaProyecto(idProyecto, actaProyecto, documento);
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.guardarActaProyecto(idProyecto, actaProyecto, documento);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }
     }
 
     @Override
@@ -52,6 +67,14 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void eliminarActaProyecto(long idActa) {
-        repositorioNovedadProyecto.eliminarActaProyecto(idActa);
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.eliminarActaProyecto(idActa);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }
     }
 }

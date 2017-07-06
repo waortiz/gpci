@@ -13,4 +13,5 @@ import co.edu.fnsp.gpci.entidades.Usuario;
  */
 public interface IServicioSeguridad {
     Usuario obtenerUsuario(String nombreUsuario);
+    void crearUsuario(Usuario usuario);
 }

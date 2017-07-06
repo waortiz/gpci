@@ -24,5 +24,10 @@ public class ServicioSeguridad implements IServicioSeguridad {
     public Usuario obtenerUsuario(String nombreUsuario) {
         return repositorioSeguridad.obtenerUsuario(nombreUsuario);
     }
+
+    @Override
+    public void crearUsuario(Usuario usuario) {
+        repositorioSeguridad.crearUsuario(usuario);
+    }
     
 }

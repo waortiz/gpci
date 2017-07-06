@@ -176,8 +176,8 @@
                         <table class="table table-hover" style="width: 90%" align="center" >
                             <tr class="table-row">
                                 <th style="width: 20%;text-align: center">Nombre</th>
-                                <th style="width: 60%;text-align: center">Observaciones</th>
-                                <th style="width: 10%;text-align: center">Documento</th>
+                                <th style="width: 80%;text-align: center">Observaciones</th>
+                                <th style="width: 5%;text-align: center">&nbsp;</th>
                                 <th style="width: 5%">&nbsp;</th>
                                 <th style="width: 5%">&nbsp;</th>
                             </tr>
@@ -188,23 +188,23 @@
                                     <span data-bind="text: nombre" ></span>
                                     <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'actas[' + $index() + '].nombre'  }">
                                 </td>
-                                <td style="width: 60%">
+                                <td style="width: 65%">
                                     <span data-bind="text: observaciones" ></span>
                                     <input type="hidden" class="form-control" data-bind="value: observaciones, attr: { 'name': 'actas[' + $index() + '].observaciones'  }">
                                 </td>
-                                <td style="width: 10%">
-                                    <button class="btn btn-dark" data-bind="click: $root.verDocumentoActa">
-                                        <i class="glyphicon glyphicon-adjust"></i>
+                                <td style="width: 5%">
+                                    <button class="btn btn-dark" data-bind="click: $root.verDocumentoActa" title="Ver acta">
+                                        <i class="glyphicon glyphicon-download-alt"></i>
                                     </button>
                                 </td>
                                 <td style="width: 5%">
-                                    <button class="btn btn-dark" data-bind="click: $root.eliminarActa">
+                                    <button class="btn btn-dark" data-bind="click: $root.eliminarActa" title="Eliminar acta">
                                         <i class="glyphicon glyphicon-trash"></i>
                                     </button>
                                     <input type="hidden" data-bind="value: idActa, attr: { 'name': 'actas[' + $index() + '].idActa'  }" />
                                 </td>
                                 <td style="width: 5%">
-                                    <button class="btn btn-dark" data-bind="click: $root.editarActa">
+                                    <button class="btn btn-dark" data-bind="click: $root.editarActa" title="Editar acta">
                                         <i class="glyphicon glyphicon-edit"></i>
                                     </button>
                                 </td>
@@ -232,7 +232,7 @@
                                                 <td>
                                                     <input id="nombreActa" name="nombreActa" class="form-control" />
                                                     <input type="hidden" id="consecutivo" name="consecutivo" />
-                                                    <input type="hidden" id="idActa" name="idActa" />
+                                                    <input type="hidden" id="idActa" name="idActa" value="0"/>
                                                     <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                     <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                                 </td>
@@ -257,7 +257,7 @@
                                     </div>
                                     <div class="modal-footer">
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" data-bind="click: adicionarActa">Aceptar</button>
+                                        <button type="submit" class="btn btn-primary">Aceptar</button>
                                     </div>   
                                 </form:form>
                             </div>
@@ -286,11 +286,9 @@
                                     scrollToTopOnError: false // Set this property to true on longer forms
                                 });
 
-                                var ProyectoModel = function (actas) {
-                                    self = this;
-
-                                    self.actas = ko.observableArray(actas);
-                                    self.adicionarActa = function () {
+                                $('#actaProyecto').submit(function(evt) {
+                                        evt.preventDefault();
+                                        var formData = new FormData(this);
                                         if ($('#nombreActa').val() == "") {
                                             bootstrap_alert_acta.warning('Debe ingresar el nombre');
                                             return false;
@@ -305,37 +303,41 @@
                                         }
                                         $('#actaModal').modal('toggle');
                                         bootstrap_alert_acta.removeWarning();
-                                        var actaProyecto = new FormData();
-                                        actaProyecto.append("idActa", $('#idActa').val());
-                                        actaProyecto.append("idProyecto", $('#idProyecto').val());
-                                        actaProyecto.append("nombre", $('#nombreActa').val());
-                                        actaProyecto.append("archivo", $('#documentoActa').prop('files'));
-                                        actaProyecto.append("observaciones", $('#observacionesActa').val());
-                                        $("#actaProyecto").submit();
-                                        /*$.ajax({
+                                        $.ajax({
                                          type: "POST",
                                          url: "${pageContext.request.contextPath}/novedades/actaProyecto",
-                                         data: JSON.stringify(actaProyecto),
-                                         dataType : 'json',
-                                         headers: { 
-                                         'Accept': 'application/json',
-                                         'Content-Type': 'application/json' 
-                                         },                      
+                                         data: formData,
                                          processData: false,
+                                         contentType: false,
                                          beforeSend: function(xhr){
-                                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
-                                         },                        
+                                           xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                                         },                                         
                                          success: function(response){
-                                         bootstrap_alert_actas.warning("Acta almacenada exitosamente");
-                                         limpiarDatosVentanaActa();
-                                         if(response != "") {
-                                         self.actas = ko.observableArray(response);
-                                         }
+                                            bootstrap_alert_actas.warning("Acta almacenada exitosamente");
+                                            limpiarDatosVentanaActa();
+                                            proyectoModel.actas.removeAll();
+                                            if(response != "") {
+                                                var actas = JSON.parse(response);
+                                                for (var i = 0; i < actas.length; i++) {
+                                                    proyectoModel.actas.push(
+                                                            {
+                                                            idActa: ko.observable(actas[i].idActa),
+                                                            consecutivo: ko.observable(i),
+                                                            nombre: ko.observable(actas[i].nombre),
+                                                            observaciones: ko.observable(actas[i].observaciones)
+                                                            }
+                                                            );
+                                                } 
+                                            }
                                          },
                                          error: function(xhr, ajaxOptions, thrownError){
-                                         bootstrap_alert_actas.warning("Error al ingresar el acta: " + thrownError  + ". " + ajaxOptions);
-                                         }});*/
-                                    };
+                                            bootstrap_alert_actas.warning("Error al ingresar el acta: " + thrownError);
+                                         }});    
+                                });
+
+                                var ProyectoModel = function (actas) {
+                                    self = this;
+                                    self.actas = ko.observableArray(actas);
                                     self.verDocumentoActa = function (acta) {
                                         $.ajax({
                                             type: 'GET',
@@ -354,28 +356,25 @@
                                             }
                                         });
                                     };
-                                    self.eliminarActa = function (acta) {
+                                    self.eliminarActa = function (acta) { 
                                         $.ajax({
                                             type: 'GET',
-                                            url: "${pageContext.request.contextPath}/novedades/eliminarActa/" + $('#idProyecto').val() + "/" + acta.idActa,
+                                            url: "${pageContext.request.contextPath}/novedades/eliminarActa/" + acta.idActa(),
                                             beforeSend: function (xhr) {
                                                 xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                                             },
                                             success: function (response) {
                                                 bootstrap_alert_actas.warning("Acta eliminada exitosamnete");
-                                                limpiarDatosVentanaActa();
-                                                if (response != "") {
-                                                    self.actas = ko.observableArray(response);
-                                                }
+                                                self.actas.remove(acta);
                                             },
-                                            error: function (e) {
-                                                bootstrap_alert_actas.warning("Error al eliminar el acta: " + e);
+                                            error: function (xhr, ajaxOptions, thrownError) {
+                                                bootstrap_alert_actas.warning("Error al eliminar el acta: " + thrownError);
                                             }});
                                     };
                                     self.editarActa = function (acta) {
                                         $('#idActa').val(acta.idActa());
-                                        $('#observaciones').val(acta.observaciones());
-                                        $('#nombre').val(acta.nombre());
+                                        $('#observacionesActa').val(acta.observaciones());
+                                        $('#nombreActa').val(acta.nombre());
                                         $('#consecutivo').val(acta.consecutivo());
                                         $('#actaModal').modal('show');
                                     };
@@ -383,9 +382,9 @@
 
                                 var actas = new Array();
 
-            <c:if test = "${actasJSON != null}">
-                                actas = ${actasJSON};
-            </c:if>
+                                <c:if test = "${actasProyectoJSON != null}">
+                                actas = ${actasProyectoJSON};
+                                </c:if>
 
                                 var proyectoModel = new ProyectoModel(actas);
                                 ko.applyBindings(proyectoModel);
@@ -409,6 +408,7 @@
                                     $('#actaModal').modal('show');
                                 }
                                 function limpiarDatosVentanaActa() {
+                                    $('#idActa').val(0);
                                     $('#observacionesActa').val("");
                                     $('#nombreActa').val("");
                                     $('#consecutivo').val("");

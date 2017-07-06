@@ -25,12 +25,14 @@ import org.springframework.stereotype.Service;
 public class RepositorioSeguridad implements IRepositorioSeguridad {
 
     private SimpleJdbcCall obtenerUsuario;
+    private SimpleJdbcCall ingresarUsuario;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcTemplate.setResultsMapCaseInsensitive(true);
-        this.obtenerUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerUsuario");
+        this.obtenerUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerUsuario");
+        this.ingresarUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarUsuario");
     }
 
     @Override
@@ -45,6 +47,7 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
             usuario.setNombres((String) resultado.get("varNombres"));
             usuario.setApellidos((String) resultado.get("varApellidos"));
             usuario.setClave((String) resultado.get("varClave"));
+            usuario.setCorreoElectronico((String) resultado.get("varCorreoElectronico"));
             usuario.setIdUsuario(Integer.parseInt(resultado.get("varIdUsuario").toString()));
             RolUsuario r = new RolUsuario();
             r.setName("ROLE_USER");
@@ -54,6 +57,17 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
         }
 
         return usuario;
+    }
+
+    @Override
+    public void crearUsuario(Usuario usuario) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varNombreUsuario", usuario.getNombreUsuario());
+        parametros.addValue("varClave", usuario.getClave());
+        parametros.addValue("varNombres", usuario.getNombres());
+        parametros.addValue("varApellidos", usuario.getApellidos());
+        parametros.addValue("varCorreoElectronico", usuario.getCorreoElectronico());
+        ingresarUsuario.execute(parametros);
     }
 
 }

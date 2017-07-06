@@ -7,18 +7,33 @@ package co.edu.fnsp.gpci.entidadesVista;
 
 import org.springframework.web.multipart.MultipartFile;
 
+
 /**
  *
  * @author William
  */
 public class ActaProyecto {
 
+    /**
+     * @return the documentoActa
+     */
+    public MultipartFile getDocumentoActa() {
+        return documentoActa;
+    }
+
+    /**
+     * @param documentoActa the documentoActa to set
+     */
+    public void setDocumentoActa(MultipartFile documentoActa) {
+        this.documentoActa = documentoActa;
+    }
+
     private long idActa;
     private long idProyecto;
-    private String nombre;
-    private String observaciones;
-    private MultipartFile archivo;
-    
+    private String nombreActa;
+    private String observacionesActa;
+    private MultipartFile documentoActa;
+            
     /**
      * @return the idActa
      */
@@ -34,34 +49,6 @@ public class ActaProyecto {
     }
 
     /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    /**
-    * @return the observaciones
-    */
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    /**
-     * @param observaciones the observaciones to set
-     */
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    /**
      * @return the idProyecto
      */
     public long getIdProyecto() {
@@ -74,18 +61,32 @@ public class ActaProyecto {
     public void setIdProyecto(long idProyecto) {
         this.idProyecto = idProyecto;
     }
-    
+
     /**
-    * @return the archivo
-    */
-    public MultipartFile getArchivo() {
-        return archivo;
+     * @return the nombreActa
+     */
+    public String getNombreActa() {
+        return nombreActa;
     }
 
     /**
-     * @param archivo the archivo to set
+     * @param nombreActa the nombreActa to set
      */
-    public void setArchivo(MultipartFile archivo) {
-        this.archivo = archivo;
+    public void setNombreActa(String nombreActa) {
+        this.nombreActa = nombreActa;
+    }
+
+    /**
+     * @return the observacionesActa
+     */
+    public String getObservacionesActa() {
+        return observacionesActa;
+    }
+
+    /**
+     * @param observacionesActa the observacionesActa to set
+     */
+    public void setObservacionesActa(String observacionesActa) {
+        this.observacionesActa = observacionesActa;
     }
 }

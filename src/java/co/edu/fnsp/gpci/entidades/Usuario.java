@@ -15,6 +15,34 @@ import java.util.List;
 public class Usuario implements Serializable {
 
     /**
+     * @return the nombreUsuario
+     */
+    public String getNombreUsuario() {
+        return nombreUsuario;
+    }
+
+    /**
+     * @param nombreUsuario the nombreUsuario to set
+     */
+    public void setNombreUsuario(String nombreUsuario) {
+        this.nombreUsuario = nombreUsuario;
+    }
+
+    /**
+     * @return the correoElectronico
+     */
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    /**
+     * @param correoElectronico the correoElectronico to set
+     */
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    /**
      * @return the idUsuario
      */
     public int getIdUsuario() {
@@ -57,20 +85,6 @@ public class Usuario implements Serializable {
     }
 
     /**
-     * @return the nombreUsuario
-     */
-    public String getNombreUsuario() {
-        return nombreUsuario;
-    }
-
-    /**
-     * @param nombreUsuario the nombreUsuario to set
-     */
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
-    }
-
-    /**
      * @return the clave
      */
     public String getClave() {
@@ -89,6 +103,7 @@ public class Usuario implements Serializable {
     private String apellidos;
     private String nombreUsuario;
     private String clave;
+    private String correoElectronico;
     private List<RolUsuario> roles;
 
     /**
