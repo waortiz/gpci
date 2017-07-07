@@ -6,11 +6,11 @@
 package co.edu.fnsp.gpci.entidadesVista;
 
 import co.edu.fnsp.gpci.entidades.ActaProyecto;
-import co.edu.fnsp.gpci.entidades.Adenda;
-import co.edu.fnsp.gpci.entidades.Adicion;
+import co.edu.fnsp.gpci.entidades.AdendaProyecto;
+import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
-import co.edu.fnsp.gpci.entidades.Prorroga;
+import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.utils.Util;
 import java.util.ArrayList;
 
@@ -48,9 +48,9 @@ public class ProyectoEdicion {
     private ArrayList<PersonalExternoProyecto> personalExternoProyecto = new ArrayList<>();
     private ArrayList<CompromisoProyecto> compromisosProyecto = new ArrayList<>();
     private ArrayList<ActaProyecto> actasProyecto = new ArrayList<>();
-    private ArrayList<Prorroga> prorrogas = new ArrayList<>();
-    private ArrayList<Adenda> adendas = new ArrayList<>();
-    private ArrayList<Adicion> adiciones = new ArrayList<>();
+    private ArrayList<ProrrogaProyecto> prorrogasProyecto = new ArrayList<>();
+    private ArrayList<AdendaProyecto> adendasProyecto = new ArrayList<>();
+    private ArrayList<AdicionProyecto> adicionesProyecto = new ArrayList<>();
 
     /**
      * @return the areaTematica
@@ -482,53 +482,74 @@ public class ProyectoEdicion {
     }
 
     /**
-     * @return the prorrogas
-     */
-    public ArrayList<Prorroga> getProrrogas() {
-        return prorrogas;
-    }
-
-    /**
-     * @param prorrogas the prorrogas to set
-     */
-    public void setProrrogas(ArrayList<Prorroga> prorrogas) {
-        this.prorrogas = prorrogas;
-    }
-
-    /**
-     * @return the adendas
-     */
-    public ArrayList<Adenda> getAdendas() {
-        return adendas;
-    }
-
-    /**
-     * @param adendas the adendas to set
-     */
-    public void setAdendas(ArrayList<Adenda> adendas) {
-        this.adendas = adendas;
-    }
-
-    /**
-     * @return the adiciones
-     */
-    public ArrayList<Adicion> getAdiciones() {
-        return adiciones;
-    }
-
-    /**
-     * @param adiciones the adiciones to set
-     */
-    public void setAdiciones(ArrayList<Adicion> adiciones) {
-        this.adiciones = adiciones;
-    }
-
-    /**
      * @return the actasProyecto
      */
     public String getActasProyectoJSON() {
 
         return Util.obtenerActasProyectoJSON(this.actasProyecto);
 
+    }
+
+    /**
+     * @return the prorrogasProyecto
+     */
+    public ArrayList<ProrrogaProyecto> getProrrogasProyecto() {
+        return prorrogasProyecto;
+    }
+
+     /**
+    * @return the prorrogasProyecto
+    */
+    public String getProrrogasProyectoJSON() {
+        return Util.obtenerProrrogasProyectoJSON(prorrogasProyecto);
+    }
+    
+    /**
+     * @param prorrogasProyecto the prorrogasProyecto to set
+     */
+    public void setProrrogasProyecto(ArrayList<ProrrogaProyecto> prorrogasProyecto) {
+        this.prorrogasProyecto = prorrogasProyecto;
+    }
+
+    /**
+     * @return the adendasProyecto
+     */
+    public ArrayList<AdendaProyecto> getAdendasProyecto() {
+        return adendasProyecto;
+    }
+
+    /**
+    * @return the adendasProyecto
+    */
+    public String getAdendasProyectoJSON() {
+        return Util.obtenerAdendasProyectoJSON(adendasProyecto);
+    }
+    
+    /**
+     * @param adendasProyecto the adendasProyecto to set
+     */
+    public void setAdendasProyecto(ArrayList<AdendaProyecto> adendasProyecto) {
+        this.adendasProyecto = adendasProyecto;
+    }
+
+    /**
+     * @return the adicionesProyecto
+     */
+    public ArrayList<AdicionProyecto> getAdicionesProyecto() {
+        return adicionesProyecto;
+    }
+
+    /**
+     * @return the adicionesProyecto
+     */
+    public String getAdicionesProyectoJSON() {
+        return Util.obtenerAdicionesProyectoJSON(adicionesProyecto);
+    }
+    
+    /**
+     * @param adicionesProyecto the adicionesProyecto to set
+     */
+    public void setAdicionesProyecto(ArrayList<AdicionProyecto> adicionesProyecto) {
+        this.adicionesProyecto = adicionesProyecto;
     }
 }

@@ -12,40 +12,24 @@ import java.util.Date;
  *
  * @author William
  */
-public class ActaProyecto {
-
-    private long idActa;
-    private String nombre;
-    private Date fecha;
-    private String fechaFormateada;
-    private String observaciones;
-
+public class AdendaProyecto {
+     private long idAdenda;
+     private Date fecha;
+     private String modificacion;
+     private String fechaFormateada;
+     
     /**
-     * @return the idActa
+     * @return the idAdenda
      */
-    public long getIdActa() {
-        return idActa;
+    public long getIdAdenda() {
+        return idAdenda;
     }
 
     /**
-     * @param idActa the idActa to set
+     * @param idAdenda the idAdenda to set
      */
-    public void setIdActa(long idActa) {
-        this.idActa = idActa;
-    }
-
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setIdAdenda(long idAdenda) {
+        this.idAdenda = idAdenda;
     }
 
     /**
@@ -61,22 +45,22 @@ public class ActaProyecto {
     public void setFecha(Date fecha) {
         this.fecha = fecha;
     }
-    
-    /**
-    * @return the observaciones
-    */
-    public String getObservaciones() {
-        return observaciones;
-    }
 
     /**
-     * @param observaciones the observaciones to set
+     * @return the modificacion
      */
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
+    public String getModificacion() {
+        return modificacion;
     }
 
     /**
+     * @param modificacion the modificacion to set
+     */
+    public void setModificacion(String modificacion) {
+        this.modificacion = modificacion;
+    }
+    
+        /**
      * @return the fechaFormateada
      */
     public String getFechaFormateada() {

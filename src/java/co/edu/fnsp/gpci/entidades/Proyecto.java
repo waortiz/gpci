@@ -46,9 +46,9 @@ public class Proyecto {
     private ArrayList<co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto> personalExternoProyecto = new ArrayList<>();
     private ArrayList<co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto> profesoresProyecto = new ArrayList<>();
     private ArrayList<ActaProyecto> actasProyecto = new ArrayList<>();
-    private ArrayList<Prorroga> prorrogas = new ArrayList<>();
-    private ArrayList<Adenda> adendas = new ArrayList<>();
-    private ArrayList<Adicion> adiciones = new ArrayList<>();
+    private ArrayList<ProrrogaProyecto> prorrogasProyecto = new ArrayList<>();
+    private ArrayList<AdendaProyecto> adendasProyecto = new ArrayList<>();
+    private ArrayList<AdicionProyecto> adicionesProyecto = new ArrayList<>();
     
     /**
      * @return the personalExternoProyecto
@@ -62,20 +62,6 @@ public class Proyecto {
      */
     public void setPersonalExternoProyecto(ArrayList<co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto> personalExternoProyecto) {
         this.personalExternoProyecto = personalExternoProyecto;
-    }
-
-    /**
-     * @return the prorrogas
-     */
-    public ArrayList<Prorroga> getProrrogas() {
-        return prorrogas;
-    }
-
-    /**
-     * @param prorrogas the prorrogas to set
-     */
-    public void setProrrogas(ArrayList<Prorroga> prorrogas) {
-        this.prorrogas = prorrogas;
     }
 
     /**
@@ -484,6 +470,49 @@ public class Proyecto {
         this.codigo = codigo;
     }
 
+  
+    /**
+     * @return the prorrogasProyecto
+     */
+    public ArrayList<ProrrogaProyecto> getProrrogasProyecto() {
+        return prorrogasProyecto;
+    }
+
+    /**
+     * @param prorrogasProyecto the prorrogasProyecto to set
+     */
+    public void setProrrogasProyecto(ArrayList<ProrrogaProyecto> prorrogasProyecto) {
+        this.prorrogasProyecto = prorrogasProyecto;
+    }
+
+    /**
+     * @return the adendasProyecto
+     */
+    public ArrayList<AdendaProyecto> getAdendasProyecto() {
+        return adendasProyecto;
+    }
+
+    /**
+     * @param adendasProyecto the adendasProyecto to set
+     */
+    public void setAdendasProyecto(ArrayList<AdendaProyecto> adendasProyecto) {
+        this.adendasProyecto = adendasProyecto;
+    }
+
+    /**
+     * @return the adicionesProyecto
+     */
+    public ArrayList<AdicionProyecto> getAdicionesProyecto() {
+        return adicionesProyecto;
+    }
+
+    /**
+     * @param adicionesProyecto the adicionesProyecto to set
+     */
+    public void setAdicionesProyecto(ArrayList<AdicionProyecto> adicionesProyecto) {
+        this.adicionesProyecto = adicionesProyecto;
+    }
+    
     @Override
     public String toString() {
         DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
@@ -507,33 +536,5 @@ public class Proyecto {
                 + ", Convocatoria: " + convocatoria
                 + ", objetivoGeneral: " + objetivoGeneral
                 + ", EstadoProyecto: " + estado + "}";
-    }
-
-    /**
-     * @return the adendas
-     */
-    public ArrayList<Adenda> getAdendas() {
-        return adendas;
-    }
-
-    /**
-     * @param adendas the adendas to set
-     */
-    public void setAdendas(ArrayList<Adenda> adendas) {
-        this.adendas = adendas;
-    }
-
-    /**
-     * @return the adiciones
-     */
-    public ArrayList<Adicion> getAdiciones() {
-        return adiciones;
-    }
-
-    /**
-     * @param adiciones the adiciones to set
-     */
-    public void setAdiciones(ArrayList<Adicion> adiciones) {
-        this.adiciones = adiciones;
     }
 }

@@ -36,9 +36,9 @@ import co.edu.fnsp.gpci.entidadesVista.BusquedaProyectos;
 import co.edu.fnsp.gpci.entidadesVista.ProyectoEdicion;
 import co.edu.fnsp.gpci.servicios.IServicioMaestro;
 import co.edu.fnsp.gpci.servicios.IServicioProyecto;
+import co.edu.fnsp.gpci.utils.Util;
 import com.google.gson.Gson;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -90,11 +90,10 @@ public class ProyectoController {
     @RequestMapping(value = "/buscarProyectos", method = RequestMethod.POST)
     public String buscarProyectos(@ModelAttribute(value = "busquedaProyectos") BusquedaProyectos busquedaProyectos, Model model) {
 
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
         ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
         try {
-            Date fechaFinal = formatter.parse(busquedaProyectos.getFechaFinal());
-            Date fechaInicial = formatter.parse(busquedaProyectos.getFechaInicio());
+            Date fechaFinal = Util.formatter.parse(busquedaProyectos.getFechaFinal());
+            Date fechaInicial = Util.formatter.parse(busquedaProyectos.getFechaInicio());
             proyectos = servicioProyecto.obtenerProyectos(fechaInicial, fechaFinal);
         } catch (ParseException ex) {
             Logger.getLogger(ProyectoController.class.getName()).log(Level.SEVERE, null, ex);
@@ -172,9 +171,8 @@ public class ProyectoController {
                 nuevoProyecto.setUsuarioCreacion(usuario);
             }
 
-            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-            nuevoProyecto.setFechaInicio(formatter.parse(proyecto.getFechaInicio()));
-            nuevoProyecto.setFechaFinalizacion(formatter.parse(proyecto.getFechaFinalizacion()));
+            nuevoProyecto.setFechaInicio(Util.formatter.parse(proyecto.getFechaInicio()));
+            nuevoProyecto.setFechaFinalizacion(Util.formatter.parse(proyecto.getFechaFinalizacion()));
             nuevoProyecto.setGrupoInvestigacion(proyecto.getGrupoInvestigacion());
             nuevoProyecto.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
             nuevoProyecto.setIngresadoSIIU(proyecto.isIngresadoSIIU());
@@ -341,9 +339,8 @@ public class ProyectoController {
         proyectoEdicion.setConvocatoria(Long.toString(proyecto.getConvocatoria().getIdConvocatoria()));
         proyectoEdicion.setEnfoqueMetodologico(Integer.toString(proyecto.getEnfoqueMetodologico().getIdEnfoqueMetodologico()));
         proyectoEdicion.setEstado(Integer.toString(proyecto.getEstado().getIdEstadoProyecto()));
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        proyectoEdicion.setFechaInicio(formatter.format(proyecto.getFechaInicio()));
-        proyectoEdicion.setFechaFinalizacion(formatter.format(proyecto.getFechaFinalizacion()));
+        proyectoEdicion.setFechaInicio(Util.formatter.format(proyecto.getFechaInicio()));
+        proyectoEdicion.setFechaFinalizacion(Util.formatter.format(proyecto.getFechaFinalizacion()));
         proyectoEdicion.setGrupoInvestigacion(Integer.toString(proyecto.getGrupoInvestigacion().getIdGrupoInvestigacion()));
         proyectoEdicion.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
         proyectoEdicion.setIngresadoSIIU(proyecto.isIngresadoSIIU());

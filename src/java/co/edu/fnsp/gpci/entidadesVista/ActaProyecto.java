@@ -14,20 +14,6 @@ import org.springframework.web.multipart.MultipartFile;
  */
 public class ActaProyecto {
 
-    /**
-     * @return the documentoActa
-     */
-    public MultipartFile getDocumentoActa() {
-        return documentoActa;
-    }
-
-    /**
-     * @param documentoActa the documentoActa to set
-     */
-    public void setDocumentoActa(MultipartFile documentoActa) {
-        this.documentoActa = documentoActa;
-    }
-
     private long idActa;
     private long idProyecto;
     private String nombreActa;
@@ -89,4 +75,18 @@ public class ActaProyecto {
     public void setObservacionesActa(String observacionesActa) {
         this.observacionesActa = observacionesActa;
     }
+    
+    /**
+     * @return the documentoActa
+     */
+    public MultipartFile getDocumentoActa() {
+        return documentoActa;
+    }
+
+    /**
+     * @param documentoActa the documentoActa to set
+     */
+    public void setDocumentoActa(MultipartFile documentoActa) {
+        this.documentoActa = documentoActa;
+    }    
 }

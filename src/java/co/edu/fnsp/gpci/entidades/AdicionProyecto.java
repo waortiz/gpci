@@ -12,40 +12,39 @@ import java.util.Date;
  *
  * @author William
  */
-public class ActaProyecto {
+public class AdicionProyecto {
 
-    private long idActa;
-    private String nombre;
-    private Date fecha;
-    private String fechaFormateada;
-    private String observaciones;
+     private long idAdicion;
+     private double monto;
+     private Date fecha;
+     private String fechaFormateada;
 
     /**
-     * @return the idActa
+     * @return the idAdicion
      */
-    public long getIdActa() {
-        return idActa;
+    public long getIdAdicion() {
+        return idAdicion;
     }
 
     /**
-     * @param idActa the idActa to set
+     * @param idAdicion the idAdicion to set
      */
-    public void setIdActa(long idActa) {
-        this.idActa = idActa;
+    public void setIdAdicion(long idAdicion) {
+        this.idAdicion = idAdicion;
     }
 
     /**
-     * @return the nombre
+     * @return the monto
      */
-    public String getNombre() {
-        return nombre;
+    public double getMonto() {
+        return monto;
     }
 
     /**
-     * @param nombre the nombre to set
+     * @param monto the monto to set
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setMonto(double monto) {
+        this.monto = monto;
     }
 
     /**
@@ -63,20 +62,6 @@ public class ActaProyecto {
     }
     
     /**
-    * @return the observaciones
-    */
-    public String getObservaciones() {
-        return observaciones;
-    }
-
-    /**
-     * @param observaciones the observaciones to set
-     */
-    public void setObservaciones(String observaciones) {
-        this.observaciones = observaciones;
-    }
-
-    /**
      * @return the fechaFormateada
      */
     public String getFechaFormateada() {
@@ -89,4 +74,5 @@ public class ActaProyecto {
     public void setFechaFormateada(String fechaFormateada) {
         this.fechaFormateada = fechaFormateada;
     }
+   
 }
