@@ -5,7 +5,6 @@
  */
 package co.edu.fnsp.gpci.entidades;
 
-import co.edu.fnsp.gpci.utils.Util;
 import java.util.Date;
 
 /**
@@ -15,7 +14,7 @@ import java.util.Date;
 public class AdicionProyecto {
 
      private long idAdicion;
-     private double monto;
+     private long monto;
      private Date fecha;
      private String fechaFormateada;
 
@@ -36,14 +35,14 @@ public class AdicionProyecto {
     /**
      * @return the monto
      */
-    public double getMonto() {
+    public long getMonto() {
         return monto;
     }
 
     /**
      * @param monto the monto to set
      */
-    public void setMonto(double monto) {
+    public void setMonto(long monto) {
         this.monto = monto;
     }
 
@@ -65,7 +64,7 @@ public class AdicionProyecto {
      * @return the fechaFormateada
      */
     public String getFechaFormateada() {
-        return Util.formatter.format(fecha);
+        return fechaFormateada;
     }
 
     /**

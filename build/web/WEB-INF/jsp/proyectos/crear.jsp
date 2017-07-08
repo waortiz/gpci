@@ -13,7 +13,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>GPCI: Gestión de Proyectos</title>
         <link rel="icon" href='<c:url value="/resources/imagenes/favicon.ico" />' type="image/x-icon" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.min.css"/>'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-select.css" />'>
@@ -87,7 +87,7 @@
                             <tr>
                                 <td>Ingresado SIGEP:</td>
                                 <td>Ingresado SIIU:</td>
-                                <td>ingresado SIU:</td>
+                                <td>Ingresado SIU:</td>
                             </tr>
                             <tr>
                                 <td><form:checkbox path="ingresadoSIGEP" /></td>
@@ -184,707 +184,725 @@
                                 </td>
                             </tr>                            
                         </table>
-                        <div class="alert alert-info" style="margin-top:20px;">
-                            <strong>Objetivos Específicos</strong>
-                            <button class="btn btn-dark" onclick="mostrarVentanaNuevoObjetivoEspecifico(); return false;">
-                                <i class="glyphicon glyphicon-plus"></i>
-                            </button>                            
-                        </div>  
-                        <div class="modal fade" id="objetivosEspecificosModal" tabindex="-1" role="dialog" aria-labelledby="objetivoEspecificoModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="alert alert-info">
-                                            <strong>Objetivo Específico</strong>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
-                                            </button>
+                        <ul class="nav nav-tabs">
+                          <li class="active"><a data-toggle="tab" href="#objetivosEspecificos">Objetivos Específicos</a></li>
+                          <li><a data-toggle="tab" href="#compromisos">Compromisos</a></li>
+                          <li><a data-toggle="tab" href="#profesores">Profesores</a></li>
+                          <li><a data-toggle="tab" href="#estudiantes">Estudiantes</a></li>
+                          <li><a data-toggle="tab" href="#personalExterno">Personal Externo</a></li>
+                        </ul>
+                        <div class="tab-content">
+                            <div id="objetivosEspecificos" class="tab-pane fade in active">
+                                <div class="alert alert-info" style="margin-top:20px;">
+                                    <strong>Objetivos Específicos</strong>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevoObjetivoEspecifico(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>                            
+                                </div>  
+                                <div class="modal fade" id="objetivosEspecificosModal" tabindex="-1" role="dialog" aria-labelledby="objetivoEspecificoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Objetivo Específico</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_objetivosEspecificos"></div>
+                                                <table class="tblform3">
+                                                    <tr>
+                                                        <td>
+                                                            <textarea id="objetivoEspecifico" name="objetivoEspecifico" class="form-control" rows="5"></textarea>
+                                                            <input type="hidden" id="consecutivo" name="consecutivo" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarObjetivoEspecifico">Aceptar</button>
+                                            </div>                                    
                                         </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div id="alert_placeholder_objetivosEspecificos"></div>
-                                        <table class="tblform3">
-                                            <tr>
-                                                <td>
-                                                    <textarea id="objetivoEspecifico" name="objetivoEspecifico" class="form-control" rows="5"></textarea>
-                                                    <input type="hidden" id="consecutivo" name="consecutivo" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" data-bind="click: adicionarObjetivoEspecifico">Aceptar</button>
-                                    </div>                                    
+                                    </div>  
                                 </div>
-                            </div>  
-                        </div>
-                        <table class="table table-hover" style="width: 90%" align="center" >
-                            <tr class="table-row">
-                                <th style="width: 90%;text-align: center">Objetivo</th>
-                                <th style="width: 5%">&nbsp;</th>
-                                <th style="width: 5%">&nbsp;</th>
-                            </tr>
-                        </table>
-                        <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: objetivosEspecificos }">
-                            <tr class="table-row">
-                                <td style="width: 90%">
-                                    <span data-bind="text: descripcion" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'objetivosEspecificos[' + $index() + '].descripcion'  }">
-                                </td>
-                                <td style="width: 5%">
-                                    <button class="btn btn-dark" data-bind="click: $root.eliminarObjetivoEspecifico">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                    <input type="hidden" data-bind="value: idObjetivoEspecifico, attr: { 'name': 'objetivosEspecificos[' + $index() + '].idObjetivoEspecifico'  }" />
-                                    <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'objetivosEspecificos[' + $index() + '].consecutivo'  }" />
-                                </td>
-                                <td style="width: 5%">
-                                    <button class="btn btn-dark" data-bind="click: $root.editarObjetivoEspecifico">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="alert alert-info" style="margin-top:20px;">
-                            <strong>Compromisos</strong>
-                            <button class="btn btn-dark" onclick="mostrarVentanaNuevoCompromisoProyecto(); return false;">
-                                <i class="glyphicon glyphicon-plus"></i>
-                            </button>                            
-                        </div>  
-                        <div class="modal fade" id="compromisosProyectoModal" tabindex="-1" role="dialog" aria-labelledby="compromisoProyectoModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="alert alert-info">
-                                            <strong>Compromiso</strong>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
+                                <table class="table table-hover" style="width: 90%" align="center" >
+                                    <tr class="table-row">
+                                        <th style="width: 90%;text-align: center">Objetivo</th>
+                                        <th style="width: 5%">&nbsp;</th>
+                                        <th style="width: 5%">&nbsp;</th>
+                                    </tr>
+                                </table>
+                                <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: objetivosEspecificos }">
+                                    <tr class="table-row">
+                                        <td style="width: 90%">
+                                            <span data-bind="text: descripcion" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'objetivosEspecificos[' + $index() + '].descripcion'  }">
+                                        </td>
+                                        <td style="width: 5%">
+                                            <button class="btn btn-dark" data-bind="click: $root.eliminarObjetivoEspecifico">
+                                                <i class="glyphicon glyphicon-trash"></i>
                                             </button>
-                                        </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div id="alert_placeholder_compromisos_proyecto"></div>
-                                        <table class="tblform3">
-                                            <tr>
-                                                <td>
-                                                    <textarea id="compromisoProyecto" name="compromisoProyecto" class="form-control"></textarea>
-                                                    <input type="hidden" id="consecutivo" name="consecutivo" />
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" data-bind="click: adicionarCompromisoProyecto">Aceptar</button>
-                                    </div>                                    
-                                </div>
-                            </div>  
-                        </div>
-                        <table class="table table-hover" style="width: 90%" align="center" >
-                            <tr class="table-row">
-                                <th style="width: 90%;text-align: center">Compromiso</th>
-                                <th style="width: 5%">&nbsp;</th>
-                                <th style="width: 5%">&nbsp;</th>
-                            </tr>
-                        </table>
-                        <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: compromisosProyecto }">
-                            <tr class="table-row">
-                                <td style="width: 90%">
-                                    <span data-bind="text: descripcion" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'compromisosProyecto[' + $index() + '].descripcion'  }">
-                                </td>
-                                <td style="width: 5%">
-                                    <button class="btn btn-dark" data-bind="click: $root.eliminarCompromisoProyecto">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                    <input type="hidden" data-bind="value: idCompromisoProyecto, attr: { 'name': 'compromisosProyecto[' + $index() + '].idCompromisoProyecto'  }" />
-                                    <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'compromisosProyecto[' + $index() + '].consecutivo'  }" />
-                                </td>
-                                <td style="width: 5%">
-                                    <button class="btn btn-dark" data-bind="click: $root.editarCompromisoProyecto">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="alert alert-info" style="margin-top:20px;">
-                            <strong>Profesores</strong>
-                            <button class="btn btn-dark" onclick="mostrarVentanaNuevoProfesorProyecto(); return false;">
-                                <i class="glyphicon glyphicon-plus"></i>
-                            </button>
-                        </div>
-                        <div class="modal fade" id="profesorProyectoModal" tabindex="-1" role="dialog" aria-labelledby="profesorProyectoModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="alert alert-info">
-                                            <strong>Datos Profesor</strong>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
+                                            <input type="hidden" data-bind="value: idObjetivoEspecifico, attr: { 'name': 'objetivosEspecificos[' + $index() + '].idObjetivoEspecifico'  }" />
+                                            <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'objetivosEspecificos[' + $index() + '].consecutivo'  }" />
+                                        </td>
+                                        <td style="width: 5%">
+                                            <button class="btn btn-dark" data-bind="click: $root.editarObjetivoEspecifico">
+                                                <i class="glyphicon glyphicon-edit"></i>
                                             </button>
-                                        </div>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div id="alert_placeholder_profesores_proyecto"></div>
-                                        <table class="tblform3">
-                                            <tr>
-                                                <td width="45%">Tipo de identificación:</td>
-                                                <td width="45%">Número de identificación:</td>
-                                                <td width="10%">&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <select name="tipoIdentificacionProfesor" id="tipoIdentificacionProfesor" class="form-control">
-                                                        <option value=""></option>
-                                                    <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
-                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
-                                                    </c:forEach>
-                                                    </select>    
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionProfesor" name="numeroIdentificacionProfesor" />
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-dark" onclick="buscarProfesor(); return false;">
-                                                            <i class="glyphicon glyphicon-search"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                         </table>
-                                        <table class="tblform3">
-                                            <tr>
-                                                <td>Nombres:</td>
-                                                <td>Apellidos:</td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" id="nombresProfesor" name="nombresProfesor" class="form-control" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="apellidosProfesor" name="nombresProfesor" class="form-control" />
-                                                </td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>Correo electrónico:</td>
-                                                <td>Contacto:</td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="email" id="correoElectronicoProfesor" name="correoElectronicoProfesor" class="form-control" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="contactoProfesor" name="contactoProfesor" class="form-control" />
-                                                </td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>Facultad</td>
-                                                <td>Rol</td> 
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <select name="facultadProfesor" id="facultadProfesor" class="form-control">
-                                                        <option value=""></option>
-                                                    <c:forEach var="facultad" items="${facultades}">
-                                                        <option value="${facultad.getIdFacultad()}">${facultad.getNombre()}</option>
-                                                    </c:forEach>
-                                                    </select>                                                        
-                                                </td>
-                                                <td>
-                                                    <select name="rolProfesor" id="rolProfesor" class="form-control">
-                                                        <option value=""></option>
-                                                    <c:forEach var="rol" items="${roles}">
-                                                        <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
-                                                    </c:forEach>
-                                                    </select>      
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Código vinculación U. de A.:</td>
-                                                <td>Carta de cesión de derechos patrimonio:</td>
-                                            </tr>
-                                            <tr>
-                                                <td><input type="text" id="codigoVinculacionUdeAProfesor" name="codigoVinculacionUdeAProfesor" class="form-control" /></td>
-                                                <td><input type="checkbox" id="cartaCesionDerechosPatrimonioProfesor" name="cartaCesionDerechosPatrimonioProfesor" cssClass="form-control" /></td>
-                                            </tr>
-                                            <tr>
-                                                <td>Porcentaje de propiedad intelectual:</td>
-                                                <td>Horas semana:</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" id="porcentajePIProfesor" name="porcentajePIProfesor" class="form-control numbersOnly" maxlength="3" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="horasSemanaProfesor" name="horasSemanaProfesor" class="form-control numbersOnly" maxlength="3" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Meses dedicados:</td>
-                                                <td>Horas semana fuera del plan:</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" id="mesesDedicadosProfesor" name="mesesDedicadosProfesor" class="form-control numbersOnly" maxlength="5" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="horasSemanaFueraPlanProfesor" name="horasSemanaFueraPlanProfesor" class="form-control numbersOnly" maxlength="3" />
-                                                </td>
-                                            </tr>                                
-                                            <tr>
-                                                <td colspan="2">Meses fuera plan</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <input type="text" id="mesesFueraPlanProfesor" name="mesesFueraPlanProfesor" class="form-control numbersOnly" maxlength="5" />
-                                                </td>
-                                            </tr>                            
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" data-bind="click: adicionarProfesorProyecto">Aceptar</button>
-                                    </div>
-                                </div>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                        </div>   
-                        <table class="table table-hover" style="width: 90%" align="center">
-                            <tr class="table-row">
-                                <th style="width: 20%;text-align: center">Tipo de identificación</th>
-                                <th style="width: 20%;text-align: center">Número de identificación</th>
-                                <th style="width: 18%;text-align: center">Nombres</th>
-                                <th style="width: 17%;text-align: center">Apellidos</th>
-                                <th style="width: 5%;text-align: center">Rol</th>
-                                <th style="width: 10%;text-align: center">Facultad</th>
-                                <th style="width: 5%">&nbsp;</th>
-                                <th style="width: 5%">&nbsp;</th>
-                            </tr>
-                        </table>
-                        <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: profesoresProyecto }">
-                            <tr class="table-row">
-                                <td style="width: 20%">
-                                    <span data-bind="text: descripcionTipoIdentificacion" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].idTipoIdentificacion'  }">
-                                </td>
-                                <td style="width: 20%">
-                                    <span data-bind="text: numeroIdentificacion" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].numeroIdentificacion'  }">
-                                </td>
-                                <td style="width: 18%">
-                                    <span data-bind="text: nombres" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'profesoresProyecto[' + $index() + '].nombres'  }">
-                                </td>
-                                <td style="width: 17%">
-                                    <span data-bind="text: apellidos" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'profesoresProyecto[' + $index() + '].apellidos'  }">
-                                </td>
-                                <td style="width: 5%">
-                                    <span data-bind="text: descripcionRol" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionRol'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'profesoresProyecto[' + $index() + '].idRol'  }">
-                                </td>
-                                <td style="width: 10%">
-                                    <span data-bind="text: descripcionFacultad" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'profesoresProyecto[' + $index() + '].correoElectronico'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'profesoresProyecto[' + $index() + '].contacto'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: descripcionFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionFacultad'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: idFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].idFacultad'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: codigoVinculacionUdeA, attr: { 'name': 'profesoresProyecto[' + $index() + '].codigoVinculacionUdeA'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'profesoresProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: porcentajePI, attr: { 'name': 'profesoresProyecto[' + $index() + '].porcentajePI' }">
-                                    <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemana' }">
-                                    <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'profesoresProyecto[' + $index() + '].mesesDedicados' }">
-                                    <input type="hidden" class="form-control" data-bind="value: horasSemanaFueraPlan, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemanaFueraPlan' }">
-                                    <input type="hidden" class="form-control" data-bind="value: mesesFueraPlan, attr: { 'name': 'profesoresProyecto[' + $index() + '].mesesFueraPlan' }">
-                                    <input type="hidden" data-bind="value: idProfesor, attr: { 'name': 'profesoresProyecto[' + $index() + '].idProfesor'  }" />
-                                    <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'profesoresProyecto[' + $index() + '].consecutivo'  }" />
-                                </td>
-                                <td style="width: 5%" align="center">
-                                    <button class="btn btn-dark" data-bind="click: $root.eliminarProfesorProyecto">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                </td>
-                                <td style="width: 5%" align="center">
-                                    <button class="btn btn-dark" data-bind="click: $root.editarProfesorProyecto">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="alert alert-info" style="margin-top:20px;">
-                            <strong>Estudiantes</strong>
-                            <button class="btn btn-dark" onclick="mostrarVentanaNuevoEstudianteProyecto(); return false;">
-                                <i class="glyphicon glyphicon-plus"></i>
-                            </button>
-                        </div>
-                        <div class="modal fade" id="estudianteProyectoModal" tabindex="-1" role="dialog" aria-labelledby="estudianteModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="alert alert-info">
-                                            <strong>Datos Estudiante</strong>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
+                            <div id="compromisos" class="tab-pane fade">
+                                <div class="alert alert-info" style="margin-top:20px;">
+                                    <strong>Compromisos</strong>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevoCompromisoProyecto(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>                            
+                                </div>  
+                                <div class="modal fade" id="compromisosProyectoModal" tabindex="-1" role="dialog" aria-labelledby="compromisoProyectoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Compromiso</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_compromisos_proyecto"></div>
+                                                <table class="tblform3">
+                                                    <tr>
+                                                        <td>
+                                                            <textarea id="compromisoProyecto" name="compromisoProyecto" class="form-control"></textarea>
+                                                            <input type="hidden" id="consecutivo" name="consecutivo" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarCompromisoProyecto">Aceptar</button>
+                                            </div>                                    
+                                        </div>
+                                    </div>  
+                                </div>
+                                <table class="table table-hover" style="width: 90%" align="center" >
+                                    <tr class="table-row">
+                                        <th style="width: 90%;text-align: center">Compromiso</th>
+                                        <th style="width: 5%">&nbsp;</th>
+                                        <th style="width: 5%">&nbsp;</th>
+                                    </tr>
+                                </table>
+                                <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: compromisosProyecto }">
+                                    <tr class="table-row">
+                                        <td style="width: 90%">
+                                            <span data-bind="text: descripcion" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'compromisosProyecto[' + $index() + '].descripcion'  }">
+                                        </td>
+                                        <td style="width: 5%">
+                                            <button class="btn btn-dark" data-bind="click: $root.eliminarCompromisoProyecto">
+                                                <i class="glyphicon glyphicon-trash"></i>
                                             </button>
+                                            <input type="hidden" data-bind="value: idCompromisoProyecto, attr: { 'name': 'compromisosProyecto[' + $index() + '].idCompromisoProyecto'  }" />
+                                            <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'compromisosProyecto[' + $index() + '].consecutivo'  }" />
+                                        </td>
+                                        <td style="width: 5%">
+                                            <button class="btn btn-dark" data-bind="click: $root.editarCompromisoProyecto">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="profesores" class="tab-pane fade">
+                                <div class="alert alert-info" style="margin-top:20px;">
+                                    <strong>Profesores</strong>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevoProfesorProyecto(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="modal fade" id="profesorProyectoModal" tabindex="-1" role="dialog" aria-labelledby="profesorProyectoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Datos Profesor</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_profesores_proyecto"></div>
+                                                <table class="tblform3">
+                                                    <tr>
+                                                        <td width="45%">Tipo de identificación:</td>
+                                                        <td width="45%">Número de identificación:</td>
+                                                        <td width="10%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="tipoIdentificacionProfesor" id="tipoIdentificacionProfesor" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionProfesor" name="numeroIdentificacionProfesor" />
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-dark" onclick="buscarProfesor(); return false;">
+                                                                    <i class="glyphicon glyphicon-search"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                 </table>
+                                                <table class="tblform3">
+                                                    <tr>
+                                                        <td>Nombres:</td>
+                                                        <td>Apellidos:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="nombresProfesor" name="nombresProfesor" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="apellidosProfesor" name="nombresProfesor" class="form-control" />
+                                                        </td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Correo electrónico:</td>
+                                                        <td>Contacto:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="email" id="correoElectronicoProfesor" name="correoElectronicoProfesor" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="contactoProfesor" name="contactoProfesor" class="form-control" />
+                                                        </td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Facultad</td>
+                                                        <td>Rol</td> 
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="facultadProfesor" id="facultadProfesor" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="facultad" items="${facultades}">
+                                                                <option value="${facultad.getIdFacultad()}">${facultad.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <select name="rolProfesor" id="rolProfesor" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="rol" items="${roles}">
+                                                                <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>      
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Código vinculación U. de A.:</td>
+                                                        <td>Carta de cesión de derechos patrimonio:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td><input type="text" id="codigoVinculacionUdeAProfesor" name="codigoVinculacionUdeAProfesor" class="form-control" /></td>
+                                                        <td><input type="checkbox" id="cartaCesionDerechosPatrimonioProfesor" name="cartaCesionDerechosPatrimonioProfesor" cssClass="form-control" /></td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Porcentaje de propiedad intelectual:</td>
+                                                        <td>Horas semana:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="porcentajePIProfesor" name="porcentajePIProfesor" class="form-control numbersOnly" maxlength="3" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="horasSemanaProfesor" name="horasSemanaProfesor" class="form-control numbersOnly" maxlength="3" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Meses dedicados:</td>
+                                                        <td>Horas semana fuera del plan:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="mesesDedicadosProfesor" name="mesesDedicadosProfesor" class="form-control numbersOnly" maxlength="5" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="horasSemanaFueraPlanProfesor" name="horasSemanaFueraPlanProfesor" class="form-control numbersOnly" maxlength="3" />
+                                                        </td>
+                                                    </tr>                                
+                                                    <tr>
+                                                        <td colspan="2">Meses fuera plan</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <input type="text" id="mesesFueraPlanProfesor" name="mesesFueraPlanProfesor" class="form-control numbersOnly" maxlength="5" />
+                                                        </td>
+                                                    </tr>                            
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarProfesorProyecto">Aceptar</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <div id="alert_placeholder_estudiantes_proyecto"></div>
-                                        <table class="tblform3">
-                                            <tr>
-                                                <td width="45%">Tipo de identificación:</td>
-                                                <td width="45%">Número de identificación:</td>
-                                                <td width="10%">&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <select name="tipoIdentificacionEstudiante" id="tipoIdentificacionEstudiante" class="form-control">
-                                                        <option value=""></option>
-                                                    <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
-                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
-                                                    </c:forEach>
-                                                    </select>    
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionEstudiante" name="numeroIdentificacionEstudiante" />
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-dark" onclick="buscarEstudiante(); return false;">
-                                                            <i class="glyphicon glyphicon-search"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                         </table>
-                                        <table class="tblform3">
-                                            <tr>
-                                                <td>Nombres:</td>
-                                                <td>Apellidos:</td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" id="nombresEstudiante" name="nombresEstudiante" class="form-control" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="apellidosEstudiante" name="nombresEstudiante" class="form-control" />
-                                                </td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>Correo electrónico:</td>
-                                                <td>Contacto:</td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="email" id="correoElectronicoEstudiante" name="correoElectronicoEstudiante" class="form-control" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="contactoEstudiante" name="contactoEstudiante" class="form-control" />
-                                                </td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>Tipo de estudiante</td>
-                                                <td>Rol</td> 
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <select name="tipoEstudiante" id="tipoEstudiante" class="form-control">
-                                                        <option value=""></option>
-                                                    <c:forEach var="tipoEstudiante" items="${tiposEstudiante}">
-                                                        <option value="${tipoEstudiante.getIdTipoEstudiante()}">${tipoEstudiante.getNombre()}</option>
-                                                    </c:forEach>
-                                                    </select>                                                        
-                                                </td>
-                                                <td>
-                                                    <select name="rolEstudiante" id="rolEstudiante" class="form-control">
-                                                        <option value=""></option>
-                                                    <c:forEach var="rol" items="${roles}">
-                                                        <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
-                                                    </c:forEach>
-                                                    </select>      
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Porcentaje de propiedad intelectual:</td>
-                                                <td>Horas semana:</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" id="porcentajePropiedadIntelectualEstudiante" name="porcentajePIEstudiante" class="form-control numbersOnly" maxlength="3" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="horasSemanaEstudiante" name="horasSemanaEstudiante" class="form-control numbersOnly" maxlength="3" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Meses dedicados:</td>
-                                                <td>Semestre:</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" id="mesesDedicadosEstudiante" name="mesesDedicadosEstudiante" class="form-control numbersOnly" maxlength="5" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="semestreEstudiante" name="semestreEstudiante" class="form-control numbersOnly" maxlength="2" />
-                                                </td>
-                                            </tr>                                
-                                            <tr>
-                                                <td colspan="2">Programa</td>
-                                            </tr>
-                                            <tr>
-                                                <td colspan="2">
-                                                    <select name="programaEstudiante" id="programaEstudiante" class="form-control">
-                                                        <option value=""></option>
-                                                    <c:forEach var="programa" items="${programas}">
-                                                        <option value="${programa.getIdPrograma()}">${programa.getNombre()}</option>
-                                                    </c:forEach>
-                                                    </select>      
-                                                </td>
-                                            </tr>                            
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" data-bind="click: adicionarEstudianteProyecto">Aceptar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>   
-                        <table class="table table-hover" style="width: 90%" align="center">
-                            <tr class="table-row">
-                                <th style="width: 20%;text-align: center">Tipo de identificación</th>
-                                <th style="width: 20%;text-align: center">Número de identificación</th>
-                                <th style="width: 18%;text-align: center">Nombres</th>
-                                <th style="width: 17%;text-align: center">Apellidos</th>
-                                <th style="width: 5%;text-align: center">Rol</th>
-                                <th style="width: 10%;text-align: center">Programa</th>
-                                <th style="width: 5%">&nbsp;</th>
-                                <th style="width: 5%">&nbsp;</th>
-                            </tr>
-                        </table>
-                        <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: estudiantesProyecto }">
-                            <tr class="table-row">
-                                <td style="width: 20%">
-                                    <span data-bind="text: descripcionTipoIdentificacion" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idTipoIdentificacion'  }">
-                                </td>
-                                <td style="width: 20%">
-                                    <span data-bind="text: numeroIdentificacion" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].numeroIdentificacion'  }">
-                                </td>
-                                <td style="width: 18%">
-                                    <span data-bind="text: nombres" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'estudiantesProyecto[' + $index() + '].nombres'  }">
-                                </td>
-                                <td style="width: 17%">
-                                    <span data-bind="text: apellidos" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'estudiantesProyecto[' + $index() + '].apellidos'  }">
-                                </td>
-                                <td style="width: 5%">
-                                    <span data-bind="text: descripcionRol" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionRol'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idRol'  }">
-                                </td>
-                                <td style="width: 10%">
-                                    <span data-bind="text: descripcionPrograma" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'estudiantesProyecto[' + $index() + '].correoElectronico'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'estudiantesProyecto[' + $index() + '].contacto'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: descripcionTipoEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionTipoEstudiante'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: idTipoEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idTipoEstudiante'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: descripcionPrograma, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionPrograma'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: idPrograma, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idPrograma'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: porcentajePropiedadIntelectual, attr: { 'name': 'estudiantesProyecto[' + $index() + '].porcentajePropiedadIntelectual' }">
-                                    <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'estudiantesProyecto[' + $index() + '].horasSemana' }">
-                                    <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'estudiantesProyecto[' + $index() + '].mesesDedicados' }">
-                                    <input type="hidden" class="form-control" data-bind="value: semestre, attr: { 'name': 'estudiantesProyecto[' + $index() + '].semestre' }">
-                                    <input type="hidden" data-bind="value: idEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idEstudiante'  }" />
-                                    <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'estudiantesProyecto[' + $index() + '].consecutivo'  }" />
-                                </td>
-                                <td style="width: 5%" align="center">
-                                    <button class="btn btn-dark" data-bind="click: $root.eliminarEstudianteProyecto">
-                                        <i class="glyphicon glyphicon-trash"></i>
-                                    </button>
-                                </td>
-                                <td style="width: 5%" align="center">
-                                    <button class="btn btn-dark" data-bind="click: $root.editarEstudianteProyecto">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>
-                        <div class="alert alert-info" style="margin-top:20px;">
-                            <strong>Personal Externo</strong>
-                            <button class="btn btn-dark" onclick="mostrarVentanaNuevoPersonalExternoProyecto(); return false;">
-                                <i class="glyphicon glyphicon-plus"></i>
-                            </button>
-                        </div>
-                        <div class="modal fade" id="personalExternoProyectoModal" tabindex="-1" role="dialog" aria-labelledby="personalExternoProyectoModalLabel" aria-hidden="true">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <div class="alert alert-info">
-                                            <strong>Datos Personal Externo</strong>
-                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                <span aria-hidden="true">&times;</span>
+                                </div>   
+                                <table class="table table-hover" style="width: 90%" align="center">
+                                    <tr class="table-row">
+                                        <th style="width: 20%;text-align: center">Tipo de identificación</th>
+                                        <th style="width: 20%;text-align: center">Número de identificación</th>
+                                        <th style="width: 18%;text-align: center">Nombres</th>
+                                        <th style="width: 17%;text-align: center">Apellidos</th>
+                                        <th style="width: 5%;text-align: center">Rol</th>
+                                        <th style="width: 10%;text-align: center">Facultad</th>
+                                        <th style="width: 5%">&nbsp;</th>
+                                        <th style="width: 5%">&nbsp;</th>
+                                    </tr>
+                                </table>
+                                <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: profesoresProyecto }">
+                                    <tr class="table-row">
+                                        <td style="width: 20%">
+                                            <span data-bind="text: descripcionTipoIdentificacion" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].idTipoIdentificacion'  }">
+                                        </td>
+                                        <td style="width: 20%">
+                                            <span data-bind="text: numeroIdentificacion" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].numeroIdentificacion'  }">
+                                        </td>
+                                        <td style="width: 18%">
+                                            <span data-bind="text: nombres" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'profesoresProyecto[' + $index() + '].nombres'  }">
+                                        </td>
+                                        <td style="width: 17%">
+                                            <span data-bind="text: apellidos" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'profesoresProyecto[' + $index() + '].apellidos'  }">
+                                        </td>
+                                        <td style="width: 5%">
+                                            <span data-bind="text: descripcionRol" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionRol'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'profesoresProyecto[' + $index() + '].idRol'  }">
+                                        </td>
+                                        <td style="width: 10%">
+                                            <span data-bind="text: descripcionFacultad" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'profesoresProyecto[' + $index() + '].correoElectronico'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'profesoresProyecto[' + $index() + '].contacto'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: descripcionFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionFacultad'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: idFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].idFacultad'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: codigoVinculacionUdeA, attr: { 'name': 'profesoresProyecto[' + $index() + '].codigoVinculacionUdeA'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'profesoresProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: porcentajePI, attr: { 'name': 'profesoresProyecto[' + $index() + '].porcentajePI' }">
+                                            <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemana' }">
+                                            <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'profesoresProyecto[' + $index() + '].mesesDedicados' }">
+                                            <input type="hidden" class="form-control" data-bind="value: horasSemanaFueraPlan, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemanaFueraPlan' }">
+                                            <input type="hidden" class="form-control" data-bind="value: mesesFueraPlan, attr: { 'name': 'profesoresProyecto[' + $index() + '].mesesFueraPlan' }">
+                                            <input type="hidden" data-bind="value: idProfesor, attr: { 'name': 'profesoresProyecto[' + $index() + '].idProfesor'  }" />
+                                            <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'profesoresProyecto[' + $index() + '].consecutivo'  }" />
+                                        </td>
+                                        <td style="width: 5%" align="center">
+                                            <button class="btn btn-dark" data-bind="click: $root.eliminarProfesorProyecto">
+                                                <i class="glyphicon glyphicon-trash"></i>
                                             </button>
+                                        </td>
+                                        <td style="width: 5%" align="center">
+                                            <button class="btn btn-dark" data-bind="click: $root.editarProfesorProyecto">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                            <div id="estudiantes" class="tab-pane fade">
+                                <div class="alert alert-info" style="margin-top:20px;">
+                                    <strong>Estudiantes</strong>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevoEstudianteProyecto(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="modal fade" id="estudianteProyectoModal" tabindex="-1" role="dialog" aria-labelledby="estudianteModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Datos Estudiante</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_estudiantes_proyecto"></div>
+                                                <table class="tblform3">
+                                                    <tr>
+                                                        <td width="45%">Tipo de identificación:</td>
+                                                        <td width="45%">Número de identificación:</td>
+                                                        <td width="10%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="tipoIdentificacionEstudiante" id="tipoIdentificacionEstudiante" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionEstudiante" name="numeroIdentificacionEstudiante" />
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-dark" onclick="buscarEstudiante(); return false;">
+                                                                    <i class="glyphicon glyphicon-search"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                 </table>
+                                                <table class="tblform3">
+                                                    <tr>
+                                                        <td>Nombres:</td>
+                                                        <td>Apellidos:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="nombresEstudiante" name="nombresEstudiante" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="apellidosEstudiante" name="nombresEstudiante" class="form-control" />
+                                                        </td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Correo electrónico:</td>
+                                                        <td>Contacto:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="email" id="correoElectronicoEstudiante" name="correoElectronicoEstudiante" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="contactoEstudiante" name="contactoEstudiante" class="form-control" />
+                                                        </td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tipo de estudiante</td>
+                                                        <td>Rol</td> 
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="tipoEstudiante" id="tipoEstudiante" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoEstudiante" items="${tiposEstudiante}">
+                                                                <option value="${tipoEstudiante.getIdTipoEstudiante()}">${tipoEstudiante.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <select name="rolEstudiante" id="rolEstudiante" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="rol" items="${roles}">
+                                                                <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>      
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Porcentaje de propiedad intelectual:</td>
+                                                        <td>Horas semana:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="porcentajePropiedadIntelectualEstudiante" name="porcentajePIEstudiante" class="form-control numbersOnly" maxlength="3" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="horasSemanaEstudiante" name="horasSemanaEstudiante" class="form-control numbersOnly" maxlength="3" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Meses dedicados:</td>
+                                                        <td>Semestre:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="mesesDedicadosEstudiante" name="mesesDedicadosEstudiante" class="form-control numbersOnly" maxlength="5" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="semestreEstudiante" name="semestreEstudiante" class="form-control numbersOnly" maxlength="2" />
+                                                        </td>
+                                                    </tr>                                
+                                                    <tr>
+                                                        <td colspan="2">Programa</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <select name="programaEstudiante" id="programaEstudiante" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="programa" items="${programas}">
+                                                                <option value="${programa.getIdPrograma()}">${programa.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>      
+                                                        </td>
+                                                    </tr>                            
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarEstudianteProyecto">Aceptar</button>
+                                            </div>
                                         </div>
                                     </div>
-                                    <div class="modal-body">
-                                        <div id="alert_placeholder_personalExterno_proyecto"></div>
-                                        <table class="tblform3">
-                                            <tr>
-                                                <td width="45%">Tipo de identificación:</td>
-                                                <td width="45%">Número de identificación:</td>
-                                                <td width="10%">&nbsp;</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <select name="tipoIdentificacionPersonalExterno" id="tipoIdentificacionPersonalExterno" class="form-control">
-                                                        <option value=""></option>
-                                                    <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
-                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
-                                                    </c:forEach>
-                                                    </select>    
-                                                </td>
-                                                <td>
-                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonalExterno" name="numeroIdentificacionPersonalExterno" />
-                                                </td>
-                                                <td>
-                                                    <div class="btn-group">
-                                                        <button class="btn btn-dark" onclick="buscarPersonalExterno(); return false;">
-                                                            <i class="glyphicon glyphicon-search"></i>
-                                                        </button>
-                                                    </div>
-                                                </td>
-                                            </tr>
-                                         </table>
-                                        <table class="tblform3">
-                                            <tr>
-                                                <td>Nombres:</td>
-                                                <td>Apellidos:</td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" id="nombresPersonalExterno" name="nombresPersonalExterno" class="form-control" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="apellidosPersonalExterno" name="nombresPersonalExterno" class="form-control" />
-                                                </td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>Correo electrónico:</td>
-                                                <td>Entidad:</td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="email" id="correoElectronicoPersonalExterno" name="correoElectronicoPersonalExterno" class="form-control" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="entidadPersonalExterno" name="entidadPersonalExterno" class="form-control" />
-                                                </td>                                    
-                                            </tr>
-                                            <tr>
-                                                <td>Rol</td> 
-                                                <td>Porcentaje de propiedad intelectual:</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <select name="rolPersonalExterno" id="rolPersonalExterno" class="form-control">
-                                                        <option value=""></option>
-                                                    <c:forEach var="rol" items="${roles}">
-                                                        <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
-                                                    </c:forEach>
-                                                    </select>      
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="porcentajePropiedadIntelectualPersonalExterno" name="porcentajePropiedadIntelectualPersonalExterno" class="form-control numbersOnly" maxlength="3" />
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td>Horas semana:</td>
-                                                <td>Meses dedicados:</td>
-                                            </tr>
-                                            <tr>
-                                                <td>
-                                                    <input type="text" id="horasSemanaPersonalExterno" name="horasSemanaPersonalExterno" class="form-control numbersOnly" maxlength="3" />
-                                                </td>
-                                                <td>
-                                                    <input type="text" id="mesesDedicadosPersonalExterno" name="mesesDedicadosPersonalExterno" class="form-control numbersOnly" maxlength="5" />
-                                                </td>
-                                            </tr>                                
-                                        </table>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                        <button type="button" class="btn btn-primary" data-bind="click: adicionarPersonalExternoProyecto">Aceptar</button>
-                                    </div>
-                                </div>
+                                </div>   
+                                <table class="table table-hover" style="width: 90%" align="center">
+                                    <tr class="table-row">
+                                        <th style="width: 20%;text-align: center">Tipo de identificación</th>
+                                        <th style="width: 20%;text-align: center">Número de identificación</th>
+                                        <th style="width: 18%;text-align: center">Nombres</th>
+                                        <th style="width: 17%;text-align: center">Apellidos</th>
+                                        <th style="width: 5%;text-align: center">Rol</th>
+                                        <th style="width: 10%;text-align: center">Programa</th>
+                                        <th style="width: 5%">&nbsp;</th>
+                                        <th style="width: 5%">&nbsp;</th>
+                                    </tr>
+                                </table>
+                                <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: estudiantesProyecto }">
+                                    <tr class="table-row">
+                                        <td style="width: 20%">
+                                            <span data-bind="text: descripcionTipoIdentificacion" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idTipoIdentificacion'  }">
+                                        </td>
+                                        <td style="width: 20%">
+                                            <span data-bind="text: numeroIdentificacion" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].numeroIdentificacion'  }">
+                                        </td>
+                                        <td style="width: 18%">
+                                            <span data-bind="text: nombres" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'estudiantesProyecto[' + $index() + '].nombres'  }">
+                                        </td>
+                                        <td style="width: 17%">
+                                            <span data-bind="text: apellidos" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'estudiantesProyecto[' + $index() + '].apellidos'  }">
+                                        </td>
+                                        <td style="width: 5%">
+                                            <span data-bind="text: descripcionRol" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionRol'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idRol'  }">
+                                        </td>
+                                        <td style="width: 10%">
+                                            <span data-bind="text: descripcionPrograma" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'estudiantesProyecto[' + $index() + '].correoElectronico'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'estudiantesProyecto[' + $index() + '].contacto'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: descripcionTipoEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionTipoEstudiante'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: idTipoEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idTipoEstudiante'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: descripcionPrograma, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionPrograma'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: idPrograma, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idPrograma'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: porcentajePropiedadIntelectual, attr: { 'name': 'estudiantesProyecto[' + $index() + '].porcentajePropiedadIntelectual' }">
+                                            <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'estudiantesProyecto[' + $index() + '].horasSemana' }">
+                                            <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'estudiantesProyecto[' + $index() + '].mesesDedicados' }">
+                                            <input type="hidden" class="form-control" data-bind="value: semestre, attr: { 'name': 'estudiantesProyecto[' + $index() + '].semestre' }">
+                                            <input type="hidden" data-bind="value: idEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idEstudiante'  }" />
+                                            <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'estudiantesProyecto[' + $index() + '].consecutivo'  }" />
+                                        </td>
+                                        <td style="width: 5%" align="center">
+                                            <button class="btn btn-dark" data-bind="click: $root.eliminarEstudianteProyecto">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </td>
+                                        <td style="width: 5%" align="center">
+                                            <button class="btn btn-dark" data-bind="click: $root.editarEstudianteProyecto">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
                             </div>
-                        </div>   
-                        <table class="table table-hover" style="width: 90%" align="center">
-                            <tr class="table-row">
-                                <th style="width: 20%;text-align: center">Tipo de identificación</th>
-                                <th style="width: 20%;text-align: center">Número de identificación</th>
-                                <th style="width: 18%;text-align: center">Nombres</th>
-                                <th style="width: 17%;text-align: center">Apellidos</th>
-                                <th style="width: 5%;text-align: center">Rol</th>
-                                <th style="width: 10%;text-align: center">Entidad</th>
-                                <th style="width: 5%">&nbsp;</th>
-                                <th style="width: 5%">&nbsp;</th>
-                            </tr>
-                        </table>
-                        <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: personalExternoProyecto }">
-                            <tr class="table-row">
-                                <td style="width: 20%">
-                                    <span data-bind="text: descripcionTipoIdentificacion" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idTipoIdentificacion'  }">
-                                </td>
-                                <td style="width: 20%">
-                                    <span data-bind="text: numeroIdentificacion" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].numeroIdentificacion'  }">
-                                </td>
-                                <td style="width: 18%">
-                                    <span data-bind="text: nombres" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'personalExternoProyecto[' + $index() + '].nombres'  }">
-                                </td>
-                                <td style="width: 17%">
-                                    <span data-bind="text: apellidos" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'personalExternoProyecto[' + $index() + '].apellidos'  }">
-                                </td>
-                                <td style="width: 5%">
-                                    <span data-bind="text: descripcionRol" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'personalExternoProyecto[' + $index() + '].descripcionRol'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idRol'  }">
-                                </td>
-                                <td style="width: 10%">
-                                    <span data-bind="text: entidad" ></span>
-                                    <input type="hidden" class="form-control" data-bind="value: entidad, attr: { 'name': 'personalExternoProyecto[' + $index() + '].entidad'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'personalExternoProyecto[' + $index() + '].correoElectronico'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'personalExternoProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
-                                    <input type="hidden" class="form-control" data-bind="value: porcentajePropiedadIntelectual, attr: { 'name': 'personalExternoProyecto[' + $index() + '].porcentajePropiedadIntelectual' }">
-                                    <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'personalExternoProyecto[' + $index() + '].horasSemana' }">
-                                    <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'personalExternoProyecto[' + $index() + '].mesesDedicados' }">
-                                    <input type="hidden" data-bind="value: idPersonalExterno, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idPersonalExterno'  }" />
-                                    <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'personalExternoProyecto[' + $index() + '].consecutivo'  }" />
-                                </td>
-                                <td style="width: 5%" align="center">
-                                    <button class="btn btn-dark" data-bind="click: $root.eliminarPersonalExternoProyecto">
-                                        <i class="glyphicon glyphicon-trash"></i>
+                            <div id="personalExterno" class="tab-pane fade">
+                                <div class="alert alert-info" style="margin-top:20px;">
+                                    <strong>Personal Externo</strong>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevoPersonalExternoProyecto(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
                                     </button>
-                                </td>
-                                <td style="width: 5%" align="center">
-                                    <button class="btn btn-dark" data-bind="click: $root.editarPersonalExternoProyecto">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                        </table>                                
-                                
+                                </div>
+                                <div class="modal fade" id="personalExternoProyectoModal" tabindex="-1" role="dialog" aria-labelledby="personalExternoProyectoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Datos Personal Externo</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_personalExterno_proyecto"></div>
+                                                <table class="tblform3">
+                                                    <tr>
+                                                        <td width="45%">Tipo de identificación:</td>
+                                                        <td width="45%">Número de identificación:</td>
+                                                        <td width="10%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="tipoIdentificacionPersonalExterno" id="tipoIdentificacionPersonalExterno" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonalExterno" name="numeroIdentificacionPersonalExterno" />
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-dark" onclick="buscarPersonalExterno(); return false;">
+                                                                    <i class="glyphicon glyphicon-search"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                 </table>
+                                                <table class="tblform3">
+                                                    <tr>
+                                                        <td>Nombres:</td>
+                                                        <td>Apellidos:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="nombresPersonalExterno" name="nombresPersonalExterno" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="apellidosPersonalExterno" name="nombresPersonalExterno" class="form-control" />
+                                                        </td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Correo electrónico:</td>
+                                                        <td>Entidad:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="email" id="correoElectronicoPersonalExterno" name="correoElectronicoPersonalExterno" class="form-control" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="entidadPersonalExterno" name="entidadPersonalExterno" class="form-control" />
+                                                        </td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Rol</td> 
+                                                        <td>Porcentaje de propiedad intelectual:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="rolPersonalExterno" id="rolPersonalExterno" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="rol" items="${roles}">
+                                                                <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>      
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="porcentajePropiedadIntelectualPersonalExterno" name="porcentajePropiedadIntelectualPersonalExterno" class="form-control numbersOnly" maxlength="3" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Horas semana:</td>
+                                                        <td>Meses dedicados:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="horasSemanaPersonalExterno" name="horasSemanaPersonalExterno" class="form-control numbersOnly" maxlength="3" />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="mesesDedicadosPersonalExterno" name="mesesDedicadosPersonalExterno" class="form-control numbersOnly" maxlength="5" />
+                                                        </td>
+                                                    </tr>                                
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarPersonalExternoProyecto">Aceptar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>   
+                                <table class="table table-hover" style="width: 90%" align="center">
+                                    <tr class="table-row">
+                                        <th style="width: 20%;text-align: center">Tipo de identificación</th>
+                                        <th style="width: 20%;text-align: center">Número de identificación</th>
+                                        <th style="width: 18%;text-align: center">Nombres</th>
+                                        <th style="width: 17%;text-align: center">Apellidos</th>
+                                        <th style="width: 5%;text-align: center">Rol</th>
+                                        <th style="width: 10%;text-align: center">Entidad</th>
+                                        <th style="width: 5%">&nbsp;</th>
+                                        <th style="width: 5%">&nbsp;</th>
+                                    </tr>
+                                </table>
+                                <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: personalExternoProyecto }">
+                                    <tr class="table-row">
+                                        <td style="width: 20%">
+                                            <span data-bind="text: descripcionTipoIdentificacion" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idTipoIdentificacion'  }">
+                                        </td>
+                                        <td style="width: 20%">
+                                            <span data-bind="text: numeroIdentificacion" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].numeroIdentificacion'  }">
+                                        </td>
+                                        <td style="width: 18%">
+                                            <span data-bind="text: nombres" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'personalExternoProyecto[' + $index() + '].nombres'  }">
+                                        </td>
+                                        <td style="width: 17%">
+                                            <span data-bind="text: apellidos" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'personalExternoProyecto[' + $index() + '].apellidos'  }">
+                                        </td>
+                                        <td style="width: 5%">
+                                            <span data-bind="text: descripcionRol" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'personalExternoProyecto[' + $index() + '].descripcionRol'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idRol'  }">
+                                        </td>
+                                        <td style="width: 10%">
+                                            <span data-bind="text: entidad" ></span>
+                                            <input type="hidden" class="form-control" data-bind="value: entidad, attr: { 'name': 'personalExternoProyecto[' + $index() + '].entidad'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'personalExternoProyecto[' + $index() + '].correoElectronico'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'personalExternoProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
+                                            <input type="hidden" class="form-control" data-bind="value: porcentajePropiedadIntelectual, attr: { 'name': 'personalExternoProyecto[' + $index() + '].porcentajePropiedadIntelectual' }">
+                                            <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'personalExternoProyecto[' + $index() + '].horasSemana' }">
+                                            <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'personalExternoProyecto[' + $index() + '].mesesDedicados' }">
+                                            <input type="hidden" data-bind="value: idPersonalExterno, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idPersonalExterno'  }" />
+                                            <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'personalExternoProyecto[' + $index() + '].consecutivo'  }" />
+                                        </td>
+                                        <td style="width: 5%" align="center">
+                                            <button class="btn btn-dark" data-bind="click: $root.eliminarPersonalExternoProyecto">
+                                                <i class="glyphicon glyphicon-trash"></i>
+                                            </button>
+                                        </td>
+                                        <td style="width: 5%" align="center">
+                                            <button class="btn btn-dark" data-bind="click: $root.editarPersonalExternoProyecto">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                            </button>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
                         <table class='table table-hover' style='font-size:12px;'> 
                             <tr>
                                 <td align="right">

@@ -15,7 +15,7 @@ public class AdicionProyecto {
 
     private long idProyecto;
     private long idAdicion;
-    private double monto;
+    private long montoAdicion;
     private MultipartFile documentoAdicion;
 
     /**
@@ -47,20 +47,6 @@ public class AdicionProyecto {
     }
 
     /**
-     * @return the monto
-     */
-    public double getMonto() {
-        return monto;
-    }
-
-    /**
-     * @param monto the monto to set
-     */
-    public void setMonto(double monto) {
-        this.monto = monto;
-    }
-
-    /**
      * @return the documentoAdicion
      */
     public MultipartFile getDocumentoAdicion() {
@@ -72,5 +58,19 @@ public class AdicionProyecto {
      */
     public void setDocumentoAdicion(MultipartFile documentoAdicion) {
         this.documentoAdicion = documentoAdicion;
+    }
+
+    /**
+     * @return the montoAdicion
+     */
+    public long getMontoAdicion() {
+        return montoAdicion;
+    }
+
+    /**
+     * @param montoAdicion the montoAdicion to set
+     */
+    public void setMontoAdicion(long montoAdicion) {
+        this.montoAdicion = montoAdicion;
     }
 }

@@ -16,6 +16,7 @@ import co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -109,7 +110,7 @@ public class Util {
                         + "{idProrroga: ko.observable(" + prorrogaProyecto.getIdProrroga()+ "),"
                         + "fechaFormateada:ko.observable('" + formatter.format(prorrogaProyecto.getFecha()) + "'),"
                         + "mesesAprobados:ko.observable(" + prorrogaProyecto.getMesesAprobados()+ "),"
-                        + "descripcion():ko.observable('" + prorrogaProyecto.getDescripcion()+ "')"
+                        + "descripcion:ko.observable('" + prorrogaProyecto.getDescripcion()+ "')"
                         + "}";
                 if (i < prorrogasProyecto.size() - 1) {
                     jscriptArray = jscriptArray + ",";
@@ -287,5 +288,9 @@ public class Util {
 
         return jscriptArray;
 
+    }
+    
+    public static String obtenerFechaFormateada(Date fecha) {
+        return formatter.format(fecha);
     }
 }

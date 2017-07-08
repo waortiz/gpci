@@ -14,6 +14,7 @@ import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
+import co.edu.fnsp.gpci.utils.Util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -150,19 +151,31 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
 
         Map resultadoAdendas = obtenerAdendasProyecto.execute(parametros);
         ArrayList<AdendaProyecto> adendas = (ArrayList<AdendaProyecto>) resultadoAdendas.get("adendasProyecto");
+        for (AdendaProyecto adendaProyecto : adendas) {
+            adendaProyecto.setFechaFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFecha()));
+        }
         proyecto.setAdendasProyecto(adendas);
 
         Map resultadoAdiciones = obtenerAdicionesProyecto.execute(parametros);
-        ArrayList<AdicionProyecto> adiciones = (ArrayList<AdicionProyecto>) resultadoAdiciones.get("adicionesProyecto");
-        proyecto.setAdicionesProyecto(adiciones);
+        ArrayList<AdicionProyecto> adicionesProyecto = (ArrayList<AdicionProyecto>) resultadoAdiciones.get("adicionesProyecto");
+        for (AdicionProyecto adicionProyecto : adicionesProyecto) {
+            adicionProyecto.setFechaFormateada(Util.obtenerFechaFormateada(adicionProyecto.getFecha()));
+        }
+        proyecto.setAdicionesProyecto(adicionesProyecto);
 
         Map resultadoActasProyecto = obtenerActasProyecto.execute(parametros);
         ArrayList<ActaProyecto> actasProyecto = (ArrayList<ActaProyecto>) resultadoActasProyecto.get("actasProyecto");
+        for (ActaProyecto actaProyecto : actasProyecto) {
+            actaProyecto.setFechaFormateada(Util.obtenerFechaFormateada(actaProyecto.getFecha()));
+        }
         proyecto.setActasProyecto(actasProyecto);
 
         Map resultadoProrrogas = obtenerProrrogasProyecto.execute(parametros);
-        ArrayList<ProrrogaProyecto> prorrogas = (ArrayList<ProrrogaProyecto>) resultadoProrrogas.get("prorrogasProyecto");
-        proyecto.setProrrogasProyecto(prorrogas);
+        ArrayList<ProrrogaProyecto> prorrogasProyecto = (ArrayList<ProrrogaProyecto>) resultadoProrrogas.get("prorrogasProyecto");
+        for (ProrrogaProyecto prorrogaProyecto : prorrogasProyecto) {
+            prorrogaProyecto.setFechaFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFecha()));
+        }
+        proyecto.setProrrogasProyecto(prorrogasProyecto);
 
         return proyecto;
     }
@@ -204,12 +217,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosActualizacionActaProyecto.addValue("varObservaciones", actaProyecto.getObservaciones());
             actualizarActaProyecto.execute(parametrosActualizacionActaProyecto);
 
-            MapSqlParameterSource parametrosActualizacionDocumentoActaProyecto = new MapSqlParameterSource();
-            parametrosActualizacionDocumentoActaProyecto.addValue("varIdActa", actaProyecto.getIdActa());
-            parametrosActualizacionDocumentoActaProyecto.addValue("varNombre", documento.getNombre());
-            parametrosActualizacionDocumentoActaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
-            parametrosActualizacionDocumentoActaProyecto.addValue("varContenido", documento.getContenido());
-            actualizarDocumentoActaProyecto.execute(parametrosActualizacionDocumentoActaProyecto);
+            if (documento != null) {
+                MapSqlParameterSource parametrosActualizacionDocumentoActaProyecto = new MapSqlParameterSource();
+                parametrosActualizacionDocumentoActaProyecto.addValue("varIdActa", actaProyecto.getIdActa());
+                parametrosActualizacionDocumentoActaProyecto.addValue("varNombre", documento.getNombre());
+                parametrosActualizacionDocumentoActaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+                parametrosActualizacionDocumentoActaProyecto.addValue("varContenido", documento.getContenido());
+                actualizarDocumentoActaProyecto.execute(parametrosActualizacionDocumentoActaProyecto);
+            }
         }
     }
 
@@ -220,12 +235,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
 
         Map resultadoActasProyecto = obtenerActasProyecto.execute(parametros);
         ArrayList<ActaProyecto> actasProyecto = (ArrayList<ActaProyecto>) resultadoActasProyecto.get("actasProyecto");
+        for (ActaProyecto actaProyecto : actasProyecto) {
+            actaProyecto.setFechaFormateada(Util.obtenerFechaFormateada(actaProyecto.getFecha()));
+        }
 
         return actasProyecto;
-
     }
-    
-     @Override
+
+    @Override
     public Documento obtenerDocumentoActaProyecto(long idActa) {
         Documento documento = new Documento();
         MapSqlParameterSource parametros = new MapSqlParameterSource();
@@ -236,19 +253,18 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         documento.setNombre((String) resultado.get("varNombre"));
         documento.setTipoContenido((String) resultado.get("varTipoContenido"));
         documento.setContenido((byte[]) resultado.get("varContenido"));
-        
+
         return documento;
-        
     }
-    
+
     @Override
     public void eliminarActaProyecto(long idActa) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdActa", idActa);
         eliminarActaProyecto.execute(parametros);
     }
-    
-       @Override
+
+    @Override
     public void guardarAdendaProyecto(long idProyecto, AdendaProyecto adendaProyecto, Documento documento) {
 
         if (adendaProyecto.getIdAdenda() == 0) {
@@ -271,12 +287,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosActualizacionAdendaProyecto.addValue("varModificacion", adendaProyecto.getModificacion());
             actualizarAdendaProyecto.execute(parametrosActualizacionAdendaProyecto);
 
-            MapSqlParameterSource parametrosActualizacionDocumentoAdendaProyecto = new MapSqlParameterSource();
-            parametrosActualizacionDocumentoAdendaProyecto.addValue("varIdAdenda", adendaProyecto.getIdAdenda());
-            parametrosActualizacionDocumentoAdendaProyecto.addValue("varNombre", documento.getNombre());
-            parametrosActualizacionDocumentoAdendaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
-            parametrosActualizacionDocumentoAdendaProyecto.addValue("varContenido", documento.getContenido());
-            actualizarDocumentoAdendaProyecto.execute(parametrosActualizacionDocumentoAdendaProyecto);
+            if (documento != null) {
+                MapSqlParameterSource parametrosActualizacionDocumentoAdendaProyecto = new MapSqlParameterSource();
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varIdAdenda", adendaProyecto.getIdAdenda());
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varNombre", documento.getNombre());
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varContenido", documento.getContenido());
+                actualizarDocumentoAdendaProyecto.execute(parametrosActualizacionDocumentoAdendaProyecto);
+            }
         }
     }
 
@@ -287,12 +305,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
 
         Map resultadoAdendasProyecto = obtenerAdendasProyecto.execute(parametros);
         ArrayList<AdendaProyecto> adendasProyecto = (ArrayList<AdendaProyecto>) resultadoAdendasProyecto.get("adendasProyecto");
+        for (AdendaProyecto adendaProyecto : adendasProyecto) {
+            adendaProyecto.setFechaFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFecha()));
+        }
 
         return adendasProyecto;
-
     }
-    
-     @Override
+
+    @Override
     public Documento obtenerDocumentoAdendaProyecto(long idAdenda) {
         Documento documento = new Documento();
         MapSqlParameterSource parametros = new MapSqlParameterSource();
@@ -303,19 +323,18 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         documento.setNombre((String) resultado.get("varNombre"));
         documento.setTipoContenido((String) resultado.get("varTipoContenido"));
         documento.setContenido((byte[]) resultado.get("varContenido"));
-        
+
         return documento;
-        
     }
-    
+
     @Override
     public void eliminarAdendaProyecto(long idAdenda) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdAdenda", idAdenda);
         eliminarAdendaProyecto.execute(parametros);
     }
-    
-       @Override
+
+    @Override
     public void guardarAdicionProyecto(long idProyecto, AdicionProyecto adicionProyecto, Documento documento) {
 
         if (adicionProyecto.getIdAdicion() == 0) {
@@ -338,12 +357,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosActualizacionAdicionProyecto.addValue("varMonto", adicionProyecto.getMonto());
             actualizarAdicionProyecto.execute(parametrosActualizacionAdicionProyecto);
 
-            MapSqlParameterSource parametrosActualizacionDocumentoAdicionProyecto = new MapSqlParameterSource();
-            parametrosActualizacionDocumentoAdicionProyecto.addValue("varIdAdicion", adicionProyecto.getIdAdicion());
-            parametrosActualizacionDocumentoAdicionProyecto.addValue("varNombre", documento.getNombre());
-            parametrosActualizacionDocumentoAdicionProyecto.addValue("varTipoContenido", documento.getTipoContenido());
-            parametrosActualizacionDocumentoAdicionProyecto.addValue("varContenido", documento.getContenido());
-            actualizarDocumentoAdicionProyecto.execute(parametrosActualizacionDocumentoAdicionProyecto);
+            if (documento != null) {
+                MapSqlParameterSource parametrosActualizacionDocumentoAdicionProyecto = new MapSqlParameterSource();
+                parametrosActualizacionDocumentoAdicionProyecto.addValue("varIdAdicion", adicionProyecto.getIdAdicion());
+                parametrosActualizacionDocumentoAdicionProyecto.addValue("varNombre", documento.getNombre());
+                parametrosActualizacionDocumentoAdicionProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+                parametrosActualizacionDocumentoAdicionProyecto.addValue("varContenido", documento.getContenido());
+                actualizarDocumentoAdicionProyecto.execute(parametrosActualizacionDocumentoAdicionProyecto);
+            }
         }
     }
 
@@ -354,12 +375,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
 
         Map resultadoAdicionsProyecto = obtenerAdicionesProyecto.execute(parametros);
         ArrayList<AdicionProyecto> adicionesProyecto = (ArrayList<AdicionProyecto>) resultadoAdicionsProyecto.get("adicionesProyecto");
+        for (AdicionProyecto adicionProyecto : adicionesProyecto) {
+            adicionProyecto.setFechaFormateada(Util.obtenerFechaFormateada(adicionProyecto.getFecha()));
+        }
 
         return adicionesProyecto;
-
     }
-    
-     @Override
+
+    @Override
     public Documento obtenerDocumentoAdicionProyecto(long idAdicion) {
         Documento documento = new Documento();
         MapSqlParameterSource parametros = new MapSqlParameterSource();
@@ -370,19 +393,18 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         documento.setNombre((String) resultado.get("varNombre"));
         documento.setTipoContenido((String) resultado.get("varTipoContenido"));
         documento.setContenido((byte[]) resultado.get("varContenido"));
-        
+
         return documento;
-        
     }
-    
+
     @Override
     public void eliminarAdicionProyecto(long idAdicion) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdAdicion", idAdicion);
         eliminarAdicionProyecto.execute(parametros);
     }
-    
-       @Override
+
+    @Override
     public void guardarProrrogaProyecto(long idProyecto, ProrrogaProyecto prorrogaProyecto, Documento documento) {
 
         if (prorrogaProyecto.getIdProrroga() == 0) {
@@ -407,12 +429,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosActualizacionProrrogaProyecto.addValue("varMesesAprobados", prorrogaProyecto.getMesesAprobados());
             actualizarProrrogaProyecto.execute(parametrosActualizacionProrrogaProyecto);
 
-            MapSqlParameterSource parametrosActualizacionDocumentoProrrogaProyecto = new MapSqlParameterSource();
-            parametrosActualizacionDocumentoProrrogaProyecto.addValue("varIdProrroga", prorrogaProyecto.getIdProrroga());
-            parametrosActualizacionDocumentoProrrogaProyecto.addValue("varNombre", documento.getNombre());
-            parametrosActualizacionDocumentoProrrogaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
-            parametrosActualizacionDocumentoProrrogaProyecto.addValue("varContenido", documento.getContenido());
-            actualizarDocumentoProrrogaProyecto.execute(parametrosActualizacionDocumentoProrrogaProyecto);
+            if (documento != null) {
+                MapSqlParameterSource parametrosActualizacionDocumentoProrrogaProyecto = new MapSqlParameterSource();
+                parametrosActualizacionDocumentoProrrogaProyecto.addValue("varIdProrroga", prorrogaProyecto.getIdProrroga());
+                parametrosActualizacionDocumentoProrrogaProyecto.addValue("varNombre", documento.getNombre());
+                parametrosActualizacionDocumentoProrrogaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+                parametrosActualizacionDocumentoProrrogaProyecto.addValue("varContenido", documento.getContenido());
+                actualizarDocumentoProrrogaProyecto.execute(parametrosActualizacionDocumentoProrrogaProyecto);
+            }
         }
     }
 
@@ -423,12 +447,15 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
 
         Map resultadoProrrogasProyecto = obtenerProrrogasProyecto.execute(parametros);
         ArrayList<ProrrogaProyecto> prorrogasProyecto = (ArrayList<ProrrogaProyecto>) resultadoProrrogasProyecto.get("prorrogasProyecto");
+        for (ProrrogaProyecto prorrogaProyecto : prorrogasProyecto) {
+            prorrogaProyecto.setFechaFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFecha()));
+        }
 
         return prorrogasProyecto;
 
     }
-    
-     @Override
+
+    @Override
     public Documento obtenerDocumentoProrrogaProyecto(long idProrroga) {
         Documento documento = new Documento();
         MapSqlParameterSource parametros = new MapSqlParameterSource();
@@ -439,11 +466,11 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         documento.setNombre((String) resultado.get("varNombre"));
         documento.setTipoContenido((String) resultado.get("varTipoContenido"));
         documento.setContenido((byte[]) resultado.get("varContenido"));
-        
+
         return documento;
-        
+
     }
-    
+
     @Override
     public void eliminarProrrogaProyecto(long idProrroga) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();

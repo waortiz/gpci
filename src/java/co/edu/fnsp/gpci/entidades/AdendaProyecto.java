@@ -5,7 +5,6 @@
  */
 package co.edu.fnsp.gpci.entidades;
 
-import co.edu.fnsp.gpci.utils.Util;
 import java.util.Date;
 
 /**
@@ -64,7 +63,7 @@ public class AdendaProyecto {
      * @return the fechaFormateada
      */
     public String getFechaFormateada() {
-        return Util.formatter.format(fecha);
+        return fechaFormateada;
     }
 
     /**

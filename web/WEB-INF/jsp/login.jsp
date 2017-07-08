@@ -5,8 +5,8 @@
     <head>
         <title>GPCI: Gestión de Proyectos</title>
         <link rel="icon" href='<c:url value="/resources/imagenes/favicon.ico" />' type="image/x-icon" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/meyer-reset/2.0/reset.min.css">
-        <link rel='stylesheet prefetch' href='http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css'>  
+        <link rel="stylesheet" href='<c:url value="/resources/css/reset.min.css"/>'>
+        <link rel='stylesheet prefetch' href='<c:url value="/resources/css/font-awesome.min.css"/>'>
         <link rel="stylesheet" href='<c:url value="/resources/css/login.css" />'>
 
     </style>

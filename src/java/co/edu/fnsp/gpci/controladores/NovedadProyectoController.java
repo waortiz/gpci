@@ -44,7 +44,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class NovedadProyectoController {
 
     private static final Logger logger = Logger.getLogger(NovedadProyectoController.class.getName());
-    
+
     @Autowired
     private IServicioNovedadProyecto servicioNovedadProyecto;
 
@@ -147,11 +147,12 @@ public class NovedadProyectoController {
             actaProyectoGuardar.setNombre(actaProyecto.getNombreActa());
             actaProyectoGuardar.setObservaciones(actaProyecto.getObservacionesActa());
 
-            Documento documento = new Documento();
-            documento.setContenido(actaProyecto.getDocumentoActa().getBytes());
-            documento.setNombre(actaProyecto.getDocumentoActa().getOriginalFilename());
-            documento.setTipoContenido(actaProyecto.getDocumentoActa().getContentType());
-
+            Documento documento = null;
+            if (actaProyecto.getDocumentoActa() != null) {
+                documento.setContenido(actaProyecto.getDocumentoActa().getBytes());
+                documento.setNombre(actaProyecto.getDocumentoActa().getOriginalFilename());
+                documento.setTipoContenido(actaProyecto.getDocumentoActa().getContentType());
+            }
             servicioNovedadProyecto.guardarActaProyecto(actaProyecto.getIdProyecto(), actaProyectoGuardar, documento);
             ArrayList<ActaProyecto> actas = servicioNovedadProyecto.obtenerActasProyecto(actaProyecto.getIdProyecto());
             Gson gson = new Gson();
@@ -186,7 +187,7 @@ public class NovedadProyectoController {
 
         return respuesta;
     }
-    
+
     @RequestMapping(value = {"/adendaProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarAdendaProyecto(@ModelAttribute(value = "adendaProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaProyecto adendaProyecto, Model model) {
@@ -196,11 +197,13 @@ public class NovedadProyectoController {
             adendaProyectoGuardar.setIdAdenda(adendaProyecto.getIdAdenda());
             adendaProyectoGuardar.setModificacion(adendaProyecto.getModificacionAdenda());
 
-            Documento documento = new Documento();
-            documento.setContenido(adendaProyecto.getDocumentoAdenda().getBytes());
-            documento.setNombre(adendaProyecto.getDocumentoAdenda().getOriginalFilename());
-            documento.setTipoContenido(adendaProyecto.getDocumentoAdenda().getContentType());
-
+            Documento documento = null;
+            if (adendaProyecto.getDocumentoAdenda() != null) {
+                documento = new Documento();
+                documento.setContenido(adendaProyecto.getDocumentoAdenda().getBytes());
+                documento.setNombre(adendaProyecto.getDocumentoAdenda().getOriginalFilename());
+                documento.setTipoContenido(adendaProyecto.getDocumentoAdenda().getContentType());
+            }
             servicioNovedadProyecto.guardarAdendaProyecto(adendaProyecto.getIdProyecto(), adendaProyectoGuardar, documento);
             ArrayList<AdendaProyecto> adendas = servicioNovedadProyecto.obtenerAdendasProyecto(adendaProyecto.getIdProyecto());
             Gson gson = new Gson();
@@ -235,7 +238,7 @@ public class NovedadProyectoController {
 
         return respuesta;
     }
-    
+
     @RequestMapping(value = {"/adicionProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarAdicionProyecto(@ModelAttribute(value = "adicionProyecto") co.edu.fnsp.gpci.entidadesVista.AdicionProyecto adicionProyecto, Model model) {
@@ -243,13 +246,15 @@ public class NovedadProyectoController {
         try {
             AdicionProyecto adicionProyectoGuardar = new AdicionProyecto();
             adicionProyectoGuardar.setIdAdicion(adicionProyecto.getIdAdicion());
-            adicionProyectoGuardar.setMonto(adicionProyecto.getMonto());
+            adicionProyectoGuardar.setMonto(adicionProyecto.getMontoAdicion());
 
-            Documento documento = new Documento();
-            documento.setContenido(adicionProyecto.getDocumentoAdicion().getBytes());
-            documento.setNombre(adicionProyecto.getDocumentoAdicion().getOriginalFilename());
-            documento.setTipoContenido(adicionProyecto.getDocumentoAdicion().getContentType());
-
+            Documento documento = null;
+            if (adicionProyecto.getDocumentoAdicion() != null) {
+                documento = new Documento();
+                documento.setContenido(adicionProyecto.getDocumentoAdicion().getBytes());
+                documento.setNombre(adicionProyecto.getDocumentoAdicion().getOriginalFilename());
+                documento.setTipoContenido(adicionProyecto.getDocumentoAdicion().getContentType());
+            }
             servicioNovedadProyecto.guardarAdicionProyecto(adicionProyecto.getIdProyecto(), adicionProyectoGuardar, documento);
             ArrayList<AdicionProyecto> adiciones = servicioNovedadProyecto.obtenerAdicionesProyecto(adicionProyecto.getIdProyecto());
             Gson gson = new Gson();
@@ -284,7 +289,7 @@ public class NovedadProyectoController {
 
         return respuesta;
     }
-    
+
     @RequestMapping(value = {"/prorrogaProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarProrrogaProyecto(@ModelAttribute(value = "prorrogaProyecto") co.edu.fnsp.gpci.entidadesVista.ProrrogaProyecto prorrogaProyecto, Model model) {
@@ -295,11 +300,13 @@ public class NovedadProyectoController {
             prorrogaProyectoGuardar.setDescripcion(prorrogaProyecto.getDescripcionProrroga());
             prorrogaProyectoGuardar.setMesesAprobados(prorrogaProyecto.getMesesAprobadosProrroga());
 
-            Documento documento = new Documento();
-            documento.setContenido(prorrogaProyecto.getDocumentoProrroga().getBytes());
-            documento.setNombre(prorrogaProyecto.getDocumentoProrroga().getOriginalFilename());
-            documento.setTipoContenido(prorrogaProyecto.getDocumentoProrroga().getContentType());
-
+            Documento documento = null;
+            if (prorrogaProyecto.getDocumentoProrroga() != null) {
+                documento = new Documento();
+                documento.setContenido(prorrogaProyecto.getDocumentoProrroga().getBytes());
+                documento.setNombre(prorrogaProyecto.getDocumentoProrroga().getOriginalFilename());
+                documento.setTipoContenido(prorrogaProyecto.getDocumentoProrroga().getContentType());
+            }
             servicioNovedadProyecto.guardarProrrogaProyecto(prorrogaProyecto.getIdProyecto(), prorrogaProyectoGuardar, documento);
             ArrayList<ProrrogaProyecto> prorrogas = servicioNovedadProyecto.obtenerProrrogasProyecto(prorrogaProyecto.getIdProyecto());
             Gson gson = new Gson();
