@@ -9,7 +9,7 @@
         <http auto-config='true'>
             <intercept-url pattern="/novedades/*" access="hasRole('ROLE_USER')" />	
             <intercept-url pattern="/proyectos/*" access="hasRole('ROLE_USER')" />
-	    <form-login login-page="/login" default-target-url="/proyectos/" 
+	    <form-login login-page="/login" default-target-url="/index" 
                             login-processing-url="/j_spring_security_check"
                             username-parameter="username" password-parameter="password"
 			    authentication-failure-url="/login?auth=failure" />

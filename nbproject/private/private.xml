@@ -3,21 +3,17 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/entidadesVista/ProyectoEdicion.java</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/resources/css/bootstrap.min.css</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/resources/js/paging.js</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/web.xml</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/application.properties</file>
             <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/proyectos/index.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/novedades/editar.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/servicios/ServicioNovedadProyecto.java</file>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/entidadesVista/ActaProyecto.java</file>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/entidadesVista/AdendaProyecto.java</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/resources/css/bootstrap.css</file>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/utils/Util.java</file>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/entidades/AdicionProyecto.java</file>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/controladores/NovedadProyectoController.java</file>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/repositorios/RepositorioNovedadProyecto.java</file>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/entidadesVista/AdicionProyecto.java</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/proyectos/crear.jsp</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/error.jsp</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/spring-security.xml</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/controladores/IndexController.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/controladores/ErrorController.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/resources/css/paging.css</file>
             <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/login.jsp</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/novedades/index.jsp</file>
             <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/index.jsp</file>
         </group>
     </open-files>

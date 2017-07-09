@@ -228,6 +228,27 @@
                                         </div>
                                     </div>  
                                 </div>
+                                <div class="modal fade" id="confirmacionEliminacionObjetivoEspecifico" tabindex="-1" role="dialog" aria-labelledby="objetivoEspecificoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Eliminar Objetivo Específico</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de eliminar el objetivo específico?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-danger btn-ok" onclick="eliminarObjetivoEspecifico();">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
                                 <table class="table table-hover" style="width: 90%" align="center" >
                                     <tr class="table-row">
                                         <th style="width: 90%;text-align: center">Objetivo</th>
@@ -292,6 +313,27 @@
                                         </div>
                                     </div>  
                                 </div>
+                                <div class="modal fade" id="confirmacionEliminacionCompromisoProyecto" tabindex="-1" role="dialog" aria-labelledby="compromisoProyectoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Eliminar Compromiso</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de eliminar el compromiso?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-danger btn-ok" onclick="eliminarCompromisoProyecto();">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                   
                                 <table class="table table-hover" style="width: 90%" align="center" >
                                     <tr class="table-row">
                                         <th style="width: 90%;text-align: center">Compromiso</th>
@@ -463,6 +505,27 @@
                                         </div>
                                     </div>
                                 </div>   
+                                <div class="modal fade" id="confirmacionEliminacionProfesorProyecto" tabindex="-1" role="dialog" aria-labelledby="compromisoProfesorModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Eliminar Profesor</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de eliminar el profesor?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-danger btn-ok" onclick="eliminarProfesorProyecto();">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                  
                                 <table class="table table-hover" style="width: 90%" align="center">
                                     <tr class="table-row">
                                         <th style="width: 20%;text-align: center">Tipo de identificación</th>
@@ -667,7 +730,28 @@
                                             </div>
                                         </div>
                                     </div>
-                                </div>   
+                                </div>  
+                                <div class="modal fade" id="confirmacionEliminacionEstudianteProyecto" tabindex="-1" role="dialog" aria-labelledby="estudianteProyectoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Eliminar Estudiante</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de eliminar el estudiante?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-danger btn-ok" onclick="eliminarEstudianteProyecto();">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                  
                                 <table class="table table-hover" style="width: 90%" align="center">
                                     <tr class="table-row">
                                         <th style="width: 20%;text-align: center">Tipo de identificación</th>
@@ -842,6 +926,27 @@
                                         </div>
                                     </div>
                                 </div>   
+                                <div class="modal fade" id="confirmacionEliminacionPersonalExternoProyecto" tabindex="-1" role="dialog" aria-labelledby="personalExternoProyectoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Eliminar Personal Externo</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de eliminar el personal externo?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-danger btn-ok" onclick="eliminarPersonalExternoProyecto();">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                  
                                 <table class="table table-hover" style="width: 90%" align="center">
                                     <tr class="table-row">
                                         <th style="width: 20%;text-align: center">Tipo de identificación</th>
@@ -950,6 +1055,31 @@
                 todayHighlight: true
             });
 
+            function eliminarObjetivoEspecifico() {
+               proyectoModel.objetivosEspecificos.remove(objetivoEspecificoEliminar);
+               $('#confirmacionEliminacionObjetivoEspecifico').modal('toggle');
+            }    
+
+            function eliminarProfesorProyecto() {
+               proyectoModel.profesoresProyecto.remove(profesorProyectoEliminar);
+               $('#confirmacionEliminacionProfesorProyecto').modal('toggle');
+            }    
+
+            function eliminarEstudianteProyecto() {
+               proyectoModel.estudiantesProyecto.remove(estudianteProyectoEliminar);
+               $('#confirmacionEliminacionEstudianteProyecto').modal('toggle');
+            }    
+
+            function eliminarPersonalExternoProyecto() {
+               proyectoModel.personalExternoProyecto.remove(personalExternoProyectoEliminar);
+               $('#confirmacionEliminacionPersonalExternoProyecto').modal('toggle');
+            }    
+
+            function eliminarCompromisoProyecto() {
+               proyectoModel.compromisosProyecto.remove(compromisoProyectoEliminar);
+               $('#confirmacionEliminacionCompromisoProyecto').modal('toggle');
+            }    
+
             var ProyectoModel = function (objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto) {
                 self = this;
 
@@ -982,7 +1112,8 @@
                     limpiarDatosVentanaObjetivoEspecifico();
                 };
                 self.eliminarObjetivoEspecifico = function (objetivoEspecifico) {
-                    self.objetivosEspecificos.remove(objetivoEspecifico);
+                    objetivoEspecificoEliminar = objetivoEspecifico;
+                    $('#confirmacionEliminacionObjetivoEspecifico').modal('show');                    
                 };
                 self.editarObjetivoEspecifico = function (objetivoEspecifico) {
                     $('#objetivoEspecifico').val(objetivoEspecifico.descripcion());
@@ -1019,7 +1150,8 @@
                     limpiarDatosVentanaCompromisoProyecto();
                 };
                 self.eliminarCompromisoProyecto = function (compromisoProyecto) {
-                    self.compromisosProyecto.remove(compromisoProyecto);
+                    compromisoProyectoEliminar = compromisoProyecto;
+                    $('#confirmacionEliminacionCompromisoProyecto').modal('show');                    
                 };
                 self.editarCompromisoProyecto = function (compromisoProyecto) {
                     $('#compromisoProyecto').val(compromisoProyecto.descripcion());
@@ -1143,8 +1275,9 @@
                    bootstrap_alert_profesores_proyecto.removeWarning();
                    limpiarDatosVentanaProfesorProyecto();
                 };
-                self.eliminarProfesorProyecto = function (profesor) {
-                    self.profesoresProyecto.remove(profesor);
+                self.eliminarProfesorProyecto = function (profesorProyecto) {
+                    profesorProyectoEliminar = profesorProyecto;
+                    $('#confirmacionEliminacionProfesorProyecto').modal('show');                    
                 };
                 self.editarProfesorProyecto = function (profesorProyecto) {
                     $('#consecutivo').val(profesorProyecto.consecutivo());
@@ -1280,8 +1413,9 @@
                    bootstrap_alert_estudiantes_proyecto.removeWarning();
                    limpiarDatosVentanaEstudianteProyecto();
                 };
-                self.eliminarEstudianteProyecto = function (estudiante) {
-                    self.estudiantesProyecto.remove(estudiante);
+                self.eliminarEstudianteProyecto = function (estudianteProyecto) {
+                    estudianteProyectoEliminar = estudianteProyecto;
+                    $('#confirmacionEliminacionEstudianteProyecto').modal('show');                    
                 };
                 self.editarEstudianteProyecto = function (estudianteProyecto) {
                     $('#consecutivo').val(estudianteProyecto.consecutivo());
@@ -1399,8 +1533,9 @@
                    bootstrap_alert_personalExterno_proyecto.removeWarning();
                    limpiarDatosVentanaPersonalExternoProyecto();
                 };
-                self.eliminarPersonalExternoProyecto = function (personalExterno) {
-                    self.personalExternoProyecto.remove(personalExterno);
+                self.eliminarPersonalExternoProyecto = function (personalExternoProyecto) {
+                    personalExternoProyectoEliminar = personalExternoProyecto;
+                    $('#confirmacionEliminacionPersonalExternoProyecto').modal('show');                    
                 };
                 self.editarPersonalExternoProyecto = function (personalExterno) {
                     $('#consecutivo').val(personalExterno.consecutivo());
@@ -1425,7 +1560,13 @@
             var estudiantesProyecto = new Array();
             var personalExternoProyecto = new Array();
             var compromisosProyecto = new Array();
-            
+
+            var objetivoEspecificoEliminar = null;
+            var profesorProyectoEliminar = null;
+            var estudianteProyectoEliminar = null;
+            var personalExternoProyectoEliminar = null;
+            var compromisoProyectoEliminar = null;
+
             <c:if test = "${objetivosEspecificosJSON != null}">
             objetivosEspecificos = ${objetivosEspecificosJSON};
             </c:if>

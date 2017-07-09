@@ -15,6 +15,7 @@
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>
+        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/paging.css" />'>
     </head>
     <body>
         <nav class="navbar barraPrincipal">
@@ -68,17 +69,20 @@
                                        </td>
                                     </tr>
                                 </table>
-                                <table class='table table-hover' style='font-size:12px;'> 
-                                    <tr  class='text-success'>
-                                        <th width='20%'>Nombre corto</th>
-                                        <th width='15%'>Fecha de creación</th> 
-                                        <th width='15%'>Fecha de inicio</th> 
-                                        <th width='15%'>Fecha finalizaci&oacute;n</th> 
-                                        <th width='15%'>Tipo de proyecto</th> 
-                                        <th width='10%'>Estado</th> 
-                                        <th width='10%'>Modificar</th> 
-                                    </tr> 
+                                <table class='table table-hover' style='font-size:12px;' id="proyectos"> 
+                                    <thead>
+                                        <tr  class='text-success'>
+                                            <th width='20%'>Nombre corto</th>
+                                            <th width='15%'>Fecha de creación</th> 
+                                            <th width='15%'>Fecha de inicio</th> 
+                                            <th width='15%'>Fecha finalizaci&oacute;n</th> 
+                                            <th width='15%'>Tipo de proyecto</th> 
+                                            <th width='10%'>Estado</th> 
+                                            <th width='10%'>Modificar</th> 
+                                        </tr> 
+                                    </thead>
                                     <c:if test = "${proyectos.size() > 0}">
+                                       <tbody>
                                         <c:forEach var="proyecto" items="${proyectos}">   
                                             <tr>
                                                 <td>
@@ -104,13 +108,16 @@
                                                 </td>  
                                             </tr>
                                         </c:forEach>  
+                                        </tbody>
                                     </c:if>
                                     <c:if test = "${proyectos.size() == 0}">
-                                        <tr>
-                                            <td colspan="7">No se encontraron proyectos</td>
-                                        </tr>
+                                        <tfoot> 
+                                            <tr>
+                                                <td colspan="7">No se encontraron proyectos</td>
+                                            </tr>
+                                        </tfoot>
                                     </c:if>
-                                </table> 
+                                   </table>
                             </form:form>
                         </div>
                     </div>
@@ -132,7 +139,12 @@
         <script src='<c:url value="/resources/js/bootstrap.js" />'></script>  
         <script src='<c:url value="/resources/js/bootstrap-datepicker.min.js" />'></script>  
         <script src='<c:url value="/resources/js/bootstrap-datepicker.es.min.js" />' charset="UTF-8"></script>
-        <script>
+        <script type="text/javascript" src='<c:url value="/resources/js/paging.js" />'></script> 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#proyectos').paging({limit: 5});
+            });
+
             $.validate({
                 validateOnBlur: false, // disable validation when input looses focus
                 errorMessagePosition: 'top', // Instead of 'inline' which is default
