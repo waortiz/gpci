@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC  "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"  "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">  
+
+<tiles-definitions>  
+ 
+   <!-- Base Definition -->
+   <definition name="base-definition" 
+       template="/WEB-INF/tiles/layouts/defaultLayout.jsp">  
+       <put-attribute name="title" value="" />  
+       <put-attribute name="header" value="/WEB-INF/tiles/template/defaultHeader.jsp" />  
+       <put-attribute name="menu" value="/WEB-INF/tiles/template/defaultMenu.jsp" />  
+       <put-attribute name="body" value="" />  
+       <put-attribute name="footer" value="/WEB-INF/tiles/template/defaultFooter.jsp" />  
+   </definition>  
+ 
+   <!-- Home Page -->
+   <definition name="index" extends="base-definition">  
+       <put-attribute name="title" value="Inicio" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/index.jsp" />  
+   </definition>  
+   
+   <!-- Error Page -->
+   <definition name="error" extends="base-definition">  
+       <put-attribute name="title" value="Errores" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/error.jsp" />  
+   </definition>  
+      
+   <!-- Novedades Page -->
+   <definition name="novedades" extends="base-definition">  
+       <put-attribute name="title" value="Proyectos" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/novedades/proyectos.jsp" />  
+   </definition>  
+   <definition name="novedades/proyectos" extends="base-definition">  
+       <put-attribute name="title" value="Proyectos" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/novedades/proyectos.jsp" />  
+   </definition>  
+   <definition name="novedades/editar" extends="base-definition">  
+       <put-attribute name="title" value="Novedades" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/novedades/editar.jsp" />  
+   </definition>  
+ 
+   <!-- Proyectos Page -->
+   <definition name="proyectos" extends="base-definition">  
+       <put-attribute name="title" value="Novedades" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/proyectos/proyectos.jsp" />  
+   </definition>  
+   <definition name="proyectos/proyectos" extends="base-definition">  
+       <put-attribute name="title" value="Novedades" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/proyectos/proyectos.jsp" />  
+   </definition>  
+   <definition name="proyectos/crear" extends="base-definition">  
+       <put-attribute name="title" value="Novedades" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/proyectos/crear.jsp" />  
+   </definition>  
+
+</tiles-definitions>
