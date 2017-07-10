@@ -7,36 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
 
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>GPCI: Gestión de Proyectos</title>
-        <link rel="icon" href='<c:url value="/resources/imagenes/favicon.ico" />' type="image/x-icon" />
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.min.css"/>'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-select.css" />'>
-    </head>
-    <body>
-        <nav class="navbar barraPrincipal">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#inverseNavbar1" aria-expanded="false">
-                        <span class="sr-only"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                    <a class="barraPrincipal-text" href="#">GPCI <small> FNSP</small></a>
-                </div>
-                <div class="collapse navbar-collapse" id="inverseNavbar1">
-
-                    <ul class="nav navbar-nav navbar-right">
-
-                    </ul>
-
-                </div>
-            </div>
-        </nav>        
         <div class="container">
             <c:if test = "${not empty mensaje}">
                 <div class="alert alert-danger">
@@ -47,7 +17,7 @@
                 <div class="panel-heading">Registro Proyecto</div>
                 <div class="panel-body">
                     <form:form method="POST" action="${pageContext.request.contextPath}/proyectos/crear" modelAttribute="proyecto">
-                        <table class="tblform3">
+                        <table class="tablaForm">
                             <tr>
                                 <td width="33%">C&oacute;digo:</td>
                                 <td width="33%">Nombre corto:</td>
@@ -212,7 +182,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="alert_placeholder_objetivosEspecificos"></div>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td>
                                                             <textarea id="objetivoEspecifico" name="objetivoEspecifico" class="form-control" rows="5"></textarea>
@@ -249,32 +219,34 @@
                                         </div>
                                     </div>
                                 </div>                                
-                                <table class="table table-hover" style="width: 90%" align="center" >
-                                    <tr class="table-row">
-                                        <th style="width: 90%;text-align: center">Objetivo</th>
-                                        <th style="width: 5%">&nbsp;</th>
-                                        <th style="width: 5%">&nbsp;</th>
-                                    </tr>
-                                </table>
-                                <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: objetivosEspecificos }">
-                                    <tr class="table-row">
-                                        <td style="width: 90%">
-                                            <span data-bind="text: descripcion" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'objetivosEspecificos[' + $index() + '].descripcion'  }">
-                                        </td>
-                                        <td style="width: 5%">
-                                            <button class="btn btn-dark" data-bind="click: $root.eliminarObjetivoEspecifico">
-                                                <i class="glyphicon glyphicon-trash"></i>
-                                            </button>
-                                            <input type="hidden" data-bind="value: idObjetivoEspecifico, attr: { 'name': 'objetivosEspecificos[' + $index() + '].idObjetivoEspecifico'  }" />
-                                            <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'objetivosEspecificos[' + $index() + '].consecutivo'  }" />
-                                        </td>
-                                        <td style="width: 5%">
-                                            <button class="btn btn-dark" data-bind="click: $root.editarObjetivoEspecifico">
-                                                <i class="glyphicon glyphicon-edit"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                    <thead>
+                                        <tr class="table-row">
+                                            <th style="width: 90%;text-align: center">Objetivo</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: { data: objetivosEspecificos }">
+                                        <tr class="table-row">
+                                            <td style="width: 90%">
+                                                <span data-bind="text: descripcion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'objetivosEspecificos[' + $index() + '].descripcion'  }">
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarObjetivoEspecifico">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                                <input type="hidden" data-bind="value: idObjetivoEspecifico, attr: { 'name': 'objetivosEspecificos[' + $index() + '].idObjetivoEspecifico'  }" />
+                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'objetivosEspecificos[' + $index() + '].consecutivo'  }" />
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarObjetivoEspecifico">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                             <div id="compromisos" class="tab-pane fade">
@@ -297,7 +269,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="alert_placeholder_compromisos_proyecto"></div>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td>
                                                             <textarea id="compromisoProyecto" name="compromisoProyecto" class="form-control"></textarea>
@@ -334,32 +306,34 @@
                                         </div>
                                     </div>
                                 </div>                                   
-                                <table class="table table-hover" style="width: 90%" align="center" >
-                                    <tr class="table-row">
-                                        <th style="width: 90%;text-align: center">Compromiso</th>
-                                        <th style="width: 5%">&nbsp;</th>
-                                        <th style="width: 5%">&nbsp;</th>
-                                    </tr>
-                                </table>
-                                <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: compromisosProyecto }">
-                                    <tr class="table-row">
-                                        <td style="width: 90%">
-                                            <span data-bind="text: descripcion" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'compromisosProyecto[' + $index() + '].descripcion'  }">
-                                        </td>
-                                        <td style="width: 5%">
-                                            <button class="btn btn-dark" data-bind="click: $root.eliminarCompromisoProyecto">
-                                                <i class="glyphicon glyphicon-trash"></i>
-                                            </button>
-                                            <input type="hidden" data-bind="value: idCompromisoProyecto, attr: { 'name': 'compromisosProyecto[' + $index() + '].idCompromisoProyecto'  }" />
-                                            <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'compromisosProyecto[' + $index() + '].consecutivo'  }" />
-                                        </td>
-                                        <td style="width: 5%">
-                                            <button class="btn btn-dark" data-bind="click: $root.editarCompromisoProyecto">
-                                                <i class="glyphicon glyphicon-edit"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                    <thead>
+                                        <tr class="table-row">
+                                            <th style="width: 90%;text-align: center">Compromiso</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody  data-bind="foreach: { data: compromisosProyecto }">
+                                        <tr class="table-row">
+                                            <td style="width: 90%">
+                                                <span data-bind="text: descripcion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'compromisosProyecto[' + $index() + '].descripcion'  }">
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarCompromisoProyecto">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                                <input type="hidden" data-bind="value: idCompromisoProyecto, attr: { 'name': 'compromisosProyecto[' + $index() + '].idCompromisoProyecto'  }" />
+                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'compromisosProyecto[' + $index() + '].consecutivo'  }" />
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarCompromisoProyecto">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                             <div id="profesores" class="tab-pane fade">
@@ -382,7 +356,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="alert_placeholder_profesores_proyecto"></div>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td width="45%">Tipo de identificación:</td>
                                                         <td width="45%">Número de identificación:</td>
@@ -409,7 +383,7 @@
                                                         </td>
                                                     </tr>
                                                  </table>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td>Nombres:</td>
                                                         <td>Apellidos:</td>                                    
@@ -526,69 +500,71 @@
                                         </div>
                                     </div>
                                 </div>                                  
-                                <table class="table table-hover" style="width: 90%" align="center">
-                                    <tr class="table-row">
-                                        <th style="width: 20%;text-align: center">Tipo de identificación</th>
-                                        <th style="width: 20%;text-align: center">Número de identificación</th>
-                                        <th style="width: 18%;text-align: center">Nombres</th>
-                                        <th style="width: 17%;text-align: center">Apellidos</th>
-                                        <th style="width: 5%;text-align: center">Rol</th>
-                                        <th style="width: 10%;text-align: center">Facultad</th>
-                                        <th style="width: 5%">&nbsp;</th>
-                                        <th style="width: 5%">&nbsp;</th>
-                                    </tr>
-                                </table>
-                                <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: profesoresProyecto }">
-                                    <tr class="table-row">
-                                        <td style="width: 20%">
-                                            <span data-bind="text: descripcionTipoIdentificacion" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].idTipoIdentificacion'  }">
-                                        </td>
-                                        <td style="width: 20%">
-                                            <span data-bind="text: numeroIdentificacion" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].numeroIdentificacion'  }">
-                                        </td>
-                                        <td style="width: 18%">
-                                            <span data-bind="text: nombres" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'profesoresProyecto[' + $index() + '].nombres'  }">
-                                        </td>
-                                        <td style="width: 17%">
-                                            <span data-bind="text: apellidos" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'profesoresProyecto[' + $index() + '].apellidos'  }">
-                                        </td>
-                                        <td style="width: 5%">
-                                            <span data-bind="text: descripcionRol" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionRol'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'profesoresProyecto[' + $index() + '].idRol'  }">
-                                        </td>
-                                        <td style="width: 10%">
-                                            <span data-bind="text: descripcionFacultad" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'profesoresProyecto[' + $index() + '].correoElectronico'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'profesoresProyecto[' + $index() + '].contacto'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: descripcionFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionFacultad'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: idFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].idFacultad'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: codigoVinculacionUdeA, attr: { 'name': 'profesoresProyecto[' + $index() + '].codigoVinculacionUdeA'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'profesoresProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: porcentajePI, attr: { 'name': 'profesoresProyecto[' + $index() + '].porcentajePI' }">
-                                            <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemana' }">
-                                            <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'profesoresProyecto[' + $index() + '].mesesDedicados' }">
-                                            <input type="hidden" class="form-control" data-bind="value: horasSemanaFueraPlan, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemanaFueraPlan' }">
-                                            <input type="hidden" class="form-control" data-bind="value: mesesFueraPlan, attr: { 'name': 'profesoresProyecto[' + $index() + '].mesesFueraPlan' }">
-                                            <input type="hidden" data-bind="value: idProfesor, attr: { 'name': 'profesoresProyecto[' + $index() + '].idProfesor'  }" />
-                                            <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'profesoresProyecto[' + $index() + '].consecutivo'  }" />
-                                        </td>
-                                        <td style="width: 5%" align="center">
-                                            <button class="btn btn-dark" data-bind="click: $root.eliminarProfesorProyecto">
-                                                <i class="glyphicon glyphicon-trash"></i>
-                                            </button>
-                                        </td>
-                                        <td style="width: 5%" align="center">
-                                            <button class="btn btn-dark" data-bind="click: $root.editarProfesorProyecto">
-                                                <i class="glyphicon glyphicon-edit"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <table class="table table-hover tablaForm" style="width: 90%" align="center">
+                                    <thead>
+                                        <tr class="table-row">
+                                            <th style="width: 20%;text-align: center">Tipo de identificación</th>
+                                            <th style="width: 20%;text-align: center">Número de identificación</th>
+                                            <th style="width: 18%;text-align: center">Nombres</th>
+                                            <th style="width: 17%;text-align: center">Apellidos</th>
+                                            <th style="width: 5%;text-align: center">Rol</th>
+                                            <th style="width: 10%;text-align: center">Facultad</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: { data: profesoresProyecto }">
+                                        <tr class="table-row">
+                                            <td style="width: 20%">
+                                                <span data-bind="text: descripcionTipoIdentificacion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].idTipoIdentificacion'  }">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: numeroIdentificacion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].numeroIdentificacion'  }">
+                                            </td>
+                                            <td style="width: 18%">
+                                                <span data-bind="text: nombres" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'profesoresProyecto[' + $index() + '].nombres'  }">
+                                            </td>
+                                            <td style="width: 17%">
+                                                <span data-bind="text: apellidos" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'profesoresProyecto[' + $index() + '].apellidos'  }">
+                                            </td>
+                                            <td style="width: 5%">
+                                                <span data-bind="text: descripcionRol" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionRol'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'profesoresProyecto[' + $index() + '].idRol'  }">
+                                            </td>
+                                            <td style="width: 10%">
+                                                <span data-bind="text: descripcionFacultad" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'profesoresProyecto[' + $index() + '].correoElectronico'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'profesoresProyecto[' + $index() + '].contacto'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: descripcionFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionFacultad'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].idFacultad'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: codigoVinculacionUdeA, attr: { 'name': 'profesoresProyecto[' + $index() + '].codigoVinculacionUdeA'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'profesoresProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: porcentajePI, attr: { 'name': 'profesoresProyecto[' + $index() + '].porcentajePI' }">
+                                                <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemana' }">
+                                                <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'profesoresProyecto[' + $index() + '].mesesDedicados' }">
+                                                <input type="hidden" class="form-control" data-bind="value: horasSemanaFueraPlan, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemanaFueraPlan' }">
+                                                <input type="hidden" class="form-control" data-bind="value: mesesFueraPlan, attr: { 'name': 'profesoresProyecto[' + $index() + '].mesesFueraPlan' }">
+                                                <input type="hidden" data-bind="value: idProfesor, attr: { 'name': 'profesoresProyecto[' + $index() + '].idProfesor'  }" />
+                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'profesoresProyecto[' + $index() + '].consecutivo'  }" />
+                                            </td>
+                                            <td style="width: 5%" align="center">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarProfesorProyecto">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td style="width: 5%" align="center">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarProfesorProyecto">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>   
+                                    </tbody>
                                 </table>
                             </div>
                             <div id="estudiantes" class="tab-pane fade">
@@ -611,7 +587,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="alert_placeholder_estudiantes_proyecto"></div>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td width="45%">Tipo de identificación:</td>
                                                         <td width="45%">Número de identificación:</td>
@@ -638,7 +614,7 @@
                                                         </td>
                                                     </tr>
                                                  </table>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td>Nombres:</td>
                                                         <td>Apellidos:</td>                                    
@@ -752,68 +728,70 @@
                                         </div>
                                     </div>
                                 </div>                                  
-                                <table class="table table-hover" style="width: 90%" align="center">
-                                    <tr class="table-row">
-                                        <th style="width: 20%;text-align: center">Tipo de identificación</th>
-                                        <th style="width: 20%;text-align: center">Número de identificación</th>
-                                        <th style="width: 18%;text-align: center">Nombres</th>
-                                        <th style="width: 17%;text-align: center">Apellidos</th>
-                                        <th style="width: 5%;text-align: center">Rol</th>
-                                        <th style="width: 10%;text-align: center">Programa</th>
-                                        <th style="width: 5%">&nbsp;</th>
-                                        <th style="width: 5%">&nbsp;</th>
-                                    </tr>
-                                </table>
-                                <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: estudiantesProyecto }">
-                                    <tr class="table-row">
-                                        <td style="width: 20%">
-                                            <span data-bind="text: descripcionTipoIdentificacion" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idTipoIdentificacion'  }">
-                                        </td>
-                                        <td style="width: 20%">
-                                            <span data-bind="text: numeroIdentificacion" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].numeroIdentificacion'  }">
-                                        </td>
-                                        <td style="width: 18%">
-                                            <span data-bind="text: nombres" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'estudiantesProyecto[' + $index() + '].nombres'  }">
-                                        </td>
-                                        <td style="width: 17%">
-                                            <span data-bind="text: apellidos" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'estudiantesProyecto[' + $index() + '].apellidos'  }">
-                                        </td>
-                                        <td style="width: 5%">
-                                            <span data-bind="text: descripcionRol" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionRol'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idRol'  }">
-                                        </td>
-                                        <td style="width: 10%">
-                                            <span data-bind="text: descripcionPrograma" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'estudiantesProyecto[' + $index() + '].correoElectronico'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'estudiantesProyecto[' + $index() + '].contacto'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: descripcionTipoEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionTipoEstudiante'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: idTipoEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idTipoEstudiante'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: descripcionPrograma, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionPrograma'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: idPrograma, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idPrograma'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: porcentajePropiedadIntelectual, attr: { 'name': 'estudiantesProyecto[' + $index() + '].porcentajePropiedadIntelectual' }">
-                                            <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'estudiantesProyecto[' + $index() + '].horasSemana' }">
-                                            <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'estudiantesProyecto[' + $index() + '].mesesDedicados' }">
-                                            <input type="hidden" class="form-control" data-bind="value: semestre, attr: { 'name': 'estudiantesProyecto[' + $index() + '].semestre' }">
-                                            <input type="hidden" data-bind="value: idEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idEstudiante'  }" />
-                                            <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'estudiantesProyecto[' + $index() + '].consecutivo'  }" />
-                                        </td>
-                                        <td style="width: 5%" align="center">
-                                            <button class="btn btn-dark" data-bind="click: $root.eliminarEstudianteProyecto">
-                                                <i class="glyphicon glyphicon-trash"></i>
-                                            </button>
-                                        </td>
-                                        <td style="width: 5%" align="center">
-                                            <button class="btn btn-dark" data-bind="click: $root.editarEstudianteProyecto">
-                                                <i class="glyphicon glyphicon-edit"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <table class="table table-hover tablaForm" style="width: 90%" align="center">
+                                    <thead>
+                                        <tr class="table-row">
+                                            <th style="width: 20%;text-align: center">Tipo de identificación</th>
+                                            <th style="width: 20%;text-align: center">Número de identificación</th>
+                                            <th style="width: 18%;text-align: center">Nombres</th>
+                                            <th style="width: 17%;text-align: center">Apellidos</th>
+                                            <th style="width: 5%;text-align: center">Rol</th>
+                                            <th style="width: 10%;text-align: center">Programa</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: { data: estudiantesProyecto }">
+                                        <tr class="table-row">
+                                            <td style="width: 20%">
+                                                <span data-bind="text: descripcionTipoIdentificacion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idTipoIdentificacion'  }">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: numeroIdentificacion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'estudiantesProyecto[' + $index() + '].numeroIdentificacion'  }">
+                                            </td>
+                                            <td style="width: 18%">
+                                                <span data-bind="text: nombres" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'estudiantesProyecto[' + $index() + '].nombres'  }">
+                                            </td>
+                                            <td style="width: 17%">
+                                                <span data-bind="text: apellidos" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'estudiantesProyecto[' + $index() + '].apellidos'  }">
+                                            </td>
+                                            <td style="width: 5%">
+                                                <span data-bind="text: descripcionRol" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionRol'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idRol'  }">
+                                            </td>
+                                            <td style="width: 10%">
+                                                <span data-bind="text: descripcionPrograma" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'estudiantesProyecto[' + $index() + '].correoElectronico'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'estudiantesProyecto[' + $index() + '].contacto'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: descripcionTipoEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionTipoEstudiante'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idTipoEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idTipoEstudiante'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: descripcionPrograma, attr: { 'name': 'estudiantesProyecto[' + $index() + '].descripcionPrograma'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idPrograma, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idPrograma'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: porcentajePropiedadIntelectual, attr: { 'name': 'estudiantesProyecto[' + $index() + '].porcentajePropiedadIntelectual' }">
+                                                <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'estudiantesProyecto[' + $index() + '].horasSemana' }">
+                                                <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'estudiantesProyecto[' + $index() + '].mesesDedicados' }">
+                                                <input type="hidden" class="form-control" data-bind="value: semestre, attr: { 'name': 'estudiantesProyecto[' + $index() + '].semestre' }">
+                                                <input type="hidden" data-bind="value: idEstudiante, attr: { 'name': 'estudiantesProyecto[' + $index() + '].idEstudiante'  }" />
+                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'estudiantesProyecto[' + $index() + '].consecutivo'  }" />
+                                            </td>
+                                            <td style="width: 5%" align="center">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarEstudianteProyecto">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td style="width: 5%" align="center">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarEstudianteProyecto">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
                             <div id="personalExterno" class="tab-pane fade">
@@ -836,7 +814,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="alert_placeholder_personalExterno_proyecto"></div>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td width="45%">Tipo de identificación:</td>
                                                         <td width="45%">Número de identificación:</td>
@@ -863,7 +841,7 @@
                                                         </td>
                                                     </tr>
                                                  </table>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td>Nombres:</td>
                                                         <td>Apellidos:</td>                                    
@@ -947,64 +925,66 @@
                                         </div>
                                     </div>
                                 </div>                                  
-                                <table class="table table-hover" style="width: 90%" align="center">
-                                    <tr class="table-row">
-                                        <th style="width: 20%;text-align: center">Tipo de identificación</th>
-                                        <th style="width: 20%;text-align: center">Número de identificación</th>
-                                        <th style="width: 18%;text-align: center">Nombres</th>
-                                        <th style="width: 17%;text-align: center">Apellidos</th>
-                                        <th style="width: 5%;text-align: center">Rol</th>
-                                        <th style="width: 10%;text-align: center">Entidad</th>
-                                        <th style="width: 5%">&nbsp;</th>
-                                        <th style="width: 5%">&nbsp;</th>
-                                    </tr>
-                                </table>
-                                <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: personalExternoProyecto }">
-                                    <tr class="table-row">
-                                        <td style="width: 20%">
-                                            <span data-bind="text: descripcionTipoIdentificacion" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idTipoIdentificacion'  }">
-                                        </td>
-                                        <td style="width: 20%">
-                                            <span data-bind="text: numeroIdentificacion" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].numeroIdentificacion'  }">
-                                        </td>
-                                        <td style="width: 18%">
-                                            <span data-bind="text: nombres" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'personalExternoProyecto[' + $index() + '].nombres'  }">
-                                        </td>
-                                        <td style="width: 17%">
-                                            <span data-bind="text: apellidos" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'personalExternoProyecto[' + $index() + '].apellidos'  }">
-                                        </td>
-                                        <td style="width: 5%">
-                                            <span data-bind="text: descripcionRol" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'personalExternoProyecto[' + $index() + '].descripcionRol'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idRol'  }">
-                                        </td>
-                                        <td style="width: 10%">
-                                            <span data-bind="text: entidad" ></span>
-                                            <input type="hidden" class="form-control" data-bind="value: entidad, attr: { 'name': 'personalExternoProyecto[' + $index() + '].entidad'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'personalExternoProyecto[' + $index() + '].correoElectronico'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'personalExternoProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
-                                            <input type="hidden" class="form-control" data-bind="value: porcentajePropiedadIntelectual, attr: { 'name': 'personalExternoProyecto[' + $index() + '].porcentajePropiedadIntelectual' }">
-                                            <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'personalExternoProyecto[' + $index() + '].horasSemana' }">
-                                            <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'personalExternoProyecto[' + $index() + '].mesesDedicados' }">
-                                            <input type="hidden" data-bind="value: idPersonalExterno, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idPersonalExterno'  }" />
-                                            <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'personalExternoProyecto[' + $index() + '].consecutivo'  }" />
-                                        </td>
-                                        <td style="width: 5%" align="center">
-                                            <button class="btn btn-dark" data-bind="click: $root.eliminarPersonalExternoProyecto">
-                                                <i class="glyphicon glyphicon-trash"></i>
-                                            </button>
-                                        </td>
-                                        <td style="width: 5%" align="center">
-                                            <button class="btn btn-dark" data-bind="click: $root.editarPersonalExternoProyecto">
-                                                <i class="glyphicon glyphicon-edit"></i>
-                                            </button>
-                                        </td>
-                                    </tr>
+                                <table class="table table-hover tablaForm" style="width: 90%" align="center">
+                                    <thead>
+                                        <tr class="table-row">
+                                            <th style="width: 20%;text-align: center">Tipo de identificación</th>
+                                            <th style="width: 20%;text-align: center">Número de identificación</th>
+                                            <th style="width: 18%;text-align: center">Nombres</th>
+                                            <th style="width: 17%;text-align: center">Apellidos</th>
+                                            <th style="width: 5%;text-align: center">Rol</th>
+                                            <th style="width: 10%;text-align: center">Entidad</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: { data: personalExternoProyecto }">
+                                        <tr class="table-row">
+                                            <td style="width: 20%">
+                                                <span data-bind="text: descripcionTipoIdentificacion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: descripcionTipoIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].descripcionTipoIdentificacion'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idTipoIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idTipoIdentificacion'  }">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: numeroIdentificacion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: numeroIdentificacion, attr: { 'name': 'personalExternoProyecto[' + $index() + '].numeroIdentificacion'  }">
+                                            </td>
+                                            <td style="width: 18%">
+                                                <span data-bind="text: nombres" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: nombres, attr: { 'name': 'personalExternoProyecto[' + $index() + '].nombres'  }">
+                                            </td>
+                                            <td style="width: 17%">
+                                                <span data-bind="text: apellidos" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: apellidos, attr: { 'name': 'personalExternoProyecto[' + $index() + '].apellidos'  }">
+                                            </td>
+                                            <td style="width: 5%">
+                                                <span data-bind="text: descripcionRol" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: descripcionRol, attr: { 'name': 'personalExternoProyecto[' + $index() + '].descripcionRol'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idRol, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idRol'  }">
+                                            </td>
+                                            <td style="width: 10%">
+                                                <span data-bind="text: entidad" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: entidad, attr: { 'name': 'personalExternoProyecto[' + $index() + '].entidad'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: correoElectronico, attr: { 'name': 'personalExternoProyecto[' + $index() + '].correoElectronico'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'personalExternoProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: porcentajePropiedadIntelectual, attr: { 'name': 'personalExternoProyecto[' + $index() + '].porcentajePropiedadIntelectual' }">
+                                                <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'personalExternoProyecto[' + $index() + '].horasSemana' }">
+                                                <input type="hidden" class="form-control" data-bind="value: mesesDedicados, attr: { 'name': 'personalExternoProyecto[' + $index() + '].mesesDedicados' }">
+                                                <input type="hidden" data-bind="value: idPersonalExterno, attr: { 'name': 'personalExternoProyecto[' + $index() + '].idPersonalExterno'  }" />
+                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'personalExternoProyecto[' + $index() + '].consecutivo'  }" />
+                                            </td>
+                                            <td style="width: 5%" align="center">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarPersonalExternoProyecto">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td style="width: 5%" align="center">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarPersonalExternoProyecto">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody
                                 </table>
                             </div>
                         </div>
@@ -1830,5 +1810,3 @@
                 }
            }
         </script>
-    </body>
-</html>

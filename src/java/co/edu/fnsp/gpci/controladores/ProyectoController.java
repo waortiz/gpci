@@ -84,7 +84,7 @@ public class ProyectoController {
         busquedaProyectos.establecerFechaInicioFinal();
         model.addAttribute("busquedaProyectos", busquedaProyectos);
 
-        return "proyectos/index";
+        return "proyectos/proyectos";
     }
 
     @RequestMapping(value = "/buscarProyectos", method = RequestMethod.POST)
@@ -101,7 +101,7 @@ public class ProyectoController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "proyectos/index";
+        return "proyectos/proyectos";
     }
 
     /**
@@ -207,7 +207,7 @@ public class ProyectoController {
             busquedaProyectos.establecerFechaInicioFinal();
             model.addAttribute("busquedaProyectos", busquedaProyectos);
 
-            return "proyectos/index";
+            return "proyectos/proyectos";
         } catch (Exception exc) {
             if (proyecto.getIdProyecto() == 0) {
                 model.addAttribute("mensaje", "No se pudo ingresar el proyecto: " + exc.getMessage());

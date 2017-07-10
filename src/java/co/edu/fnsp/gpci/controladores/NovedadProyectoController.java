@@ -62,7 +62,7 @@ public class NovedadProyectoController {
         busquedaProyectos.establecerFechaInicioFinal();
         model.addAttribute("busquedaProyectos", busquedaProyectos);
 
-        return "novedades/index";
+        return "novedades/proyectos";
     }
 
     @RequestMapping(value = "/buscarProyectos", method = RequestMethod.POST)
@@ -79,7 +79,7 @@ public class NovedadProyectoController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "novedades/index";
+        return "novedades/proyectos";
     }
 
     /**

@@ -7,36 +7,6 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
 
-<!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>GPCI: Gestión de Proyectos</title>
-        <link rel="icon" href='<c:url value="/resources/imagenes/favicon.ico" />' type="image/x-icon" />
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.min.css"/>'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-select.css" />'>
-    </head>
-    <body>
-        <nav class="navbar barraPrincipal">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#inverseNavbar1" aria-expanded="false">
-                        <span class="sr-only"></span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span>
-                    </button>
-                    <a class="barraPrincipal-text" href="#">GPCI <small> FNSP</small></a>
-                </div>
-                <div class="collapse navbar-collapse" id="inverseNavbar1">
-
-                    <ul class="nav navbar-nav navbar-right">
-
-                    </ul>
-
-                </div>
-            </div>
-        </nav>        
         <div class="container">
             <c:if test = "${not empty mensaje}">
                 <div class="alert alert-danger">
@@ -46,7 +16,7 @@
             <div class="panel panel-success">
                 <div class="panel-heading">Novedades Proyecto</div>
                 <div class="panel-body">
-                    <table class="table table-hover">
+                    <table class="table table-hover tablaForm">
                         <tr>
                             <td width="33%"><strong>C&oacute;digo:</strong></td>
                             <td width="33%"><strong>Nombre corto:</strong></td>
@@ -181,18 +151,19 @@
                                 </button>                            
                             </div>
                             <div id="alert_placeholder_actas"></div>
-                            <table class="table table-hover" style="width: 90%" align="center" >
-                                <tr class="table-row">
-                                    <td style="width: 20%;text-align: center"><strong>Nombre</strong></td>
-                                    <td style="width: 50%;text-align: center"><strong>Observaciones</strong></td>
-                                    <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
-                                    <td style="width: 5%;text-align: center">&nbsp;</td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                </tr>
-                            </table>
-                            <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: actas }">
-                                <tr class="table-row">
+                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                <thead>          
+                                    <tr class="table-row">
+                                        <td style="width: 20%;text-align: center"><strong>Nombre</strong></td>
+                                        <td style="width: 50%;text-align: center"><strong>Observaciones</strong></td>
+                                        <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
+                                        <td style="width: 5%;text-align: center">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: { data: actas }">
+                                    <tr class="table-row">
                                     <td style="width: 20%">
                                         <span data-bind="text: nombre" ></span>
                                         <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'actas[' + $index() + '].nombre'  }">
@@ -222,6 +193,7 @@
                                         </button>
                                     </td>
                                 </tr>
+                                </tbody>
                             </table>
                             <div class="modal fade" id="confirmacionEliminacionActa" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -258,7 +230,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="alert_placeholder_acta"></div>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td>Nombre</td>
                                                     </tr>
@@ -305,7 +277,8 @@
                                 </button>                            
                             </div>
                             <div id="alert_placeholder_adendas"></div>
-                            <table class="table table-hover" style="width: 90%" align="center" >
+                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                              <thead>
                                 <tr class="table-row">
                                     <td style="width: 70%;text-align: center"><strong>Modificación</strong></td>
                                     <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
@@ -313,8 +286,8 @@
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                 </tr>
-                            </table>
-                            <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: adendas }">
+                              </thead>
+                              <tbody data-bind="foreach: { data: adendas }">
                                 <tr class="table-row">
                                     <td style="width: 70%">
                                         <span data-bind="text: modificacion" ></span>
@@ -341,6 +314,7 @@
                                         </button>
                                     </td>
                                 </tr>
+                              </tbody>
                             </table>
                             <div class="modal fade" id="confirmacionEliminacionAdenda" tabindex="-1" role="dialog" aria-labelledby="adendaModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -377,7 +351,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="alert_placeholder_adenda"></div>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td>Modificación</td>
                                                     </tr>
@@ -416,7 +390,8 @@
                                 </button>                            
                             </div>
                             <div id="alert_placeholder_adiciones"></div>
-                            <table class="table table-hover" style="width: 90%" align="center" >
+                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                            <thead>
                                 <tr class="table-row">
                                     <td style="width: 70%;text-align: center"><strong>Monto</strong></td>
                                     <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
@@ -424,8 +399,8 @@
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                 </tr>
-                            </table>
-                            <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: adiciones }">
+                            </thead>
+                            <tbody  data-bind="foreach: { data: adiciones }">
                                 <tr class="table-row">
                                     <td style="width: 70%">
                                         <span data-bind="text: monto" ></span>
@@ -452,6 +427,7 @@
                                         </button>
                                     </td>
                                 </tr>
+                            </tbody>
                             </table>
                             <div class="modal fade" id="confirmacionEliminacionAdicion" tabindex="-1" role="dialog" aria-labelledby="adicionModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -488,7 +464,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="alert_placeholder_adicion"></div>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td>Monto</td>
                                                     </tr>
@@ -527,18 +503,19 @@
                                 </button>                            
                             </div>
                             <div id="alert_placeholder_prorrogas"></div>
-                            <table class="table table-hover" style="width: 90%" align="center" >
-                                <tr class="table-row">
-                                    <td style="width: 50%;text-align: center"><strong>Descripción</strong></td>
-                                    <td style="width: 20%;text-align: center"><strong>Meses aprobados</strong></td>
-                                    <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
-                                    <td style="width: 5%;text-align: center">&nbsp;</td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                </tr>
-                            </table>
-                            <table class="table table-hover" style="width: 90%" align="center"  data-bind="foreach: { data: prorrogas }">
-                                <tr class="table-row">
+                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                <thead>
+                                    <tr class="table-row">
+                                        <td style="width: 50%;text-align: center"><strong>Descripción</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Meses aprobados</strong></td>
+                                        <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
+                                        <td style="width: 5%;text-align: center">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: { data: prorrogas }">
+                                    <tr class="table-row">
                                     <td style="width: 50%">
                                         <span data-bind="text: descripcion" ></span>
                                         <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'prorrogas[' + $index() + '].descripcion'  }">
@@ -568,6 +545,7 @@
                                         </button>
                                     </td>
                                 </tr>
+                                </tbody>
                             </table>
                             <div class="modal fade" id="confirmacionEliminacionProrroga" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
@@ -604,7 +582,7 @@
                                             </div>
                                             <div class="modal-body">
                                                 <div id="alert_placeholder_prorroga"></div>
-                                                <table class="tblform3">
+                                                <table class="tablaForm">
                                                     <tr>
                                                         <td>Descripción</td>
                                                     </tr>
@@ -1101,5 +1079,3 @@
                 $('#documentoProrroga').val("");
             }            
         </script>
-    </body>
-</html>
