@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.fnsp.gpci.utils;
+package co.edu.fnsp.gpci.utilidades;
 
 import co.edu.fnsp.gpci.entidades.ActaProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaProyecto;
@@ -23,8 +23,9 @@ import java.util.Date;
  * @author William
  */
 public class Util {
+
     public static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-    
+
     public static String obtenerActasProyectoJSON(ArrayList<ActaProyecto> actasProyecto) {
         String jscriptArray = "";
 
@@ -60,7 +61,7 @@ public class Util {
                 AdendaProyecto adendaProyecto = adendasProyecto.get(i);
                 jscriptArray = jscriptArray
                         + "{idAdenda: ko.observable(" + adendaProyecto.getIdAdenda() + "),"
-                        + "modificacion:ko.observable('" + adendaProyecto.getModificacion()+ "'),"
+                        + "modificacion:ko.observable('" + adendaProyecto.getModificacion() + "'),"
                         + "fechaFormateada:ko.observable('" + formatter.format(adendaProyecto.getFecha()) + "')"
                         + "}";
                 if (i < adendasProyecto.size() - 1) {
@@ -73,7 +74,7 @@ public class Util {
 
         return jscriptArray;
     }
-    
+
     public static String obtenerAdicionesProyectoJSON(ArrayList<AdicionProyecto> adicionesProyecto) {
         String jscriptArray = "";
 
@@ -83,9 +84,9 @@ public class Util {
             for (int i = 0; i < adicionesProyecto.size(); i++) {
                 AdicionProyecto adicionProyecto = adicionesProyecto.get(i);
                 jscriptArray = jscriptArray
-                        + "{idAdicion: ko.observable(" + adicionProyecto.getIdAdicion()+ "),"
+                        + "{idAdicion: ko.observable(" + adicionProyecto.getIdAdicion() + "),"
                         + "fechaFormateada:ko.observable('" + formatter.format(adicionProyecto.getFecha()) + "'),"
-                        + "monto:ko.observable('" + adicionProyecto.getMonto()+ "')"
+                        + "monto:ko.observable('" + adicionProyecto.getMonto() + "')"
                         + "}";
                 if (i < adicionesProyecto.size() - 1) {
                     jscriptArray = jscriptArray + ",";
@@ -107,10 +108,10 @@ public class Util {
             for (int i = 0; i < prorrogasProyecto.size(); i++) {
                 ProrrogaProyecto prorrogaProyecto = prorrogasProyecto.get(i);
                 jscriptArray = jscriptArray
-                        + "{idProrroga: ko.observable(" + prorrogaProyecto.getIdProrroga()+ "),"
+                        + "{idProrroga: ko.observable(" + prorrogaProyecto.getIdProrroga() + "),"
                         + "fechaFormateada:ko.observable('" + formatter.format(prorrogaProyecto.getFecha()) + "'),"
-                        + "mesesAprobados:ko.observable(" + prorrogaProyecto.getMesesAprobados()+ "),"
-                        + "descripcion:ko.observable('" + prorrogaProyecto.getDescripcion()+ "')"
+                        + "mesesAprobados:ko.observable(" + prorrogaProyecto.getMesesAprobados() + "),"
+                        + "descripcion:ko.observable('" + prorrogaProyecto.getDescripcion() + "')"
                         + "}";
                 if (i < prorrogasProyecto.size() - 1) {
                     jscriptArray = jscriptArray + ",";
@@ -121,8 +122,8 @@ public class Util {
         }
 
         return jscriptArray;
-    }    
-    
+    }
+
     public static String obtenerCompromisosProyectoJSON(ArrayList<CompromisoProyecto> compromisosProyecto) {
         String jscriptArray = "";
 
@@ -289,7 +290,7 @@ public class Util {
         return jscriptArray;
 
     }
-    
+
     public static String obtenerFechaFormateada(Date fecha) {
         return formatter.format(fecha);
     }

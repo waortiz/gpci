@@ -15,7 +15,7 @@ import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.entidadesVista.BusquedaProyectos;
 import co.edu.fnsp.gpci.entidadesVista.ProyectoEdicion;
 import co.edu.fnsp.gpci.servicios.IServicioNovedadProyecto;
-import co.edu.fnsp.gpci.utils.Util;
+import co.edu.fnsp.gpci.utilidades.Util;
 import com.google.gson.Gson;
 import java.io.IOException;
 import java.text.ParseException;

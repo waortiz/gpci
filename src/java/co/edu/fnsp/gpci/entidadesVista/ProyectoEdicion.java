@@ -11,7 +11,7 @@ import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
-import co.edu.fnsp.gpci.utils.Util;
+import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
 
 /**

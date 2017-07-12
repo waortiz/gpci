@@ -7,8 +7,9 @@
 
 	<http pattern="/usuario/*" security="none"/>
         <http auto-config='true'>
-            <intercept-url pattern="/novedades/*" access="hasRole('ROLE_USER')" />	
-            <intercept-url pattern="/proyectos/*" access="hasRole('ROLE_USER')" />
+            <intercept-url pattern="/novedades/*" access="hasAnyRole('GESTOR_INFORMACION'. 'ADMINISTRADOR')" />	
+            <intercept-url pattern="/proyectos/*" access="hasAnyRole('GESTOR_INFORMACION', 'ADMINISTRADOR')" />
+            <intercept-url pattern="/reportes/*" access="hasAnyRole('USUARIOS_CI', 'ADMINISTRADOR')" />
 	    <form-login login-page="/login" default-target-url="/index" 
                             login-processing-url="/j_spring_security_check"
                             username-parameter="username" password-parameter="password"

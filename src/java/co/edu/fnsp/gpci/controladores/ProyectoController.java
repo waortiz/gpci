@@ -36,7 +36,7 @@ import co.edu.fnsp.gpci.entidadesVista.BusquedaProyectos;
 import co.edu.fnsp.gpci.entidadesVista.ProyectoEdicion;
 import co.edu.fnsp.gpci.servicios.IServicioMaestro;
 import co.edu.fnsp.gpci.servicios.IServicioProyecto;
-import co.edu.fnsp.gpci.utils.Util;
+import co.edu.fnsp.gpci.utilidades.Util;
 import com.google.gson.Gson;
 import java.text.ParseException;
 import java.util.ArrayList;

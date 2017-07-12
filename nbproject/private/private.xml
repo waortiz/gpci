@@ -3,17 +3,21 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/spring-mvc.xml</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/proyectos/index.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/proyectos/crear.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/novedades/editar.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/controladores/ErrorController.java</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/tiles/tiles.xml</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/seguridad/CustomAuthenticationProvider.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/repositorios/RepositorioMenu.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/entidades/Usuario.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/repositorios/RepositorioSeguridad.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/spring-security.xml</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/servicios/ServicioMenu.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/utilidades/Menu.java</file>
             <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/tiles/layouts/defaultLayout.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/tiles/template/defaultHeader.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/index.jsp</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/repositorios/IRepositorioMenu.java</file>
             <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/tiles/template/defaultMenu.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/novedades/index.jsp</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/configuraciones/MenuViewPreparer.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/spring-mvc.xml</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/utilidades/Util.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/servicios/IServicioMenu.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/tiles/tiles.xml</file>
         </group>
     </open-files>
 </project-private>

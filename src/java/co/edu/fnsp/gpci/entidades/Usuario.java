@@ -13,7 +13,15 @@ import java.util.List;
  * @author William
  */
 public class Usuario implements Serializable {
-
+        
+    private int idUsuario;
+    private String nombres;
+    private String apellidos;
+    private String nombreUsuario;
+    private String clave;
+    private String correoElectronico;
+    private List<Privilegio> privilegios;
+    
     /**
      * @return the nombreUsuario
      */
@@ -97,26 +105,18 @@ public class Usuario implements Serializable {
     public void setClave(String clave) {
         this.clave = clave;
     }
-    
-    private int idUsuario;
-    private String nombres;
-    private String apellidos;
-    private String nombreUsuario;
-    private String clave;
-    private String correoElectronico;
-    private List<RolUsuario> roles;
 
     /**
-     * @return the roles
+     * @return the privilegios
      */
-    public List<RolUsuario> getRoles() {
-        return roles;
+    public List<Privilegio> getPrivilegios() {
+        return privilegios;
     }
 
     /**
-     * @param roles the roles to set
+     * @param privilegios the privilegios to set
      */
-    public void setRoles(List<RolUsuario> roles) {
-        this.roles = roles;
+    public void setPrivilegios(List<Privilegio> privilegios) {
+        this.privilegios = privilegios;
     }
 }

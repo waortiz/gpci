@@ -1,0 +1,140 @@
+body,td,th {
+	font-family: Arial, Helvetica, sans-serif;
+}
+a {
+	font-family: Arial, Helvetica, sans-serif;
+	text-decoration: none;
+}
+a:link {}
+a:visited {}
+a:hover {text-decoration: underline;}
+a:active {}
+/* estilos simbolos arbol */
+.mas_0 { background-image: url(../imagenes/menu/fondo6_0.png);	background-repeat:no-repeat;background-color: transparent;height:22px;}
+.sobreMas_0 {background-image: url(../imagenes/menu/fondo6b_0.png); background-color: transparent;cursor:pointer;height:22px;}
+.menos_0 {background-image: url(../imagenes/menu/fondo5_0.png);background-repeat:no-repeat;background-color: transparent;height:21px;}
+.sobreMenos_0 {background-image: url(../imagenes/menu/fondo5b_0.png);background-repeat:no-repeat;background-color: transparent;cursor:pointer;height:21px;}
+.vin_0 {background-image: url(../imagenes/menu/fondo7_0.png);background-color: transparent;height:15px;}
+.sobreVin_0 {background-image: url(../imagenes/menu/fondo7b_0.png);background-color: transparent;cursor:pointer;height:15px;}
+.clickVin_0 {background-image: url(../imagenes/menu/fondo7c_0.png);background-color: transparent;height:15px;}
+
+.mas_1 { background-image: url(../imagenes/menu/fondo6_1.png);	background-repeat:no-repeat;background-color: transparent;	height:19px;}
+.sobreMas_1 {background-image: url(../imagenes/menu/fondo6b_1.png); background-color: transparent;cursor:pointer;height:19px;}
+.menos_1 {background-image: url(../imagenes/menu/fondo5_1.png);background-repeat:no-repeat;background-color: transparent;height:19px;}
+.sobreMenos_1 {background-image: url(../imagenes/menu/fondo5b_1.png);background-repeat:no-repeat;background-color: transparent;cursor:pointer;height:19px;}
+.vin_1 {background-image: url(../imagenes/menu/fondo7_1.png);background-color: transparent;height:19px;}
+.sobreVin_1 {background-image: url(../imagenes/menu/fondo7b_1.png);background-color: transparent;cursor:pointer;height:19px;}
+.clickVin_1 {background-image: url(../imagenes/menu/fondo7c_1.png);background-color: transparent;height:19px;}
+
+.mas_2 { background-image: url(../imagenes/menu/fondo6_2.png);	background-repeat:no-repeat;background-color: transparent;	height:15px;}
+.sobreMas_2 {background-image: url(../imagenes/menu/fondo6b_2.png); background-color: transparent;cursor:pointer;height:15px;}
+.menos_2 {background-image: url(../imagenes/menu/fondo5_2.png);background-repeat:no-repeat;background-color: transparent;height:15px;}
+.sobreMenos_2 {background-image: url(../imagenes/menu/fondo5b_2.png);background-repeat:no-repeat;background-color: transparent;cursor:pointer;height:15px;}
+.vin_2 {background-image: url(../imagenes/menu/fondo7_2.png);background-color: transparent;height:15px;}
+.sobreVin_2 {background-image: url(../imagenes/menu/fondo7b_2.png);background-color: transparent;cursor:pointer;height:15px;}
+.clickVin_2 {background-image: url(../imagenes/menu/fondo7c_2.png);background-color: transparent;height:15px;}
+
+.mas_3 { background-image: url(../imagenes/menu/fondo6_3.png);	background-repeat:no-repeat;background-color: transparent;height:15px;}
+.sobreMas_3 {background-image: url(../imagenes/menu/fondo6b_3.png); background-color: transparent;cursor:pointer;height:15px;}
+.menos_3 {background-image: url(../imagenes/menu/fondo5_3.png);background-repeat:no-repeat;background-color: transparent;height:15px;}
+.sobreMenos_3 {background-image: url(../imagenes/menu/fondo5b_3.png);background-repeat:no-repeat;background-color: transparent;cursor:pointer;height:15px;}
+.vin_3 {background-image: url(../imagenes/menu/fondo7_3.png);background-color: transparent;height:15px;}
+.sobreVin_3 {background-image: url(../imagenes/menu/fondo7b_3.png);background-color: transparent;cursor:pointer;height:15px;}
+.clickVin_3 {background-image: url(../imagenes/menu/fondo7c_3.png);background-color: transparent;height:15px;}
+/* estilos columna */
+.col_0{background-image: url(../imagenes/menu/fondo4_0.png);background-position:left;background-repeat:repeat-y;background-color: transparent;}
+.sobreCol_0{background-image: url(../imagenes/menu/fondo4b_0.png);background-position:left;background-repeat:repeat-y;background-color: transparent;cursor:pointer;}
+
+.col_1{background-image: url(../imagenes/menu/fondo4_1.png);background-position:left;background-repeat:repeat-y;background-color: transparent;}
+.sobreCol_1{background-image: url(../imagenes/menu/fondo4b_1.png);background-position:left;background-repeat:repeat-y;background-color: transparent;cursor:pointer;}
+
+.col_2{background-image: url(../imagenes/menu/fondo4_2.png);background-position:left;background-repeat:repeat-y;background-color: transparent;}
+.sobreCol_2{background-image: url(../imagenes/menu/fondo4b_2.png);background-position:left;background-repeat:repeat-y;background-color: transparent;cursor:pointer;}
+
+.col_3{background-image: url(../imagenes/menu/fondo4_3.png);background-position:left;background-repeat:repeat-y;background-color: transparent;}
+.sobreCol_3{background-image: url(../imagenes/menu/fondo4b_3.png);background-position:left;background-repeat:repeat-y;background-color: transparent;cursor:pointer;}
+/* etiqueta superior */
+.abierta_0{background-image: url(../imagenes/menu/fondo3_0.png);background-position:left;background-repeat:no-repeat;background-color: transparent;}
+.sobreEtiAbi_0 {background-image: url(../imagenes/menu/fondo3b_0.png);background-position:left;background-repeat:no-repeat;background-color: transparent;cursor:pointer;}
+.cerrada_0 {background-image: url(../imagenes/menu/fondo2_0.png);background-position:left;background-repeat:no-repeat;background-color: transparent;}
+.sobre_0 {background-image: url(../imagenes/menu/fondo2b_0.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;}
+.click_0 {background-image: url(../imagenes/menu/fondo2c_0.png);background-repeat:no-repeat;background-color: transparent;}
+.sobreEtiCer_0 {background-image: url(../imagenes/menu/fondo2d_0.png);background-repeat:no-repeat;background-color: transparent;cursor:pointer;}
+
+.abierta_1 {background-image: url(../imagenes/menu/fondo3_1.png);background-position:left;background-repeat:no-repeat;background-color: transparent;}
+.sobreEtiAbi_1 {background-image: url(../imagenes/menu/fondo3b_1.png);background-position:left;background-repeat:no-repeat;background-color: transparent;cursor:pointer;}
+.cerrada_1 {background-image: url(../imagenes/menu/fondo2_1.png);background-position:left;background-repeat:no-repeat;background-color: transparent;}
+.sobre_1 {background-image: url(../imagenes/menu/fondo2b_1.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;}
+.click_1 {background-image: url(../imagenes/menu/fondo2c_1.png);background-repeat:no-repeat;background-color: transparent;}
+.sobreEtiCer_1 {background-image: url(../imagenes/menu/fondo2d_1.png);background-repeat:no-repeat;background-color: transparent;cursor:pointer;}
+
+.abierta_2 {background-image: url(../imagenes/menu/fondo3_2.png);background-position:left;background-repeat:no-repeat;background-color: transparent;}
+.sobreEtiAbi_2 {background-image: url(../imagenes/menu/fondo3b_2.png);background-position:left;background-repeat:no-repeat;background-color: transparent;cursor:pointer;}
+.cerrada_2 {background-image: url(../imagenes/menu/fondo2_2.png);background-position:left;background-repeat:no-repeat;background-color: transparent;}
+.sobre_2 {background-image: url(../imagenes/menu/fondo2b_2.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;}
+.click_2 {background-image: url(../imagenes/menu/fondo2c_2.png);background-repeat:no-repeat;background-color: transparent;}
+.sobreEtiCer_2 {background-image: url(../imagenes/menu/fondo2d_2.png);background-repeat:no-repeat;background-color: transparent;cursor:pointer;}
+
+.abierta_3 {background-image: url(../imagenes/menu/fondo3_3.png);background-position:left;background-repeat:no-repeat;background-color: transparent;}
+.sobreEtiAbi_3 {background-image: url(../imagenes/menu/fondo3b_3.png);background-position:left;background-repeat:no-repeat;background-color: transparent;cursor:pointer;}
+.cerrada_3 {background-image: url(../imagenes/menu/fondo2_3.png);background-position:left;background-repeat:no-repeat;background-color: transparent;}
+.sobre_3 {background-image: url(../imagenes/menu/fondo2b_3.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;}
+.click_3 {background-image: url(../imagenes/menu/fondo2c_3.png);background-repeat:no-repeat;background-color: transparent;}
+.sobreEtiCer_3 {background-image: url(../imagenes/menu/fondo2d_3.png);background-repeat:no-repeat;background-color: transparent;cursor:pointer;}
+/* etiqueta inferior */
+.abajo1_0 {background-image: url(../imagenes/menu/fondo3c_0.png);background-repeat:no-repeat;background-color: transparent;height:10px;}
+.sobreAbajo1_0 {background-image: url(../imagenes/menu/fondo3d_0.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;height:10px;}
+.abajo2_0 {background-image: url(../imagenes/menu/fondo1_0.png);background-repeat:no-repeat;background-color: transparent;}
+.sobreAbajo2_0 {background-image: url(../imagenes/menu/fondo1b_0.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;}
+
+.abajo1_1 {background-image: url(../imagenes/menu/fondo3c_1.png);background-repeat:no-repeat;background-color: transparent;height:5px;}
+.sobreAbajo1_1 {background-image: url(../imagenes/menu/fondo3d_1.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;height:5px;}
+.abajo2_1 {background-image: url(../imagenes/menu/fondo1_1.png);background-repeat:no-repeat;background-color: transparent;}
+.sobreAbajo2_1 {background-image: url(../imagenes/menu/fondo1b_1.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;}
+
+.abajo1_2 {background-image: url(../imagenes/menu/fondo3c_2.png);background-repeat:no-repeat;background-color: transparent;height:5px;}
+.sobreAbajo1_2 {background-image: url(../imagenes/menu/fondo3d_2.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;height:5px;}
+.abajo2_2 {background-image: url(../imagenes/menu/fondo1_2.png);background-repeat:no-repeat;background-color: transparent;}
+.sobreAbajo2_2 {background-image: url(../imagenes/menu/fondo1b_2.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;}
+
+.abajo1_3 {background-image: url(../imagenes/menu/fondo3c_3.png);background-repeat:no-repeat;background-color: transparent;height:15px;}
+.sobreAbajo1_3 {background-image: url(../imagenes/menu/fondo3d_3.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;height:15px;}
+.abajo2_3 {background-image: url(../imagenes/menu/fondo1_3.png);background-repeat:no-repeat;background-color: transparent;}
+.sobreAbajo2_3 {background-image: url(../imagenes/menu/fondo1b_3.png);background-repeat:no-repeat;background-color: transparent; cursor:pointer;}
+/* fondo */
+.fondo_0 {background-image: url(../imagenes/menu/fondo3e_0.png);background-repeat:repeat-y;background-color: transparent;}
+.sobreFondo_0 {background-image: url(../imagenes/menu/fondo3f_0.png);background-repeat:repeat-y;background-color: transparent;}
+
+.fondo_1 {background-image: url(../imagenes/menu/fondo3e_1.png);background-repeat:repeat-y;background-color: transparent;}
+.sobreFondo_1 {background-image: url(../imagenes/menu/fondo3f_1.png);background-repeat:repeat-y;background-color: transparent;}
+
+.fondo_2 {background-image: url(../imagenes/menu/fondo3e_2.png);background-repeat:repeat-y;background-color: transparent;}
+.sobreFondo_2 {background-image: url(../imagenes/menu/fondo3f_2.png);background-repeat:repeat-y;background-color: transparent;}
+
+.fondo_3 {background-image: url(../imagenes/menu/fondo3e_3.png);background-repeat:repeat-y;background-color: transparent;}
+.sobreFondo_3 {background-image: url(../imagenes/menu/fondo3f_3.png);background-repeat:repeat-y;background-color: transparent;}
+/* estilos fuentes */
+.n0{ color:#EEEEEE; font-weight: bold; font-size:14px;}
+.n1{ color:#EEEEEE; font-size:14px;}
+.n2{ color:#EEEEEE; font-size:11px;}
+.n3{ color:#EEEEEE; font-size:11px;}
+
+.sobren0{ color:#FFFFFF; font-weight: bold; font-size:14px;}
+.sobren1{ color:#FFFFFF; font-size:14px;}
+.sobren2{ color:#FFFFFF; font-size:11px;}
+.sobren3{ color:#FFFFFF; font-size:11px;}
+
+.clickn0{ color:#000000; font-weight: bold; font-size:14px;}
+.clickn1{ color:#000000; font-size:14px;}
+.clickn2{ color:#000000; font-size:11px;}
+.clickn3{ color:#000000; font-size:11px;}
+
+.vern0{ color:#FFFFFF; font-weight: bold; font-size:14px;}
+.vern1{ color:#FFFFFF; font-size:14px;}
+.vern2{ color:#FFFFFF; font-size:11px;}
+.vern3{ color:#FFFFFF; font-size:11px;}
+/* anchos botones */
+.boton0{ width:178px; height:15px; }
+.boton1{ width:173px; height:15px; }
+.boton2{ width:168px; height:15px; }
+.boton3{ width:138px; height:15px; }

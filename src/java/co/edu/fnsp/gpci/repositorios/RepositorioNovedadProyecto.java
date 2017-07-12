@@ -14,7 +14,7 @@ import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
-import co.edu.fnsp.gpci.utils.Util;
+import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;

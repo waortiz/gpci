@@ -5,7 +5,7 @@
  
    <!-- Base Definition -->
    <definition name="base-definition" 
-       template="/WEB-INF/tiles/layouts/defaultLayout.jsp">  
+       template="/WEB-INF/tiles/layouts/defaultLayout.jsp" preparer="co.edu.fnsp.gpci.configuraciones.MenuViewPreparer">  
        <put-attribute name="title" value="" />  
        <put-attribute name="header" value="/WEB-INF/tiles/template/defaultHeader.jsp" />  
        <put-attribute name="menu" value="/WEB-INF/tiles/template/defaultMenu.jsp" />  

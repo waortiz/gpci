@@ -5,13 +5,16 @@
  */
 package co.edu.fnsp.gpci.repositorios;
 
-import co.edu.fnsp.gpci.entidades.RolUsuario;
+import co.edu.fnsp.gpci.entidades.ItemMenu;
+import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
+import co.edu.fnsp.gpci.entidades.Privilegio;
 import co.edu.fnsp.gpci.entidades.Usuario;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
@@ -26,13 +29,16 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
 
     private SimpleJdbcCall obtenerUsuario;
     private SimpleJdbcCall ingresarUsuario;
-
+    private SimpleJdbcCall obtenerPrivilegiosUsuario;
+    
     @Autowired
     public void setDataSource(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcTemplate.setResultsMapCaseInsensitive(true);
         this.obtenerUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerUsuario");
         this.ingresarUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarUsuario");
+        this.obtenerPrivilegiosUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerPrivilegiosUsuario").
+        returningResultSet("privilegios", BeanPropertyRowMapper.newInstance(Privilegio.class));
     }
 
     @Override
@@ -49,11 +55,12 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
             usuario.setClave((String) resultado.get("varClave"));
             usuario.setCorreoElectronico((String) resultado.get("varCorreoElectronico"));
             usuario.setIdUsuario(Integer.parseInt(resultado.get("varIdUsuario").toString()));
-            RolUsuario r = new RolUsuario();
-            r.setName("ROLE_USER");
-            List<RolUsuario> roles = new ArrayList<>();
-            roles.add(r);
-            usuario.setRoles(roles);
+            
+            MapSqlParameterSource parametrosPrivilegios = new MapSqlParameterSource();
+            parametrosPrivilegios.addValue("varIdUsuario", usuario.getIdUsuario());
+            Map resultadoPrivilegios = obtenerPrivilegiosUsuario.execute(parametrosPrivilegios);
+            ArrayList<Privilegio> privilegios = (ArrayList<Privilegio>) resultadoPrivilegios.get("privilegios");
+            usuario.setPrivilegios(privilegios);
         }
 
         return usuario;
