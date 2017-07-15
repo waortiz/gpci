@@ -29,9 +29,7 @@ public class Menu {
                 break;
             }
         }
-        sb.append("\r\nfunction inicializar(){");
-        sb.append("crearMenu(m);");
-        sb.append("}\r\n");
+        sb.append("\r\ncrearMenu(m);");
         return sb.toString();
     }
 
@@ -51,14 +49,14 @@ public class Menu {
         for (int j = idx; j < items.size(); j++) {
             i = items.get(j);
             if (i.getNivel() == nivel) { // el nivel del item igual al buscado
-                if (i.getPadre() == padre) {
+                if (i.getIdPadre() == padre) {
                     r.append(prefijo);
                     r.append(".add(");
                     r.append(obtenerConstructorMenuJavascript(i));
                     r.append(");\r\n");
                     r.append(buscarHijos(nivel + 1, i.getIdMenu(), j, items, prefijo + ".items[" + cuenta + "]"));
                     cuenta++;
-                } else if (i.getPadre() > padre) {
+                } else if (i.getIdPadre() > padre) {
                     break;// el padre del item es mayor que el buscado
                 }
             } else if (i.getNivel() < nivel) {

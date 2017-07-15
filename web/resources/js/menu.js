@@ -103,10 +103,7 @@ function accionar(accion, tipo, opt, n) {
                 celda2Enlace = f2;
                 anclaEnlace = an;
                 if (opt[0] != "") {
-                    for (var i = 0; i < top.frames.length; i++) {
-                        if (top.frames[i].name == "framePrincipal")
-                            top.frames[i].location.href = opt[0];
-                    }
+                   location.href = contextPath + '/'  + opt[0];
                 }
             }
             setTimeout('ena=true;', 200);
@@ -222,7 +219,7 @@ function constructor(posicion, nivel, objItem) {
         htmlMENU += '<tr><td width="10" class="mas_' + nivel + '" id="C' + id + '" onMouseOver="accionar(SOBRE,ETIQUETA,\'' + id + '\',' + nivel + ')" onMouseOut="accionar(ALEJA,ETIQUETA,null,' + nivel + ')" onClick="accionar(VER,null,\'' + id + '\',' + nivel + ')">' +
                 '</td><td class="cerrada_' + nivel + '" id="' + id + '" onMouseOver="accionar(SOBRE,ETIQUETA,\'' + id + '\',' + nivel + ')" onMouseOut="accionar(ALEJA,ETIQUETA,null,' + nivel + ')" onClick="accionar(VER,null,\'' + id + '\',' + nivel + ')" title="' + objItem.toolTip + '">\n';
         if (objItem.icono != null)
-            htmlMENU += '<div class="boton' + nivel + '" style="background-image:url(Imagenes/Menu/iconos/' + objItem.icono + '.gif);background-repeat:no-repeat;background-position:right;">';
+            htmlMENU += '<div class="boton' + nivel + '" style="background-image:url(' + contextPath + '/resources/imagenes/' + objItem.icono + '.gif);background-repeat:no-repeat;background-position:right;">';
         htmlMENU += '<a id="Ancla_' + id + '" href="javascript:accionar(VER,null,\'' + id + '\',' + nivel + ')" onFocus="accionar(SOBRE,ETIQUETA,\'' + id + '\',' + nivel + ')" onBlur="accionar(ALEJA,ETIQUETA,null,' + nivel + ')" class="' + clase + '">' + objItem.nombre + '</a>';
         if (objItem.icono != null)
             htmlMENU += '</div>';
@@ -240,7 +237,7 @@ function constructor(posicion, nivel, objItem) {
         htmlMENU += '<tr><td width="10" class="vin_' + nivel + '" id="C' + id + '">' +
                 '</td><td class="cerrada_' + nivel + '" id="' + id + '" onMouseOver="accionar(SOBRE,ENLACE,\'' + id + '\',' + nivel + ')" onMouseOut="accionar(ALEJA,ENLACE,null,' + nivel + ')" onClick="accionar(ABRIR,ENLACE,new Array(\'' + objItem.url + '\',\'' + id + '\'),' + nivel + ')" title="' + objItem.toolTip + '">';
         if (objItem.icono != null)
-            htmlMENU += '<div class="boton' + nivel + '" style="background-image:url(Imagenes/Menu/iconos/' + objItem.icono + ');background-repeat:no-repeat;background-position:right;">';
+            htmlMENU += '<div class="boton' + nivel + '" style="background-image:url(' + contextPath + '/resources/imagenes/' + objItem.icono + '.gif);background-repeat:no-repeat;background-position:right;">';
         htmlMENU += '<a id="Ancla_' + id + '" href="javascript:accionar(ABRIR,ENLACE,new Array(\'' + objItem.url + '\',\'' + id + '\'),' + nivel + ')" onFocus="accionar(SOBRE,ENLACE,\'' + id + '\',' + nivel + ')" onBlur="accionar(ALEJA,ENLACE,null,' + nivel + ')" class="' + clase + '">' + objItem.nombre + '</a>';
         if (objItem.icono != null)
             htmlMENU += '</div>';

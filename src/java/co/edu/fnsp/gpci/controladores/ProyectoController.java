@@ -75,7 +75,7 @@ public class ProyectoController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "", method = RequestMethod.GET)
+    @RequestMapping(value = "/proyectos", method = RequestMethod.GET)
     public String obtenerProyectos(Model model) {
 
         model.addAttribute("proyectos", new ArrayList<>());

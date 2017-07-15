@@ -624,13 +624,13 @@
                     </div>
                 </div>
         </div>
-
         <script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
         <script src='<c:url value="/resources/js/jquery-ui.js" />'></script>
         <script src='<c:url value="/resources/js/jquery.form-validator.min.js" />'></script>
         <script src='<c:url value="/resources/js/bootstrap.js" />'></script>  
         <script src='<c:url value="/resources/js/bootstrap-datepicker.min.js" />'></script>  
         <script src='<c:url value="/resources/js/bootstrap-datepicker.es.min.js" />' charset="UTF-8"></script>
+        <script src='<c:url value="/resources/js/paging.js" />'></script> 
         <script src='<c:url value="/resources/js/bootstrap-select.js" />'></script>
         <script src='<c:url value="/resources/js/knockout-3.4.2.js" />'></script>
         <script>

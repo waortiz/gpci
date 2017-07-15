@@ -1,0 +1,2 @@
+Los iconos del menu, deben ser gifs como maximo de 15 x 15. Los gifs deben tener fondo transparente;
+Al configurarse en el javascript solo tiene que darsele el nombre, sin la extensión.

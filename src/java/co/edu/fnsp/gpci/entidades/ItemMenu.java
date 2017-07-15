@@ -11,12 +11,10 @@ package co.edu.fnsp.gpci.entidades;
  */
 public class ItemMenu {
 
-
-
     private int idMenu;
     private String nombre;
     private int nivel;
-    private int padre;
+    private int idPadre;
     private String nombreDestino;
     private String urlDestino;
     private String imagen;
@@ -64,17 +62,17 @@ public class ItemMenu {
     }
 
     /**
-     * @return the padre
+     * @return the idPadre
      */
-    public int getPadre() {
-        return padre;
+    public int getIdPadre() {
+        return idPadre;
     }
 
     /**
-     * @param padre the padre to set
+     * @param idPadre the idPadre to set
      */
-    public void setPadre(int padre) {
-        this.padre = padre;
+    public void setIdPadre(int idPadre) {
+        this.idPadre = idPadre;
     }
 
     /**

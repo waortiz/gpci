@@ -32,8 +32,12 @@ public class ErrorController {
                 errorMsg = "No está autorizado para visualizar la página.";
                 break;
             }
+            case 403: {
+                errorMsg = "No está autorizado para visualizar la página.";
+                break;
+            }
             case 404: {
-                errorMsg = "La página solicitada no existe.";
+                errorMsg = "El recurso solicitado no existe.";
                 break;
             }
             case 500: {

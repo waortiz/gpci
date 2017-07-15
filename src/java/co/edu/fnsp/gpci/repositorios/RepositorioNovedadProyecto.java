@@ -24,13 +24,13 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author William
  */
-@Service("repositorioNovedadProyecto")
+@Repository("repositorioNovedadProyecto")
 public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
 
     private SimpleJdbcCall obtenerProyecto;

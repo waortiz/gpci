@@ -14,22 +14,28 @@
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-select.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/paging.css" />'>
+        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/menu.css" />'>
     </head>
     <body>
         <header id="header">
             <tiles:insertAttribute name="header" />
         </header>
-
-        <section id="sidemenu">
-            <tiles:insertAttribute name="menu" />
-        </section>
-
         <section id="site-content">
-            <tiles:insertAttribute name="body" />
+            <div class="col-xs-2">
+                <tiles:insertAttribute name="menu" />
+            </div>
+            <div class="col-xs-10">
+                <tiles:insertAttribute name="body" />
+            </div>
         </section>
 
         <footer id="footer">
             <tiles:insertAttribute name="footer" />
         </footer>
     </body>
+    <script src='<c:url value="/resources/js/menu.js" />'></script>
+    <script type="text/javascript">
+       var contextPath = '${pageContext.request.contextPath}';
+       <tiles:insertAttribute name="javascriptMenu" />
+    </script>    
 </html>

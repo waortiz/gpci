@@ -16,22 +16,28 @@ import org.apache.tiles.preparer.ViewPreparer;
 import org.apache.tiles.request.Request;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 /**
  *
  * @author William
  */
+@Component("menuViewPreparer")
 public class MenuViewPreparer implements ViewPreparer {
 
     @Autowired
     private IServicioMenu servicioMenu;
-    
+
     @Override
     public void execute(Request request, AttributeContext attributeContext) {
-        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        List<ItemMenu> items = servicioMenu.obtenerItemsMenu( usuario.getIdUsuario());
-        String javascriptMenu = Menu.obtenerJavascriptMenu(items);
-        attributeContext.putAttribute("javascriptMenu", new Attribute(javascriptMenu));
+        if (SecurityContextHolder.getContext().getAuthentication() != null && SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof Usuario) {
+            Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            List<ItemMenu> items = servicioMenu.obtenerItemsMenu(usuario.getIdUsuario());
+            String javascriptMenu = Menu.obtenerJavascriptMenu(items);
+            attributeContext.putAttribute("javascriptMenu", new Attribute(javascriptMenu));
+        } else {
+            attributeContext.putAttribute("javascriptMenu", new Attribute(""));
+        }
     }
-    
+
 }

@@ -15,12 +15,14 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
+import org.springframework.stereotype.Repository;
 
 /**
  *
  * @author William
  */
-public class RepositorioMenu {
+@Repository("repositorioMenu")
+public class RepositorioMenu implements IRepositorioMenu {
     private SimpleJdbcCall obtenerItemsMenu;
     
     @Autowired
@@ -32,6 +34,7 @@ public class RepositorioMenu {
                 returningResultSet("itemsMenu", BeanPropertyRowMapper.newInstance(ItemMenu.class));
     }
     
+   @Override
    public List<ItemMenu> obtenerItemsMenu(int idUsuario) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdUsuario", idUsuario);
