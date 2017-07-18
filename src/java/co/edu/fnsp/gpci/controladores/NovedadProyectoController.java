@@ -12,8 +12,10 @@ import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
+import co.edu.fnsp.gpci.entidades.TipoActa;
 import co.edu.fnsp.gpci.entidadesVista.BusquedaProyectos;
 import co.edu.fnsp.gpci.entidadesVista.ProyectoEdicion;
+import co.edu.fnsp.gpci.servicios.IServicioMaestro;
 import co.edu.fnsp.gpci.servicios.IServicioNovedadProyecto;
 import co.edu.fnsp.gpci.utilidades.Util;
 import com.google.gson.Gson;
@@ -22,6 +24,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
@@ -48,12 +51,15 @@ public class NovedadProyectoController {
     @Autowired
     private IServicioNovedadProyecto servicioNovedadProyecto;
 
+    @Autowired
+    private IServicioMaestro servicioMaestro;
+    
     /**
      *
      * @param model
      * @return
      */
-    @RequestMapping(value = "/proyectos", method = RequestMethod.GET)
+    @RequestMapping(value = "/listado", method = RequestMethod.GET)
     public String obtenerProyectos(Model model) {
 
         model.addAttribute("proyectos", new ArrayList<>());
@@ -62,7 +68,7 @@ public class NovedadProyectoController {
         busquedaProyectos.establecerFechaInicioFinal();
         model.addAttribute("busquedaProyectos", busquedaProyectos);
 
-        return "novedades/proyectos";
+        return "novedades/listado";
     }
 
     @RequestMapping(value = "/buscarProyectos", method = RequestMethod.POST)
@@ -79,7 +85,7 @@ public class NovedadProyectoController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "novedades/proyectos";
+        return "novedades/listado";
     }
 
     /**
@@ -131,7 +137,9 @@ public class NovedadProyectoController {
         if (proyecto.getProrrogasProyecto().size() > 0) {
             model.addAttribute("prorrogasProyectoJSON", proyectoEdicion.getProrrogasProyectoJSON());
         }
+        List<TipoActa> tiposActa = servicioMaestro.obtenerTiposActa();
 
+        model.addAttribute("tiposActa", tiposActa);
         model.addAttribute("proyecto", proyectoEdicion);
 
         return "novedades/editar";
@@ -144,11 +152,13 @@ public class NovedadProyectoController {
         try {
             ActaProyecto actaProyectoGuardar = new ActaProyecto();
             actaProyectoGuardar.setIdActa(actaProyecto.getIdActa());
+            actaProyectoGuardar.setIdTipoActa(actaProyecto.getIdTipoActa());
             actaProyectoGuardar.setNombre(actaProyecto.getNombreActa());
             actaProyectoGuardar.setObservaciones(actaProyecto.getObservacionesActa());
 
             Documento documento = null;
             if (actaProyecto.getDocumentoActa() != null) {
+                documento = new Documento();
                 documento.setContenido(actaProyecto.getDocumentoActa().getBytes());
                 documento.setNombre(actaProyecto.getDocumentoActa().getOriginalFilename());
                 documento.setTipoContenido(actaProyecto.getDocumentoActa().getContentType());
@@ -174,20 +184,22 @@ public class NovedadProyectoController {
         FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
     }
 
-    @RequestMapping(value = "/eliminarActa/{idActa}", method = RequestMethod.GET)
+    @RequestMapping(value = "/eliminarActa/{idProyecto}/{idActa}", method = RequestMethod.GET)
     public @ResponseBody
-    String eliminarActa(@PathVariable("idActa") long idActa, Model model) {
-        String respuesta = "";
+    String eliminarActa(@PathVariable("idProyecto") long idProyecto, @PathVariable("idActa") long idActa, Model model) {
+        String json = "";
         try {
             servicioNovedadProyecto.eliminarActaProyecto(idActa);
+            ArrayList<ActaProyecto> actas = servicioNovedadProyecto.obtenerActasProyecto(idProyecto);
+            Gson gson = new Gson();
+            json = gson.toJson(actas);
         } catch (Exception exc) {
             logger.log(Level.SEVERE, null, exc);
-            respuesta = exc.getMessage();
         }
 
-        return respuesta;
-    }
-
+        return json;
+    }      
+    
     @RequestMapping(value = {"/adendaProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarAdendaProyecto(@ModelAttribute(value = "adendaProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaProyecto adendaProyecto, Model model) {
@@ -225,20 +237,22 @@ public class NovedadProyectoController {
         FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
     }
 
-    @RequestMapping(value = "/eliminarAdenda/{idAdenda}", method = RequestMethod.GET)
+    @RequestMapping(value = "/eliminarAdenda/{idProyecto}/{idAdenda}", method = RequestMethod.GET)
     public @ResponseBody
-    String eliminarAdenda(@PathVariable("idAdenda") long idAdenda, Model model) {
-        String respuesta = "";
+    String eliminarAdenda(@PathVariable("idProyecto") long idProyecto, @PathVariable("idAdenda") long idAdenda, Model model) {
+        String json = "";
         try {
             servicioNovedadProyecto.eliminarAdendaProyecto(idAdenda);
+            ArrayList<AdendaProyecto> adendas = servicioNovedadProyecto.obtenerAdendasProyecto(idProyecto);
+            Gson gson = new Gson();
+            json = gson.toJson(adendas);
         } catch (Exception exc) {
             logger.log(Level.SEVERE, null, exc);
-            respuesta = exc.getMessage();
         }
 
-        return respuesta;
-    }
-
+        return json;
+    }     
+    
     @RequestMapping(value = {"/adicionProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarAdicionProyecto(@ModelAttribute(value = "adicionProyecto") co.edu.fnsp.gpci.entidadesVista.AdicionProyecto adicionProyecto, Model model) {
@@ -276,20 +290,22 @@ public class NovedadProyectoController {
         FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
     }
 
-    @RequestMapping(value = "/eliminarAdicion/{idAdicion}", method = RequestMethod.GET)
+    @RequestMapping(value = "/eliminarAdicion/{idProyecto}/{idAdicion}", method = RequestMethod.GET)
     public @ResponseBody
-    String eliminarAdicion(@PathVariable("idAdicion") long idAdicion, Model model) {
-        String respuesta = "";
+    String eliminarAdicion(@PathVariable("idProyecto") long idProyecto, @PathVariable("idAdicion") long idAdicion, Model model) {
+        String json = "";
         try {
             servicioNovedadProyecto.eliminarAdicionProyecto(idAdicion);
+            ArrayList<AdicionProyecto> adiciones = servicioNovedadProyecto.obtenerAdicionesProyecto(idProyecto);
+            Gson gson = new Gson();
+            json = gson.toJson(adiciones);
         } catch (Exception exc) {
             logger.log(Level.SEVERE, null, exc);
-            respuesta = exc.getMessage();
         }
 
-        return respuesta;
-    }
-
+        return json;
+    }    
+    
     @RequestMapping(value = {"/prorrogaProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarProrrogaProyecto(@ModelAttribute(value = "prorrogaProyecto") co.edu.fnsp.gpci.entidadesVista.ProrrogaProyecto prorrogaProyecto, Model model) {
@@ -328,17 +344,19 @@ public class NovedadProyectoController {
         FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
     }
 
-    @RequestMapping(value = "/eliminarProrroga/{idProrroga}", method = RequestMethod.GET)
+    @RequestMapping(value = "/eliminarProrroga/{idProyecto}/{idProrroga}", method = RequestMethod.GET)
     public @ResponseBody
-    String eliminarProrroga(@PathVariable("idProrroga") long idProrroga, Model model) {
-        String respuesta = "";
+    String eliminarProrroga(@PathVariable("idProyecto") long idProyecto, @PathVariable("idProrroga") long idProrroga, Model model) {
+        String json = "";
         try {
             servicioNovedadProyecto.eliminarProrrogaProyecto(idProrroga);
+            ArrayList<ProrrogaProyecto> prorrogas = servicioNovedadProyecto.obtenerProrrogasProyecto(idProyecto);
+            Gson gson = new Gson();
+            json = gson.toJson(prorrogas);
         } catch (Exception exc) {
             logger.log(Level.SEVERE, null, exc);
-            respuesta = exc.getMessage();
         }
 
-        return respuesta;
+        return json;
     }
 }

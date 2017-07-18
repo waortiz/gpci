@@ -5,4 +5,7 @@
     <div class="container-fluid">   
         <p align="center" style="margin-top:20px;"><img src='<c:url value="/resources/imagenes/logo-udea.png"/>' width="371" height="103" alt="U de A"></p>
     </div>
+    <div>
+        <p align="center" style="margin-top:40px;font-size: 30pt; font-family: verdana; color: #006400">SISTEMA DE GESTIÓN DE PROYECTOS</p>
+    </div>
 </div>

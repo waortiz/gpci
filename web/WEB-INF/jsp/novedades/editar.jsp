@@ -155,7 +155,8 @@
                                 <thead>          
                                     <tr class="table-row">
                                         <td style="width: 20%;text-align: center"><strong>Nombre</strong></td>
-                                        <td style="width: 50%;text-align: center"><strong>Observaciones</strong></td>
+                                        <td style="width: 10%;text-align: center"><strong>Tipo</strong></td>
+                                        <td style="width: 40%;text-align: center"><strong>Observaciones</strong></td>
                                         <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
                                         <td style="width: 5%;text-align: center">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
@@ -168,7 +169,12 @@
                                         <span data-bind="text: nombre" ></span>
                                         <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'actas[' + $index() + '].nombre'  }">
                                     </td>
-                                    <td style="width: 50%">
+                                    <td style="width: 10%">
+                                        <span data-bind="text: descripcionTipoActa" ></span>
+                                        <input type="hidden" class="form-control" data-bind="value: descripcionTipoActa, attr: { 'name': 'actas[' + $index() + '].descripcionTipoActa'  }">
+                                        <input type="hidden" class="form-control" data-bind="value: idTipoActa, attr: { 'name': 'actas[' + $index() + '].idTipoActa'  }">
+                                    </td>
+                                    <td style="width: 40%">
                                         <span data-bind="text: observaciones" ></span>
                                         <input type="hidden" class="form-control" data-bind="value: observaciones, attr: { 'name': 'actas[' + $index() + '].observaciones'  }">
                                     </td>
@@ -241,6 +247,19 @@
                                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                             <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tipo</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="idTipoActa" id="idTipoActa" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoActa" items="${tiposActa}">
+                                                                <option value="${tipoActa.getIdTipoActa()}">${tipoActa.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>      
+                                                        </td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>Documento</td>
@@ -651,6 +670,10 @@
                     bootstrap_alert_acta.warning('Debe ingresar el nombre');
                     return false;
                 }
+                if ($('#idTipoActa').val() == "") {
+                    bootstrap_alert_acta.warning('Debe seleccionar el tipo de acta');
+                    return false;
+                }
                 if ($('#idActa').val() == 0 && $('#documentoActa').prop('files').length == 0) {
                     bootstrap_alert_acta.warning('Debe seleccionar el archivo');
                     return false;
@@ -673,13 +696,15 @@
                     success: function (response) {
                         bootstrap_alert_actas.warning("Acta almacenada exitosamente");
                         limpiarDatosVentanaActa();
-                        proyectoModel.actas.removeAll();
                         if (response != "") {
+                            proyectoModel.actas.removeAll();
                             var actas = JSON.parse(response);
                             for (var i = 0; i < actas.length; i++) {
                                 proyectoModel.actas.push(
                                         {
                                             idActa: ko.observable(actas[i].idActa),
+                                            idTipoActa: ko.observable(actas[i].idTipoActa),
+                                            descripcionTipoActa : ko.observable(actas[i].descripcionTipoActa),
                                             nombre: ko.observable(actas[i].nombre),
                                             observaciones: ko.observable(actas[i].observaciones),
                                             fechaFormateada: ko.observable(actas[i].fechaFormateada),
@@ -696,14 +721,29 @@
             function eliminarActa () {
                 $.ajax({
                     type: 'GET',
-                    url: "${pageContext.request.contextPath}/novedades/eliminarActa/" + actaEliminar.idActa(),
+                    url: "${pageContext.request.contextPath}/novedades/eliminarActa/" + $('#idProyecto').val() + "/" + actaEliminar.idActa(),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
                         bootstrap_alert_actas.warning("Acta eliminada exitosamente");
-                        proyectoModel.actas.remove(actaEliminar);
                         $('#confirmacionEliminacionActa').modal('toggle');
+                        if (response != "") {
+                            proyectoModel.actas.removeAll();
+                            var actas = JSON.parse(response);
+                            for (var i = 0; i < actas.length; i++) {
+                                proyectoModel.actas.push(
+                                        {
+                                            idActa: ko.observable(actas[i].idActa),
+                                            idTipoActa: ko.observable(actas[i].idTipoActa),
+                                            descripcionTipoActa : ko.observable(actas[i].descripcionTipoActa),
+                                            nombre: ko.observable(actas[i].nombre),
+                                            observaciones: ko.observable(actas[i].observaciones),
+                                            fechaFormateada: ko.observable(actas[i].fechaFormateada),
+                                        }
+                                );
+                            }
+                        }                        
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         bootstrap_alert_actas.warning("Error al eliminar el acta: " + thrownError);
@@ -735,8 +775,8 @@
                     success: function (response) {
                         bootstrap_alert_adendas.warning("Adenda almacenada exitosamente");
                         limpiarDatosVentanaAdenda();
-                        proyectoModel.adendas.removeAll();
                         if (response != "") {
+                            proyectoModel.adendas.removeAll();
                             var adendas = JSON.parse(response);
                             for (var i = 0; i < adendas.length; i++) {
                                 proyectoModel.adendas.push(
@@ -757,14 +797,27 @@
             function eliminarAdenda () {
                 $.ajax({
                     type: 'GET',
-                    url: "${pageContext.request.contextPath}/novedades/eliminarAdenda/" + adendaEliminar.idAdenda(),
+                    url: "${pageContext.request.contextPath}/novedades/eliminarAdenda/" + $('#idProyecto').val() + "/" + adendaEliminar.idAdenda(),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
                         bootstrap_alert_adendas.warning("Adenda eliminada exitosamente");
-                        proyectoModel.adendas.remove(adendaEliminar);
                         $('#confirmacionEliminacionAdenda').modal('toggle');
+                        if (response != "") {
+                            proyectoModel.adendas.removeAll();
+                            var adendas = JSON.parse(response);
+                            for (var i = 0; i < adendas.length; i++) {
+                                proyectoModel.adendas.push(
+                                        {
+                                            idAdenda: ko.observable(adendas[i].idAdenda),
+                                            modificacion: ko.observable(adendas[i].modificacion),
+                                            fechaFormateada: ko.observable(adendas[i].fechaFormateada),
+                                        }
+                                );
+                            }
+                        }
+                        
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         bootstrap_alert_adendas.warning("Error al eliminar la adenda: " + thrownError);
@@ -796,8 +849,8 @@
                     success: function (response) {
                         bootstrap_alert_adiciones.warning("Adición almacenada exitosamente");
                         limpiarDatosVentanaAdicion();
-                        proyectoModel.adiciones.removeAll();
                         if (response != "") {
+                            proyectoModel.adiciones.removeAll();
                             var adiciones = JSON.parse(response);
                             for (var i = 0; i < adiciones.length; i++) {
                                 proyectoModel.adiciones.push(
@@ -818,14 +871,26 @@
             function eliminarAdicion () {
                 $.ajax({
                     type: 'GET',
-                    url: "${pageContext.request.contextPath}/novedades/eliminarAdicion/" + adicionEliminar.idAdicion(),
+                    url: "${pageContext.request.contextPath}/novedades/eliminarAdicion/" + $('#idProyecto').val() + "/" + adicionEliminar.idAdicion(),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
                         bootstrap_alert_adiciones.warning("Adición eliminada exitosamente");
-                        proyectoModel.adiciones.remove(adicionEliminar);
                         $('#confirmacionEliminacionAdicion').modal('toggle');
+                        if (response != "") {
+                            proyectoModel.adiciones.removeAll();
+                            var adiciones = JSON.parse(response);
+                            for (var i = 0; i < adiciones.length; i++) {
+                                proyectoModel.adiciones.push(
+                                        {
+                                            idAdicion: ko.observable(adiciones[i].idAdicion),
+                                            monto: ko.observable(adiciones[i].monto),
+                                            fechaFormateada: ko.observable(adiciones[i].fechaFormateada),
+                                        }
+                                );
+                            }
+                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         bootstrap_alert_adiciones.warning("Error al eliminar la adición: " + thrownError);
@@ -861,8 +926,8 @@
                     success: function (response) {
                         bootstrap_alert_prorrogas.warning("Prórroga almacenada exitosamente");
                         limpiarDatosVentanaProrroga();
-                        proyectoModel.prorrogas.removeAll();
                         if (response != "") {
+                            proyectoModel.prorrogas.removeAll();
                             var prorrogas = JSON.parse(response);
                             for (var i = 0; i < prorrogas.length; i++) {
                                 proyectoModel.prorrogas.push(
@@ -884,7 +949,7 @@
             function eliminarProrroga () {
                 $.ajax({
                     type: 'GET',
-                    url: "${pageContext.request.contextPath}/novedades/eliminarProrroga/" + prorrogaEliminar.idProrroga(),
+                    url: "${pageContext.request.contextPath}/novedades/eliminarProrroga/" + $('#idProyecto').val() + "/" + prorrogaEliminar.idProrroga(),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
@@ -892,6 +957,20 @@
                         bootstrap_alert_prorrogas.warning("Prórroga eliminada exitosamente");
                         proyectoModel.prorrogas.remove(prorrogaEliminar);
                         $('#confirmacionEliminacionProrroga').modal('toggle');
+                        if (response != "") {
+                            proyectoModel.prorrogas.removeAll();
+                            var prorrogas = JSON.parse(response);
+                            for (var i = 0; i < prorrogas.length; i++) {
+                                proyectoModel.prorrogas.push(
+                                        {
+                                            idProrroga: ko.observable(prorrogas[i].idProrroga),
+                                            descripcion: ko.observable(prorrogas[i].descripcion),
+                                            mesesAprobados: ko.observable(prorrogas[i].mesesAprobados),
+                                            fechaFormateada: ko.observable(prorrogas[i].fechaFormateada),
+                                        }
+                                );
+                            }
+                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         bootstrap_alert_prorrogas.warning("Error al eliminar el prórroga: " + thrownError);
@@ -910,6 +989,7 @@
                 };
                 self.editarActa = function (acta) {
                     $('#idActa').val(acta.idActa());
+                    $('#idTipoActa').val(acta.idTipoActa());
                     $('#observacionesActa').val(acta.observaciones());
                     $('#nombreActa').val(acta.nombre());
                     $('#actaModal').modal('show');
@@ -1003,6 +1083,7 @@
             }
             function limpiarDatosVentanaActa() {
                 $('#idActa').val(0);
+                $('#idTipoActa').val("");
                 $('#observacionesActa').val("");
                 $('#nombreActa').val("");
                 $('#documentoActa').val("");

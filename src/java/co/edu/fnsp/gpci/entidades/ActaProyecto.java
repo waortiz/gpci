@@ -15,6 +15,8 @@ public class ActaProyecto {
 
     private long idActa;
     private String nombre;
+    private int idTipoActa;
+    private String descripcionTipoActa;
     private Date fecha;
     private String fechaFormateada;
     private String observaciones;
@@ -87,5 +89,33 @@ public class ActaProyecto {
      */
     public void setFechaFormateada(String fechaFormateada) {
         this.fechaFormateada = fechaFormateada;
+    }
+
+    /**
+     * @return the idTipoActa
+     */
+    public int getIdTipoActa() {
+        return idTipoActa;
+    }
+
+    /**
+     * @param idTipoActa the idTipoActa to set
+     */
+    public void setIdTipoActa(int idTipoActa) {
+        this.idTipoActa = idTipoActa;
+    }
+
+    /**
+     * @return the descripcionTipoActa
+     */
+    public String getDescripcionTipoActa() {
+        return descripcionTipoActa;
+    }
+
+    /**
+     * @param descripcionTipoActa the descripcionTipoActa to set
+     */
+    public void setDescripcionTipoActa(String descripcionTipoActa) {
+        this.descripcionTipoActa = descripcionTipoActa;
     }
 }

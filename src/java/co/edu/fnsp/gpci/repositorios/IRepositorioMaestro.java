@@ -14,6 +14,7 @@ import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
 import co.edu.fnsp.gpci.entidades.Programa;
 import co.edu.fnsp.gpci.entidades.RiesgoEtico;
 import co.edu.fnsp.gpci.entidades.Rol;
+import co.edu.fnsp.gpci.entidades.TipoActa;
 import co.edu.fnsp.gpci.entidades.TipoContrato;
 import co.edu.fnsp.gpci.entidades.TipoEstudiante;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
@@ -51,4 +52,6 @@ public interface IRepositorioMaestro {
     ArrayList<TipoEstudiante> obtenerTiposEstudiante();
 
     ArrayList<Programa> obtenerProgramas();
+    
+    ArrayList<TipoActa> obtenerTiposActa();
 }

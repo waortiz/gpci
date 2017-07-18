@@ -16,6 +16,7 @@ public class ActaProyecto {
 
     private long idActa;
     private long idProyecto;
+    private int idTipoActa;
     private String nombreActa;
     private String observacionesActa;
     private MultipartFile documentoActa;
@@ -89,4 +90,18 @@ public class ActaProyecto {
     public void setDocumentoActa(MultipartFile documentoActa) {
         this.documentoActa = documentoActa;
     }    
+
+    /**
+     * @return the idTipoActa
+     */
+    public int getIdTipoActa() {
+        return idTipoActa;
+    }
+
+    /**
+     * @param idTipoActa the idTipoActa to set
+     */
+    public void setIdTipoActa(int idTipoActa) {
+        this.idTipoActa = idTipoActa;
+    }
 }

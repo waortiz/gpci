@@ -75,7 +75,7 @@ public class ProyectoController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/proyectos", method = RequestMethod.GET)
+    @RequestMapping(value = "/listado", method = RequestMethod.GET)
     public String obtenerProyectos(Model model) {
 
         model.addAttribute("proyectos", new ArrayList<>());
@@ -84,7 +84,7 @@ public class ProyectoController {
         busquedaProyectos.establecerFechaInicioFinal();
         model.addAttribute("busquedaProyectos", busquedaProyectos);
 
-        return "proyectos/proyectos";
+        return "proyectos/listado";
     }
 
     @RequestMapping(value = "/buscarProyectos", method = RequestMethod.POST)
@@ -101,7 +101,7 @@ public class ProyectoController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "proyectos/proyectos";
+        return "proyectos/listado";
     }
 
     /**
@@ -207,7 +207,7 @@ public class ProyectoController {
             busquedaProyectos.establecerFechaInicioFinal();
             model.addAttribute("busquedaProyectos", busquedaProyectos);
 
-            return "proyectos/proyectos";
+            return "proyectos/listado";
         } catch (Exception exc) {
             if (proyecto.getIdProyecto() == 0) {
                 model.addAttribute("mensaje", "No se pudo ingresar el proyecto: " + exc.getMessage());

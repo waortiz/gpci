@@ -20,9 +20,4 @@ public class IndexController {
     public String indexPage() {
         return "index";
     }
-    
-    @RequestMapping(value = "/", method = RequestMethod.GET)
-    public String defaultPage() {
-        return "index";
-    }
 }

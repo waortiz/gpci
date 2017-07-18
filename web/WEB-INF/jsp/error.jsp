@@ -13,7 +13,9 @@
     <br />
     <table class='table table-hover' style='font-size:12px;'> 
         <tr>
-            <td><strong>${errorMsg}</strong></td>
+            <td><strong>${errorMsg}&nbsp;</strong><a href='${pageContext.request.contextPath}/index'  title='Inicio' >
+                    <input type='button' class='btn-sm btn-success' value='Ir al inicio' /></a>
+            </td>
         </tr>
     </table>
 </div>

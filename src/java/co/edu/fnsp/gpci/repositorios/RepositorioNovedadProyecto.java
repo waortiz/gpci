@@ -198,6 +198,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         if (actaProyecto.getIdActa() == 0) {
             MapSqlParameterSource parametrosIngresoActaProyecto = new MapSqlParameterSource();
             parametrosIngresoActaProyecto.addValue("varIdProyecto", idProyecto);
+            parametrosIngresoActaProyecto.addValue("varIdTipoActa", actaProyecto.getIdTipoActa());
             parametrosIngresoActaProyecto.addValue("varNombre", actaProyecto.getNombre());
             parametrosIngresoActaProyecto.addValue("varObservaciones", actaProyecto.getObservaciones());
             Map resultado = ingresarActaProyecto.execute(parametrosIngresoActaProyecto);
@@ -213,6 +214,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         } else {
             MapSqlParameterSource parametrosActualizacionActaProyecto = new MapSqlParameterSource();
             parametrosActualizacionActaProyecto.addValue("varIdActa", actaProyecto.getIdActa());
+            parametrosActualizacionActaProyecto.addValue("varIdTipoActa", actaProyecto.getIdTipoActa());
             parametrosActualizacionActaProyecto.addValue("varNombre", actaProyecto.getNombre());
             parametrosActualizacionActaProyecto.addValue("varObservaciones", actaProyecto.getObservaciones());
             actualizarActaProyecto.execute(parametrosActualizacionActaProyecto);

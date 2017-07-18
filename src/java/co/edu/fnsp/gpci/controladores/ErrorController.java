@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 public class ErrorController {
  
-    @RequestMapping(value = "errors", method = RequestMethod.GET)
+    @RequestMapping(value = "error", method = RequestMethod.GET)
     public String renderErrorPage(HttpServletRequest httpRequest, Model model) {
         String errorMsg = "";
         int httpErrorCode = getErrorCode(httpRequest);

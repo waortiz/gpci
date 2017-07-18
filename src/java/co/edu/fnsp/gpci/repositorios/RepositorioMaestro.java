@@ -14,6 +14,7 @@ import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
 import co.edu.fnsp.gpci.entidades.Programa;
 import co.edu.fnsp.gpci.entidades.RiesgoEtico;
 import co.edu.fnsp.gpci.entidades.Rol;
+import co.edu.fnsp.gpci.entidades.TipoActa;
 import co.edu.fnsp.gpci.entidades.TipoContrato;
 import co.edu.fnsp.gpci.entidades.TipoEstudiante;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
@@ -47,6 +48,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
     private SimpleJdbcCall obtenerRoles;
     private SimpleJdbcCall obtenerFacultades;
     private SimpleJdbcCall obtenerTiposEstudiante;
+    private SimpleJdbcCall obtenerTiposActa;
     private SimpleJdbcCall obtenerProgramas;
 
     @Autowired
@@ -80,6 +82,8 @@ public class RepositorioMaestro implements IRepositorioMaestro {
                 returningResultSet("tiposEstudiante", BeanPropertyRowMapper.newInstance(TipoEstudiante.class));
         this.obtenerProgramas = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProgramas").
                 returningResultSet("programas", BeanPropertyRowMapper.newInstance(Programa.class));
+        this.obtenerTiposActa = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerTiposActa").
+                returningResultSet("tiposActa", BeanPropertyRowMapper.newInstance(TipoActa.class));
     }
 
     @Override
@@ -186,4 +190,11 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         return programas;   
     }
 
+    @Override
+    public ArrayList<TipoActa> obtenerTiposActa() {
+        Map resultado = obtenerTiposActa.execute(new HashMap<>());
+        ArrayList<TipoActa> tiposActa = (ArrayList<TipoActa>) resultado.get("tiposActa");
+
+        return tiposActa;
+    }
 }

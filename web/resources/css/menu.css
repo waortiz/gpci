@@ -6,11 +6,18 @@ a {
 	text-decoration: none;
 }
 a:link {}
-a:visited {}
+a:visited {
+    color:#FFFFFF;
+    background-color: transparent
+}
 a:hover {
     text-decoration: none;
+    color:#FFFFFF;
 }
-a:active {}
+a:active {
+    color:#000000;
+    background-color: transparent        
+}
 /* estilos simbolos arbol */
 .mas_0 { background-image: url(../imagenes/fondo6_0.png);	background-repeat:no-repeat;background-color: transparent;height:22px;}
 .sobreMas_0 {background-image: url(../imagenes/fondo6b_0.png); background-color: transparent;cursor:pointer;height:22px;}

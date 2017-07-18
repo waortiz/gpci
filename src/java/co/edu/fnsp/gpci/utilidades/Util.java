@@ -36,6 +36,8 @@ public class Util {
                 ActaProyecto actaProyecto = actasProyecto.get(i);
                 jscriptArray = jscriptArray
                         + "{idActa: ko.observable(" + actaProyecto.getIdActa() + "),"
+                        + "idTipoActa: ko.observable(" + actaProyecto.getIdTipoActa() + "),"
+                        + "descripcionTipoActa:ko.observable('" + actaProyecto.getDescripcionTipoActa()+ "'),"
                         + "observaciones:ko.observable('" + actaProyecto.getObservaciones() + "'),"
                         + "fechaFormateada:ko.observable('" + formatter.format(actaProyecto.getFecha()) + "'),"
                         + "nombre:ko.observable('" + actaProyecto.getNombre() + "')"

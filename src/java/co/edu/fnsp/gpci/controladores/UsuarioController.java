@@ -31,6 +31,6 @@ public class UsuarioController {
         
         servicioSeguridad.crearUsuario(usuario);
         
-        return "/login";
+        return "redirect:/login?logout";
     }
 }

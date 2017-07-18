@@ -36,7 +36,7 @@
        <put-attribute name="title" value="Proyectos" />  
        <put-attribute name="body" value="/WEB-INF/jsp/novedades/proyectos.jsp" />  
    </definition>  
-   <definition name="novedades/proyectos" extends="base-definition">  
+   <definition name="novedades/listado" extends="base-definition">  
        <put-attribute name="title" value="Proyectos" />  
        <put-attribute name="body" value="/WEB-INF/jsp/novedades/proyectos.jsp" />  
    </definition>  
@@ -50,7 +50,7 @@
        <put-attribute name="title" value="Novedades" />  
        <put-attribute name="body" value="/WEB-INF/jsp/proyectos/proyectos.jsp" />  
    </definition>  
-   <definition name="proyectos/proyectos" extends="base-definition">  
+   <definition name="proyectos/listado" extends="base-definition">  
        <put-attribute name="title" value="Novedades" />  
        <put-attribute name="body" value="/WEB-INF/jsp/proyectos/proyectos.jsp" />  
    </definition>  
