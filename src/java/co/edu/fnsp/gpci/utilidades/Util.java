@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.AdendaProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
+import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto;
 import co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto;
@@ -126,6 +127,31 @@ public class Util {
         return jscriptArray;
     }
 
+        public static String obtenerPlazosProyectoJSON(ArrayList<PlazoProyecto> plazosProyecto) {
+        String jscriptArray = "";
+
+        if (plazosProyecto.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < plazosProyecto.size(); i++) {
+                PlazoProyecto plazoProyecto = plazosProyecto.get(i);
+                jscriptArray = jscriptArray
+                        + "{idPlazo: ko.observable(" + plazoProyecto.getIdPlazo() + "),"
+                        + "fechaFormateada:ko.observable('" + formatter.format(plazoProyecto.getFecha()) + "'),"
+                        + "mesesAprobados:ko.observable(" + plazoProyecto.getMesesAprobados() + "),"
+                        + "descripcion:ko.observable('" + plazoProyecto.getDescripcion() + "')"
+                        + "}";
+                if (i < plazosProyecto.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+    }
+    
     public static String obtenerCompromisosProyectoJSON(ArrayList<CompromisoProyecto> compromisosProyecto) {
         String jscriptArray = "";
 

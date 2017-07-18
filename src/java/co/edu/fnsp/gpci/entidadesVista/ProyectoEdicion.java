@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.AdendaProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
+import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
@@ -51,6 +52,7 @@ public class ProyectoEdicion {
     private ArrayList<ProrrogaProyecto> prorrogasProyecto = new ArrayList<>();
     private ArrayList<AdendaProyecto> adendasProyecto = new ArrayList<>();
     private ArrayList<AdicionProyecto> adicionesProyecto = new ArrayList<>();
+    private ArrayList<PlazoProyecto> plazosProyecto = new ArrayList<>();
 
     /**
      * @return the areaTematica
@@ -551,5 +553,26 @@ public class ProyectoEdicion {
      */
     public void setAdicionesProyecto(ArrayList<AdicionProyecto> adicionesProyecto) {
         this.adicionesProyecto = adicionesProyecto;
+    }
+
+    /**
+     * @return the plazosProyecto
+     */
+    public ArrayList<PlazoProyecto> getPlazosProyecto() {
+        return plazosProyecto;
+    }
+
+    /**
+     * @param plazosProyecto the plazosProyecto to set
+     */
+    public void setPlazosProyecto(ArrayList<PlazoProyecto> plazosProyecto) {
+        this.plazosProyecto = plazosProyecto;
+    }
+    
+     /**
+    * @return the plazosProyecto
+    */
+    public String getPlazosProyectoJSON() {
+        return Util.obtenerPlazosProyectoJSON(plazosProyecto);
     }
 }

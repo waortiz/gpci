@@ -9,6 +9,7 @@ import co.edu.fnsp.gpci.entidades.ActaProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
+import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
@@ -34,7 +35,7 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Autowired
     private PlatformTransactionManager transactionManager;
-    
+
     @Override
     public Proyecto obtenerProyecto(long idProyecto) {
         return repositorioNovedadProyecto.obtenerProyecto(idProyecto);
@@ -82,11 +83,11 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
     }
 
     @Override
-    public void guardarAdendaProyecto(long idProyecto, AdendaProyecto actaProyecto, Documento documento) {
+    public void guardarAdendaProyecto(long idProyecto, AdendaProyecto adendaProyecto, Documento documento) {
         TransactionDefinition txDef = new DefaultTransactionDefinition();
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
-            repositorioNovedadProyecto.guardarAdendaProyecto(idProyecto, actaProyecto, documento);
+            repositorioNovedadProyecto.guardarAdendaProyecto(idProyecto, adendaProyecto, documento);
             transactionManager.commit(txStatus);
         } catch (Exception exc) {
             transactionManager.rollback(txStatus);
@@ -116,7 +117,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
             throw exc;
         }
     }
-     @Override
+
+    @Override
     public void guardarAdicionProyecto(long idProyecto, AdicionProyecto actaProyecto, Documento documento) {
         TransactionDefinition txDef = new DefaultTransactionDefinition();
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
@@ -151,12 +153,13 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
             throw exc;
         }
     }
-     @Override
-    public void guardarProrrogaProyecto(long idProyecto, ProrrogaProyecto actaProyecto, Documento documento) {
+
+    @Override
+    public void guardarProrrogaProyecto(long idProyecto, ProrrogaProyecto prorrogaProyecto, Documento documento) {
         TransactionDefinition txDef = new DefaultTransactionDefinition();
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
-            repositorioNovedadProyecto.guardarProrrogaProyecto(idProyecto, actaProyecto, documento);
+            repositorioNovedadProyecto.guardarProrrogaProyecto(idProyecto, prorrogaProyecto, documento);
             transactionManager.commit(txStatus);
         } catch (Exception exc) {
             transactionManager.rollback(txStatus);
@@ -180,6 +183,42 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.eliminarProrrogaProyecto(idProrroga);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }
+    }
+    
+        @Override
+    public void guardarPlazoProyecto(long idProyecto, PlazoProyecto plazoProyecto, Documento documento) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.guardarPlazoProyecto(idProyecto, plazoProyecto, documento);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }
+    }
+
+    @Override
+    public ArrayList<PlazoProyecto> obtenerPlazosProyecto(long idProyecto) {
+        return repositorioNovedadProyecto.obtenerPlazosProyecto(idProyecto);
+    }
+
+    @Override
+    public Documento obtenerDocumentoPlazoProyecto(long idPlazo) {
+        return repositorioNovedadProyecto.obtenerDocumentoPlazoProyecto(idPlazo);
+    }
+
+    @Override
+    public void eliminarPlazoProyecto(long idPlazo) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.eliminarPlazoProyecto(idPlazo);
             transactionManager.commit(txStatus);
         } catch (Exception exc) {
             transactionManager.rollback(txStatus);

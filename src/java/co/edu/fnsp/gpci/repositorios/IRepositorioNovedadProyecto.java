@@ -11,6 +11,7 @@ import co.edu.fnsp.gpci.entidades.ActaProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
+import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import java.util.ArrayList;
 import java.util.Date;
@@ -38,4 +39,8 @@ public interface IRepositorioNovedadProyecto {
     ArrayList<ProrrogaProyecto> obtenerProrrogasProyecto(long idProyecto);
     Documento obtenerDocumentoProrrogaProyecto(long idProrroga);
     void eliminarProrrogaProyecto(long idProrroga);
+    void guardarPlazoProyecto(long idProyecto, PlazoProyecto actaProyecto, Documento documento);
+    ArrayList<PlazoProyecto> obtenerPlazosProyecto(long idProyecto);
+    Documento obtenerDocumentoPlazoProyecto(long idPlazo);
+    void eliminarPlazoProyecto(long idPlazo);    
 }

@@ -49,7 +49,8 @@ public class Proyecto {
     private ArrayList<ProrrogaProyecto> prorrogasProyecto = new ArrayList<>();
     private ArrayList<AdendaProyecto> adendasProyecto = new ArrayList<>();
     private ArrayList<AdicionProyecto> adicionesProyecto = new ArrayList<>();
-    
+    private ArrayList<PlazoProyecto> plazosProyecto = new ArrayList<>();
+     
     /**
      * @return the personalExternoProyecto
      */
@@ -512,6 +513,20 @@ public class Proyecto {
     public void setAdicionesProyecto(ArrayList<AdicionProyecto> adicionesProyecto) {
         this.adicionesProyecto = adicionesProyecto;
     }
+
+    /**
+     * @return the plazosProyecto
+     */
+    public ArrayList<PlazoProyecto> getPlazosProyecto() {
+        return plazosProyecto;
+    }
+
+    /**
+     * @param plazosProyecto the plazosProyecto to set
+     */
+    public void setPlazosProyecto(ArrayList<PlazoProyecto> plazosProyecto) {
+        this.plazosProyecto = plazosProyecto;
+    }    
     
     @Override
     public String toString() {

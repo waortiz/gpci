@@ -141,6 +141,7 @@
                           <li><a data-toggle="tab" href="#adendasTab">Adendas</a></li>
                           <li><a data-toggle="tab" href="#adicionesTab">Adiciones</a></li>
                           <li><a data-toggle="tab" href="#prorrogasTab">Prórrogas</a></li>
+                          <li><a data-toggle="tab" href="#plazosTab">Plazos</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="actasTab" class="tab-pane fade in active">                            
@@ -516,7 +517,7 @@
                         </div>     
                         <div id="prorrogasTab" class="tab-pane fade">
                             <div class="alert alert-info" style="margin-top:20px;">
-                                <strong>Prorrogas</strong>
+                                <strong>Prórrogas</strong>
                                 <button class="btn btn-dark" onclick="mostrarVentanaNuevaProrroga(); return false;">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>                            
@@ -639,7 +640,133 @@
                                     </div>
                                 </div>  
                             </div>                               
-                        </div>     
+                        </div>  
+                        <div id="plazosTab" class="tab-pane fade">
+                            <div class="alert alert-info" style="margin-top:20px;">
+                                <strong>Plazos</strong>
+                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaPlazo(); return false;">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>                            
+                            </div>
+                            <div id="alert_placeholder_plazos"></div>
+                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                <thead>
+                                    <tr class="table-row">
+                                        <td style="width: 50%;text-align: center"><strong>Descripción</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Meses aprobados</strong></td>
+                                        <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
+                                        <td style="width: 5%;text-align: center">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: { data: plazos }">
+                                    <tr class="table-row">
+                                    <td style="width: 50%">
+                                        <span data-bind="text: descripcion" ></span>
+                                        <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'plazos[' + $index() + '].descripcion'  }">
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: mesesAprobados" ></span>
+                                        <input type="hidden" class="form-control" data-bind="value: mesesAprobados, attr: { 'name': 'plazos[' + $index() + '].mesesAprobados'  }">
+                                    </td>
+                                    <td style="width: 15%">
+                                        <span data-bind="text: fechaFormateada" ></span>
+                                        <input type="hidden" class="form-control" data-bind="value: fechaFormateada, attr: { 'name': 'plazos[' + $index() + '].fechaFormateada'  }">
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.verDocumentoPlazo" title="Ver plazo">
+                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.eliminarPlazo" title="Eliminar plazo">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                        <input type="hidden" data-bind="value: idPlazo, attr: { 'name': 'plazos[' + $index() + '].idPlazo'  }" />
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.editarPlazo" title="Editar plazo">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="modal fade" id="confirmacionEliminacionPlazo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="alert alert-info">
+                                                <strong>Eliminar Plazo</strong>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro de eliminar la plazo?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                            <a class="btn btn-danger btn-ok" onclick="eliminarPlazo();">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="plazoModal" tabindex="-1" role="dialog" aria-labelledby="plazoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/plazoProyecto" modelAttribute="plazoProyecto" enctype="multipart/form-data">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Plazo</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_plazo"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td>Descripción</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input id="descripcionPlazo" name="descripcionPlazo" class="form-control" />
+                                                            <input type="hidden" id="idPlazo" name="idPlazo" value="0"/>
+                                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Meses aprobados</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="mesesAprobadosPlazo" name="mesesAprobadosPlazo" class="form-control numbersOnly" maxlength="4"></textarea>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Documento</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="file" id="documentoPlazo" name="documentoPlazo" class="form-control" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary">Aceptar</button>
+                                            </div>   
+                                        </form:form>
+                                    </div>
+                                </div>  
+                            </div>                               
+                        </div>                          
                     </div>
                 </div>
         </div>
@@ -714,7 +841,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_actas.warning("Error al ingresar el acta: " + thrownError);
+                        bootstrap_alert_actas.warning("Error al almacenar el acta: " + thrownError);
                     }});
             });
 
@@ -790,7 +917,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adendas.warning("Error al ingresar la adenda: " + thrownError);
+                        bootstrap_alert_adendas.warning("Error al almacenar la adenda: " + thrownError);
                     }});
             });
 
@@ -864,7 +991,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adiciones.warning("Error al ingresar la adición: " + thrownError);
+                        bootstrap_alert_adiciones.warning("Error al almacenar la adición: " + thrownError);
                     }});
             });
 
@@ -942,7 +1069,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_prorrogas.warning("Error al ingresar el prórroga: " + thrownError);
+                        bootstrap_alert_prorrogas.warning("Error al almacenar el prórroga: " + thrownError);
                     }});
             });
 
@@ -977,7 +1104,87 @@
                     }});
             }
 
-            var ProyectoModel = function (actas, adendas, adiciones, prorrogas) {
+        $('#plazoProyecto').submit(function (evt) {
+                evt.preventDefault();
+                var formData = new FormData(this);
+                if ($('#descripcionPlazo').val() == "") {
+                    bootstrap_alert_plazo.warning('Debe ingresar la descripción');
+                    return false;
+                }
+                if ($('#idPlazo').val() == 0 && $('#documentoPlazo').prop('files').length == 0) {
+                    bootstrap_alert_plazo.warning('Debe seleccionar el archivo');
+                    return false;
+                }
+                if ($('#mesesAprobadosPlazo').val() == "") {
+                    bootstrap_alert_plazo.warning('Debe ingresar los meses aprobados');
+                    return false;
+                }
+                $('#plazoModal').modal('toggle');
+                bootstrap_alert_plazo.removeWarning();
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/novedades/plazoProyecto",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        bootstrap_alert_plazos.warning("Plazo almacenado exitosamente");
+                        limpiarDatosVentanaPlazo();
+                        if (response != "") {
+                            proyectoModel.plazos.removeAll();
+                            var plazos = JSON.parse(response);
+                            for (var i = 0; i < plazos.length; i++) {
+                                proyectoModel.plazos.push(
+                                        {
+                                            idPlazo: ko.observable(plazos[i].idPlazo),
+                                            descripcion: ko.observable(plazos[i].descripcion),
+                                            mesesAprobados: ko.observable(plazos[i].mesesAprobados),
+                                            fechaFormateada: ko.observable(plazos[i].fechaFormateada),
+                                        }
+                                );
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        bootstrap_alert_plazos.warning("Error al almacenar el plazo: " + thrownError);
+                    }});
+            });
+
+            function eliminarPlazo () {
+                $.ajax({
+                    type: 'GET',
+                    url: "${pageContext.request.contextPath}/novedades/eliminarPlazo/" + $('#idProyecto').val() + "/" + plazoEliminar.idPlazo(),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        bootstrap_alert_plazos.warning("Plazo eliminado exitosamente");
+                        proyectoModel.plazos.remove(plazoEliminar);
+                        $('#confirmacionEliminacionPlazo').modal('toggle');
+                        if (response != "") {
+                            proyectoModel.plazos.removeAll();
+                            var plazos = JSON.parse(response);
+                            for (var i = 0; i < plazos.length; i++) {
+                                proyectoModel.plazos.push(
+                                        {
+                                            idPlazo: ko.observable(plazos[i].idPlazo),
+                                            descripcion: ko.observable(plazos[i].descripcion),
+                                            mesesAprobados: ko.observable(plazos[i].mesesAprobados),
+                                            fechaFormateada: ko.observable(plazos[i].fechaFormateada),
+                                        }
+                                );
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        bootstrap_alert_plazos.warning("Error al eliminar el plazo: " + thrownError);
+                    }});
+            }
+
+            var ProyectoModel = function (actas, adendas, adiciones, prorrogas, plazos) {
                 self = this;
                 self.actas = ko.observableArray(actas);
                 self.verDocumentoActa = function (acta) {
@@ -1037,6 +1244,21 @@
                     $('#mesesAprobadosProrroga').val(prorroga.mesesAprobados());
                     $('#prorrogaModal').modal('show');
                 };
+                
+                self.plazos = ko.observableArray(plazos);
+                self.verDocumentoPlazo = function (plazo) {
+                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoPlazo/" + plazo.idPlazo();
+                };
+                self.eliminarPlazo = function (plazo) {
+                    plazoEliminar = plazo;
+                    $('#confirmacionEliminacionPlazo').modal('show');
+                };
+                self.editarPlazo = function (plazo) {
+                    $('#idPlazo').val(plazo.idPlazo());
+                    $('#descripcionPlazo').val(plazo.descripcion());
+                    $('#mesesAprobadosPlazo').val(plazo.mesesAprobados());
+                    $('#plazoModal').modal('show');
+                };                
             };
 
             var actas = new Array();
@@ -1047,6 +1269,8 @@
             var adicionEliminar = null; 
             var prorrogas = new Array();
             var prorrogaEliminar = null; 
+            var plazos = new Array();
+            var plazoEliminar = null; 
             <c:if test = "${actasProyectoJSON != null}">
             actas = ${actasProyectoJSON};
             </c:if>
@@ -1059,8 +1283,10 @@
             <c:if test = "${prorrogasProyectoJSON != null}">
             prorrogas = ${prorrogasProyectoJSON};
             </c:if>
-
-            var proyectoModel = new ProyectoModel(actas, adendas, adiciones, prorrogas);
+            <c:if test = "${plazosProyectoJSON != null}">
+            plazos = ${plazosProyectoJSON};
+            </c:if>
+            var proyectoModel = new ProyectoModel(actas, adendas, adiciones, prorrogas, plazos);
             ko.applyBindings(proyectoModel);
 
             bootstrap_alert_actas = function () { };
@@ -1158,5 +1384,30 @@
                 $('#descripcionProrroga').val("");
                 $('#mesesAprobadosProrroga').val("");
                 $('#documentoProrroga').val("");
-            }            
+            } 
+            
+            bootstrap_alert_plazos = function () { };
+            bootstrap_alert_plazos.warning = function (message) {
+                $('#alert_placeholder_plazos').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_plazos.removeWarning = function () {
+                $('#alert_placeholder_plazos').html('');
+            };
+            bootstrap_alert_plazo = function () { };
+            bootstrap_alert_plazo.warning = function (message) {
+                $('#alert_placeholder_plazo').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_plazo.removeWarning = function () {
+                $('#alert_placeholder_plazo').html('');
+            };
+            function mostrarVentanaNuevaPlazo() {
+                limpiarDatosVentanaPlazo();
+                $('#plazoModal').modal('show');
+            }
+            function limpiarDatosVentanaPlazo() {
+                $('#idPlazo').val(0);
+                $('#descripcionPlazo').val("");
+                $('#mesesAprobadosPlazo').val("");
+                $('#documentoPlazo').val("");
+            }              
         </script>

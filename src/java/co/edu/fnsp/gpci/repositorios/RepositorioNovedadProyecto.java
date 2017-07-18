@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.AdendaProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
 import co.edu.fnsp.gpci.entidades.Documento;
+import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
@@ -60,6 +61,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
     private SimpleJdbcCall obtenerDocumentoProrrogaProyecto;
     private SimpleJdbcCall actualizarDocumentoProrrogaProyecto;
 
+    private SimpleJdbcCall ingresarPlazoProyecto;
+    private SimpleJdbcCall actualizarPlazoProyecto;
+    private SimpleJdbcCall eliminarPlazoProyecto;
+    private SimpleJdbcCall obtenerPlazosProyecto;
+    private SimpleJdbcCall ingresarDocumentoPlazoProyecto;
+    private SimpleJdbcCall obtenerDocumentoPlazoProyecto;
+    private SimpleJdbcCall actualizarDocumentoPlazoProyecto;
+    
     private SimpleJdbcCall ingresarAdicionProyecto;
     private SimpleJdbcCall actualizarAdicionProyecto;
     private SimpleJdbcCall eliminarAdicionProyecto;
@@ -107,6 +116,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         this.ingresarDocumentoProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoProrrogaProyecto");
         this.obtenerDocumentoProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoProrrogaProyecto");
         this.actualizarDocumentoProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoProrrogaProyecto");
+
+        this.ingresarPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarPlazoProyecto");
+        this.eliminarPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarPlazoProyecto");
+        this.actualizarPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarPlazoProyecto");
+        this.obtenerPlazosProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerPlazosProyecto").returningResultSet("plazosProyecto", BeanPropertyRowMapper.newInstance(PlazoProyecto.class));
+        this.ingresarDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoPlazoProyecto");
+        this.obtenerDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoPlazoProyecto");
+        this.actualizarDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoPlazoProyecto");
     }
 
     @Override
@@ -177,6 +194,12 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         }
         proyecto.setProrrogasProyecto(prorrogasProyecto);
 
+        Map resultadoPlazos = obtenerPlazosProyecto.execute(parametros);
+        ArrayList<PlazoProyecto> plazosProyecto = (ArrayList<PlazoProyecto>) resultadoPlazos.get("plazosProyecto");
+        for (PlazoProyecto plazoProyecto : plazosProyecto) {
+            plazoProyecto.setFechaFormateada(Util.obtenerFechaFormateada(plazoProyecto.getFecha()));
+        }
+        proyecto.setPlazosProyecto(plazosProyecto);
         return proyecto;
     }
 
@@ -478,5 +501,79 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdProrroga", idProrroga);
         eliminarProrrogaProyecto.execute(parametros);
+    }
+    
+    @Override
+    public void guardarPlazoProyecto(long idProyecto, PlazoProyecto plazoProyecto, Documento documento) {
+
+        if (plazoProyecto.getIdPlazo() == 0) {
+            MapSqlParameterSource parametrosIngresoPlazoProyecto = new MapSqlParameterSource();
+            parametrosIngresoPlazoProyecto.addValue("varIdProyecto", idProyecto);
+            parametrosIngresoPlazoProyecto.addValue("varDescripcion", plazoProyecto.getDescripcion());
+            parametrosIngresoPlazoProyecto.addValue("varMesesAprobados", plazoProyecto.getMesesAprobados());
+            Map resultado = ingresarPlazoProyecto.execute(parametrosIngresoPlazoProyecto);
+            long idPlazo = (long) resultado.get("varIdPlazo");
+
+            MapSqlParameterSource parametrosIngresoDocumentoPlazoProyecto = new MapSqlParameterSource();
+            parametrosIngresoDocumentoPlazoProyecto.addValue("varIdPlazo", idPlazo);
+            parametrosIngresoDocumentoPlazoProyecto.addValue("varNombre", documento.getNombre());
+            parametrosIngresoDocumentoPlazoProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+            parametrosIngresoDocumentoPlazoProyecto.addValue("varContenido", documento.getContenido());
+            ingresarDocumentoPlazoProyecto.execute(parametrosIngresoDocumentoPlazoProyecto);
+
+        } else {
+            MapSqlParameterSource parametrosActualizacionPlazoProyecto = new MapSqlParameterSource();
+            parametrosActualizacionPlazoProyecto.addValue("varIdPlazo", plazoProyecto.getIdPlazo());
+            parametrosActualizacionPlazoProyecto.addValue("varDescripcion", plazoProyecto.getDescripcion());
+            parametrosActualizacionPlazoProyecto.addValue("varMesesAprobados", plazoProyecto.getMesesAprobados());
+            actualizarPlazoProyecto.execute(parametrosActualizacionPlazoProyecto);
+
+            if (documento != null) {
+                MapSqlParameterSource parametrosActualizacionDocumentoPlazoProyecto = new MapSqlParameterSource();
+                parametrosActualizacionDocumentoPlazoProyecto.addValue("varIdPlazo", plazoProyecto.getIdPlazo());
+                parametrosActualizacionDocumentoPlazoProyecto.addValue("varNombre", documento.getNombre());
+                parametrosActualizacionDocumentoPlazoProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+                parametrosActualizacionDocumentoPlazoProyecto.addValue("varContenido", documento.getContenido());
+                actualizarDocumentoPlazoProyecto.execute(parametrosActualizacionDocumentoPlazoProyecto);
+            }
+        }
+    }
+
+    @Override
+    public ArrayList<PlazoProyecto> obtenerPlazosProyecto(long idProyecto) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdProyecto", idProyecto);
+
+        Map resultadoPlazosProyecto = obtenerPlazosProyecto.execute(parametros);
+        ArrayList<PlazoProyecto> plazosProyecto = (ArrayList<PlazoProyecto>) resultadoPlazosProyecto.get("plazosProyecto");
+        for (PlazoProyecto plazoProyecto : plazosProyecto) {
+            plazoProyecto.setFechaFormateada(Util.obtenerFechaFormateada(plazoProyecto.getFecha()));
+        }
+
+        return plazosProyecto;
+
+    }
+
+    @Override
+    public Documento obtenerDocumentoPlazoProyecto(long idPlazo) {
+        Documento documento = new Documento();
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdPlazo", idPlazo);
+
+        Map resultado = obtenerDocumentoPlazoProyecto.execute(parametros);
+
+        documento.setNombre((String) resultado.get("varNombre"));
+        documento.setTipoContenido((String) resultado.get("varTipoContenido"));
+        documento.setContenido((byte[]) resultado.get("varContenido"));
+
+        return documento;
+
+    }
+
+    @Override
+    public void eliminarPlazoProyecto(long idPlazo) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdPlazo", idPlazo);
+        eliminarPlazoProyecto.execute(parametros);
     }
 }

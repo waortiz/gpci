@@ -9,6 +9,7 @@ import co.edu.fnsp.gpci.entidades.Documento;
 import co.edu.fnsp.gpci.entidades.ActaProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
+import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
@@ -125,6 +126,7 @@ public class NovedadProyectoController {
         proyectoEdicion.setAdendasProyecto(proyecto.getAdendasProyecto());
         proyectoEdicion.setAdicionesProyecto(proyecto.getAdicionesProyecto());
         proyectoEdicion.setProrrogasProyecto(proyecto.getProrrogasProyecto());
+        proyectoEdicion.setPlazosProyecto(proyecto.getPlazosProyecto());
         if (proyecto.getActasProyecto().size() > 0) {
             model.addAttribute("actasProyectoJSON", proyectoEdicion.getActasProyectoJSON());
         }
@@ -136,6 +138,9 @@ public class NovedadProyectoController {
         }
         if (proyecto.getProrrogasProyecto().size() > 0) {
             model.addAttribute("prorrogasProyectoJSON", proyectoEdicion.getProrrogasProyectoJSON());
+        }
+        if (proyecto.getPlazosProyecto().size() > 0) {
+            model.addAttribute("plazosProyectoJSON", proyectoEdicion.getPlazosProyectoJSON());
         }
         List<TipoActa> tiposActa = servicioMaestro.obtenerTiposActa();
 
@@ -353,6 +358,60 @@ public class NovedadProyectoController {
             ArrayList<ProrrogaProyecto> prorrogas = servicioNovedadProyecto.obtenerProrrogasProyecto(idProyecto);
             Gson gson = new Gson();
             json = gson.toJson(prorrogas);
+        } catch (Exception exc) {
+            logger.log(Level.SEVERE, null, exc);
+        }
+
+        return json;
+    }
+    
+   @RequestMapping(value = {"/plazoProyecto"}, method = RequestMethod.POST)
+    public @ResponseBody
+    String guardarPlazoProyecto(@ModelAttribute(value = "plazoProyecto") co.edu.fnsp.gpci.entidadesVista.PlazoProyecto plazoProyecto, Model model) {
+        String json = "";
+        try {
+            PlazoProyecto plazoProyectoGuardar = new PlazoProyecto();
+            plazoProyectoGuardar.setIdPlazo(plazoProyecto.getIdPlazo());
+            plazoProyectoGuardar.setDescripcion(plazoProyecto.getDescripcionPlazo());
+            plazoProyectoGuardar.setMesesAprobados(plazoProyecto.getMesesAprobadosPlazo());
+
+            Documento documento = null;
+            if (plazoProyecto.getDocumentoPlazo() != null) {
+                documento = new Documento();
+                documento.setContenido(plazoProyecto.getDocumentoPlazo().getBytes());
+                documento.setNombre(plazoProyecto.getDocumentoPlazo().getOriginalFilename());
+                documento.setTipoContenido(plazoProyecto.getDocumentoPlazo().getContentType());
+            }
+            servicioNovedadProyecto.guardarPlazoProyecto(plazoProyecto.getIdProyecto(), plazoProyectoGuardar, documento);
+            ArrayList<PlazoProyecto> plazos = servicioNovedadProyecto.obtenerPlazosProyecto(plazoProyecto.getIdProyecto());
+            Gson gson = new Gson();
+            json = gson.toJson(plazos);
+
+        } catch (Exception ex) {
+            logger.log(Level.SEVERE, null, ex);
+        }
+
+        return json;
+    }
+
+    @RequestMapping(value = "/documentoPlazo/{idPlazo}", method = RequestMethod.GET)
+    public void obtenerDocumentoPlazo(@PathVariable("idPlazo") long idPlazo, HttpServletResponse response) throws IOException {
+        Documento documento = servicioNovedadProyecto.obtenerDocumentoPlazoProyecto(idPlazo);
+        response.setContentType(documento.getTipoContenido());
+        response.setContentLength(documento.getContenido().length);
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
+        FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
+    }
+
+    @RequestMapping(value = "/eliminarPlazo/{idProyecto}/{idPlazo}", method = RequestMethod.GET)
+    public @ResponseBody
+    String eliminarPlazo(@PathVariable("idProyecto") long idProyecto, @PathVariable("idPlazo") long idPlazo, Model model) {
+        String json = "";
+        try {
+            servicioNovedadProyecto.eliminarPlazoProyecto(idPlazo);
+            ArrayList<PlazoProyecto> plazos = servicioNovedadProyecto.obtenerPlazosProyecto(idProyecto);
+            Gson gson = new Gson();
+            json = gson.toJson(plazos);
         } catch (Exception exc) {
             logger.log(Level.SEVERE, null, exc);
         }
