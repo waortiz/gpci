@@ -4,12 +4,12 @@
 
     <div class="imgFondo"></div>
     <div class="module form-module">
-        <div class="toggle"><i class="fa fa-times fa-pencil"></i>
+        <div id="divRegistro" class="toggle registro active"><i class="fa fa-pencil"></i>
             <div class="tooltip">
                 Registrar
             </div>
         </div>
-        <div class="form">
+        <div id="divFormLogin" class="form form-login active">
             <div class="contenedorLogo">
                 <img src='<c:url value="/resources/imagenes/logoUdeaBlanco.png"/>'>
             </div>
@@ -32,8 +32,14 @@
                 <input type="submit" value="Ingresar"/>
                 <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
             </form>
+            <div class="cta">
+                <a href="#" class="clave">Perdió su contraseña / Forgot your password?</a>
+            </div>
         </div>
-        <div class="form">
+        <div id="divFormRegistro" class="form form-registro">
+            <div class="contenedorLogo">
+                <img src='<c:url value="/resources/imagenes/logoUdeaBlanco.png"/>'>
+            </div>
             <div class="header">
                 <div>
                     Registro
@@ -42,18 +48,167 @@
                     </span>
                 </div>
             </div>
+            <div id="mensajeRegistro" class="label">
+            </div>
             <form:form method="post" action="${pageContext.request.contextPath}/usuario/crear" modelAttribute="usuario">
                 <input type="text" placeholder="Nombre Usuario / Username" required pattern="[0-9a-zA-Z]{1,15}" name="nombreUsuario" id="nombreUsuario"/>
-                <input type="text" placeholder="Nombres / Firt Name" required name="nombres" />
-                <input type="text" placeholder="Apellidos / Last Name" required name="apellidos" />
-                <input type="email" placeholder="Correo electrónico / Email Address" required name="correoElectronico"/>
+                <input type="text" placeholder="Nombres / Firt Name" required name="nombres" id="nombres" />
+                <input type="text" placeholder="Apellidos / Last Name" required name="apellidos" id="apellidos" />
+                <input type="email" placeholder="Correo electrónico / Email Address" required name="correoElectronico" id="correoElectronico"/>
                 <input type="password" placeholder="Contraseña / Password" required name="clave" id="clave"/>
                 <input type="submit" value="Registrar"/>
             </form:form>
+            <div class="cta">
+                <a href="#" class="login">Iniciar Sesión / Login</a>
+            </div>                    
         </div>
-        <div class="cta">
-            <a href="#">Perdió su contraseña / Forgot your password?</a>
-        </div>
+        <div id="divFormClave" class="form form-clave">
+            <div class="contenedorLogo">
+                <img src='<c:url value="/resources/imagenes/logoUdeaBlanco.png"/>'>
+            </div>
+            <div class="header">
+                <div>
+                    Recuperación
+                    <span>
+                        Clave
+                    </span>
+                </div>
+            </div>
+            <div id="mensajeClave" class="label">
+            </div>
+            <form:form method="post" action="${pageContext.request.contextPath}/usuario/recuperarClave" modelAttribute="recuperacionClave">
+                <input type="text" placeholder="Nombre Usuario / Username" required pattern="[0-9a-zA-Z]{1,15}" name="nombreUsuario" id="nombreUsuario"/>
+                <input type="submit" value="Recuperar clave"/>
+            </form:form>
+            <div class="cta">
+                <a href="#" class="login">Iniciar Sesión / Login</a>
+            </div>                
+        </div>            
     </div>
     <script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
-    <script src='<c:url value="/resources/js/index.js" />'></script>
+    <script>
+        
+    $('.registro').click(function(){
+      if(!$('#divRegistro').hasClass('deactive')) {
+         $('#divRegistro').toggleClass('deactive');
+      }
+      if($('#divRegistro').hasClass('active')) {
+         $('#divRegistro').toggleClass('active');
+      }      
+      if($('#divFormRegistro').hasClass('deactive')) {
+         $('#divFormRegistro').toggleClass('deactive');
+      }
+      if(!$('#divFormRegistro').hasClass('active')) {
+         $('#divFormRegistro').toggleClass('active');
+      } 
+      if(!$('#divFormLogin').hasClass('deactive')) {
+         $('#divFormLogin').toggleClass('deactive');
+      }
+      if($('#divFormLogin').hasClass('active')) {
+         $('#divFormLogin').toggleClass('active');
+      } 
+      if(!$('#divFormClave').hasClass('deactive')) {
+         $('#divFormClave').toggleClass('deactive');
+      }
+      if($('#divFormClave').hasClass('active')) {
+         $('#divFormClave').toggleClass('active');
+      } 
+    });      
+
+    $('.login').click(function(){
+      if($('#divRegistro').hasClass('deactive')) {
+         $('#divRegistro').toggleClass('deactive');
+      }
+      if(!$('#divRegistro').hasClass('active')) {
+         $('#divRegistro').toggleClass('active');
+      }      
+      if(!$('#divFormRegistro').hasClass('deactive')) {
+         $('#divFormRegistro').toggleClass('deactive');
+      }
+      if($('#divFormRegistro').hasClass('active')) {
+         $('#divFormRegistro').toggleClass('active');
+      } 
+      if($('#divFormLogin').hasClass('deactive')) {
+         $('#divFormLogin').toggleClass('deactive');
+      }
+      if(!$('#divFormLogin').hasClass('active')) {
+         $('#divFormLogin').toggleClass('active');
+      }   
+      if(!$('#divFormClave').hasClass('deactive')) {
+         $('#divFormClave').toggleClass('deactive');
+      }
+      if($('#divFormClave').hasClass('active')) {
+         $('#divFormClave').toggleClass('active');
+      } 
+    });        
+
+    $('.clave').click(function(){
+      if($('#divRegistro').hasClass('deactive')) {
+         $('#divRegistro').toggleClass('deactive');
+      }
+      if(!$('#divRegistro').hasClass('active')) {
+         $('#divRegistro').toggleClass('active');
+      }      
+      if(!$('#divFormRegistro').hasClass('deactive')) {
+         $('#divFormRegistro').toggleClass('deactive');
+      }
+      if($('#divFormRegistro').hasClass('active')) {
+         $('#divFormRegistro').toggleClass('active');
+      }
+      if(!$('#divFormLogin').hasClass('deactive')) {
+         $('#divFormLogin').toggleClass('deactive');
+      }
+      if($('#divFormLogin').hasClass('active')) {
+         $('#divFormLogin').toggleClass('active');
+      }
+      if($('#divFormClave').hasClass('deactive')) {
+         $('#divFormClave').toggleClass('deactive');
+      }
+      if(!$('#divFormClave').hasClass('active')) {
+         $('#divFormClave').toggleClass('active');
+      } 
+    });   
+    
+    $('#usuario').submit(function (evt) {
+                evt.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/usuario/crear",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response != "") {
+                           $('#mensajeRegistro').html(response);
+                           $('#nombreUsuario').val("");
+                           $('#correoElectronico').val("");
+                           $('#nombres').val("");
+                           $('#apellidos').val("");
+                           $('#clave').val("");
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $('#mensajeRegistro').html("Error al crear el usuario" + thrownError);
+                    }});
+            });   
+            
+    $('#recuperacionClave').submit(function (evt) {
+                evt.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/usuario/recuperarClave",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    success: function (response) {
+                        if (response != "") {
+                           $('#mensajeClave').html(response);
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        $('#mensajeClave').html("Error al recuperar la clave: " + thrownError);
+                    }});
+            });    
+    </script>

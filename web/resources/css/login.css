@@ -94,7 +94,6 @@ body {
     background-color: rgba(0,94,44,0.8);
 }
 
-
 .form-module .toggle {
     cursor: pointer;
     position: absolute;
@@ -135,8 +134,13 @@ body {
     display: none;
     padding: 40px;
 }
-.form-module .form:nth-child(2) {
-    display: block;
+
+.active {
+    display: block !important;
+}
+
+.deactive {
+    display: none !important;
 }
 
 .form-module .form input[type=text]{
@@ -268,6 +272,6 @@ body {
 }
 
 .form-module .cta a:hover {
-    color: #5379fa;
+    color: #fff;
     text-decoration: none;
 }
