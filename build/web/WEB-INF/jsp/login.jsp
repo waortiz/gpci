@@ -50,7 +50,7 @@
             </div>
             <div id="mensajeRegistro" class="label">
             </div>
-            <form:form method="post" action="${pageContext.request.contextPath}/usuario/crear" modelAttribute="usuario">
+            <form:form method="post" action="${pageContext.request.contextPath}/login/crear" modelAttribute="usuario">
                 <input type="text" placeholder="Nombre Usuario / Username" required pattern="[0-9a-zA-Z]{1,15}" name="nombreUsuario" id="nombreUsuario"/>
                 <input type="text" placeholder="Nombres / Firt Name" required name="nombres" id="nombres" />
                 <input type="text" placeholder="Apellidos / Last Name" required name="apellidos" id="apellidos" />
@@ -76,7 +76,7 @@
             </div>
             <div id="mensajeClave" class="label">
             </div>
-            <form:form method="post" action="${pageContext.request.contextPath}/usuario/recuperarClave" modelAttribute="recuperacionClave">
+            <form:form method="post" action="${pageContext.request.contextPath}/login/recuperarClave" modelAttribute="recuperacionClave">
                 <input type="text" placeholder="Nombre Usuario / Username" required pattern="[0-9a-zA-Z]{1,15}" name="nombreUsuario" id="nombreUsuario"/>
                 <input type="submit" value="Recuperar clave"/>
             </form:form>
@@ -174,7 +174,7 @@
                 var formData = new FormData(this);
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/usuario/crear",
+                    url: "${pageContext.request.contextPath}/login/crear",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -198,7 +198,7 @@
                 var formData = new FormData(this);
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/usuario/recuperarClave",
+                    url: "${pageContext.request.contextPath}/login/recuperarClave",
                     data: formData,
                     processData: false,
                     contentType: false,

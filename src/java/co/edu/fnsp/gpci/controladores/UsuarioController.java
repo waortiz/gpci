@@ -7,8 +7,6 @@ package co.edu.fnsp.gpci.controladores;
 
 import co.edu.fnsp.gpci.entidades.Usuario;
 import co.edu.fnsp.gpci.servicios.IServicioSeguridad;
-import co.edu.fnsp.gpci.servicios.ServicioSeguridad;
-import co.edu.fnsp.gpci.utilidades.Mail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -28,9 +26,6 @@ public class UsuarioController {
     @Autowired
     private IServicioSeguridad servicioSeguridad;
 
-    @Autowired
-    private Mail mail;
-
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
     public @ResponseBody
     String crearUsuario(@ModelAttribute(value = "usuario") Usuario usuario, Model model) {
@@ -41,25 +36,6 @@ public class UsuarioController {
             mensaje = "Usuario creado exitosamente";
         } catch (Exception exc) {
             mensaje = "Error al crear el usuario: " + exc.getMessage();
-        }
-
-        return mensaje;
-    }
-
-    @RequestMapping(value = "/recuperarClave", method = RequestMethod.POST)
-    public @ResponseBody
-    String recuperarClave(@ModelAttribute(value = "recuperacionClave") Usuario usuario, Model model) {
-        String mensaje = "";
-        Usuario usuarioActual = servicioSeguridad.obtenerUsuario(usuario.getNombreUsuario());
-        if (usuarioActual != null) {
-            try {
-                mail.sendMail(usuarioActual.getCorreoElectronico(), "Clave Ingreso Sistema", "Para ingresar al sistema utilice como clave <b>" + usuarioActual.getClave() + "</b>");
-                mensaje = "La clave ha sido enviada a su correo electrónico";
-            } catch (Exception exc) {
-                mensaje = "Error al enviar el correo electrónico: " + exc.getMessage();
-            }
-        } else {
-            mensaje = "El usuario no existe. por favor verifique";
         }
 
         return mensaje;
