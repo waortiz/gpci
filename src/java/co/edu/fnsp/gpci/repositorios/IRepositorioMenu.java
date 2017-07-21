@@ -5,7 +5,7 @@
  */
 package co.edu.fnsp.gpci.repositorios;
 
-import co.edu.fnsp.gpci.entidades.ItemMenu;
+import co.edu.fnsp.gpci.entidades.Menu;
 import java.util.List;
 
 /**
@@ -13,5 +13,5 @@ import java.util.List;
  * @author William
  */
 public interface IRepositorioMenu {
-   List<ItemMenu> obtenerItemsMenu(int idUsuario);
+   List<Menu> obtenerItemsMenu(int idUsuario);
 }

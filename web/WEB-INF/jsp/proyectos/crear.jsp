@@ -1017,6 +1017,9 @@
         <script src='<c:url value="/resources/js/paging.js" />'></script> 
         <script src='<c:url value="/resources/js/bootstrap-select.js" />'></script>
         <script src='<c:url value="/resources/js/knockout-3.4.2.js" />'></script>
+        <script src='<c:url value="/resources/js/sb-admin-2.js" />'></script>
+        <script src='<c:url value="/resources/js/menu.js" />'></script>
+        <script src='<c:url value="/resources/js/metisMenu.min.js" />'></script>
         <script>
             $.validate({
                 validateOnBlur: false, // disable validation when input looses focus

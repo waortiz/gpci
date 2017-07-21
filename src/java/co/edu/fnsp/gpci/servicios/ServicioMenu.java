@@ -5,7 +5,7 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
-import co.edu.fnsp.gpci.entidades.ItemMenu;
+import co.edu.fnsp.gpci.entidades.Menu;
 import co.edu.fnsp.gpci.repositorios.IRepositorioMenu;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +22,7 @@ public class ServicioMenu implements IServicioMenu {
     private IRepositorioMenu repositorioMenu;
    
     @Override
-    public List<ItemMenu> obtenerItemsMenu(int idUsuario) {
+    public List<Menu> obtenerItemsMenu(int idUsuario) {
        return repositorioMenu.obtenerItemsMenu(idUsuario);
    }
 }

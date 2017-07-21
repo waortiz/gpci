@@ -50,7 +50,7 @@
             </div>
             <div id="mensajeRegistro" class="label">
             </div>
-            <form:form method="post" action="${pageContext.request.contextPath}/login/crear" modelAttribute="usuario">
+            <form:form method="post" action="${pageContext.request.contextPath}/crear" modelAttribute="usuario">
                 <input type="text" placeholder="Nombre Usuario / Username" required pattern="[0-9a-zA-Z]{1,15}" name="nombreUsuario" id="nombreUsuario"/>
                 <input type="text" placeholder="Nombres / Firt Name" required name="nombres" id="nombres" />
                 <input type="text" placeholder="Apellidos / Last Name" required name="apellidos" id="apellidos" />
@@ -76,7 +76,7 @@
             </div>
             <div id="mensajeClave" class="label">
             </div>
-            <form:form method="post" action="${pageContext.request.contextPath}/login/recuperarClave" modelAttribute="recuperacionClave">
+            <form:form method="post" action="${pageContext.request.contextPath}/recuperarClave" modelAttribute="recuperacionClave">
                 <input type="text" placeholder="Nombre Usuario / Username" required pattern="[0-9a-zA-Z]{1,15}" name="nombreUsuario" id="nombreUsuario"/>
                 <input type="submit" value="Recuperar clave"/>
             </form:form>

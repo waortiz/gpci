@@ -5,7 +5,7 @@
  */
 package co.edu.fnsp.gpci.repositorios;
 
-import co.edu.fnsp.gpci.entidades.ItemMenu;
+import co.edu.fnsp.gpci.entidades.Menu;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
 import co.edu.fnsp.gpci.entidades.Privilegio;
 import co.edu.fnsp.gpci.entidades.Usuario;

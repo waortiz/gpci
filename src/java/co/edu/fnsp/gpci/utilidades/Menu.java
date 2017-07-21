@@ -5,8 +5,8 @@
  */
 package co.edu.fnsp.gpci.utilidades;
 
-import co.edu.fnsp.gpci.entidades.ItemMenu;
 import java.util.List;
+import org.apache.tiles.request.Request;
 
 /**
  *
@@ -14,22 +14,24 @@ import java.util.List;
  */
 public class Menu {
 
-    public static String obtenerJavascriptMenu(List<ItemMenu> items) {
+    public static String obtenerOpcionesMenu(List<co.edu.fnsp.gpci.entidades.Menu> menu) {
         StringBuilder sb = new StringBuilder();
-        sb.append("var m = new Array();\r\n");
-        int cuenta = 0;
-        for (ItemMenu i : items) {
-            if (i.getNivel() == 1) {
-                sb.append("m[").append(cuenta).append("] = ");
-                sb.append(obtenerConstructorMenuJavascript(i));
-                sb.append(";\r\n");
-                sb.append(buscarHijos(2, i.getIdMenu(), cuenta, items, "m[" + cuenta + "]"));
-                cuenta++;
-            } else {
-                break;
+        for (co.edu.fnsp.gpci.entidades.Menu m : menu) {
+            if (m.getNivel() == 1) {
+                sb.append("<li>");
+                sb.append("<a href='#'").append(m.getUrl() != null ? " onclick=\"abrirOpcion('" + m.getUrl() + "'); return false;\"" : "").append("'><i class=\"").append(m.getCss()).append("\"></i>");
+                sb.append(m.getNombre());
+                sb.append("</a>");
+                String items = obtenerItems(2, m.getIdMenu(), menu);
+                if (items.length() > 0) {
+                    sb.append("<ul>");
+                    sb.append(items);
+                    sb.append("</ul>");
+                }
+                sb.append("</li>");
             }
         }
-        sb.append("\r\ncrearMenu(m);");
+
         return sb.toString();
     }
 
@@ -37,52 +39,23 @@ public class Menu {
      *
      * @param nivel el nivel en el que debe buscar
      * @param padre el padre que debe buscar
-     * @param idx el idx en el que va
-     * @param items
-     * @param prefijo
+     * @param menu
      * @return el javascript a agregar
      */
-    public static String buscarHijos(int nivel, int padre, int idx, List<ItemMenu> items, String prefijo) {
-        int cuenta = 0;
-        ItemMenu i;
+    public static String obtenerItems(int nivel, int padre, List<co.edu.fnsp.gpci.entidades.Menu> menu) {
+        co.edu.fnsp.gpci.entidades.Menu m;
         StringBuilder r = new StringBuilder();
-        for (int j = idx; j < items.size(); j++) {
-            i = items.get(j);
-            if (i.getNivel() == nivel) { // el nivel del item igual al buscado
-                if (i.getIdPadre() == padre) {
-                    r.append(prefijo);
-                    r.append(".add(");
-                    r.append(obtenerConstructorMenuJavascript(i));
-                    r.append(");\r\n");
-                    r.append(buscarHijos(nivel + 1, i.getIdMenu(), j, items, prefijo + ".items[" + cuenta + "]"));
-                    cuenta++;
-                } else if (i.getIdPadre() > padre) {
-                    break;// el padre del item es mayor que el buscado
-                }
-            } else if (i.getNivel() < nivel) {
-                // el nivel del item es menor que el buscado
-                
-            } else {
-                break;// el nivel del item es mayor que el buscado
+        for (int i = 0; i < menu.size(); i++) {
+            m = menu.get(i);
+            if (m.getNivel() == nivel && m.getIdPadre() == padre) {
+                r.append("<li><a href='#'").append(m.getUrl() != null ? " onclick=\"abrirOpcion('" + m.getUrl() + "'); return false;\"" : "").append("'>").append(m.getNombre()).append("</a></li>");
             }
         }
+
         return r.toString();
     }
-
-    public static String obtenerConstructorMenuJavascript(ItemMenu item) {
-        StringBuilder sb = new StringBuilder();
-        sb.append("new Item(\"");
-        sb.append(item.getNombre());
-        sb.append("\",");
-        sb.append(item.getNombreDestino() == null ? "ETIQUETA" : "ENLACE");
-        sb.append(",");
-        sb.append(item.getNombreDestino() == null ? "null" : ("\"" + item.getUrlDestino() + "\""));
-        sb.append(",");
-        sb.append(item.getNombreDestino() == null ? "null" : ("\"" + item.getNombreDestino() + "\""));
-        sb.append(",");
-        sb.append(item.getImagen() == null ? "null" : ("\"" + item.getImagen() + "\""));
-        sb.append(")");
-
-        return sb.toString();
+    
+    public static String obtenerMenuHome() {
+        return "<li><a href='#' onclick=\"abrirOpcion('index'); return false;\"><i class=\"fa fa-user fa-fw\"></i>Home</a></li>";
     }
 }

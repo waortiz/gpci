@@ -5,7 +5,7 @@
  */
 package co.edu.fnsp.gpci.repositorios;
 
-import co.edu.fnsp.gpci.entidades.ItemMenu;
+import co.edu.fnsp.gpci.entidades.Menu;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -31,15 +31,15 @@ public class RepositorioMenu implements IRepositorioMenu {
         jdbcTemplate.setResultsMapCaseInsensitive(true);
 
         this.obtenerItemsMenu = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerItemsMenu").
-                returningResultSet("itemsMenu", BeanPropertyRowMapper.newInstance(ItemMenu.class));
+                returningResultSet("itemsMenu", BeanPropertyRowMapper.newInstance(Menu.class));
     }
     
    @Override
-   public List<ItemMenu> obtenerItemsMenu(int idUsuario) {
+   public List<Menu> obtenerItemsMenu(int idUsuario) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdUsuario", idUsuario);
         Map resultado = obtenerItemsMenu.execute(parametros);
-        ArrayList<ItemMenu> items = (ArrayList<ItemMenu>) resultado.get("itemsMenu");
+        ArrayList<Menu> items = (ArrayList<Menu>) resultado.get("itemsMenu");
 
         return items;
    }

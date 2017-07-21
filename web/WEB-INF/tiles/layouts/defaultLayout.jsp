@@ -4,27 +4,72 @@
 <%@ taglib uri="http://tiles.apache.org/tags-tiles" prefix="tiles"%>
 
 <html>
+        <head>
+            <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+            <title>GPCI: Gestión de Proyectos</title>
+            <link rel="icon" href='<c:url value="/resources/imagenes/udeaIco.png" />' type="image/png" />
+            <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.min.css"/>'>
+            <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
+            <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>
+            <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-select.css" />'>
+            <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/paging.css" />'>
+            <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/menu.css" />'>
+            <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/metisMenu.min.css" />'>
+            <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/sb-admin-2.css" />'>
+            <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/font-awesome.min.css" />'>
+        </head>
+        <body>
+            <header id="header">
+                <div id="contenedorPpal">
 
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <title>GPCI: Gestión de Proyectos</title>
-        <link rel="icon" href='<c:url value="/resources/imagenes/udeaIco.png" />' type="image/png" />
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.min.css"/>'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-select.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/paging.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/sb-admin-2.css" />'>
-    </head>
-    <body>
-        <header id="header">
-            <tiles:insertAttribute name="header" />
-        </header>
-        <section id="site-content">
-             <tiles:insertAttribute name="body" />
-        </section>
-        <footer id="footer">
-            <tiles:insertAttribute name="footer" />
-        </footer>
-    </body>
-</html>
+                    <div id="contenedorA">
+                        <!-- inicio Menu Navegación-->
+                        <div id='cssmenu'>
+                            <ul>
+                                <li>
+                                    <span class="imagenMenu">
+                                        <img src='<c:url value="/resources/imagenes/logoUdeaMenu.png" />'>
+                                    </span> 
+                                </li>
+                                <tiles:insertAttribute name="opcionesMenu" />
+                            </ul>
+                        </div>
+                        <!-- Fin Menu Navegación-->
+                    </div>
+                    <div id="contenedorB">
+
+                        <div id="contenedorC">
+                            <!-- notificaciones-->
+                            <li class="dropdown">
+                                <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                                </a>
+                                <!-- perfil-->
+                                <ul class="dropdown-menu dropdown-user">
+                                    <li><a href="#"><i class="fa fa-key fa-fw"></i> Cambio de clave</a>
+                                    </li>
+                                    <li><a href="#"><i class="fa fa-gear fa-fw"></i> Actualizació de datos</a>
+                                    </li>
+                                    <li class="divider"></li>
+                                    <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out fa-fw"></i> Salir</a>
+                                    </li>
+                                </ul>
+                                <!-- /.dropdown-user -->
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            <section id="site-content">
+                <tiles:insertAttribute name="body" />
+            </section>
+            <footer id="footer">
+                <tiles:insertAttribute name="footer" />
+            </footer>
+            <script type="text/javascript">
+                function abrirOpcion(opcion) {
+                    window.location.href = '${pageContext.request.contextPath}' + opcion;
+                }    
+            </script>    
+        </body>
+    </html>

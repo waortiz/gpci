@@ -9,15 +9,14 @@ package co.edu.fnsp.gpci.entidades;
  *
  * @author William
  */
-public class ItemMenu {
+public class Menu {
 
     private int idMenu;
     private String nombre;
     private int nivel;
     private int idPadre;
-    private String nombreDestino;
-    private String urlDestino;
-    private String imagen;
+    private String url;
+    private String css;
 
     /**
      * @return the idMenu
@@ -76,44 +75,30 @@ public class ItemMenu {
     }
 
     /**
-     * @return the imagen
+     * @return the url
      */
-    public String getImagen() {
-        return imagen;
+    public String getUrl() {
+        return url;
     }
 
     /**
-     * @param imagen the imagen to set
+     * @param url the url to set
      */
-    public void setImagen(String imagen) {
-        this.imagen = imagen;
+    public void setUrl(String url) {
+        this.url = url;
     }
 
     /**
-     * @return the nombreDestino
+     * @return the css
      */
-    public String getNombreDestino() {
-        return nombreDestino;
+    public String getCss() {
+        return css;
     }
 
     /**
-     * @param nombreDestino the nombreDestino to set
+     * @param css the css to set
      */
-    public void setNombreDestino(String nombreDestino) {
-        this.nombreDestino = nombreDestino;
-    }
-
-    /**
-     * @return the urlDestino
-     */
-    public String getUrlDestino() {
-        return urlDestino;
-    }
-
-    /**
-     * @param urlDestino the urlDestino to set
-     */
-    public void setUrlDestino(String urlDestino) {
-        this.urlDestino = urlDestino;
+    public void setCss(String css) {
+        this.css = css;
     }
 }

@@ -1,11 +1,9 @@
-<%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
+<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
 
-<div class="container">
-    <div class="container-fluid">   
-        <p align="center" style="margin-top:20px;"><img src='<c:url value="/resources/imagenes/logo-udea.png"/>' width="371" height="103" alt="U de A"></p>
-    </div>
-    <div>
-        <p align="center" style="margin-top:40px;font-size: 30pt; font-family: verdana; color: #006400">SISTEMA DE GESTIÓN DE PROYECTOS</p>
-    </div>
-</div>
+<script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
+<script src='<c:url value="/resources/js/bootstrap.js" />'></script>  
+<script src='<c:url value="/resources/js/metisMenu.min.js" />'></script>
+<script src='<c:url value="/resources/js/sb-admin-2.js" />'></script>
+<script src='<c:url value="/resources/js/menu.js" />'></script>
