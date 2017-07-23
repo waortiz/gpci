@@ -17,6 +17,7 @@ public class ProrrogaProyecto {
     private long idProrroga;
     private String descripcionProrroga;
     private int mesesAprobadosProrroga;
+    private String fechaProrroga;
     private MultipartFile documentoProrroga;
     
     /**
@@ -87,5 +88,19 @@ public class ProrrogaProyecto {
      */
     public void setDocumentoProrroga(MultipartFile documentoProrroga) {
         this.documentoProrroga = documentoProrroga;
+    }
+
+    /**
+     * @return the fechaProrroga
+     */
+    public String getFechaProrroga() {
+        return fechaProrroga;
+    }
+
+    /**
+     * @param fechaProrroga the fechaProrroga to set
+     */
+    public void setFechaProrroga(String fechaProrroga) {
+        this.fechaProrroga = fechaProrroga;
     }
 }

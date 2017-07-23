@@ -224,6 +224,8 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosIngresoActaProyecto.addValue("varIdTipoActa", actaProyecto.getIdTipoActa());
             parametrosIngresoActaProyecto.addValue("varNombre", actaProyecto.getNombre());
             parametrosIngresoActaProyecto.addValue("varObservaciones", actaProyecto.getObservaciones());
+            parametrosIngresoActaProyecto.addValue("varFecha", actaProyecto.getFecha());
+            parametrosIngresoActaProyecto.addValue("varCodigo", actaProyecto.getCodigo());
             Map resultado = ingresarActaProyecto.execute(parametrosIngresoActaProyecto);
             long idActa = (long) resultado.get("varIdActa");
 
@@ -240,6 +242,8 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosActualizacionActaProyecto.addValue("varIdTipoActa", actaProyecto.getIdTipoActa());
             parametrosActualizacionActaProyecto.addValue("varNombre", actaProyecto.getNombre());
             parametrosActualizacionActaProyecto.addValue("varObservaciones", actaProyecto.getObservaciones());
+            parametrosActualizacionActaProyecto.addValue("varFecha", actaProyecto.getFecha());
+            parametrosActualizacionActaProyecto.addValue("varCodigo", actaProyecto.getCodigo());
             actualizarActaProyecto.execute(parametrosActualizacionActaProyecto);
 
             if (documento != null) {
@@ -296,6 +300,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             MapSqlParameterSource parametrosIngresoAdendaProyecto = new MapSqlParameterSource();
             parametrosIngresoAdendaProyecto.addValue("varIdProyecto", idProyecto);
             parametrosIngresoAdendaProyecto.addValue("varModificacion", adendaProyecto.getModificacion());
+            parametrosIngresoAdendaProyecto.addValue("varFecha", adendaProyecto.getFecha());
             Map resultado = ingresarAdendaProyecto.execute(parametrosIngresoAdendaProyecto);
             long idAdenda = (long) resultado.get("varIdAdenda");
 
@@ -310,6 +315,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             MapSqlParameterSource parametrosActualizacionAdendaProyecto = new MapSqlParameterSource();
             parametrosActualizacionAdendaProyecto.addValue("varIdAdenda", adendaProyecto.getIdAdenda());
             parametrosActualizacionAdendaProyecto.addValue("varModificacion", adendaProyecto.getModificacion());
+            parametrosActualizacionAdendaProyecto.addValue("varFecha", adendaProyecto.getFecha());
             actualizarAdendaProyecto.execute(parametrosActualizacionAdendaProyecto);
 
             if (documento != null) {
@@ -366,6 +372,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             MapSqlParameterSource parametrosIngresoAdicionProyecto = new MapSqlParameterSource();
             parametrosIngresoAdicionProyecto.addValue("varIdProyecto", idProyecto);
             parametrosIngresoAdicionProyecto.addValue("varMonto", adicionProyecto.getMonto());
+            parametrosIngresoAdicionProyecto.addValue("varFecha", adicionProyecto.getFecha());
             Map resultado = ingresarAdicionProyecto.execute(parametrosIngresoAdicionProyecto);
             long idAdicion = (long) resultado.get("varIdAdicion");
 
@@ -380,6 +387,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             MapSqlParameterSource parametrosActualizacionAdicionProyecto = new MapSqlParameterSource();
             parametrosActualizacionAdicionProyecto.addValue("varIdAdicion", adicionProyecto.getIdAdicion());
             parametrosActualizacionAdicionProyecto.addValue("varMonto", adicionProyecto.getMonto());
+            parametrosActualizacionAdicionProyecto.addValue("varFecha", adicionProyecto.getFecha());
             actualizarAdicionProyecto.execute(parametrosActualizacionAdicionProyecto);
 
             if (documento != null) {
@@ -437,6 +445,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosIngresoProrrogaProyecto.addValue("varIdProyecto", idProyecto);
             parametrosIngresoProrrogaProyecto.addValue("varDescripcion", prorrogaProyecto.getDescripcion());
             parametrosIngresoProrrogaProyecto.addValue("varMesesAprobados", prorrogaProyecto.getMesesAprobados());
+            parametrosIngresoProrrogaProyecto.addValue("varFecha", prorrogaProyecto.getFecha());
             Map resultado = ingresarProrrogaProyecto.execute(parametrosIngresoProrrogaProyecto);
             long idProrroga = (long) resultado.get("varIdProrroga");
 
@@ -452,6 +461,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosActualizacionProrrogaProyecto.addValue("varIdProrroga", prorrogaProyecto.getIdProrroga());
             parametrosActualizacionProrrogaProyecto.addValue("varDescripcion", prorrogaProyecto.getDescripcion());
             parametrosActualizacionProrrogaProyecto.addValue("varMesesAprobados", prorrogaProyecto.getMesesAprobados());
+            parametrosActualizacionProrrogaProyecto.addValue("varFecha", prorrogaProyecto.getFecha());
             actualizarProrrogaProyecto.execute(parametrosActualizacionProrrogaProyecto);
 
             if (documento != null) {
@@ -511,6 +521,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosIngresoPlazoProyecto.addValue("varIdProyecto", idProyecto);
             parametrosIngresoPlazoProyecto.addValue("varDescripcion", plazoProyecto.getDescripcion());
             parametrosIngresoPlazoProyecto.addValue("varMesesAprobados", plazoProyecto.getMesesAprobados());
+            parametrosIngresoPlazoProyecto.addValue("varFecha", plazoProyecto.getFecha());
             Map resultado = ingresarPlazoProyecto.execute(parametrosIngresoPlazoProyecto);
             long idPlazo = (long) resultado.get("varIdPlazo");
 
@@ -526,6 +537,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosActualizacionPlazoProyecto.addValue("varIdPlazo", plazoProyecto.getIdPlazo());
             parametrosActualizacionPlazoProyecto.addValue("varDescripcion", plazoProyecto.getDescripcion());
             parametrosActualizacionPlazoProyecto.addValue("varMesesAprobados", plazoProyecto.getMesesAprobados());
+            parametrosActualizacionPlazoProyecto.addValue("varFecha", plazoProyecto.getFecha());
             actualizarPlazoProyecto.execute(parametrosActualizacionPlazoProyecto);
 
             if (documento != null) {

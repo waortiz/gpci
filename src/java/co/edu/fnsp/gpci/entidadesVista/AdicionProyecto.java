@@ -16,6 +16,7 @@ public class AdicionProyecto {
     private long idProyecto;
     private long idAdicion;
     private long montoAdicion;
+    private String fechaAdicion;
     private MultipartFile documentoAdicion;
 
     /**
@@ -72,5 +73,19 @@ public class AdicionProyecto {
      */
     public void setMontoAdicion(long montoAdicion) {
         this.montoAdicion = montoAdicion;
+    }
+
+    /**
+     * @return the fechaAdicion
+     */
+    public String getFechaAdicion() {
+        return fechaAdicion;
+    }
+
+    /**
+     * @param fechaAdicion the fechaAdicion to set
+     */
+    public void setFechaAdicion(String fechaAdicion) {
+        this.fechaAdicion = fechaAdicion;
     }
 }

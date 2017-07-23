@@ -17,6 +17,7 @@ public class PlazoProyecto {
     private long idPlazo;
     private String descripcionPlazo;
     private int mesesAprobadosPlazo;
+    private String fechaPlazo;
     private MultipartFile documentoPlazo;
     
     /**
@@ -87,5 +88,19 @@ public class PlazoProyecto {
      */
     public void setDocumentoPlazo(MultipartFile documentoPlazo) {
         this.documentoPlazo = documentoPlazo;
+    }
+
+    /**
+     * @return the fechaPlazo
+     */
+    public String getFechaPlazo() {
+        return fechaPlazo;
+    }
+
+    /**
+     * @param fechaPlazo the fechaPlazo to set
+     */
+    public void setFechaPlazo(String fechaPlazo) {
+        this.fechaPlazo = fechaPlazo;
     }
 }

@@ -15,6 +15,7 @@ import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto;
 import co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -41,6 +42,7 @@ public class Util {
                         + "descripcionTipoActa:ko.observable('" + actaProyecto.getDescripcionTipoActa()+ "'),"
                         + "observaciones:ko.observable('" + actaProyecto.getObservaciones() + "'),"
                         + "fechaFormateada:ko.observable('" + formatter.format(actaProyecto.getFecha()) + "'),"
+                        + "codigo:ko.observable('" + actaProyecto.getCodigo()+ "'),"
                         + "nombre:ko.observable('" + actaProyecto.getNombre() + "')"
                         + "}";
                 if (i < actasProyecto.size() - 1) {
@@ -163,6 +165,7 @@ public class Util {
                 jscriptArray = jscriptArray
                         + "{idCompromisoProyecto: ko.observable(" + compromisoProyecto.getIdCompromisoProyecto() + "),"
                         + "descripcion:ko.observable('" + compromisoProyecto.getDescripcion() + "'),"
+                        + "fechaCompromisoFormateada:ko.observable('" + formatter.format(compromisoProyecto.getFechaCompromiso()) + "'),"
                         + "consecutivo:ko.observable(" + i + ")"
                         + "}";
                 if (i < compromisosProyecto.size() - 1) {
@@ -321,5 +324,9 @@ public class Util {
 
     public static String obtenerFechaFormateada(Date fecha) {
         return formatter.format(fecha);
+    }
+    
+    public static Date obtenerFecha(String fecha) throws ParseException {
+        return formatter.parse(fecha);
     }
 }

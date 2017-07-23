@@ -9,10 +9,23 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <title>GPCI: Gestión de Proyectos</title>
         <link rel="icon" href='<c:url value="/resources/imagenes/udeaIco.png" />' type="image/png" />
-        <link rel="stylesheet" href='<c:url value="/resources/css/reset.min.css"/>'>
-        <link rel='stylesheet prefetch' href='<c:url value="/resources/css/font-awesome.min.css"/>'>
-        <link rel="stylesheet" href='<c:url value="/resources/css/login.css" />'>
+        <link rel="icon" href='<c:url value="/resources/imagenes/udeaIco.png" />' type="image/png" />
+        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap.min.css"/>'>
+        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
         <script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
+        <style>
+            .container-fluid{
+              height:100%;
+              display:table;
+              width: 100%;
+              padding: 0;
+            }
+            .row-fluid {height: 100%; display:table-cell; vertical-align: top;}
+            .centering {
+              float:none;
+              margin:50pt auto;
+            }            
+        </style>
     </head>
     <body>
         <section id="site-content">

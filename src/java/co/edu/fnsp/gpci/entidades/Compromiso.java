@@ -5,6 +5,8 @@
  */
 package co.edu.fnsp.gpci.entidades;
 
+import java.util.Date;
+
 /**
  *
  * @author William

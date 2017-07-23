@@ -50,7 +50,7 @@
             </div>
             <div id="mensajeRegistro" class="label">
             </div>
-            <form:form method="post" action="${pageContext.request.contextPath}/crear" modelAttribute="usuario">
+            <form:form method="post" action="${pageContext.request.contextPath}/crearUsuario" modelAttribute="usuario">
                 <input type="text" placeholder="Nombre Usuario / Username" required pattern="[0-9a-zA-Z]{1,15}" name="nombreUsuario" id="nombreUsuario"/>
                 <input type="text" placeholder="Nombres / Firt Name" required name="nombres" id="nombres" />
                 <input type="text" placeholder="Apellidos / Last Name" required name="apellidos" id="apellidos" />
@@ -85,7 +85,6 @@
             </div>                
         </div>            
     </div>
-    <script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
     <script>
         
     $('.registro').click(function(){
@@ -174,13 +173,15 @@
                 var formData = new FormData(this);
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/login/crear",
+                    url: "${pageContext.request.contextPath}/crearUsuario",
                     data: formData,
                     processData: false,
                     contentType: false,
                     success: function (response) {
                         if (response != "") {
                            $('#mensajeRegistro').html(response);
+                        } else {
+                           $('#mensajeRegistro').html("Usuario creado exitosamente");
                            $('#nombreUsuario').val("");
                            $('#correoElectronico').val("");
                            $('#nombres').val("");
@@ -189,7 +190,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        $('#mensajeRegistro').html("Error al crear el usuario" + thrownError);
+                        $('#mensajeRegistro').html("Error al crear el usuario");
                     }});
             });   
             
@@ -198,17 +199,15 @@
                 var formData = new FormData(this);
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/login/recuperarClave",
+                    url: "${pageContext.request.contextPath}/usuario/recuperarClave",
                     data: formData,
                     processData: false,
                     contentType: false,
                     success: function (response) {
-                        if (response != "") {
-                           $('#mensajeClave').html(response);
-                        }
+                       $('#mensajeClave').html(response);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        $('#mensajeClave').html("Error al recuperar la clave: " + thrownError);
+                        $('#mensajeClave').html("Error al recuperar la clave");
                     }});
             });    
     </script>

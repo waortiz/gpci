@@ -20,6 +20,7 @@ public class ActaProyecto {
     private Date fecha;
     private String fechaFormateada;
     private String observaciones;
+    private String codigo;
 
     /**
      * @return the idActa
@@ -118,4 +119,18 @@ public class ActaProyecto {
     public void setDescripcionTipoActa(String descripcionTipoActa) {
         this.descripcionTipoActa = descripcionTipoActa;
     }
+    
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }    
 }

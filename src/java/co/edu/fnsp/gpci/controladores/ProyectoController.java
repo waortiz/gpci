@@ -38,12 +38,11 @@ import co.edu.fnsp.gpci.servicios.IServicioMaestro;
 import co.edu.fnsp.gpci.servicios.IServicioProyecto;
 import co.edu.fnsp.gpci.utilidades.Util;
 import com.google.gson.Gson;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -63,7 +62,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/proyectos")
 public class ProyectoController {
-
+    private static final Logger logger = LogManager.getLogger(NovedadProyectoController.class.getName());
+    
     @Autowired
     private IServicioProyecto servicioProyecto;
 
@@ -92,11 +92,11 @@ public class ProyectoController {
 
         ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
         try {
-            Date fechaFinal = Util.formatter.parse(busquedaProyectos.getFechaFinal());
-            Date fechaInicial = Util.formatter.parse(busquedaProyectos.getFechaInicio());
+            Date fechaFinal = Util.obtenerFecha(busquedaProyectos.getFechaFinal());
+            Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicio());
             proyectos = servicioProyecto.obtenerProyectos(fechaInicial, fechaFinal);
-        } catch (ParseException ex) {
-            Logger.getLogger(ProyectoController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            logger.error(ex);
         }
 
         model.addAttribute("proyectos", proyectos);
@@ -171,8 +171,8 @@ public class ProyectoController {
                 nuevoProyecto.setUsuarioCreacion(usuario);
             }
 
-            nuevoProyecto.setFechaInicio(Util.formatter.parse(proyecto.getFechaInicio()));
-            nuevoProyecto.setFechaFinalizacion(Util.formatter.parse(proyecto.getFechaFinalizacion()));
+            nuevoProyecto.setFechaInicio(Util.obtenerFecha(proyecto.getFechaInicio()));
+            nuevoProyecto.setFechaFinalizacion(Util.obtenerFecha(proyecto.getFechaFinalizacion()));
             nuevoProyecto.setGrupoInvestigacion(proyecto.getGrupoInvestigacion());
             nuevoProyecto.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
             nuevoProyecto.setIngresadoSIIU(proyecto.isIngresadoSIIU());
@@ -209,6 +209,7 @@ public class ProyectoController {
 
             return "proyectos/listado";
         } catch (Exception exc) {
+            logger.error(exc);
             if (proyecto.getIdProyecto() == 0) {
                 model.addAttribute("mensaje", "No se pudo ingresar el proyecto: " + exc.getMessage());
             } else {

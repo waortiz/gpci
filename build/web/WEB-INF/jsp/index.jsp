@@ -2,8 +2,4 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
 
-<script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
-<script src='<c:url value="/resources/js/bootstrap.js" />'></script>  
-<script src='<c:url value="/resources/js/metisMenu.min.js" />'></script>
-<script src='<c:url value="/resources/js/sb-admin-2.js" />'></script>
-<script src='<c:url value="/resources/js/menu.js" />'></script>
+

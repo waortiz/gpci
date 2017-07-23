@@ -157,8 +157,9 @@
                                     <tr class="table-row">
                                         <td style="width: 20%;text-align: center"><strong>Nombre</strong></td>
                                         <td style="width: 10%;text-align: center"><strong>Tipo</strong></td>
-                                        <td style="width: 40%;text-align: center"><strong>Observaciones</strong></td>
-                                        <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
+                                        <td style="width: 15%;text-align: center"><strong>Código</strong></td>
+                                        <td style="width: 10%;text-align: center"><strong>Fecha</strong></td>
+                                        <td style="width: 30%;text-align: center"><strong>Observaciones</strong></td>
                                         <td style="width: 5%;text-align: center">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
@@ -175,13 +176,17 @@
                                         <input type="hidden" class="form-control" data-bind="value: descripcionTipoActa, attr: { 'name': 'actas[' + $index() + '].descripcionTipoActa'  }">
                                         <input type="hidden" class="form-control" data-bind="value: idTipoActa, attr: { 'name': 'actas[' + $index() + '].idTipoActa'  }">
                                     </td>
-                                    <td style="width: 40%">
-                                        <span data-bind="text: observaciones" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: observaciones, attr: { 'name': 'actas[' + $index() + '].observaciones'  }">
-                                    </td>
                                     <td style="width: 15%">
+                                        <span data-bind="text: codigo" ></span>
+                                        <input type="hidden" class="form-control" data-bind="value: codigo, attr: { 'name': 'actas[' + $index() + '].codigo'  }">
+                                    </td>
+                                    <td style="width: 10%">
                                         <span data-bind="text: fechaFormateada" ></span>
                                         <input type="hidden" class="form-control" data-bind="value: fechaFormateada, attr: { 'name': 'actas[' + $index() + '].fechaFormateada'  }">
+                                    </td>
+                                    <td style="width: 30%">
+                                        <span data-bind="text: observaciones" ></span>
+                                        <input type="hidden" class="form-control" data-bind="value: observaciones, attr: { 'name': 'actas[' + $index() + '].observaciones'  }">
                                     </td>
                                     <td style="width: 5%">
                                         <button class="btn btn-dark" data-bind="click: $root.verDocumentoActa" title="Ver acta">
@@ -262,6 +267,25 @@
                                                             </select>      
                                                         </td>                                                        
                                                     </tr>
+                                                    <tr>
+                                                        <td>Código</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input id="codigoActa" name="codigoActa" class="form-control" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Fecha</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaActa" name="fechaActa" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                    </tr>                                                    
                                                     <tr>
                                                         <td>Documento</td>
                                                     </tr>
@@ -384,6 +408,17 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Fecha</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaAdenda" name="fechaAdenda" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
                                                         <td>Documento</td>
                                                     </tr>
                                                     <tr>
@@ -496,6 +531,17 @@
                                                             <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                                         </td>
                                                     </tr>
+                                                    <tr>
+                                                        <td>Fecha</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaAdicion" name="fechaAdicion" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                    </tr>                                                    
                                                     <tr>
                                                         <td>Documento</td>
                                                     </tr>
@@ -623,6 +669,17 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Fecha</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaProrroga" name="fechaProrroga" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
                                                         <td>Documento</td>
                                                     </tr>
                                                     <tr>
@@ -749,6 +806,17 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
+                                                        <td>Fecha</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaPlazo" name="fechaPlazo" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
                                                         <td>Documento</td>
                                                     </tr>
                                                     <tr>
@@ -770,18 +838,6 @@
                     </div>
                 </div>
         </div>
-        <script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
-        <script src='<c:url value="/resources/js/jquery-ui.js" />'></script>
-        <script src='<c:url value="/resources/js/jquery.form-validator.min.js" />'></script>
-        <script src='<c:url value="/resources/js/bootstrap.js" />'></script>  
-        <script src='<c:url value="/resources/js/bootstrap-datepicker.min.js" />'></script>  
-        <script src='<c:url value="/resources/js/bootstrap-datepicker.es.min.js" />' charset="UTF-8"></script>
-        <script src='<c:url value="/resources/js/paging.js" />'></script> 
-        <script src='<c:url value="/resources/js/bootstrap-select.js" />'></script>
-        <script src='<c:url value="/resources/js/knockout-3.4.2.js" />'></script>
-        <script src='<c:url value="/resources/js/sb-admin-2.js" />'></script>
-        <script src='<c:url value="/resources/js/menu.js" />'></script>
-        <script src='<c:url value="/resources/js/metisMenu.min.js" />'></script>
         <script>
             jQuery('.numbersOnly').keyup(function () {
                 this.value = this.value.replace(/[^0-9\.]/g, '');
@@ -793,6 +849,13 @@
                 scrollToTopOnError: false // Set this property to true on longer forms
             });
 
+            $('.input-group.date').datepicker({
+                language: "es",
+                autoclose: true,
+                format: "dd/mm/yyyy",
+                todayHighlight: true
+            });
+
             $('#actaProyecto').submit(function (evt) {
                 evt.preventDefault();
                 var formData = new FormData(this);
@@ -802,6 +865,14 @@
                 }
                 if ($('#idTipoActa').val() == "") {
                     bootstrap_alert_acta.warning('Debe seleccionar el tipo de acta');
+                    return false;
+                }
+                if ($('#codigoActa').val() == "") {
+                    bootstrap_alert_acta.warning('Debe ingresar el código');
+                    return false;
+                }
+                if ($('#fechaActa').val() == "") {
+                    bootstrap_alert_acta.warning('Debe ingresar la fecha');
                     return false;
                 }
                 if ($('#idActa').val() == 0 && $('#documentoActa').prop('files').length == 0) {
@@ -836,6 +907,7 @@
                                             idTipoActa: ko.observable(actas[i].idTipoActa),
                                             descripcionTipoActa : ko.observable(actas[i].descripcionTipoActa),
                                             nombre: ko.observable(actas[i].nombre),
+                                            codigo: ko.observable(actas[i].codigo),
                                             observaciones: ko.observable(actas[i].observaciones),
                                             fechaFormateada: ko.observable(actas[i].fechaFormateada),
                                         }
@@ -844,7 +916,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_actas.warning("Error al almacenar el acta: " + thrownError);
+                        bootstrap_alert_actas.warning("Error al almacenar el acta");
                     }});
             });
 
@@ -876,7 +948,7 @@
                         }                        
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_actas.warning("Error al eliminar el acta: " + thrownError);
+                        bootstrap_alert_actas.warning("Error al eliminar el acta");
                     }});
             }
 
@@ -885,6 +957,10 @@
                 var formData = new FormData(this);
                 if ($('#modificacionAdenda').val() == "") {
                     bootstrap_alert_adenda.warning('Debe ingresar la modificación');
+                    return false;
+                }
+                if ($('#fechaAdenda').val() == "") {
+                    bootstrap_alert_adenda.warning('Debe ingresar la fecha');
                     return false;
                 }
                 if ($('#idAdenda').val() == 0 && $('#documentoAdenda').prop('files').length == 0) {
@@ -920,7 +996,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adendas.warning("Error al almacenar la adenda: " + thrownError);
+                        bootstrap_alert_adendas.warning("Error al almacenar la adenda");
                     }});
             });
 
@@ -950,7 +1026,7 @@
                         
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adendas.warning("Error al eliminar la adenda: " + thrownError);
+                        bootstrap_alert_adendas.warning("Error al eliminar la adenda");
                     }});
             }
 
@@ -959,6 +1035,10 @@
                 var formData = new FormData(this);
                 if ($('#montoAdicion').val() == "") {
                     bootstrap_alert_adicion.warning('Debe ingresar el monto');
+                    return false;
+                }
+                if ($('#fechaAdicion').val() == "") {
+                    bootstrap_alert_adicion.warning('Debe ingresar la fecha');
                     return false;
                 }
                 if ($('#idAdicion').val() == 0 && $('#documentoAdicion').prop('files').length == 0) {
@@ -994,7 +1074,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adiciones.warning("Error al almacenar la adición: " + thrownError);
+                        bootstrap_alert_adiciones.warning("Error al almacenar la adición");
                     }});
             });
 
@@ -1023,7 +1103,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adiciones.warning("Error al eliminar la adición: " + thrownError);
+                        bootstrap_alert_adiciones.warning("Error al eliminar la adición");
                     }});
             }
 
@@ -1032,6 +1112,10 @@
                 var formData = new FormData(this);
                 if ($('#descripcionProrroga').val() == "") {
                     bootstrap_alert_prorroga.warning('Debe ingresar la descripción');
+                    return false;
+                }
+                if ($('#fechaProrroga').val() == "") {
+                    bootstrap_alert_prorroga.warning('Debe ingresar la fecha');
                     return false;
                 }
                 if ($('#idProrroga').val() == 0 && $('#documentoProrroga').prop('files').length == 0) {
@@ -1072,7 +1156,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_prorrogas.warning("Error al almacenar el prórroga: " + thrownError);
+                        bootstrap_alert_prorrogas.warning("Error al almacenar el prórroga");
                     }});
             });
 
@@ -1103,7 +1187,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_prorrogas.warning("Error al eliminar el prórroga: " + thrownError);
+                        bootstrap_alert_prorrogas.warning("Error al eliminar el prórroga");
                     }});
             }
 
@@ -1112,6 +1196,10 @@
                 var formData = new FormData(this);
                 if ($('#descripcionPlazo').val() == "") {
                     bootstrap_alert_plazo.warning('Debe ingresar la descripción');
+                    return false;
+                }
+                if ($('#fechaPlazo').val() == "") {
+                    bootstrap_alert_plazo.warning('Debe ingresar la fecha');
                     return false;
                 }
                 if ($('#idPlazo').val() == 0 && $('#documentoPlazo').prop('files').length == 0) {
@@ -1152,7 +1240,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_plazos.warning("Error al almacenar el plazo: " + thrownError);
+                        bootstrap_alert_plazos.warning("Error al almacenar el plazo");
                     }});
             });
 
@@ -1183,7 +1271,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_plazos.warning("Error al eliminar el plazo: " + thrownError);
+                        bootstrap_alert_plazos.warning("Error al eliminar el plazo");
                     }});
             }
 
@@ -1200,6 +1288,8 @@
                 self.editarActa = function (acta) {
                     $('#idActa').val(acta.idActa());
                     $('#idTipoActa').val(acta.idTipoActa());
+                    $('#codigoActa').val(acta.codigo());
+                    $('#fechaActa').val(acta.fechaFormateada());
                     $('#observacionesActa').val(acta.observaciones());
                     $('#nombreActa').val(acta.nombre());
                     $('#actaModal').modal('show');
@@ -1216,6 +1306,7 @@
                 self.editarAdenda = function (adenda) {
                     $('#idAdenda').val(adenda.idAdenda());
                     $('#modificacionAdenda').val(adenda.modificacion());
+                    $('#fechaAdenda').val(adenda.fechaFormateada());
                     $('#adendaModal').modal('show');
                 };
 
@@ -1230,6 +1321,7 @@
                 self.editarAdicion = function (adicion) {
                     $('#idAdicion').val(adicion.idAdicion());
                     $('#montoAdicion').val(adicion.monto());
+                    $('#fechaAdicion').val(adicion.fechaFormateada());
                     $('#adicionModal').modal('show');
                 };
 
@@ -1245,6 +1337,7 @@
                     $('#idProrroga').val(prorroga.idProrroga());
                     $('#descripcionProrroga').val(prorroga.descripcion());
                     $('#mesesAprobadosProrroga').val(prorroga.mesesAprobados());
+                    $('#fechaProrroga').val(prorroga.fechaFormateada());
                     $('#prorrogaModal').modal('show');
                 };
                 
@@ -1260,6 +1353,7 @@
                     $('#idPlazo').val(plazo.idPlazo());
                     $('#descripcionPlazo').val(plazo.descripcion());
                     $('#mesesAprobadosPlazo').val(plazo.mesesAprobados());
+                    $('#fechaPlazo').val(plazo.fechaFormateada());
                     $('#plazoModal').modal('show');
                 };                
             };
@@ -1315,6 +1409,8 @@
                 $('#idTipoActa').val("");
                 $('#observacionesActa').val("");
                 $('#nombreActa').val("");
+                $('#fechaActa').val("");
+                $('#codigoActa').val("");
                 $('#documentoActa').val("");
             }
 
@@ -1339,6 +1435,7 @@
             function limpiarDatosVentanaAdenda() {
                 $('#idActa').val(0);
                 $('#modificacionAdenda').val("");
+                $('#fechaAdenda').val("");
             }
 
             bootstrap_alert_adiciones = function () { };
@@ -1362,6 +1459,7 @@
             function limpiarDatosVentanaAdicion() {
                 $('#idActa').val(0);
                 $('#montoAdicion').val("");
+                $('#fechaAdicion').val("");
             }   
             
             bootstrap_alert_prorrogas = function () { };
@@ -1387,6 +1485,7 @@
                 $('#descripcionProrroga').val("");
                 $('#mesesAprobadosProrroga').val("");
                 $('#documentoProrroga').val("");
+                $('#fechaProrroga').val("");
             } 
             
             bootstrap_alert_plazos = function () { };
@@ -1412,5 +1511,6 @@
                 $('#descripcionPlazo').val("");
                 $('#mesesAprobadosPlazo').val("");
                 $('#documentoPlazo').val("");
+                $('#fechaPlazo').val("");
             }              
         </script>

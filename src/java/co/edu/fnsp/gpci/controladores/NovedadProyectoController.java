@@ -21,14 +21,13 @@ import co.edu.fnsp.gpci.servicios.IServicioNovedadProyecto;
 import co.edu.fnsp.gpci.utilidades.Util;
 import com.google.gson.Gson;
 import java.io.IOException;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,7 +46,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/novedades")
 public class NovedadProyectoController {
 
-    private static final Logger logger = Logger.getLogger(NovedadProyectoController.class.getName());
+    private static final Logger logger = LogManager.getLogger(NovedadProyectoController.class.getName());
 
     @Autowired
     private IServicioNovedadProyecto servicioNovedadProyecto;
@@ -77,11 +76,11 @@ public class NovedadProyectoController {
 
         ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
         try {
-            Date fechaFinal = Util.formatter.parse(busquedaProyectos.getFechaFinal());
-            Date fechaInicial = Util.formatter.parse(busquedaProyectos.getFechaInicio());
+            Date fechaFinal = Util.obtenerFecha(busquedaProyectos.getFechaFinal());
+            Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicio());
             proyectos = servicioNovedadProyecto.obtenerProyectos(fechaInicial, fechaFinal);
-        } catch (ParseException ex) {
-            Logger.getLogger(ProyectoController.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            logger.error(ex);
         }
 
         model.addAttribute("proyectos", proyectos);
@@ -152,13 +151,15 @@ public class NovedadProyectoController {
 
     @RequestMapping(value = {"/actaProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
-    String guardarActaProyecto(@ModelAttribute(value = "actaProyecto") co.edu.fnsp.gpci.entidadesVista.ActaProyecto actaProyecto, Model model) {
+    String guardarActaProyecto(@ModelAttribute(value = "actaProyecto") co.edu.fnsp.gpci.entidadesVista.ActaProyecto actaProyecto, Model model) throws Exception {
         String json = "";
         try {
             ActaProyecto actaProyectoGuardar = new ActaProyecto();
             actaProyectoGuardar.setIdActa(actaProyecto.getIdActa());
             actaProyectoGuardar.setIdTipoActa(actaProyecto.getIdTipoActa());
             actaProyectoGuardar.setNombre(actaProyecto.getNombreActa());
+            actaProyectoGuardar.setCodigo(actaProyecto.getCodigoActa());
+            actaProyectoGuardar.setFecha(Util.obtenerFecha(actaProyecto.getFechaActa()));
             actaProyectoGuardar.setObservaciones(actaProyecto.getObservacionesActa());
 
             Documento documento = null;
@@ -173,8 +174,9 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(actas);
 
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, null, ex);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
         }
 
         return json;
@@ -199,7 +201,8 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(actas);
         } catch (Exception exc) {
-            logger.log(Level.SEVERE, null, exc);
+            logger.error(exc);
+            throw exc;
         }
 
         return json;
@@ -207,13 +210,13 @@ public class NovedadProyectoController {
     
     @RequestMapping(value = {"/adendaProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
-    String guardarAdendaProyecto(@ModelAttribute(value = "adendaProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaProyecto adendaProyecto, Model model) {
+    String guardarAdendaProyecto(@ModelAttribute(value = "adendaProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaProyecto adendaProyecto, Model model) throws Exception {
         String json = "";
         try {
             AdendaProyecto adendaProyectoGuardar = new AdendaProyecto();
             adendaProyectoGuardar.setIdAdenda(adendaProyecto.getIdAdenda());
             adendaProyectoGuardar.setModificacion(adendaProyecto.getModificacionAdenda());
-
+            adendaProyectoGuardar.setFecha(Util.obtenerFecha(adendaProyecto.getFechaAdenda()));
             Documento documento = null;
             if (adendaProyecto.getDocumentoAdenda() != null) {
                 documento = new Documento();
@@ -226,8 +229,9 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(adendas);
 
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, null, ex);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
         }
 
         return json;
@@ -252,7 +256,8 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(adendas);
         } catch (Exception exc) {
-            logger.log(Level.SEVERE, null, exc);
+            logger.error(exc);
+            throw exc;
         }
 
         return json;
@@ -260,13 +265,13 @@ public class NovedadProyectoController {
     
     @RequestMapping(value = {"/adicionProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
-    String guardarAdicionProyecto(@ModelAttribute(value = "adicionProyecto") co.edu.fnsp.gpci.entidadesVista.AdicionProyecto adicionProyecto, Model model) {
+    String guardarAdicionProyecto(@ModelAttribute(value = "adicionProyecto") co.edu.fnsp.gpci.entidadesVista.AdicionProyecto adicionProyecto, Model model) throws Exception {
         String json = "";
         try {
             AdicionProyecto adicionProyectoGuardar = new AdicionProyecto();
             adicionProyectoGuardar.setIdAdicion(adicionProyecto.getIdAdicion());
             adicionProyectoGuardar.setMonto(adicionProyecto.getMontoAdicion());
-
+            adicionProyectoGuardar.setFecha(Util.obtenerFecha(adicionProyecto.getFechaAdicion()));
             Documento documento = null;
             if (adicionProyecto.getDocumentoAdicion() != null) {
                 documento = new Documento();
@@ -279,8 +284,9 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(adiciones);
 
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, null, ex);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
         }
 
         return json;
@@ -305,7 +311,8 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(adiciones);
         } catch (Exception exc) {
-            logger.log(Level.SEVERE, null, exc);
+            logger.error(exc);
+            throw exc;
         }
 
         return json;
@@ -313,14 +320,14 @@ public class NovedadProyectoController {
     
     @RequestMapping(value = {"/prorrogaProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
-    String guardarProrrogaProyecto(@ModelAttribute(value = "prorrogaProyecto") co.edu.fnsp.gpci.entidadesVista.ProrrogaProyecto prorrogaProyecto, Model model) {
+    String guardarProrrogaProyecto(@ModelAttribute(value = "prorrogaProyecto") co.edu.fnsp.gpci.entidadesVista.ProrrogaProyecto prorrogaProyecto, Model model) throws Exception {
         String json = "";
         try {
             ProrrogaProyecto prorrogaProyectoGuardar = new ProrrogaProyecto();
             prorrogaProyectoGuardar.setIdProrroga(prorrogaProyecto.getIdProrroga());
             prorrogaProyectoGuardar.setDescripcion(prorrogaProyecto.getDescripcionProrroga());
             prorrogaProyectoGuardar.setMesesAprobados(prorrogaProyecto.getMesesAprobadosProrroga());
-
+            prorrogaProyectoGuardar.setFecha(Util.obtenerFecha(prorrogaProyecto.getFechaProrroga()));
             Documento documento = null;
             if (prorrogaProyecto.getDocumentoProrroga() != null) {
                 documento = new Documento();
@@ -333,8 +340,9 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(prorrogas);
 
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, null, ex);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
         }
 
         return json;
@@ -359,7 +367,8 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(prorrogas);
         } catch (Exception exc) {
-            logger.log(Level.SEVERE, null, exc);
+            logger.error(exc);
+            throw exc;
         }
 
         return json;
@@ -367,14 +376,14 @@ public class NovedadProyectoController {
     
    @RequestMapping(value = {"/plazoProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
-    String guardarPlazoProyecto(@ModelAttribute(value = "plazoProyecto") co.edu.fnsp.gpci.entidadesVista.PlazoProyecto plazoProyecto, Model model) {
+    String guardarPlazoProyecto(@ModelAttribute(value = "plazoProyecto") co.edu.fnsp.gpci.entidadesVista.PlazoProyecto plazoProyecto, Model model) throws Exception {
         String json = "";
         try {
             PlazoProyecto plazoProyectoGuardar = new PlazoProyecto();
             plazoProyectoGuardar.setIdPlazo(plazoProyecto.getIdPlazo());
             plazoProyectoGuardar.setDescripcion(plazoProyecto.getDescripcionPlazo());
             plazoProyectoGuardar.setMesesAprobados(plazoProyecto.getMesesAprobadosPlazo());
-
+            plazoProyectoGuardar.setFecha(Util.obtenerFecha(plazoProyecto.getFechaPlazo()));
             Documento documento = null;
             if (plazoProyecto.getDocumentoPlazo() != null) {
                 documento = new Documento();
@@ -387,8 +396,9 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(plazos);
 
-        } catch (Exception ex) {
-            logger.log(Level.SEVERE, null, ex);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
         }
 
         return json;
@@ -413,7 +423,8 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(plazos);
         } catch (Exception exc) {
-            logger.log(Level.SEVERE, null, exc);
+            logger.error(exc);
+            throw exc;
         }
 
         return json;

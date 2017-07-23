@@ -16,6 +16,7 @@ public class AdendaProyecto {
     private long idProyecto;
     private long idAdenda;
     private String modificacionAdenda;
+    private String fechaAdenda;
     private MultipartFile documentoAdenda;
 
     /**
@@ -72,5 +73,19 @@ public class AdendaProyecto {
      */
     public void setModificacionAdenda(String modificacionAdenda) {
         this.modificacionAdenda = modificacionAdenda;
+    }
+
+    /**
+     * @return the fechaAdenda
+     */
+    public String getFechaAdenda() {
+        return fechaAdenda;
+    }
+
+    /**
+     * @param fechaAdenda the fechaAdenda to set
+     */
+    public void setFechaAdenda(String fechaAdenda) {
+        this.fechaAdenda = fechaAdenda;
     }
 }

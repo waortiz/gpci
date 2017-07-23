@@ -6,7 +6,11 @@
 package co.edu.fnsp.gpci.controladores;
 
 import co.edu.fnsp.gpci.entidades.Usuario;
+import co.edu.fnsp.gpci.entidadesVista.RecuperacionClave;
 import co.edu.fnsp.gpci.servicios.IServicioSeguridad;
+import co.edu.fnsp.gpci.utilidades.Mail;
+import org.apache.logging.log4j.Logger;
+import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,19 +27,48 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/usuario")
 public class UsuarioController {
 
+    private static final Logger logger = LogManager.getLogger(UsuarioController.class.getName());
+
     @Autowired
     private IServicioSeguridad servicioSeguridad;
 
-    @RequestMapping(value = "/crear", method = RequestMethod.POST)
+    @Autowired
+    private Mail mail;
+
+    @RequestMapping(value = "/crearUsuario", method = RequestMethod.POST)
     public @ResponseBody
     String crearUsuario(@ModelAttribute(value = "usuario") Usuario usuario, Model model) {
         String mensaje = "";
-
         try {
-            servicioSeguridad.crearUsuario(usuario);
-            mensaje = "Usuario creado exitosamente";
+            Usuario usuarioActual = servicioSeguridad.obtenerUsuario(usuario.getNombreUsuario());
+            if (usuarioActual == null) {
+                servicioSeguridad.crearUsuario(usuario);
+            } else {
+                mensaje = "El usuario ya existe";
+            }
         } catch (Exception exc) {
-            mensaje = "Error al crear el usuario: " + exc.getMessage();
+            logger.error(exc);
+            throw exc;
+        }
+
+        return mensaje;
+    }
+
+    @RequestMapping(value = "/recuperarClave", method = RequestMethod.POST)
+    public @ResponseBody
+    String recuperarClave(@ModelAttribute(value = "recuperacionClave") RecuperacionClave recuperacionClave, Model model) {
+        String mensaje = "";
+        Usuario usuarioActual = servicioSeguridad.obtenerUsuario(recuperacionClave.getNombreUsuario());
+        if (usuarioActual != null) {
+            try {
+                mail.sendMail(usuarioActual.getCorreoElectronico(), "Clave Ingreso Sistema", "Para ingresar al sistema utilice como clave <b>" + usuarioActual.getClave() + "</b>");
+                mensaje = "La clave ha sido enviada a su correo electrónico";
+            } catch (Exception exc) {
+                logger.error(exc);
+                throw exc;
+            }
+        } else {
+            mensaje = "El usuario no existe. por favor verifique";
         }
 
         return mensaje;

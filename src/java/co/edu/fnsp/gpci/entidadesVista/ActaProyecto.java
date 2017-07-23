@@ -18,6 +18,8 @@ public class ActaProyecto {
     private long idProyecto;
     private int idTipoActa;
     private String nombreActa;
+    private String codigoActa;
+    private String fechaActa;
     private String observacionesActa;
     private MultipartFile documentoActa;
             
@@ -103,5 +105,33 @@ public class ActaProyecto {
      */
     public void setIdTipoActa(int idTipoActa) {
         this.idTipoActa = idTipoActa;
+    }
+
+    /**
+     * @return the codigoActa
+     */
+    public String getCodigoActa() {
+        return codigoActa;
+    }
+
+    /**
+     * @param codigoActa the codigoActa to set
+     */
+    public void setCodigoActa(String codigoActa) {
+        this.codigoActa = codigoActa;
+    }
+
+    /**
+     * @return the fechaActa
+     */
+    public String getFechaActa() {
+        return fechaActa;
+    }
+
+    /**
+     * @param fechaActa the fechaActa to set
+     */
+    public void setFechaActa(String fechaActa) {
+        this.fechaActa = fechaActa;
     }
 }

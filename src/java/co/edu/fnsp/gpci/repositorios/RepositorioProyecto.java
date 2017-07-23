@@ -14,9 +14,13 @@ import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import co.edu.fnsp.gpci.entidadesVista.Estudiante;
+import co.edu.fnsp.gpci.utilidades.Util;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -214,6 +218,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametrosIngresoCompromiso.addValue("varIdProyecto", idProyecto);
         for (CompromisoProyecto compromiso : proyecto.getCompromisosProyecto()) {
             parametrosIngresoCompromiso.addValue("varDescripcion", compromiso.getDescripcion());
+            parametrosIngresoCompromiso.addValue("varFecha", compromiso.getFechaCompromiso());
             ingresarCompromisoProyecto.execute(parametrosIngresoCompromiso);
         }
     }
@@ -386,6 +391,10 @@ public class RepositorioProyecto implements IRepositorioProyecto {
             } else {
                 parametrosActualizacionCompromisoProyecto.addValue("varIdCompromiso", compromisoProyectoModificado.getIdCompromisoProyecto());
                 parametrosActualizacionCompromisoProyecto.addValue("varDescripcion", compromisoProyectoModificado.getDescripcion());
+                try {
+                    parametrosActualizacionCompromisoProyecto.addValue("varFecha", Util.obtenerFecha(compromisoProyectoModificado.getFechaCompromisoFormateada()));
+                } catch (ParseException ex) {
+                }
                 actualizarCompromisoProyecto.execute(parametrosActualizacionCompromisoProyecto);
             }
         }
@@ -395,6 +404,10 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         for (CompromisoProyecto compromisoProyecto : proyecto.getCompromisosProyecto()) {
             if (compromisoProyecto.getIdCompromisoProyecto() == 0) {
                 parametrosIngresoCompromisoProyecto.addValue("varDescripcion", compromisoProyecto.getDescripcion());
+                try {
+                    parametrosIngresoCompromisoProyecto.addValue("varFecha", Util.obtenerFecha(compromisoProyecto.getFechaCompromisoFormateada()));
+                } catch (ParseException ex) {
+                }
                 ingresarCompromisoProyecto.execute(parametrosIngresoCompromisoProyecto);
             }
         }

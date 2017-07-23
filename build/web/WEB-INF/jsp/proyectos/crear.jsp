@@ -6,7 +6,6 @@
 <%@ page contentType="text/html;charset=UTF-8" pageEncoding="UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>    
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>    
-
         <div class="container">
             <c:if test = "${not empty mensaje}">
                 <div class="alert alert-danger">
@@ -271,9 +270,23 @@
                                                 <div id="alert_placeholder_compromisos_proyecto"></div>
                                                 <table class="tablaForm">
                                                     <tr>
+                                                        <td>Compromiso</td>                                                        
+                                                    </tr>
+                                                    <tr>
                                                         <td>
                                                             <textarea id="compromisoProyecto" name="compromisoProyecto" class="form-control"></textarea>
                                                             <input type="hidden" id="consecutivo" name="consecutivo" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Fecha</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaCompromisoProyecto" name="fechaCompromisoProyecto" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -309,16 +322,21 @@
                                 <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                                     <thead>
                                         <tr class="table-row">
-                                            <th style="width: 90%;text-align: center">Compromiso</th>
+                                            <th style="width: 70%;text-align: center">Compromiso</th>
+                                            <th style="width: 20%;text-align: center">Fecha</th>
                                             <th style="width: 5%">&nbsp;</th>
                                             <th style="width: 5%">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody  data-bind="foreach: { data: compromisosProyecto }">
                                         <tr class="table-row">
-                                            <td style="width: 90%">
+                                            <td style="width: 70%">
                                                 <span data-bind="text: descripcion" ></span>
                                                 <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'compromisosProyecto[' + $index() + '].descripcion'  }">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: fechaCompromisoFormateada" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: fechaCompromisoFormateada, attr: { 'name': 'compromisosProyecto[' + $index() + '].fechaCompromisoFormateada'  }">
                                             </td>
                                             <td style="width: 5%">
                                                 <button class="btn btn-dark" data-bind="click: $root.eliminarCompromisoProyecto">
@@ -1008,18 +1026,6 @@
                 </div>
             </div>
         </div>
-        <script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
-        <script src='<c:url value="/resources/js/jquery-ui.js" />'></script>
-        <script src='<c:url value="/resources/js/jquery.form-validator.min.js" />'></script>
-        <script src='<c:url value="/resources/js/bootstrap.js" />'></script>  
-        <script src='<c:url value="/resources/js/bootstrap-datepicker.min.js" />'></script>  
-        <script src='<c:url value="/resources/js/bootstrap-datepicker.es.min.js" />' charset="UTF-8"></script>
-        <script src='<c:url value="/resources/js/paging.js" />'></script> 
-        <script src='<c:url value="/resources/js/bootstrap-select.js" />'></script>
-        <script src='<c:url value="/resources/js/knockout-3.4.2.js" />'></script>
-        <script src='<c:url value="/resources/js/sb-admin-2.js" />'></script>
-        <script src='<c:url value="/resources/js/menu.js" />'></script>
-        <script src='<c:url value="/resources/js/metisMenu.min.js" />'></script>
         <script>
             $.validate({
                 validateOnBlur: false, // disable validation when input looses focus
@@ -1110,13 +1116,18 @@
                         bootstrap_alert_compromisos_proyecto.warning('Debe ingresar el compromiso');
                         return false;
                     }
+                    if ($('#fechaCompromisoProyecto').val() == "") {
+                        bootstrap_alert_compromisos_proyecto.warning('Debe ingresar la fecha del compromiso');
+                        return false;
+                    }
                     $('#compromisosProyectoModal').modal('toggle');
                     bootstrap_alert_compromisos_proyecto.removeWarning();
                     if($('#consecutivo').val() == "") {
                         self.compromisosProyecto.push({
                             idCompromisoProyecto: ko.observable(0),
                             consecutivo: ko.observable(self.compromisosProyecto().length + 1),
-                            descripcion: ko.observable($('#compromisoProyecto').val())
+                            descripcion: ko.observable($('#compromisoProyecto').val()),
+                            fechaCompromisoFormateada: ko.observable($('#fechaCompromisoProyecto').val())
                         });
                     } else {
                         var consecutivo = parseInt($('#consecutivo').val(), 10);
@@ -1139,6 +1150,7 @@
                 self.editarCompromisoProyecto = function (compromisoProyecto) {
                     $('#compromisoProyecto').val(compromisoProyecto.descripcion());
                     $('#consecutivo').val(compromisoProyecto.consecutivo());
+                    $('#fechaCompromisoProyecto').val(compromisoProyecto.fechaCompromisoFormateada());
                     $('#compromisosProyectoModal').modal('show'); 
                 };
 
@@ -1599,6 +1611,7 @@
             function limpiarDatosVentanaCompromisoProyecto() {
                 $('#compromisoProyecto').val("");
                 $('#consecutivo').val("");
+                $('#fechaCompromisoProyecto').val("");
             }
 
             bootstrap_alert_profesores_proyecto = function () { };

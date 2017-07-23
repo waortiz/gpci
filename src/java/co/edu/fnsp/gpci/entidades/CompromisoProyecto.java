@@ -12,7 +12,12 @@ import java.util.Date;
  * @author William
  */
 public class CompromisoProyecto {
-
+    
+    private int idCompromisoProyecto;
+    private Date fechaCompromiso;
+    private String fechaCompromisoFormateada;
+    private String descripcion;
+    
     /**
      * @return the descripcion
      */
@@ -55,7 +60,17 @@ public class CompromisoProyecto {
         this.fechaCompromiso = fechaCompromiso;
     }
 
-    private int idCompromisoProyecto;
-    private Date fechaCompromiso;
-    private String descripcion;
+    /**
+     * @return the fechaCompromisoFormateada
+     */
+    public String getFechaCompromisoFormateada() {
+        return fechaCompromisoFormateada;
+    }
+
+    /**
+     * @param fechaCompromisoFormateada the fechaCompromisoFormateada to set
+     */
+    public void setFechaCompromisoFormateada(String fechaCompromisoFormateada) {
+        this.fechaCompromisoFormateada = fechaCompromisoFormateada;
+    }
 }
