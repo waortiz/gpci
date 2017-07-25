@@ -19,7 +19,7 @@
         <div class = "panel-body">
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="tab1success">
-                    <form:form method="POST" action="${pageContext.request.contextPath}/novedades/buscarProyectos" modelAttribute="busquedaProyectos">
+                    <form:form method="POST" action="${pageContext.request.contextPath}/novedades/proyectos" modelAttribute="busquedaProyectos">
                         <table class='table table-hover' style='font-size:12px;'> 
                             <tr  class='text-success'>
                                 <td style="vertical-align: middle">Fecha inicial:</td>

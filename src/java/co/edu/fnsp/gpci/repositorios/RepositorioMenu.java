@@ -35,7 +35,7 @@ public class RepositorioMenu implements IRepositorioMenu {
     }
     
    @Override
-   public List<Menu> obtenerItemsMenu(int idUsuario) {
+   public List<Menu> obtenerItemsMenu(long idUsuario) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdUsuario", idUsuario);
         Map resultado = obtenerItemsMenu.execute(parametros);

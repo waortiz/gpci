@@ -895,7 +895,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_actas.warning("Acta almacenada exitosamente");
+                        bootstrap_alert_actas.success("Acta almacenada exitosamente");
                         limpiarDatosVentanaActa();
                         if (response != "") {
                             proyectoModel.actas.removeAll();
@@ -928,7 +928,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_actas.warning("Acta eliminada exitosamente");
+                        bootstrap_alert_actas.success("Acta eliminada exitosamente");
                         $('#confirmacionEliminacionActa').modal('toggle');
                         if (response != "") {
                             proyectoModel.actas.removeAll();
@@ -979,7 +979,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_adendas.warning("Adenda almacenada exitosamente");
+                        bootstrap_alert_adendas.success("Adenda almacenada exitosamente");
                         limpiarDatosVentanaAdenda();
                         if (response != "") {
                             proyectoModel.adendas.removeAll();
@@ -1008,7 +1008,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_adendas.warning("Adenda eliminada exitosamente");
+                        bootstrap_alert_adendas.success("Adenda eliminada exitosamente");
                         $('#confirmacionEliminacionAdenda').modal('toggle');
                         if (response != "") {
                             proyectoModel.adendas.removeAll();
@@ -1057,7 +1057,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_adiciones.warning("Adición almacenada exitosamente");
+                        bootstrap_alert_adiciones.success("Adición almacenada exitosamente");
                         limpiarDatosVentanaAdicion();
                         if (response != "") {
                             proyectoModel.adiciones.removeAll();
@@ -1086,7 +1086,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_adiciones.warning("Adición eliminada exitosamente");
+                        bootstrap_alert_adiciones.success("Adición eliminada exitosamente");
                         $('#confirmacionEliminacionAdicion').modal('toggle');
                         if (response != "") {
                             proyectoModel.adiciones.removeAll();
@@ -1138,7 +1138,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_prorrogas.warning("Prórroga almacenada exitosamente");
+                        bootstrap_alert_prorrogas.success("Prórroga almacenada exitosamente");
                         limpiarDatosVentanaProrroga();
                         if (response != "") {
                             proyectoModel.prorrogas.removeAll();
@@ -1168,7 +1168,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_prorrogas.warning("Prórroga eliminada exitosamente");
+                        bootstrap_alert_prorrogas.success("Prórroga eliminada exitosamente");
                         proyectoModel.prorrogas.remove(prorrogaEliminar);
                         $('#confirmacionEliminacionProrroga').modal('toggle');
                         if (response != "") {
@@ -1222,7 +1222,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_plazos.warning("Plazo almacenado exitosamente");
+                        bootstrap_alert_plazos.success("Plazo almacenado exitosamente");
                         limpiarDatosVentanaPlazo();
                         if (response != "") {
                             proyectoModel.plazos.removeAll();
@@ -1252,7 +1252,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_plazos.warning("Plazo eliminado exitosamente");
+                        bootstrap_alert_plazos.success("Plazo eliminado exitosamente");
                         proyectoModel.plazos.remove(plazoEliminar);
                         $('#confirmacionEliminacionPlazo').modal('toggle');
                         if (response != "") {
@@ -1390,6 +1390,9 @@
             bootstrap_alert_actas.warning = function (message) {
                 $('#alert_placeholder_actas').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
+            bootstrap_alert_actas.success = function (message) {
+                $('#alert_placeholder_actas').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
             bootstrap_alert_actas.removeWarning = function () {
                 $('#alert_placeholder_actas').html('');
             };
@@ -1418,6 +1421,9 @@
             bootstrap_alert_adendas.warning = function (message) {
                 $('#alert_placeholder_adendas').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
+            bootstrap_alert_adendas.success = function (message) {
+                $('#alert_placeholder_adendas').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
             bootstrap_alert_adendas.removeWarning = function () {
                 $('#alert_placeholder_adendas').html('');
             };
@@ -1442,6 +1448,9 @@
             bootstrap_alert_adiciones.warning = function (message) {
                 $('#alert_placeholder_adiciones').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
+            bootstrap_alert_adiciones.success = function (message) {
+                $('#alert_placeholder_adiciones').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
             bootstrap_alert_adiciones.removeWarning = function () {
                 $('#alert_placeholder_adiciones').html('');
             };
@@ -1465,6 +1474,9 @@
             bootstrap_alert_prorrogas = function () { };
             bootstrap_alert_prorrogas.warning = function (message) {
                 $('#alert_placeholder_prorrogas').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_prorrogas.success = function (message) {
+                $('#alert_placeholder_prorrogas').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
             bootstrap_alert_prorrogas.removeWarning = function () {
                 $('#alert_placeholder_prorrogas').html('');
@@ -1491,6 +1503,9 @@
             bootstrap_alert_plazos = function () { };
             bootstrap_alert_plazos.warning = function (message) {
                 $('#alert_placeholder_plazos').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_plazos.success = function (message) {
+                $('#alert_placeholder_plazos').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
             bootstrap_alert_plazos.removeWarning = function () {
                 $('#alert_placeholder_plazos').html('');

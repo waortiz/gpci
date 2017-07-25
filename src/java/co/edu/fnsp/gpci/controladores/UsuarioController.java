@@ -5,16 +5,26 @@
  */
 package co.edu.fnsp.gpci.controladores;
 
+import co.edu.fnsp.gpci.entidades.Privilegio;
 import co.edu.fnsp.gpci.entidades.Usuario;
+import co.edu.fnsp.gpci.entidadesVista.CambioClave;
+import co.edu.fnsp.gpci.entidadesVista.PrivilegiosUsuario;
 import co.edu.fnsp.gpci.entidadesVista.RecuperacionClave;
 import co.edu.fnsp.gpci.servicios.IServicioSeguridad;
 import co.edu.fnsp.gpci.utilidades.Mail;
+import java.util.ArrayList;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -24,7 +34,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  * @author William
  */
 @Controller
-@RequestMapping(value = "/usuario")
+@RequestMapping(value = "/usuarios")
 public class UsuarioController {
 
     private static final Logger logger = LogManager.getLogger(UsuarioController.class.getName());
@@ -32,10 +42,17 @@ public class UsuarioController {
     @Autowired
     private IServicioSeguridad servicioSeguridad;
 
-    @Autowired
-    private Mail mail;
-
-    @RequestMapping(value = "/crearUsuario", method = RequestMethod.POST)
+    @RequestMapping(value = "/crear", method = RequestMethod.GET)
+    public String mostrarCreacionUsuario(Model model) {
+        ArrayList<Privilegio> privilegios = servicioSeguridad.obtenerPrivilegios();
+        model.addAttribute("privilegiosPorAsignar", privilegios);
+        model.addAttribute("privilegiosAsignados", new ArrayList<>());
+        model.addAttribute("usuario", new Usuario());
+        
+        return "usuarios/crear";
+    }
+    
+    @RequestMapping(value = "/crear", method = RequestMethod.POST)
     public @ResponseBody
     String crearUsuario(@ModelAttribute(value = "usuario") Usuario usuario, Model model) {
         String mensaje = "";
@@ -50,27 +67,138 @@ public class UsuarioController {
             logger.error(exc);
             throw exc;
         }
+        
+        return mensaje;
+    }
+
+    @RequestMapping(value = "/editar", method = RequestMethod.GET)
+    public String mostrarEdicionUsuario(Model model) {
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        model.addAttribute("usuario", usuario);
+        
+        return "usuarios/editar";
+    }
+
+    @RequestMapping(value = "/editar", method = RequestMethod.POST)
+    public @ResponseBody
+    String actualizarUsuario(@ModelAttribute(value = "usuario") Usuario usuario, Model model) {
+        String mensaje = "";
+        try {
+            servicioSeguridad.actualizarUsuario(usuario);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+        
+        return mensaje;
+    }
+
+    @RequestMapping(value = "/cambioClave", method = RequestMethod.GET)
+    public String mostrarCambioClave(Model model) {
+        
+        return "usuarios/cambioClave";
+    }
+    
+    @RequestMapping(value = "/cambiarClave", method = RequestMethod.POST)
+    public @ResponseBody
+    String cambiarClave(@ModelAttribute(value = "cambioClave") CambioClave cambioClave, Model model) {
+        String mensaje = "";
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        try {
+            servicioSeguridad.actualizarClaveUsuario(usuario.getIdUsuario(), cambioClave.getClaveAnterior(), cambioClave.getClaveNueva());
+            usuario.setClave(cambioClave.getClaveNueva());
+        } catch (BadCredentialsException exc) {
+            logger.error(exc);
+            mensaje = exc.getMessage();
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
 
         return mensaje;
     }
 
-    @RequestMapping(value = "/recuperarClave", method = RequestMethod.POST)
-    public @ResponseBody
-    String recuperarClave(@ModelAttribute(value = "recuperacionClave") RecuperacionClave recuperacionClave, Model model) {
-        String mensaje = "";
-        Usuario usuarioActual = servicioSeguridad.obtenerUsuario(recuperacionClave.getNombreUsuario());
-        if (usuarioActual != null) {
-            try {
-                mail.sendMail(usuarioActual.getCorreoElectronico(), "Clave Ingreso Sistema", "Para ingresar al sistema utilice como clave <b>" + usuarioActual.getClave() + "</b>");
-                mensaje = "La clave ha sido enviada a su correo electrónico";
-            } catch (Exception exc) {
-                logger.error(exc);
-                throw exc;
+    /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
+    public String obtenerUsuarios(Model model) {
+
+        ArrayList<Usuario> usuarios = servicioSeguridad.obtenerUsuarios();
+        model.addAttribute("usuarios", usuarios);
+
+        return "usuarios/usuarios";
+    }
+
+    /**
+     *
+     * @param idUsuario
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/privilegios/{idUsuario}", method = RequestMethod.GET)
+    public String mostrarPrivilegiosUsuario(@PathVariable long idUsuario, Model model) {
+        ArrayList<Privilegio> privilegios = servicioSeguridad.obtenerPrivilegios();
+        ArrayList<Privilegio> privilegiosPorAsignar = new ArrayList<>();
+        Usuario usuario = servicioSeguridad.obtenerUsuario(idUsuario);
+        for (Privilegio privilegio : privilegios) {
+            boolean existe = false;
+            for (Privilegio privilegioAsignado : usuario.getPrivilegios()) {
+                if (privilegio.getIdPrivilegio() == privilegioAsignado.getIdPrivilegio()) {
+                    existe = true;
+                    break;
+                }
             }
-        } else {
-            mensaje = "El usuario no existe. por favor verifique";
+            if (!existe) {
+                privilegiosPorAsignar.add(privilegio);
+            }
+        }
+        model.addAttribute("privilegiosPorAsignar", privilegiosPorAsignar);
+        model.addAttribute("privilegiosAsignados", usuario.getPrivilegios());
+        model.addAttribute("privilegiosUsuario", usuario);
+
+        return "usuarios/privilegios";
+    }
+
+    @RequestMapping(value = "/privilegios", method = RequestMethod.POST)
+    public @ResponseBody
+    String actualizarPrivilegiosUsuario(@ModelAttribute(value = "privilegiosUsuario") PrivilegiosUsuario privilegioUsuario, Model model) {
+        String mensaje = "";
+        try {
+            servicioSeguridad.actualizarPrivilegiosUsuario(privilegioUsuario.getIdUsuario(), privilegioUsuario.getPrivilegios());
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
         }
 
         return mensaje;
+    }
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.registerCustomEditor(ArrayList.class, "privilegios", new CustomCollectionEditor(ArrayList.class) {
+
+            @Override
+            protected Object convertElement(Object element) {
+                Privilegio privilegio = new Privilegio();
+                if (element instanceof String && !((String) element).equals("")) {
+                    try {
+                        privilegio.setIdPrivilegio(Integer.parseInt((String) element));
+                    } catch (NumberFormatException e) {
+
+                    }
+                } else if (element instanceof Integer) {
+                    try {
+                        privilegio.setIdPrivilegio((int) element);
+                    } catch (Exception e) {
+
+                    }
+                }
+
+                return privilegio;
+            }
+        });
     }
 }

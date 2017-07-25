@@ -22,7 +22,7 @@ public class ServicioMenu implements IServicioMenu {
     private IRepositorioMenu repositorioMenu;
    
     @Override
-    public List<Menu> obtenerItemsMenu(int idUsuario) {
+    public List<Menu> obtenerItemsMenu(long idUsuario) {
        return repositorioMenu.obtenerItemsMenu(idUsuario);
    }
 }

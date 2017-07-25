@@ -75,7 +75,7 @@ public class ProyectoController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/listado", method = RequestMethod.GET)
+    @RequestMapping(value = "/proyectos", method = RequestMethod.GET)
     public String obtenerProyectos(Model model) {
 
         model.addAttribute("proyectos", new ArrayList<>());
@@ -84,10 +84,10 @@ public class ProyectoController {
         busquedaProyectos.establecerFechaInicioFinal();
         model.addAttribute("busquedaProyectos", busquedaProyectos);
 
-        return "proyectos/listado";
+        return "proyectos/proyectos";
     }
 
-    @RequestMapping(value = "/buscarProyectos", method = RequestMethod.POST)
+    @RequestMapping(value = "/proyectos", method = RequestMethod.POST)
     public String buscarProyectos(@ModelAttribute(value = "busquedaProyectos") BusquedaProyectos busquedaProyectos, Model model) {
 
         ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
@@ -101,7 +101,7 @@ public class ProyectoController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "proyectos/listado";
+        return "proyectos/proyectos";
     }
 
     /**
@@ -207,7 +207,7 @@ public class ProyectoController {
             busquedaProyectos.establecerFechaInicioFinal();
             model.addAttribute("busquedaProyectos", busquedaProyectos);
 
-            return "proyectos/listado";
+            return "proyectos/proyectos";
         } catch (Exception exc) {
             logger.error(exc);
             if (proyecto.getIdProyecto() == 0) {
@@ -295,12 +295,12 @@ public class ProyectoController {
 
     /**
      *
-     * @param id
+     * @param idProyecto
      * @param model
      * @return
      */
-    @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
-    public String obtenerProyecto(@PathVariable long id, Model model) {
+    @RequestMapping(value = "/editar/{idProyecto}", method = RequestMethod.GET)
+    public String obtenerProyecto(@PathVariable long idProyecto, Model model) {
         List<AreaTematica> areasTematicas = servicioMaestro.obtenerAreasTematicas();
         List<TipoProyecto> tiposProyecto = servicioMaestro.obtenerTiposProyecto();
         List<GrupoInvestigacion> gruposInvestigacion = servicioMaestro.obtenerGruposInvestigacion();
@@ -330,8 +330,8 @@ public class ProyectoController {
         model.addAttribute("programas", programas);
 
         ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
-        Proyecto proyecto = servicioProyecto.obtenerProyecto(id);
-        proyectoEdicion.setIdProyecto(id);
+        Proyecto proyecto = servicioProyecto.obtenerProyecto(idProyecto);
+        proyectoEdicion.setIdProyecto(idProyecto);
         proyectoEdicion.setAreaTematica(Integer.toString(proyecto.getAreaTematica().getIdAreaTematica()));
         proyectoEdicion.setCodigo(proyecto.getCodigo());
         proyectoEdicion.setCodigoCOLCIENCIAS(proyecto.getCodigoCOLCIENCIAS());
@@ -379,7 +379,7 @@ public class ProyectoController {
         return "proyectos/crear";
     }
 
-    @RequestMapping(value = "/buscarProfesor", method = RequestMethod.POST)
+    @RequestMapping(value = "/profesores", method = RequestMethod.POST)
     public @ResponseBody
     String buscarProfesor(@ModelAttribute(value = "busquedaPersona") BusquedaPersona busquedaPersona, Model model) {
 
@@ -393,7 +393,7 @@ public class ProyectoController {
         return json;
     }
 
-    @RequestMapping(value = "/buscarEstudiante", method = RequestMethod.POST)
+    @RequestMapping(value = "/estudiantes", method = RequestMethod.POST)
     public @ResponseBody
     String buscarEstudiante(@ModelAttribute(value = "busquedaPersona") BusquedaPersona busquedaPersona, Model model) {
 
@@ -407,7 +407,7 @@ public class ProyectoController {
         return json;
     }
 
-    @RequestMapping(value = "/buscarPersonalExterno", method = RequestMethod.POST)
+    @RequestMapping(value = "/personalExterno", method = RequestMethod.POST)
     public @ResponseBody
     String buscarPersonalExterno(@ModelAttribute(value = "busquedaPersona") BusquedaPersona busquedaPersona, Model model) {
 

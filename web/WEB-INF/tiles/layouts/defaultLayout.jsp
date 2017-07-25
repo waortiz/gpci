@@ -58,9 +58,9 @@
                             </a>
                             <!-- perfil-->
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="#"><i class="fa fa-key fa-fw"></i> Cambio de clave</a>
+                                <li><a href="${pageContext.request.contextPath}/usuarios/cambioClave"><i class="fa fa-key fa-fw"></i> Cambio de clave</a>
                                 </li>
-                                <li><a href="#"><i class="fa fa-gear fa-fw"></i> Actualizació de datos</a>
+                                <li><a href="${pageContext.request.contextPath}/usuarios/editar"><i class="fa fa-gear fa-fw"></i> Actualización de datos</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li><a href="${pageContext.request.contextPath}/logout"><i class="fa fa-sign-out fa-fw"></i> Salir</a>

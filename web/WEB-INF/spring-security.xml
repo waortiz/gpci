@@ -5,11 +5,14 @@
           http://www.springframework.org/schema/security
           http://www.springframework.org/schema/security/spring-security-4.0.xsd">
 
-        <http pattern="/usuario/recuperarClave" security="none"/>  
-        <http pattern="/usuario/crearUsuario" security="none"/>  
+        <http pattern="/login/recuperarClave" security="none"/>  
+        <http pattern="/login/crear" security="none"/>  
         <http auto-config='true' use-expressions="true">
             <intercept-url pattern="/index" access="isAuthenticated()" />	
-            <intercept-url pattern="/usuario/**" access="hasAuthority('ADMINISTRADOR')" />	
+            <intercept-url pattern="/usuarios/cambioClave" access="isAuthenticated()" />
+            <intercept-url pattern="/usuarios/editar" access="isAuthenticated()" />
+            <intercept-url pattern="/index" access="isAuthenticated()" />	
+            <intercept-url pattern="/usuarios/**" access="hasAuthority('ADMINISTRADOR')" />	
             <intercept-url pattern="/novedades/**" access="hasAuthority('GESTOR_INFORMACION') or hasAuthority('ADMINISTRADOR')" />	
             <intercept-url pattern="/proyectos/**" access="hasAuthority('GESTOR_INFORMACION') or hasAuthority('ADMINISTRADOR')" />
             <intercept-url pattern="/reportes/**" access="hasAuthority('USUARIOS_CI') or hasAuthority('ADMINISTRADOR')" />

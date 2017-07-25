@@ -34,7 +34,7 @@
        <put-attribute name="title" value="Proyectos" />  
        <put-attribute name="body" value="/WEB-INF/jsp/novedades/proyectos.jsp" />  
    </definition>  
-   <definition name="novedades/listado" extends="base-definition">  
+   <definition name="novedades/proyectos" extends="base-definition">  
        <put-attribute name="title" value="Proyectos" />  
        <put-attribute name="body" value="/WEB-INF/jsp/novedades/proyectos.jsp" />  
    </definition>  
@@ -48,13 +48,35 @@
        <put-attribute name="title" value="Novedades" />  
        <put-attribute name="body" value="/WEB-INF/jsp/proyectos/proyectos.jsp" />  
    </definition>  
-   <definition name="proyectos/listado" extends="base-definition">  
+   <definition name="proyectos/proyectos" extends="base-definition">  
        <put-attribute name="title" value="Novedades" />  
        <put-attribute name="body" value="/WEB-INF/jsp/proyectos/proyectos.jsp" />  
    </definition>  
    <definition name="proyectos/crear" extends="base-definition">  
        <put-attribute name="title" value="Novedades" />  
        <put-attribute name="body" value="/WEB-INF/jsp/proyectos/crear.jsp" />  
+   </definition>  
+
+   <!-- Usuarios Page -->
+   <definition name="usuarios/usuarios" extends="base-definition">  
+       <put-attribute name="title" value="Usuarios" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/usuarios/usuarios.jsp" />  
+   </definition>  
+   <definition name="usuarios/privilegios" extends="base-definition">  
+       <put-attribute name="title" value="Privilegios" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/usuarios/privilegios.jsp" />  
+   </definition>  
+   <definition name="usuarios/crear" extends="base-definition">  
+       <put-attribute name="title" value="Crear" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/usuarios/crear.jsp" />  
+   </definition>  
+   <definition name="usuarios/editar" extends="base-definition">  
+       <put-attribute name="title" value="Crear" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/usuarios/editar.jsp" />  
+   </definition>  
+   <definition name="usuarios/cambioClave" extends="base-definition">  
+       <put-attribute name="title" value="Crear" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/usuarios/cambioClave.jsp" />  
    </definition>  
 
 </tiles-definitions>

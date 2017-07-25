@@ -13,5 +13,5 @@ import java.util.List;
  * @author William
  */
 public interface IServicioMenu {
-   List<Menu> obtenerItemsMenu(int idUsuario);
+   List<Menu> obtenerItemsMenu(long idUsuario);
 }

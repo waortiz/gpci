@@ -59,7 +59,7 @@ public class NovedadProyectoController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/listado", method = RequestMethod.GET)
+    @RequestMapping(value = "/proyectos", method = RequestMethod.GET)
     public String obtenerProyectos(Model model) {
 
         model.addAttribute("proyectos", new ArrayList<>());
@@ -68,10 +68,10 @@ public class NovedadProyectoController {
         busquedaProyectos.establecerFechaInicioFinal();
         model.addAttribute("busquedaProyectos", busquedaProyectos);
 
-        return "novedades/listado";
+        return "novedades/proyectos";
     }
 
-    @RequestMapping(value = "/buscarProyectos", method = RequestMethod.POST)
+    @RequestMapping(value = "/proyectos", method = RequestMethod.POST)
     public String buscarProyectos(@ModelAttribute(value = "busquedaProyectos") BusquedaProyectos busquedaProyectos, Model model) {
 
         ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
@@ -85,20 +85,20 @@ public class NovedadProyectoController {
 
         model.addAttribute("proyectos", proyectos);
 
-        return "novedades/listado";
+        return "novedades/proyectos";
     }
 
     /**
      *
-     * @param id
+     * @param idProyecto
      * @param model
      * @return
      */
-    @RequestMapping(value = "/editar/{id}", method = RequestMethod.GET)
-    public String obtenerProyecto(@PathVariable long id, Model model) {
+    @RequestMapping(value = "/editar/{idProyecto}", method = RequestMethod.GET)
+    public String obtenerProyecto(@PathVariable long idProyecto, Model model) {
         ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
-        Proyecto proyecto = servicioNovedadProyecto.obtenerProyecto(id);
-        proyectoEdicion.setIdProyecto(id);
+        Proyecto proyecto = servicioNovedadProyecto.obtenerProyecto(idProyecto);
+        proyectoEdicion.setIdProyecto(idProyecto);
         proyectoEdicion.setAreaTematica(proyecto.getAreaTematica().getNombre());
         proyectoEdicion.setCodigo(proyecto.getCodigo());
         proyectoEdicion.setCodigoCOLCIENCIAS(proyecto.getCodigoCOLCIENCIAS());

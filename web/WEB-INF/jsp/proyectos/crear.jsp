@@ -1651,7 +1651,7 @@
                 if(tipoIdentificacion != "" && numeroIdentificacion != ""){
                       $.ajax({
                         type: "POST",
-                        url: "${pageContext.request.contextPath}/proyectos/buscarProfesor",
+                        url: "${pageContext.request.contextPath}/proyectos/profesores",
                         data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
                         beforeSend: function(xhr){
                            xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
@@ -1721,7 +1721,7 @@
                 if(tipoIdentificacion != "" && numeroIdentificacion != ""){
                       $.ajax({
                         type: "POST",
-                        url: "${pageContext.request.contextPath}/proyectos/buscarEstudiante",
+                        url: "${pageContext.request.contextPath}/proyectos/estudiantes",
                         data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
                         beforeSend: function(xhr){
                            xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
@@ -1791,7 +1791,7 @@
                 if(tipoIdentificacion != "" && numeroIdentificacion != ""){
                       $.ajax({
                         type: "POST",
-                        url: "${pageContext.request.contextPath}/proyectos/buscarPersonalExterno",
+                        url: "${pageContext.request.contextPath}/proyectos/personalExterno",
                         data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
                         beforeSend: function(xhr){
                            xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());

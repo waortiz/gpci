@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Usuario implements Serializable {
         
-    private int idUsuario;
+    private long idUsuario;
     private String nombres;
     private String apellidos;
     private String nombreUsuario;
@@ -53,14 +53,14 @@ public class Usuario implements Serializable {
     /**
      * @return the idUsuario
      */
-    public int getIdUsuario() {
+    public long getIdUsuario() {
         return idUsuario;
     }
 
     /**
      * @param idUsuario the idUsuario to set
      */
-    public void setIdUsuario(int idUsuario) {
+    public void setIdUsuario(long idUsuario) {
         this.idUsuario = idUsuario;
     }
 

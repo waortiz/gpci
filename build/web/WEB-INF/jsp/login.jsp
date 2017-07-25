@@ -50,12 +50,13 @@
             </div>
             <div id="mensajeRegistro" class="label">
             </div>
-            <form:form method="post" action="${pageContext.request.contextPath}/crearUsuario" modelAttribute="usuario">
-                <input type="text" placeholder="Nombre Usuario / Username" required pattern="[0-9a-zA-Z]{1,15}" name="nombreUsuario" id="nombreUsuario"/>
-                <input type="text" placeholder="Nombres / Firt Name" required name="nombres" id="nombres" />
-                <input type="text" placeholder="Apellidos / Last Name" required name="apellidos" id="apellidos" />
-                <input type="email" placeholder="Correo electrónico / Email Address" required name="correoElectronico" id="correoElectronico"/>
-                <input type="password" placeholder="Contraseña / Password" required name="clave" id="clave"/>
+            <form:form method="POST" modelAttribute="usuario">
+                <input type="text" placeholder="Nombre Usuario / Username" required pattern="[0-9a-zA-Z]{1,15}" name="nombreUsuario" id="nombreUsuario" maxlength="50"/>
+                <input type="text" placeholder="Nombres / Firt Name" required name="nombres" id="nombres" maxlength="250"/>
+                <input type="text" placeholder="Apellidos / Last Name" required name="apellidos" id="apellidos" maxlength="250" />
+                <input type="email" placeholder="Correo electrónico / Email Address" required name="correoElectronico" id="correoElectronico" maxlength="100"/>
+                <input type="password" placeholder="Contraseña / Password" required name="clave" id="clave" maxlength="50"/>
+                <input type="password" placeholder="Repita Contraseña / Repeat Password" required name="claveRepetida" id="claveRepetida" maxlength="50"/>
                 <input type="submit" value="Registrar"/>
             </form:form>
             <div class="cta">
@@ -76,7 +77,7 @@
             </div>
             <div id="mensajeClave" class="label">
             </div>
-            <form:form method="post" action="${pageContext.request.contextPath}/recuperarClave" modelAttribute="recuperacionClave">
+            <form:form method="POST" modelAttribute="recuperacionClave">
                 <input type="text" placeholder="Nombre Usuario / Username" required pattern="[0-9a-zA-Z]{1,15}" name="nombreUsuario" id="nombreUsuario"/>
                 <input type="submit" value="Recuperar clave"/>
             </form:form>
@@ -169,11 +170,15 @@
     });   
     
     $('#usuario').submit(function (evt) {
+                if($('#clave').val() != $('#claveRepetida').val()) {
+                    $('#mensajeRegistro').html("Las claves no coinciden");
+                    return false;
+                }
                 evt.preventDefault();
                 var formData = new FormData(this);
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/crearUsuario",
+                    url: "${pageContext.request.contextPath}/login/crear",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -199,7 +204,7 @@
                 var formData = new FormData(this);
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/usuario/recuperarClave",
+                    url: "${pageContext.request.contextPath}/login/recuperarClave",
                     data: formData,
                     processData: false,
                     contentType: false,

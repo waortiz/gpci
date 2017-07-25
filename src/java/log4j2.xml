@@ -2,7 +2,7 @@
 <Configuration>
   <Appenders>
     <RollingFile name="GPCIRollingFile" fileName="C:\\logs\gpci.log"
-                 filePattern="C:\\logs\$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+                 filePattern="C:\\logs\gpci-%d{MM-dd-yyyy}-%i.log.gz">
       <PatternLayout>
         <Pattern>%d %p %c{2} [%t] %m%n</Pattern>
       </PatternLayout>
