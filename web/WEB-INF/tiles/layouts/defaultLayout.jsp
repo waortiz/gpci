@@ -43,7 +43,8 @@
                                     <img src='<c:url value="/resources/imagenes/logoUdeaMenu.png" />'>
                                 </span> 
                             </li>
-                            <tiles:insertAttribute name="opcionesMenu" />
+                            <li><a href='#' onclick="abrirOpcion('/index'); return false;"><i class="fa fa-user fa-fw"></i>Home</a></li>
+                            <tiles:insertAttribute name="menu" />
                         </ul>
                     </div>
                     <!-- Fin Menu Navegación-->
@@ -58,7 +59,7 @@
                             </a>
                             <!-- perfil-->
                             <ul class="dropdown-menu dropdown-user">
-                                <li><a href="${pageContext.request.contextPath}/usuarios/cambioClave"><i class="fa fa-key fa-fw"></i> Cambio de clave</a>
+                                <li><a href="${pageContext.request.contextPath}/login/cambiarClave"><i class="fa fa-key fa-fw"></i> Cambio de clave</a>
                                 </li>
                                 <li><a href="${pageContext.request.contextPath}/usuarios/editar"><i class="fa fa-gear fa-fw"></i> Actualización de datos</a>
                                 </li>

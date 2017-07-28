@@ -5,13 +5,15 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
-import co.edu.fnsp.gpci.entidades.Menu;
-import java.util.List;
+import co.edu.fnsp.gpci.entidades.OpcionMenu;
+import java.util.ArrayList;
 
 /**
  *
  * @author William
  */
 public interface IServicioMenu {
-   List<Menu> obtenerItemsMenu(long idUsuario);
+   ArrayList<OpcionMenu> obtenerOpcionesMenuUsuario(long idUsuario);
+   void actualizarOpcionesMenuPrivilegio(long idPrivilegio, ArrayList<OpcionMenu> opcionesMenu);
+   ArrayList<OpcionMenu> obtenerOpcionesMenu();
 }

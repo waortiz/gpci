@@ -5,7 +5,7 @@
  */
 package co.edu.fnsp.gpci.configuraciones;
 
-import co.edu.fnsp.gpci.entidades.Menu;
+import co.edu.fnsp.gpci.entidades.OpcionMenu;
 import co.edu.fnsp.gpci.entidades.Usuario;
 import co.edu.fnsp.gpci.servicios.IServicioMenu;
 import java.util.List;
@@ -31,12 +31,10 @@ public class MenuViewPreparer implements ViewPreparer {
     public void execute(Request request, AttributeContext attributeContext) {
         if (SecurityContextHolder.getContext().getAuthentication() != null && SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof Usuario) {
             Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-            List<Menu> items = servicioMenu.obtenerItemsMenu(usuario.getIdUsuario());
-            String opcionesMenu = co.edu.fnsp.gpci.utilidades.Menu.obtenerOpcionesMenu(items);
-            attributeContext.putAttribute("opcionesMenu", new Attribute(opcionesMenu));
-        } else {
-            attributeContext.putAttribute("opcionesMenu", new Attribute(""));
-        }
+            List<OpcionMenu> items = servicioMenu.obtenerOpcionesMenuUsuario(usuario.getIdUsuario());
+            String menu = co.edu.fnsp.gpci.utilidades.Menu.obtenerMenu(items);
+            attributeContext.putAttribute("menu", new Attribute(menu));
+        } 
     }
 
 }

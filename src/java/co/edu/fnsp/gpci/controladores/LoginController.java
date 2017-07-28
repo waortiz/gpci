@@ -1,6 +1,7 @@
 package co.edu.fnsp.gpci.controladores;
 
 import co.edu.fnsp.gpci.entidades.Usuario;
+import co.edu.fnsp.gpci.entidadesVista.CambioClave;
 import co.edu.fnsp.gpci.entidadesVista.RecuperacionClave;
 import co.edu.fnsp.gpci.servicios.IServicioSeguridad;
 import co.edu.fnsp.gpci.utilidades.Mail;
@@ -9,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
@@ -82,6 +84,32 @@ public class LoginController {
             throw exc;
         }
         
+        return mensaje;
+    }
+    
+    
+    @RequestMapping(value = "/login/cambiarClave", method = RequestMethod.GET)
+    public String mostrarCambioClave(Model model) {
+        
+        return "login/cambioClave";
+    }
+    
+    @RequestMapping(value = "/login/cambiarClave", method = RequestMethod.POST)
+    public @ResponseBody
+    String cambiarClave(@ModelAttribute(value = "cambioClave") CambioClave cambioClave, Model model) {
+        String mensaje = "";
+        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        try {
+            servicioSeguridad.actualizarClaveUsuario(usuario.getIdUsuario(), cambioClave.getClaveAnterior(), cambioClave.getClaveNueva());
+            usuario.setClave(cambioClave.getClaveNueva());
+        } catch (BadCredentialsException exc) {
+            logger.error(exc);
+            mensaje = exc.getMessage();
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
         return mensaje;
     }
 }

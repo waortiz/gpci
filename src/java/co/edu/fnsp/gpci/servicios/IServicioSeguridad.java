@@ -23,4 +23,7 @@ public interface IServicioSeguridad {
     ArrayList<Privilegio> obtenerPrivilegiosUsuario(long idUsuario);
     ArrayList<Usuario> obtenerUsuarios();
     void actualizarPrivilegiosUsuario(long idUsuario, ArrayList<Privilegio> privilegios);
+    void crearPrivilegio(Privilegio privilegio);
+    void eliminarPrivilegio(int idPrivilegio);
+    Privilegio obtenerPrivilegio(int idPrivilegio);
 }

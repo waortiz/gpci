@@ -18,11 +18,11 @@
                         <table class='table table-hover' style='font-size:12px;' id="usuarios"> 
                             <thead>
                                 <tr  class='text-success'>
-                                    <th width='25%'>Nombres</th>
-                                    <th width='25%'>Apellidos</th> 
-                                    <th width='20%'>Usuario</th> 
-                                    <th width='20%'>Correo electrónico</th> 
-                                    <th width='10%'>Privilegios</th> 
+                                    <td align="center" width='25%'><strong>Nombres</strong></td>
+                                    <td align="center" width='25%'><strong>Apellidos</strong></td> 
+                                    <td align="center" width='20%'><strong>Usuario</strong></td> 
+                                    <td align="center" width='20%'><strong>Correo electrónico</strong></td> 
+                                    <td align="center" width='10%'><strong>Privilegios</strong></td> 
                                 </tr> 
                             </thead>
                                 <tbody>
@@ -40,7 +40,7 @@
                                             <td>
                                                 ${usuario.getCorreoElectronico()}
                                             </td>
-                                            <td>
+                                            <td align="center">
                                                 <a href="${pageContext.request.contextPath}/usuarios/privilegios/${usuario.getIdUsuario()}" class="btn-sm btn-warning">Editar</a>
                                             </td>  
                                         </tr>
@@ -51,6 +51,15 @@
                 </div>
             </div>
         </div>
+        <table class='table table-hover' style='font-size:12px;'> 
+            <tr>
+                <td align="right">
+                    <a href='${pageContext.request.contextPath}/usuarios/crear'  title='Crear usuario' >
+                        <input type='button' class='btn-sm btn-success' value='Crear usuario' />
+                    </a> 
+                </td>
+            </tr>
+        </table>        
     </div>
 </div>
 <script type="text/javascript">

@@ -7,17 +7,13 @@ package co.edu.fnsp.gpci.controladores;
 
 import co.edu.fnsp.gpci.entidades.Privilegio;
 import co.edu.fnsp.gpci.entidades.Usuario;
-import co.edu.fnsp.gpci.entidadesVista.CambioClave;
 import co.edu.fnsp.gpci.entidadesVista.PrivilegiosUsuario;
-import co.edu.fnsp.gpci.entidadesVista.RecuperacionClave;
 import co.edu.fnsp.gpci.servicios.IServicioSeguridad;
-import co.edu.fnsp.gpci.utilidades.Mail;
 import java.util.ArrayList;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomCollectionEditor;
-import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -85,36 +81,16 @@ public class UsuarioController {
         String mensaje = "";
         try {
             servicioSeguridad.actualizarUsuario(usuario);
+            Usuario usuarioActual = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+            usuarioActual.setNombres(usuario.getNombres());
+            usuarioActual.setApellidos(usuario.getApellidos());
+            usuarioActual.setNombreUsuario(usuario.getNombreUsuario());
+            usuarioActual.setCorreoElectronico(usuario.getCorreoElectronico());
         } catch (Exception exc) {
             logger.error(exc);
             throw exc;
         }
         
-        return mensaje;
-    }
-
-    @RequestMapping(value = "/cambioClave", method = RequestMethod.GET)
-    public String mostrarCambioClave(Model model) {
-        
-        return "usuarios/cambioClave";
-    }
-    
-    @RequestMapping(value = "/cambiarClave", method = RequestMethod.POST)
-    public @ResponseBody
-    String cambiarClave(@ModelAttribute(value = "cambioClave") CambioClave cambioClave, Model model) {
-        String mensaje = "";
-        Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-        try {
-            servicioSeguridad.actualizarClaveUsuario(usuario.getIdUsuario(), cambioClave.getClaveAnterior(), cambioClave.getClaveNueva());
-            usuario.setClave(cambioClave.getClaveNueva());
-        } catch (BadCredentialsException exc) {
-            logger.error(exc);
-            mensaje = exc.getMessage();
-        } catch (Exception exc) {
-            logger.error(exc);
-            throw exc;
-        }
-
         return mensaje;
     }
 

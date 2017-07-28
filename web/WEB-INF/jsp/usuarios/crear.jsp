@@ -99,6 +99,9 @@
             data: formData,
             processData: false,
             contentType: false,
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+            },            
             success: function (response) {
                 if (response != "") {
                     bootstrap_alert_usuario.warning(response);
@@ -165,6 +168,6 @@
         $('#alert_placeholder_usuario').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
     };
     bootstrap_alert_usuario.removeWarning = function () {
-        $('#alert_placeholder_usuarios').html('');
+        $('#alert_placeholder_usuario').html('');
     };
 </script>

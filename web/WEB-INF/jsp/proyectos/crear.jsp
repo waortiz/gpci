@@ -1012,10 +1012,10 @@
                                     <a href='crear'  title='Registrar Proyecto' >
                                         <form:hidden path="idProyecto" />
                                         <c:if test = "${proyecto.getIdProyecto() == 0}">
-                                            <input type="submit" value="Registrar Proyecto" class="btn-sm btn-success" />
+                                            <input type="submit" value="Registrar proyecto" class="btn-sm btn-success" />
                                         </c:if>
                                         <c:if test = "${proyecto.getIdProyecto() > 0}">
-                                            <input type="submit" value="Actualizar Proyecto" class="btn-sm btn-success" />
+                                            <input type="submit" value="Actualizar proyecto" class="btn-sm btn-success" />
                                         </c:if>
                                     </a> 
                                 </td>

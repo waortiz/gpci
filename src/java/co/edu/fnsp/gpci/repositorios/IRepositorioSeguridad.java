@@ -24,4 +24,7 @@ public interface IRepositorioSeguridad {
     ArrayList<Usuario> obtenerUsuarios();
     void actualizarPrivilegiosUsuario(long idUsuario, ArrayList<Privilegio> privilegios);
     ArrayList<Privilegio> obtenerPrivilegiosUsuario(long idUsuario);
+    Privilegio obtenerPrivilegio(int idPrivilegio);
+    void eliminarPrivilegio(int idPrivilegio);
+    void crearPrivilegio(Privilegio privilegio);
 }

@@ -74,9 +74,19 @@
        <put-attribute name="title" value="Crear" />  
        <put-attribute name="body" value="/WEB-INF/jsp/usuarios/editar.jsp" />  
    </definition>  
-   <definition name="usuarios/cambioClave" extends="base-definition">  
+   <definition name="login/cambioClave" extends="base-definition">  
        <put-attribute name="title" value="Crear" />  
-       <put-attribute name="body" value="/WEB-INF/jsp/usuarios/cambioClave.jsp" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/cambioClave.jsp" />  
+   </definition>  
+
+   <!-- Privilegios Page-->
+   <definition name="privilegios/privilegios" extends="base-definition">  
+       <put-attribute name="title" value="Privilegios" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/privilegios/privilegios.jsp" />  
+   </definition>  
+   <definition name="privilegios/crear" extends="base-definition">  
+       <put-attribute name="title" value="Crea Privilegio" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/privilegios/crear.jsp" />  
    </definition>  
 
 </tiles-definitions>

@@ -21,7 +21,7 @@
                     </span>
                 </div>
             </div>
-            <c:if test="${param.auth eq 'failure'}">
+            <c:if test="${not empty SPRING_SECURITY_LAST_EXCEPTION.message}">
                 <div class="label">
                     <c:out value="${SPRING_SECURITY_LAST_EXCEPTION.message}" />
                 </div>

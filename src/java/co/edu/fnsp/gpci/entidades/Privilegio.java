@@ -1,5 +1,6 @@
 package co.edu.fnsp.gpci.entidades;
 
+import java.util.ArrayList;
 import org.springframework.security.core.GrantedAuthority;
 
 public class Privilegio implements GrantedAuthority {
@@ -7,7 +8,8 @@ public class Privilegio implements GrantedAuthority {
     private int idPrivilegio;
     private String codigo;
     private String nombre;
-
+    private ArrayList<OpcionMenu> opcionesMenu = new ArrayList<>();
+    
     /**
      * @return the idPrivilegio
      */
@@ -55,4 +57,17 @@ public class Privilegio implements GrantedAuthority {
         return this.codigo;
     }
 
+    /**
+     * @return the opcionesMenu
+     */
+    public ArrayList<OpcionMenu> getOpcionesMenu() {
+        return opcionesMenu;
+    }
+
+    /**
+     * @param opcionesMenu the opcionesMenu to set
+     */
+    public void setOpcionesMenu(ArrayList<OpcionMenu> opcionesMenu) {
+        this.opcionesMenu = opcionesMenu;
+    }    
 }

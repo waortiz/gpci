@@ -9,9 +9,9 @@ package co.edu.fnsp.gpci.entidades;
  *
  * @author William
  */
-public class Menu {
+public class OpcionMenu {
 
-    private int idMenu;
+    private int idOpcionMenu;
     private String nombre;
     private int nivel;
     private int idPadre;
@@ -19,19 +19,19 @@ public class Menu {
     private String css;
 
     /**
-     * @return the idMenu
+     * @return the idOpcionMenu
      */
-    public int getIdMenu() {
-        return idMenu;
+    public int getIdOpcionMenu() {
+        return idOpcionMenu;
     }
 
     /**
-     * @param idMenu the idMenu to set
+     * @param idOpcionMenu the idOpcionMenu to set
      */
-    public void setIdMenu(int idMenu) {
-        this.idMenu = idMenu;
+    public void setIdOpcionMenu(int idOpcionMenu) {
+        this.idOpcionMenu = idOpcionMenu;
     }
-    
+
     /**
      * @return the nombre
      */

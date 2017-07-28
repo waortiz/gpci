@@ -5,8 +5,9 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
-import co.edu.fnsp.gpci.entidades.Menu;
+import co.edu.fnsp.gpci.entidades.OpcionMenu;
 import co.edu.fnsp.gpci.repositorios.IRepositorioMenu;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,14 +16,25 @@ import org.springframework.stereotype.Service;
  *
  * @author William
  */
-
 @Service("servicioMenu")
 public class ServicioMenu implements IServicioMenu {
+
     @Autowired
     private IRepositorioMenu repositorioMenu;
-   
+
     @Override
-    public List<Menu> obtenerItemsMenu(long idUsuario) {
-       return repositorioMenu.obtenerItemsMenu(idUsuario);
-   }
+    public ArrayList<OpcionMenu> obtenerOpcionesMenuUsuario(long idUsuario) {
+        return repositorioMenu.obtenerOpcionesMenuUsuario(idUsuario);
+    }
+
+    @Override
+    public void actualizarOpcionesMenuPrivilegio(long idPrivilegio, ArrayList<OpcionMenu> opcionesMenu) {
+        repositorioMenu.actualizarOpcionesMenuPrivilegio(idPrivilegio, opcionesMenu);
+    }
+
+    @Override
+    public ArrayList<OpcionMenu> obtenerOpcionesMenu() {
+        return repositorioMenu.obtenerOpcionesMenu();
+    }
+   
 }

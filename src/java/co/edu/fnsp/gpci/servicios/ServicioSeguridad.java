@@ -88,4 +88,19 @@ public class ServicioSeguridad implements IServicioSeguridad {
         return repositorioSeguridad.obtenerPrivilegiosUsuario(idUsuario);
     }
 
+    @Override
+    public void crearPrivilegio(Privilegio privilegio) {
+        repositorioSeguridad.crearPrivilegio(privilegio);
+    }
+
+    @Override
+    public Privilegio obtenerPrivilegio(int idPrivilegio) {
+        return repositorioSeguridad.obtenerPrivilegio(idPrivilegio);
+    }
+
+    @Override
+    public void eliminarPrivilegio(int idPrivilegio) {
+        repositorioSeguridad.eliminarPrivilegio(idPrivilegio);
+    }
+
 }

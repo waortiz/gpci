@@ -39,13 +39,12 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
 
         Usuario usuario = servicioSeguridad.obtenerUsuario(username);
-
         if (usuario == null) {
-            throw new BadCredentialsException("Usuario no existe.");
+            throw new BadCredentialsException("Usuario no existe");
         }
 
         if (!password.equals(usuario.getClave())) {
-            throw new BadCredentialsException("Clave incorrecta.");
+            throw new BadCredentialsException("Clave incorrecta");
         }
 
         Collection<? extends GrantedAuthority> privilegios = usuario.getPrivilegios();

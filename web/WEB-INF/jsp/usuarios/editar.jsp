@@ -13,6 +13,8 @@
         <div class="panel-body">
             <form:form method="POST" action="${pageContext.request.contextPath}/usuarios/editar" modelAttribute="usuario">
                 <div id="alert_placeholder_usuario"></div>
+                <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                <form:hidden path="idUsuario" />
                 <table class="table table-hover tablaForm" align="center">
                     <tr>
                         <td width="33%"><strong>Usuario:</strong></td>
@@ -62,10 +64,6 @@
                     bootstrap_alert_usuario.warning(response);
                 } else {
                     bootstrap_alert_usuario.success("Usuario actualizado exitosamente");
-                    $('#nombreUsuario').val("");
-                    $('#correoElectronico').val("");
-                    $('#nombres').val("");
-                    $('#apellidos').val("");
                 }
             },
             error: function (xhr, ajaxOptions, thrownError) {

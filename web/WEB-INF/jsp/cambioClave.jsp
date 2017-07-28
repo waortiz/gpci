@@ -12,6 +12,7 @@
         <div class="panel-heading">Cambiar Clave</div>
         <div class="panel-body">
             <form:form method="POST" modelAttribute="cambioClave">
+                <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                 <div id="alert_placeholder_usuario"></div>
                 <table class="table table-hover tablaForm" align="center">
                     <tr>
@@ -54,7 +55,7 @@
         var formData = new FormData(this);
         $.ajax({
             type: "POST",
-            url: "${pageContext.request.contextPath}/usuarios/cambiarClave",
+            url: "${pageContext.request.contextPath}/login/cambiarClave",
             data: formData,
             processData: false,
             contentType: false,

@@ -44,13 +44,13 @@
                         <table class='table table-hover' style='font-size:12px;' id="proyectos"> 
                             <thead>
                                 <tr  class='text-success'>
-                                    <th width='20%'>Nombre corto</th>
-                                    <th width='15%'>Fecha de creación</th> 
-                                    <th width='15%'>Fecha de inicio</th> 
-                                    <th width='15%'>Fecha finalizaci&oacute;n</th> 
-                                    <th width='15%'>Tipo de proyecto</th> 
-                                    <th width='10%'>Estado</th> 
-                                    <th width='10%'>Modificar</th> 
+                                    <td align="center" width='20%'><strong>Nombre corto</strong></td>
+                                    <td align="center" width='15%'><strong>Fecha de creación</strong></td> 
+                                    <td align="center" width='15%'><strong>Fecha de inicio</strong></td> 
+                                    <td align="center" width='15%'><strong>Fecha finalizaci&oacute;n</strong></td> 
+                                    <td align="center" width='15%'><strong>Tipo de proyecto</strong></td> 
+                                    <td align="center" width='10%'><strong>Estado</strong></td> 
+                                    <td align="center" width='10%'><strong>Modificar</strong></td> 
                                 </tr> 
                             </thead>
                             <c:if test = "${proyectos.size() > 0}">
@@ -60,22 +60,22 @@
                                             <td>
                                                 ${proyecto.getNombreCortoProyecto()}
                                             </td>
-                                            <td>
+                                            <td align="center">
                                                 ${proyecto.getFechaCreacionFormato()}
                                             </td>
-                                            <td>
+                                            <td align="center">
                                                 ${proyecto.getFechaInicioFormato()}
                                             </td>
-                                            <td>
+                                            <td align="center">
                                                 ${proyecto.getFechaFinalizacionFormato()}
                                             </td>
-                                            <td>
+                                            <td align="center">
                                                 ${proyecto.getTipoProyecto()}
                                             </td>   
-                                            <td>
+                                            <td align="center">
                                                 ${proyecto.getEstadoProyecto()}
                                             </td>  
-                                            <td>
+                                            <td align="center">
                                                 <a href="${pageContext.request.contextPath}/novedades/editar/${proyecto.getIdProyecto()}" class="btn-sm btn-warning">Editar</a>
                                             </td>  
                                         </tr>

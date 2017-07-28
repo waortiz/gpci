@@ -6,7 +6,6 @@
 package co.edu.fnsp.gpci.utilidades;
 
 import java.util.List;
-import org.apache.tiles.request.Request;
 
 /**
  *
@@ -14,15 +13,15 @@ import org.apache.tiles.request.Request;
  */
 public class Menu {
 
-    public static String obtenerOpcionesMenu(List<co.edu.fnsp.gpci.entidades.Menu> menu) {
+    public static String obtenerMenu(List<co.edu.fnsp.gpci.entidades.OpcionMenu> opcionesMenu) {
         StringBuilder sb = new StringBuilder();
-        for (co.edu.fnsp.gpci.entidades.Menu m : menu) {
-            if (m.getNivel() == 1) {
+        for (co.edu.fnsp.gpci.entidades.OpcionMenu opcionMenu : opcionesMenu) {
+            if (opcionMenu.getNivel() == 1) {
                 sb.append("<li>");
-                sb.append("<a href='#'").append(m.getUrl() != null ? " onclick=\"abrirOpcion('" + m.getUrl() + "'); return false;\"" : "").append("'><i class=\"").append(m.getCss()).append("\"></i>");
-                sb.append(m.getNombre());
+                sb.append("<a href='#'").append(opcionMenu.getUrl() != null ? " onclick=\"abrirOpcion('" + opcionMenu.getUrl() + "'); return false;\"" : "").append("><i class=\"").append(opcionMenu.getCss()).append("\"></i>");
+                sb.append(opcionMenu.getNombre());
                 sb.append("</a>");
-                String items = obtenerItems(2, m.getIdMenu(), menu);
+                String items = obtenerOpcionesMenu(2, opcionMenu.getIdOpcionMenu(), opcionesMenu);
                 if (items.length() > 0) {
                     sb.append("<ul>");
                     sb.append(items);
@@ -39,23 +38,19 @@ public class Menu {
      *
      * @param nivel el nivel en el que debe buscar
      * @param padre el padre que debe buscar
-     * @param menu
+     * @param opcionesMenu
      * @return el javascript a agregar
      */
-    public static String obtenerItems(int nivel, int padre, List<co.edu.fnsp.gpci.entidades.Menu> menu) {
-        co.edu.fnsp.gpci.entidades.Menu m;
+    public static String obtenerOpcionesMenu(int nivel, int padre, List<co.edu.fnsp.gpci.entidades.OpcionMenu> opcionesMenu) {
+        co.edu.fnsp.gpci.entidades.OpcionMenu opcionMenu;
         StringBuilder r = new StringBuilder();
-        for (int i = 0; i < menu.size(); i++) {
-            m = menu.get(i);
-            if (m.getNivel() == nivel && m.getIdPadre() == padre) {
-                r.append("<li><a href='#'").append(m.getUrl() != null ? " onclick=\"abrirOpcion('" + m.getUrl() + "'); return false;\"" : "").append("'>").append(m.getNombre()).append("</a></li>");
+        for (int i = 0; i < opcionesMenu.size(); i++) {
+            opcionMenu = opcionesMenu.get(i);
+            if (opcionMenu.getNivel() == nivel && opcionMenu.getIdPadre() == padre) {
+                r.append("<li><a href='#'").append(opcionMenu.getUrl() != null ? " onclick=\"abrirOpcion('" + opcionMenu.getUrl() + "'); return false;\"" : "").append(">").append(opcionMenu.getNombre()).append("</a></li>");
             }
         }
 
         return r.toString();
-    }
-    
-    public static String obtenerMenuHome() {
-        return "<li><a href='#' onclick=\"abrirOpcion('index'); return false;\"><i class=\"fa fa-user fa-fw\"></i>Home</a></li>";
     }
 }
