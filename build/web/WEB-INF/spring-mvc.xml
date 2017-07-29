@@ -13,9 +13,25 @@
     <context:component-scan base-package="co.edu.fnsp.gpci.*" />
     <mvc:annotation-driven />
     <mvc:resources mapping="/resources/**" location="/resources/" />
+    
+    <bean name="gpciInterceptor" class="co.edu.fnsp.gpci.utilidades.GPCIInterceptor"/>
+    <mvc:interceptors>
+        <mvc:interceptor>
+            <mvc:mapping path="/**" />
+            <mvc:exclude-mapping path="/resources/**" />
+            <mvc:exclude-mapping path="/index" />
+            <mvc:exclude-mapping path="/usuarios/editar" />
+            <mvc:exclude-mapping path="/logout" />
+            <mvc:exclude-mapping path="/login/cambiarClave" />
+            <mvc:exclude-mapping path="/login/crear" />
+            <mvc:exclude-mapping path="/login/recuperarClave" />
+            <ref bean="gpciInterceptor" />
+        </mvc:interceptor>
+    </mvc:interceptors>
+    
     <bean id="JDBCProperty"
-             class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
-             p:location="/WEB-INF/jdbc.properties" />
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer"
+          p:location="/WEB-INF/jdbc.properties" />
     
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource"
@@ -29,7 +45,7 @@
         <property name="dataSource" ref="dataSource" />
     </bean>
     <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
-	<property name="maxUploadSize" value="20848820" />
+        <property name="maxUploadSize" value="20848820" />
         <property name="maxInMemorySize" value="20848820" />
     </bean>
     <bean id="viewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver">  
@@ -46,16 +62,16 @@
         <property name="preparerFactoryClass" value="org.springframework.web.servlet.view.tiles3.SpringBeanPreparerFactory" />        
     </bean>  
     <bean id="mailSender" class="org.springframework.mail.javamail.JavaMailSenderImpl">
-	<property name="host" value="smtp.gmail.com" />
-	<property name="port" value="587" />
-	<property name="username" value="omarosamar@gmail.com" />
-	<property name="password" value="Oma.2014" />
+        <property name="host" value="smtp.gmail.com" />
+        <property name="port" value="587" />
+        <property name="username" value="omarosamar@gmail.com" />
+        <property name="password" value="Oma.2014" />
 
-	<property name="javaMailProperties">
-	   <props>
-       	      <prop key="mail.smtp.auth">true</prop>
-       	      <prop key="mail.smtp.starttls.enable">true</prop>
-       	   </props>
-	</property>
+        <property name="javaMailProperties">
+            <props>
+                <prop key="mail.smtp.auth">true</prop>
+                <prop key="mail.smtp.starttls.enable">true</prop>
+            </props>
+        </property>
     </bean>      
 </beans>

@@ -85,7 +85,7 @@
        <put-attribute name="body" value="/WEB-INF/jsp/privilegios/privilegios.jsp" />  
    </definition>  
    <definition name="privilegios/crear" extends="base-definition">  
-       <put-attribute name="title" value="Crea Privilegio" />  
+       <put-attribute name="title" value="Crear Privilegio" />  
        <put-attribute name="body" value="/WEB-INF/jsp/privilegios/crear.jsp" />  
    </definition>  
 

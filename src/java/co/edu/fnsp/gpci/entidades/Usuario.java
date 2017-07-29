@@ -6,7 +6,7 @@
 package co.edu.fnsp.gpci.entidades;
 
 import java.io.Serializable;
-import java.util.List;
+import java.util.ArrayList;
 
 /**
  *
@@ -20,7 +20,9 @@ public class Usuario implements Serializable {
     private String nombreUsuario;
     private String clave;
     private String correoElectronico;
-    private List<Privilegio> privilegios;
+    private ArrayList<Privilegio> privilegios = new ArrayList<>();
+    private ArrayList<OpcionMenu> opcionesMenu = new ArrayList<>();
+    
     
     /**
      * @return the nombreUsuario
@@ -109,14 +111,28 @@ public class Usuario implements Serializable {
     /**
      * @return the privilegios
      */
-    public List<Privilegio> getPrivilegios() {
+    public ArrayList<Privilegio> getPrivilegios() {
         return privilegios;
     }
 
     /**
      * @param privilegios the privilegios to set
      */
-    public void setPrivilegios(List<Privilegio> privilegios) {
+    public void setPrivilegios(ArrayList<Privilegio> privilegios) {
         this.privilegios = privilegios;
+    }
+
+    /**
+     * @return the opcionesMenu
+     */
+    public ArrayList<OpcionMenu> getOpcionesMenu() {
+        return opcionesMenu;
+    }
+
+    /**
+     * @param opcionesMenu the opcionesMenu to set
+     */
+    public void setOpcionesMenu(ArrayList<OpcionMenu> opcionesMenu) {
+        this.opcionesMenu = opcionesMenu;
     }
 }

@@ -47,7 +47,7 @@
                             <table align="center">
                                 <tr>
                                     <td rowspan="2">
-                                        <select name="privilegiosPorAsignar" id="privilegiosPorAsignar" class="form-control" multiple="true" style="width: 300px">
+                                        <select name="privilegiosPorAsignar" id="privilegiosPorAsignar" class="form-control" multiple="true" style="width:450px; height: 200px">
                                             <c:forEach var="privilegio" items="${privilegiosPorAsignar}">
                                                 <option value="${privilegio.getIdPrivilegio()}">${privilegio.getNombre()}</option>
                                             </c:forEach>
@@ -58,7 +58,7 @@
                                         <a href="JavaScript:void(0);" id="remover"><span class="glyphicon glyphicon-arrow-left"></span></a>
                                     </td>
                                     <td rowspan="2">
-                                        <form:select path="privilegios" id="privilegios" cssClass="form-control" multiple="true" style="width: 300px">
+                                        <form:select path="privilegios" id="privilegios" cssClass="form-control" multiple="true" style="width:450px; height: 200px">
                                             <form:options items="${privilegiosAsignados}" itemLabel="nombre" itemValue="idPrivilegio"/>
                                         </form:select>                                    
                                     </td>

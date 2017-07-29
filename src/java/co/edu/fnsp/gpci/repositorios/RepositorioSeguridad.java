@@ -32,6 +32,7 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
     private SimpleJdbcCall ingresarUsuario;
     private SimpleJdbcCall actualizarUsuario;
     private SimpleJdbcCall actualizarClaveUsuario;
+    private SimpleJdbcCall obtenerOpcionesMenuUsuario;
     
     private SimpleJdbcCall obtenerPrivilegios;
     private SimpleJdbcCall obtenerPrivilegiosUsuario;
@@ -75,6 +76,9 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
         this.eliminarOpcionMenuPrivilegio = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarOpcionMenuPrivilegio");        
         this.obtenerOpcionesMenuPrivilegio = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerOpcionesMenuPrivilegio").
                 returningResultSet("opcionesMenu", BeanPropertyRowMapper.newInstance(OpcionMenu.class));        
+
+        this.obtenerOpcionesMenuUsuario = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerOpcionesMenuUsuario").
+                returningResultSet("opcionesMenu", BeanPropertyRowMapper.newInstance(OpcionMenu.class));        
     }
     
     @Override
@@ -98,6 +102,12 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
             Map resultadoPrivilegios = obtenerPrivilegiosUsuario.execute(parametrosPrivilegios);
             ArrayList<Privilegio> privilegios = (ArrayList<Privilegio>) resultadoPrivilegios.get("privilegiosUsuario");
             usuario.setPrivilegios(privilegios);
+            
+            MapSqlParameterSource parametrosOpcionesMenu = new MapSqlParameterSource();
+            parametrosOpcionesMenu.addValue("varIdUsuario", usuario.getIdUsuario());
+            Map resultadoOpcionesMenu = obtenerOpcionesMenuUsuario.execute(parametrosOpcionesMenu);
+            ArrayList<OpcionMenu> opcionesMenu = (ArrayList<OpcionMenu>) resultadoOpcionesMenu.get("opcionesMenu");
+            usuario.setOpcionesMenu(opcionesMenu);            
         }
         
         return usuario;
