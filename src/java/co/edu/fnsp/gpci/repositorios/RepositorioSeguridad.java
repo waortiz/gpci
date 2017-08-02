@@ -40,6 +40,7 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
     private SimpleJdbcCall eliminarPrivilegioUsuario;
     
     private SimpleJdbcCall obtenerPrivilegio;
+    private SimpleJdbcCall obtenerPrivilegioPorCodigo;
     private SimpleJdbcCall ingresarPrivilegio;
     private SimpleJdbcCall eliminarPrivilegio;
     private SimpleJdbcCall actualizarPrivilegio;
@@ -68,6 +69,7 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
         this.obtenerPrivilegios = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerPrivilegios").
                 returningResultSet("privilegios", BeanPropertyRowMapper.newInstance(Privilegio.class));
         this.obtenerPrivilegio = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerPrivilegio");
+        this.obtenerPrivilegioPorCodigo = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerPrivilegioPorCodigo");
         this.ingresarPrivilegio = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarPrivilegio");
         this.eliminarPrivilegio = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarPrivilegio");
         this.actualizarPrivilegio = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarPrivilegio");
@@ -295,6 +297,20 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
         }
         
         return privilegio;
+    }
+
+    @Override
+    public boolean existePrivilegio(String codigo) {
+        boolean existe = false;
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varCodigo", codigo);
+        
+        Map resultado = obtenerPrivilegioPorCodigo.execute(parametros);
+        if (resultado.get("varIdPrivilegio") != null) {
+            existe = true;
+        }
+        
+        return existe;
     }
     
     @Override

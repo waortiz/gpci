@@ -27,4 +27,5 @@ public interface IRepositorioSeguridad {
     Privilegio obtenerPrivilegio(int idPrivilegio);
     void eliminarPrivilegio(int idPrivilegio);
     void crearPrivilegio(Privilegio privilegio);
+    boolean existePrivilegio(String codigo);
 }

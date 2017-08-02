@@ -28,7 +28,8 @@
         <script src='<c:url value="/resources/js/knockout-3.4.2.js" />'></script>
         <script src='<c:url value="/resources/js/sb-admin-2.js" />'></script>
         <script src='<c:url value="/resources/js/menu.js" />'></script>
-        <script src='<c:url value="/resources/js/metisMenu.min.js" />'></script>            
+        <script src='<c:url value="/resources/js/metisMenu.min.js" />'></script>
+        <script src='<c:url value="/resources/js/jquery.formatCurrency-1.4.0.min.js" />'></script>
     </head>
     <body>
         <header id="header">

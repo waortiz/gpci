@@ -16,7 +16,12 @@ public class AdicionProyecto {
     private long idProyecto;
     private long idAdicion;
     private long montoAdicion;
-    private String fechaAdicion;
+    private String descripcionAdicion;
+    private String fechaActaAdicion;
+    private String numeroActaAdicion;
+    private String fechaActaCODIAdicion;
+    private String numeroActaCODIAdicion;
+    
     private MultipartFile documentoAdicion;
 
     /**
@@ -76,16 +81,72 @@ public class AdicionProyecto {
     }
 
     /**
-     * @return the fechaAdicion
+     * @return the descripcionAdicion
      */
-    public String getFechaAdicion() {
-        return fechaAdicion;
+    public String getDescripcionAdicion() {
+        return descripcionAdicion;
     }
 
     /**
-     * @param fechaAdicion the fechaAdicion to set
+     * @param descripcionAdicion the descripcionAdicion to set
      */
-    public void setFechaAdicion(String fechaAdicion) {
-        this.fechaAdicion = fechaAdicion;
+    public void setDescripcionAdicion(String descripcionAdicion) {
+        this.descripcionAdicion = descripcionAdicion;
+    }
+
+    /**
+     * @return the fechaActaAdicion
+     */
+    public String getFechaActaAdicion() {
+        return fechaActaAdicion;
+    }
+
+    /**
+     * @param fechaActaAdicion the fechaActaAdicion to set
+     */
+    public void setFechaActaAdicion(String fechaActaAdicion) {
+        this.fechaActaAdicion = fechaActaAdicion;
+    }
+
+    /**
+     * @return the numeroActaAdicion
+     */
+    public String getNumeroActaAdicion() {
+        return numeroActaAdicion;
+    }
+
+    /**
+     * @param numeroActaAdicion the numeroActaAdicion to set
+     */
+    public void setNumeroActaAdicion(String numeroActaAdicion) {
+        this.numeroActaAdicion = numeroActaAdicion;
+    }
+
+    /**
+     * @return the fechaActaCODIAdicion
+     */
+    public String getFechaActaCODIAdicion() {
+        return fechaActaCODIAdicion;
+    }
+
+    /**
+     * @param fechaActaCODIAdicion the fechaActaCODIAdicion to set
+     */
+    public void setFechaActaCODIAdicion(String fechaActaCODIAdicion) {
+        this.fechaActaCODIAdicion = fechaActaCODIAdicion;
+    }
+
+    /**
+     * @return the numeroActaCODIAdicion
+     */
+    public String getNumeroActaCODIAdicion() {
+        return numeroActaCODIAdicion;
+    }
+
+    /**
+     * @param numeroActaCODIAdicion the numeroActaCODIAdicion to set
+     */
+    public void setNumeroActaCODIAdicion(String numeroActaCODIAdicion) {
+        this.numeroActaCODIAdicion = numeroActaCODIAdicion;
     }
 }

@@ -18,14 +18,22 @@
                 <div class="panel-body">
                     <table class="table table-hover tablaForm">
                         <tr>
-                            <td width="33%"><strong>C&oacute;digo:</strong></td>
-                            <td width="33%"><strong>Nombre corto:</strong></td>
-                            <td width="33%"><strong>Nombre completo proyecto:</strong></td>
+                            <td width="33%">C&oacute;digo:</td>
+                            <td width="33%">Nombre corto:</td>
+                            <td width="33%">Convocatoria:</td>
                         </tr>
                         <tr>
                             <td>${proyecto.getCodigo()}</td>
                             <td>${proyecto.getNombreCortoProyecto()}</td>
-                            <td>${proyecto.getNombreCompletoProyecto()}</td>
+                            <td>
+                                ${proyecto.getConvocatoria()}
+                            </td>
+                        </tr>
+                        <tr>
+                           <td colspan="3"><strong>Nombre completo proyecto:</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">${proyecto.getNombreCompletoProyecto()}</td>
                         </tr>
                         <tr>
                             <td><strong>Fecha de inicio:</strong></td>
@@ -73,19 +81,19 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>C&oacute;digo SIIU:</strong></td>
                             <td><strong>C&oacute;digo COLCIENCIAS:</strong></td>
+                            <td><strong>C&oacute;digo SIIU:</strong></td>
                             <td><strong>C&oacute;digo SIU:</strong></td>
                         </tr>
                         <tr>
-                            <td>${proyecto.getCodigoSIIU()}</td>
                             <td>${proyecto.getCodigoCOLCIENCIAS()}</td>
+                            <td>${proyecto.getCodigoSIIU()}</td>
                             <td>${proyecto.getCodigoSIU()}</td>
                         </tr>
                         <tr>
                             <td><strong>Participaci&oacute;n internacional:</strong></td>
                             <td><strong>Tipo de proyecto:</strong></td>
-                            <td><strong>Grupo de investigaci&oacute;n:</strong></td>
+                            <td><strong>Tipo de contrato:</strong></td>
                         </tr>
                         <tr>
                             <td>
@@ -100,45 +108,39 @@
                                 ${proyecto.getTipoProyecto()}
                             </td>
                             <td>
-                                ${proyecto.getGrupoInvestigacion()}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Tipo de contrato:</strong></td>
-                            <td><strong>Enfoque metodol&oacute;gico:</strong></td>
-                            <td><strong>Convocatoria:</strong></td>
-                        </tr>
-                        <tr>
-                            <td>
                                 ${proyecto.getTipoContrato()}
                             </td>
+                        </tr>
+                        <tr>
+                            <td><strong>Enfoque metodol&oacute;gico:</strong></td>
+                            <td><strong>Riesgo &eacute;tico:</strong></td>
+                            <td><strong>Estado:</strong></td>
+                        </tr>
+                        <tr>
                             <td>
                                 ${proyecto.getEnfoqueMetodologico()}
                             </td>
                             <td>
-                                ${proyecto.getConvocatoria()}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td><strong>Objetivo general:</strong></td>
-                            <td><strong>Estado:</strong></td>
-                            <td><strong>Riesgo &eacute;tico:</strong></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                ${proyecto.getObjetivoGeneral()}
+                                ${proyecto.getRiesgoEtico()}
                             </td>
                             <td>
                                 ${proyecto.getEstado()}
                             </td>
-                            <td>
-                                ${proyecto.getRiesgoEtico()}
+                        </tr>
+                        <tr>
+                            <td colspan="3"><strong>Objetivo general:</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">
+                                ${proyecto.getObjetivoGeneral()}
                             </td>
                         </tr>                            
                     </table>
                     <ul class="nav nav-tabs">
                           <li class="active"><a data-toggle="tab" href="#actasTab">Actas</a></li>
-                          <li><a data-toggle="tab" href="#adendasTab">Adendas</a></li>
+                          <li><a data-toggle="tab" href="#adendasCambioTab">Adendas Cambio</a></li>
+                          <li><a data-toggle="tab" href="#adendasIngresoTab">Adendas Ingreso</a></li>
+                          <li><a data-toggle="tab" href="#adendasRetiroTab">Adendas Retiro</a></li>
                           <li><a data-toggle="tab" href="#adicionesTab">Adiciones</a></li>
                           <li><a data-toggle="tab" href="#prorrogasTab">Prórrogas</a></li>
                           <li><a data-toggle="tab" href="#plazosTab">Plazos</a></li>
@@ -177,8 +179,8 @@
                                         <input type="hidden" class="form-control" data-bind="value: idTipoActa, attr: { 'name': 'actas[' + $index() + '].idTipoActa'  }">
                                     </td>
                                     <td style="width: 15%">
-                                        <span data-bind="text: codigo" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: codigo, attr: { 'name': 'actas[' + $index() + '].codigo'  }">
+                                        <span data-bind="text: numero" ></span>
+                                        <input type="hidden" class="form-control" data-bind="value: numero, attr: { 'name': 'actas[' + $index() + '].numero'  }">
                                     </td>
                                     <td style="width: 10%">
                                         <span data-bind="text: fechaFormateada" ></span>
@@ -244,17 +246,6 @@
                                                 <div id="alert_placeholder_acta"></div>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td>Nombre</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input id="nombreActa" name="nombreActa" class="form-control" />
-                                                            <input type="hidden" id="idActa" name="idActa" value="0"/>
-                                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
                                                         <td>Tipo</td>
                                                     </tr>
                                                     <tr>
@@ -268,11 +259,11 @@
                                                         </td>                                                        
                                                     </tr>
                                                     <tr>
-                                                        <td>Código</td>
+                                                        <td>Número</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input id="codigoActa" name="codigoActa" class="form-control" />
+                                                            <input id="numeroActa" name="numeroActa" class="form-control" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -313,54 +304,70 @@
                                 </div>  
                             </div>    
                         </div>
-                        <div id="adendasTab" class="tab-pane fade">
+                        <div id="adendasCambioTab" class="tab-pane fade">
                             <div class="alert alert-info" style="margin-top:20px;">
                                 <strong>Adendas</strong>
-                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdenda(); return false;">
+                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaCambio(); return false;">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>                            
                             </div>
-                            <div id="alert_placeholder_adendas"></div>
+                            <div id="alert_placeholder_adendas_cambio"></div>
                             <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                               <thead>
                                 <tr class="table-row">
-                                    <td style="width: 70%;text-align: center"><strong>Modificación</strong></td>
-                                    <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
-                                    <td style="width: 5%;text-align: center">&nbsp;</td>
+                                    <td style="width: 10%;text-align: center"><strong>Tipo persona</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Tipo de identificación</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
+                                    <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
+                                    <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Rol</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Fecha Cambio</strong></td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                 </tr>
                               </thead>
-                              <tbody data-bind="foreach: { data: adendas }">
+                              <tbody data-bind="foreach: { data: adendasCambio }">
                                 <tr class="table-row">
-                                    <td style="width: 70%">
-                                        <span data-bind="text: modificacion" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: modificacion, attr: { 'name': 'adendas[' + $index() + '].modificacion'  }">
+                                    <td style="width: 10%">
+                                        <span data-bind="text: nombreTipoPersona" ></span>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <span data-bind="text: nombreTipoIdentifacion" ></span>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <span data-bind="text: numeroIdentficacion" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: nombres" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: apellidos" ></span>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <span data-bind="text: nombreRol" ></span>
                                     </td>
                                     <td style="width: 15%">
-                                        <span data-bind="text: fechaFormateada" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: fechaFormateada, attr: { 'name': 'adendas[' + $index() + '].fechaFormateada'  }">
+                                        <span data-bind="text: fechaCambioFormateada" ></span>
                                     </td>
                                     <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdenda" title="Ver adenda">
+                                        <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdendaCambio" title="Ver adenda">
                                             <i class="glyphicon glyphicon-download-alt"></i>
                                         </button>
                                     </td>
                                     <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.eliminarAdenda" title="Eliminar adenda">
+                                        <button class="btn btn-dark" data-bind="click: $root.eliminarAdendaCambio" title="Eliminar adenda">
                                             <i class="glyphicon glyphicon-trash"></i>
                                         </button>
-                                        <input type="hidden" data-bind="value: idAdenda, attr: { 'name': 'adendas[' + $index() + '].idAdenda'  }" />
                                     </td>
                                     <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.editarAdenda" title="Editar adenda">
+                                        <button class="btn btn-dark" data-bind="click: $root.editarAdendaCambio" title="Editar adenda">
                                             <i class="glyphicon glyphicon-edit"></i>
                                         </button>
                                     </td>
                                 </tr>
                               </tbody>
                             </table>
-                            <div class="modal fade" id="confirmacionEliminacionAdenda" tabindex="-1" role="dialog" aria-labelledby="adendaModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="confirmacionEliminacionAdendaCambio" tabindex="-1" role="dialog" aria-labelledby="adendaCambioModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
@@ -376,15 +383,15 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                            <a class="btn btn-danger btn-ok" onclick="eliminarAdenda();">Eliminar</a>
+                                            <a class="btn btn-danger btn-ok" onclick="eliminarAdendaCambio();">Eliminar</a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal fade" id="adendaModal" tabindex="-1" role="dialog" aria-labelledby="adendaModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="adendaModal" tabindex="-1" role="dialog" aria-labelledby="adendaCambioModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaProyecto" modelAttribute="adendaProyecto" enctype="multipart/form-data">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaCambioProyecto" modelAttribute="adendaCambioProyecto" enctype="multipart/form-data">
                                             <div class="modal-header">
                                                 <div class="alert alert-info">
                                                     <strong>Adenda</strong>
@@ -394,36 +401,296 @@
                                                 </div>
                                             </div>
                                             <div class="modal-body">
-                                                <div id="alert_placeholder_adenda"></div>
+                                                <div id="alert_placeholder_adenda_cambio"></div>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td>Modificación</td>
+                                                        <td width="30%">Tipo persona</td>
+                                                        <td width="30%">Tipo de identificación:</td>
+                                                        <td width="30%">Número de identificación:</td>
+                                                        <td width="10%">&nbsp;</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input id="modificacionAdenda" name="modificacionAdenda" class="form-control" />
-                                                            <input type="hidden" id="idAdenda" name="idAdenda" value="0"/>
-                                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
+                                                            <select name="tipoPersonaAdendaCambio" id="tipoPersonaAdendaCambio" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoPersona" items="${tiposPersona}">
+                                                                <option value="${tipoPersona.getIdTipoPersona()}">${tipoPersona.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <select name="tipoIdentificacionPersonaAdendaCambio" id="tipoIdentificacionPersonaAdendaCambio" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaCambio" name="numeroIdentificacionPersonaAdendaCambio" />
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-dark" onclick="buscarPersonaAdendaCambio(); return false;">
+                                                                    <i class="glyphicon glyphicon-search"></i>
+                                                                </button>
+                                                            </div>
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Fecha</td>                                                        
+                                                        <td>Nombres:</td>
+                                                        <td>Apellidos:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="nombresPersonaAdendaCambio" name="nombresPersonaAdendaCambio" class="form-control" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="apellidosPersonaAdendaCambio" name="apellidosPersonaAdendaCambio" class="form-control" readonly />
+                                                        </td>                                    
+                                                    </tr>                                                        
+                                                 </table>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td>Fecha cambio</td>                                                        
+                                                        <td>Rol</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaAdenda" name="fechaAdenda" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaAdendaCambio" name="fechaAdendaCambio" class="form-control datepicker" readonly="true" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
+                                                        <td>
+                                                            <select name="rolAdendaCambio" id="rolAdendaCambio" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="rol" items="${roles}">
+                                                                <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>      
+                                                        </td>                                                        
                                                     </tr>                                                    
                                                     <tr>
-                                                        <td>Documento</td>
+                                                        <td>Fecha acta</td>                                                        
+                                                        <td>Número acta</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="file" id="documentoAdenda" name="documentoAdenda" class="form-control" />
+                                                            <div class="input-group date">
+                                                                <input id="fechaActaAdendaCambio" name="fechaActaAdendaCambio" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" id="numeroActaAdendaCambio" name="numeroActaAdendaCambio" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Documento</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <input type="file" id="documentoAdendaCambio" name="documentoAdendaCambio" class="form-control" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Observaciones</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <textarea id="observacionesAdendaCambio" name="observacionesAdendaCambio" class="form-control" rows="5"></textarea>
+                                                        </td>
+                                                    </tr>                                                    
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary">Aceptar</button>
+                                            </div>   
+                                            <input type="hidden" id="idAdenda" name="idAdenda" value="0"/>
+                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
+                                        </form:form>
+                                    </div>
+                                </div>  
+                            </div>    
+                        </div>     
+                        <div id="adendasIngresoTab" class="tab-pane fade">
+                            <div class="alert alert-info" style="margin-top:20px;">
+                                <strong>Adendas</strong>
+                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaIngreso(); return false;">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>                            
+                            </div>
+                            <div id="alert_placeholder_adendas_cambio"></div>
+                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                              <thead>
+                                <tr class="table-row">
+                                    <td style="width: 15%;text-align: center"><strong>Tipo persona</strong></td>
+                                    <td style="width: 15%;text-align: center"><strong>Tipo de identificación</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
+                                    <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
+                                    <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Fecha Ingreso</strong></td>
+                                    <td style="width: 5%">&nbsp;</td>
+                                    <td style="width: 5%">&nbsp;</td>
+                                </tr>
+                              </thead>
+                              <tbody data-bind="foreach: { data: adendasIngreso }">
+                                <tr class="table-row">
+                                    <td style="width: 15%">
+                                        <span data-bind="text: nombreTipoPersona" ></span>
+                                    </td>
+                                    <td style="width: 15%">
+                                        <span data-bind="text: nombreTipoIdentifacion" ></span>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <span data-bind="text: numeroIdentficacion" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: nombres" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: apellidos" ></span>
+                                    </td>
+                                    <td style="width: 15%">
+                                        <span data-bind="text: fechaIngresoFormateada" ></span>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdendaIngreso" title="Ver adenda">
+                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.eliminarAdendaIngreso" title="Eliminar adenda">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.editarAdendaIngreso" title="Editar adenda">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div class="modal fade" id="confirmacionEliminacionAdendaIngreso" tabindex="-1" role="dialog" aria-labelledby="adendaIngresoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="alert alert-info">
+                                                <strong>Eliminar Adenda</strong>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro de eliminar la adenda?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                            <a class="btn btn-danger btn-ok" onclick="eliminarAdendaIngreso();">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="adendaModal" tabindex="-1" role="dialog" aria-labelledby="adendaIngresoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaIngresoProyecto" modelAttribute="adendaIngresoProyecto" enctype="multipart/form-data">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Adenda</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_adenda_cambio"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td width="30%">Tipo persona</td>
+                                                        <td width="30%">Tipo de identificación:</td>
+                                                        <td width="30%">Número de identificación:</td>
+                                                        <td width="10%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="tipoPersonaAdendaIngreso" id="tipoPersonaAdendaIngreso" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoPersona" items="${tiposPersona}">
+                                                                <option value="${tipoPersona.getIdTipoPersona()}">${tipoPersona.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <select name="tipoIdentificacionPersonaAdendaIngreso" id="tipoIdentificacionPersonaAdendaIngreso" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaIngreso" name="numeroIdentificacionPersonaAdendaIngreso" />
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-dark" onclick="buscarPersonaAdendaIngreso(); return false;">
+                                                                    <i class="glyphicon glyphicon-search"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nombres:</td>
+                                                        <td>Apellidos:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="nombresPersonaAdendaIngreso" name="nombresPersonaAdendaIngreso" class="form-control" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="apellidosPersonaAdendaIngreso" name="apellidosPersonaAdendaIngreso" class="form-control" readonly />
+                                                        </td>                                    
+                                                    </tr>                                                        
+                                                 </table>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td colspan="2">Fecha ingreso</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <div class="input-group date">
+                                                                <input id="fechaAdendaIngreso" name="fechaAdendaIngreso" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Fecha acta</td>                                                        
+                                                        <td>Número acta</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaActaAdendaIngreso" name="fechaActaAdendaIngreso" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" id="numeroActaAdendaIngreso" name="numeroActaAdendaIngreso" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Documento</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <input type="file" id="documentoAdendaIngreso" name="documentoAdendaIngreso" class="form-control" />
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -432,6 +699,209 @@
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                                 <button type="submit" class="btn btn-primary">Aceptar</button>
                                             </div>   
+                                            <input type="hidden" id="idAdenda" name="idAdenda" value="0"/>
+                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
+                                        </form:form>
+                                    </div>
+                                </div>  
+                            </div>    
+                        </div>     
+                        <div id="adendasRetiroTab" class="tab-pane fade">
+                            <div class="alert alert-info" style="margin-top:20px;">
+                                <strong>Adendas</strong>
+                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaRetiro(); return false;">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>                            
+                            </div>
+                            <div id="alert_placeholder_adendas_cambio"></div>
+                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                              <thead>
+                                <tr class="table-row">
+                                    <td style="width: 10%;text-align: center"><strong>Tipo persona</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Tipo de identificación</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
+                                    <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
+                                    <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Rol</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Fecha Retiro</strong></td>
+                                    <td style="width: 5%">&nbsp;</td>
+                                    <td style="width: 5%">&nbsp;</td>
+                                </tr>
+                              </thead>
+                              <tbody data-bind="foreach: { data: adendasRetiro }">
+                                <tr class="table-row">
+                                    <td style="width: 10%">
+                                        <span data-bind="text: nombreTipoPersona" ></span>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <span data-bind="text: nombreTipoIdentifacion" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: nombres" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: apellidos" ></span>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <span data-bind="text: nombreRol" ></span>
+                                    </td>
+                                    <td style="width: 15%">
+                                        <span data-bind="text: fechaRetiroFormateada" ></span>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdendaRetiro" title="Ver adenda">
+                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.eliminarAdendaRetiro" title="Eliminar adenda">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.editarAdendaRetiro" title="Editar adenda">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                            <div class="modal fade" id="confirmacionEliminacionAdendaRetiro" tabindex="-1" role="dialog" aria-labelledby="adendaRetiroModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="alert alert-info">
+                                                <strong>Eliminar Adenda</strong>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro de eliminar la adenda?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                            <a class="btn btn-danger btn-ok" onclick="eliminarAdendaRetiro();">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="adendaModal" tabindex="-1" role="dialog" aria-labelledby="adendaRetiroModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaRetiroProyecto" modelAttribute="adendaRetiroProyecto" enctype="multipart/form-data">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Adenda</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_adenda_cambio"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td width="30%">Tipo persona</td>
+                                                        <td width="30%">Tipo de identificación:</td>
+                                                        <td width="30%">Número de identificación:</td>
+                                                        <td width="10%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="tipoPersonaAdendaRetiro" id="tipoPersonaAdendaRetiro" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoPersona" items="${tiposPersona}">
+                                                                <option value="${tipoPersona.getIdTipoPersona()}">${tipoPersona.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <select name="tipoIdentificacionPersonaAdendaRetiro" id="tipoIdentificacionPersonaAdendaRetiro" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaRetiro" name="numeroIdentificacionPersonaAdendaRetiro" />
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-dark" onclick="buscarPersonaAdendaRetiro(); return false;">
+                                                                    <i class="glyphicon glyphicon-search"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Nombres:</td>
+                                                        <td>Apellidos:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="nombresPersonaAdendaRetiro" name="nombresPersonaAdendaRetiro" class="form-control" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="apellidosPersonaAdendaRetiro" name="apellidosPersonaAdendaRetiro" class="form-control" readonly />
+                                                        </td>                                    
+                                                    </tr>                                                        
+                                                 </table>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td colspna="2">Fecha cambio</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspna="2">
+                                                            <div class="input-group date">
+                                                                <input id="fechaAdendaRetiro" name="fechaAdendaRetiro" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td>Fecha acta</td>                                                        
+                                                        <td>Número acta</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaActaAdendaRetiro" name="fechaActaAdendaRetiro" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="form-control" id="numeroActaAdendaRetiro" name="numeroActaAdendaRetiro" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Documento</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <input type="file" id="documentoAdendaRetiro" name="documentoAdendaRetiro" class="form-control" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Motivo</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <textarea id="motivoAdendaRetiro" name="motivoAdendaRetiro" class="form-control" rows="5"></textarea>
+                                                        </td>
+                                                    </tr>                                                    
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary">Aceptar</button>
+                                            </div>   
+                                            <input type="hidden" id="idAdenda" name="idAdenda" value="0"/>
+                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                         </form:form>
                                     </div>
                                 </div>  
@@ -458,7 +928,7 @@
                             <tbody  data-bind="foreach: { data: adiciones }">
                                 <tr class="table-row">
                                     <td style="width: 70%">
-                                        <span data-bind="text: monto" ></span>
+                                        <span data-bind="text: montoFormateado" ></span>
                                         <input type="hidden" class="form-control" data-bind="value: monto, attr: { 'name': 'adiciones[' + $index() + '].monto'  }">
                                     </td>
                                     <td style="width: 15%">
@@ -525,7 +995,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input id="montoAdicion" name="montoAdicion" class="form-control numbersOnly" />
+                                                            <input id="montoAdicion" name="montoAdicion" class="form-control numbersOnly currencyField" />
                                                             <input type="hidden" id="idAdicion" name="idAdicion" value="0"/>
                                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                             <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
@@ -665,7 +1135,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="text" id="mesesAprobadosProrroga" name="mesesAprobadosProrroga" class="form-control numbersOnly" maxlength="4"></textarea>
+                                                            <input type="text" id="mesesAprobadosProrroga" name="mesesAprobadosProrroga" class="form-control numbersOnly" maxlength="4">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -802,7 +1272,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="text" id="mesesAprobadosPlazo" name="mesesAprobadosPlazo" class="form-control numbersOnly" maxlength="4"></textarea>
+                                                            <input type="text" id="mesesAprobadosPlazo" name="mesesAprobadosPlazo" class="form-control numbersOnly" maxlength="4">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -839,6 +1309,11 @@
                 </div>
         </div>
         <script>
+            var optsFC = { decimalSymbol: '.', digitGroupSymbol: ',' };
+            $(document).ready(function () {
+                $('.currencyField').css('text-align', 'right').formatCurrency(optsFC);
+            });
+
             jQuery('.numbersOnly').keyup(function () {
                 this.value = this.value.replace(/[^0-9\.]/g, '');
             });
@@ -867,8 +1342,8 @@
                     bootstrap_alert_acta.warning('Debe seleccionar el tipo de acta');
                     return false;
                 }
-                if ($('#codigoActa').val() == "") {
-                    bootstrap_alert_acta.warning('Debe ingresar el código');
+                if ($('#numeroActa').val() == "") {
+                    bootstrap_alert_acta.warning('Debe ingresar el número');
                     return false;
                 }
                 if ($('#fechaActa').val() == "") {
@@ -907,7 +1382,7 @@
                                             idTipoActa: ko.observable(actas[i].idTipoActa),
                                             descripcionTipoActa : ko.observable(actas[i].descripcionTipoActa),
                                             nombre: ko.observable(actas[i].nombre),
-                                            codigo: ko.observable(actas[i].codigo),
+                                            numero: ko.observable(actas[i].numero),
                                             observaciones: ko.observable(actas[i].observaciones),
                                             fechaFormateada: ko.observable(actas[i].fechaFormateada),
                                         }
@@ -952,26 +1427,46 @@
                     }});
             }
 
-            $('#adendaProyecto').submit(function (evt) {
+            $('#adendaCambioProyecto').submit(function (evt) {
                 evt.preventDefault();
                 var formData = new FormData(this);
-                if ($('#modificacionAdenda').val() == "") {
-                    bootstrap_alert_adenda.warning('Debe ingresar la modificación');
+                if ($('#tipoPersonaAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe seleccionar el tipo de persona');
                     return false;
                 }
-                if ($('#fechaAdenda').val() == "") {
-                    bootstrap_alert_adenda.warning('Debe ingresar la fecha');
+                if ($('#tipoIdentificacionPersonaAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe seleccionar el tipo de identificación');
                     return false;
                 }
-                if ($('#idAdenda').val() == 0 && $('#documentoAdenda').prop('files').length == 0) {
-                    bootstrap_alert_adenda.warning('Debe seleccionar el archivo');
+                if ($('#numeroIdentificacionPersonaAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe ingresar el número de identificación');
                     return false;
                 }
-                $('#adendaModal').modal('toggle');
-                bootstrap_alert_adenda.removeWarning();
+                if ($('#rolAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe seleccionar el rol');
+                    return false;
+                }
+                if ($('#fechaAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe ingresar la fecha de cambio');
+                    return false;
+                }
+                if ($('#fechaActaAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe ingresar la fecha del acta');
+                    return false;
+                }
+                if ($('#numeroActaAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe ingresar el número del acta');
+                    return false;
+                }
+                if ($('#idAdendaCambio').val() == 0 && $('#documentoAdendaCambio').prop('files').length == 0) {
+                    bootstrap_alert_adenda_cambio.warning('Debe seleccionar el archivo');
+                    return false;
+                }
+                $('#adendaCambioModal').modal('toggle');
+                bootstrap_alert_adenda_cambio.removeWarning();
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/novedades/adendaProyecto",
+                    url: "${pageContext.request.contextPath}/novedades/adendaCambioProyecto",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -979,46 +1474,62 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_adendas.success("Adenda almacenada exitosamente");
-                        limpiarDatosVentanaAdenda();
+                        bootstrap_alert_adendas_cambio.success("Adenda almacenada exitosamente");
+                        limpiarDatosVentanaAdendaCambio();
                         if (response != "") {
-                            proyectoModel.adendas.removeAll();
+                            proyectoModel.adendasCambio.removeAll();
                             var adendas = JSON.parse(response);
                             for (var i = 0; i < adendas.length; i++) {
-                                proyectoModel.adendas.push(
+                                proyectoModel.adendasCambio.push(
                                         {
                                             idAdenda: ko.observable(adendas[i].idAdenda),
-                                            modificacion: ko.observable(adendas[i].modificacion),
-                                            fechaFormateada: ko.observable(adendas[i].fechaFormateada),
+                                            idTipoPersona: ko.observable(adendas[i].idTipoPersona),
+                                            nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
+                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
+                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            nombresPersona: ko.observable(adendas[i].nombresPersona),
+                                            apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                            idRol: ko.observable(adendas[i].idRol),
+                                            nombreRol: ko.observable(adendas[i].nombreRol),
+                                            fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
+                                            fechaCambioFormateada: ko.observable(adendas[i].fechaCambioFormateada)
                                         }
                                 );
                             }
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adendas.warning("Error al almacenar la adenda");
+                        bootstrap_alert_adendas_cambio.warning("Error al almacenar la adenda. " + thrownError);
                     }});
             });
 
-            function eliminarAdenda () {
+            function eliminarAdendaCambio () {
                 $.ajax({
                     type: 'GET',
-                    url: "${pageContext.request.contextPath}/novedades/eliminarAdenda/" + $('#idProyecto').val() + "/" + adendaEliminar.idAdenda(),
+                    url: "${pageContext.request.contextPath}/novedades/eliminarAdendaCambio/" + $('#idProyecto').val() + "/" + adendaCambioEliminar.idAdenda(),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_adendas.success("Adenda eliminada exitosamente");
-                        $('#confirmacionEliminacionAdenda').modal('toggle');
+                        bootstrap_alert_adendas_cambio.success("Adenda eliminada exitosamente");
+                        $('#confirmacionEliminacionAdendaCambio').modal('toggle');
                         if (response != "") {
-                            proyectoModel.adendas.removeAll();
+                            proyectoModel.adendasCambio.removeAll();
                             var adendas = JSON.parse(response);
                             for (var i = 0; i < adendas.length; i++) {
-                                proyectoModel.adendas.push(
+                                proyectoModel.adendasCambio.push(
                                         {
                                             idAdenda: ko.observable(adendas[i].idAdenda),
-                                            modificacion: ko.observable(adendas[i].modificacion),
-                                            fechaFormateada: ko.observable(adendas[i].fechaFormateada),
+                                            idTipoPersona: ko.observable(adendas[i].idTipoPersona),
+                                            nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
+                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
+                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            nombresPersona: ko.observable(adendas[i].nombresPersona),
+                                            apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                            idRol: ko.observable(adendas[i].idRol),
+                                            nombreRol: ko.observable(adendas[i].nombreRol),
+                                            fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
+                                            fechaCambioFormateada: ko.observable(adendas[i].fechaCambioFormateada)
                                         }
                                 );
                             }
@@ -1026,10 +1537,228 @@
                         
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adendas.warning("Error al eliminar la adenda");
+                        bootstrap_alert_adendas_cambio.warning("Error al eliminar la adenda");
                     }});
             }
 
+           $('#adendaRetiroProyecto').submit(function (evt) {
+                evt.preventDefault();
+                var formData = new FormData(this);
+                if ($('#tipoPersonaAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe seleccionar el tipo de persona');
+                    return false;
+                }
+                if ($('#tipoIdentificacionPersonaAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe seleccionar el tipo de identificación');
+                    return false;
+                }
+                if ($('#numeroIdentificacionPersonaAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe ingresar el número de identificación');
+                    return false;
+                }
+                if ($('#rolAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe seleccionar el rol');
+                    return false;
+                }
+                if ($('#fechaAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe ingresar la fecha de retiro');
+                    return false;
+                }
+                if ($('#motivoAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe ingresar el motivo del retiro');
+                    return false;
+                }
+                if ($('#numeroActaAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe ingresar el número del acta');
+                    return false;
+                }
+                if ($('#idAdendaRetiro').val() == 0 && $('#documentoAdendaRetiro').prop('files').length == 0) {
+                    bootstrap_alert_adenda_retiro.warning('Debe seleccionar el archivo');
+                    return false;
+                }
+                $('#adendaRetiroModal').modal('toggle');
+                bootstrap_alert_adenda_retiro.removeWarning();
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/novedades/adendaRetiroProyecto",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        bootstrap_alert_adendas_retiro.success("Adenda almacenada exitosamente");
+                        limpiarDatosVentanaAdendaRetiro();
+                        if (response != "") {
+                            proyectoModel.adendasRetiro.removeAll();
+                            var adendas = JSON.parse(response);
+                            for (var i = 0; i < adendas.length; i++) {
+                                proyectoModel.adendasRetiro.push(
+                                        {
+                                            idAdenda: ko.observable(adendas[i].idAdenda),
+                                            idTipoPersona: ko.observable(adendas[i].idTipoPersona),
+                                            nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
+                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
+                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            nombresPersona: ko.observable(adendas[i].nombresPersona),
+                                            apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                            motivo: ko.observable(adendas[i].motivo),
+                                            fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
+                                            fechaRetiroFormateada: ko.observable(adendas[i].fechaRetiroFormateada)
+                                        }
+                                );
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        bootstrap_alert_adendas_retiro.warning("Error al almacenar la adenda. " + thrownError);
+                    }});
+            });
+
+            function eliminarAdendaRetiro() {
+                $.ajax({
+                    type: 'GET',
+                    url: "${pageContext.request.contextPath}/novedades/eliminarAdendaRetiro/" + $('#idProyecto').val() + "/" + adendaRetiroEliminar.idAdenda(),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        bootstrap_alert_adendas_retiro.success("Adenda eliminada exitosamente");
+                        $('#confirmacionEliminacionAdendaRetiro').modal('toggle');
+                        if (response != "") {
+                            proyectoModel.adendasRetiro.removeAll();
+                            var adendas = JSON.parse(response);
+                            for (var i = 0; i < adendas.length; i++) {
+                                proyectoModel.adendasRetiro.push(
+                                        {
+                                            idAdenda: ko.observable(adendas[i].idAdenda),
+                                            idTipoPersona: ko.observable(adendas[i].idTipoPersona),
+                                            nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
+                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
+                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            nombresPersona: ko.observable(adendas[i].nombresPersona),
+                                            apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                            fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
+                                            motivo: ko.observable(adendas[i].motivo),
+                                            fechaRetiroFormateada: ko.observable(adendas[i].fechaRetiroFormateada)
+                                        }
+                                );
+                            }
+                        }
+                        
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        bootstrap_alert_adendas_retiro.warning("Error al eliminar la adenda");
+                    }});
+            }
+            
+           $('#adendaIngresoProyecto').submit(function (evt) {
+                evt.preventDefault();
+                var formData = new FormData(this);
+                if ($('#tipoPersonaAdendaIngreso').val() == "") {
+                    bootstrap_alert_adenda_ingreso.warning('Debe seleccionar el tipo de persona');
+                    return false;
+                }
+                if ($('#tipoIdentificacionPersonaAdendaIngreso').val() == "") {
+                    bootstrap_alert_adenda_ingreso.warning('Debe seleccionar el tipo de identificación');
+                    return false;
+                }
+                if ($('#numeroIdentificacionPersonaAdendaIngreso').val() == "") {
+                    bootstrap_alert_adenda_ingreso.warning('Debe ingresar el número de identificación');
+                    return false;
+                }
+                if ($('#fechaAdendaIngreso').val() == "") {
+                    bootstrap_alert_adenda_ingreso.warning('Debe ingresar la fecha de ingreso');
+                    return false;
+                }
+                if ($('#fechaActaAdendaIngreso').val() == "") {
+                    bootstrap_alert_adenda_ingreso.warning('Debe ingresar la fecha del acta');
+                    return false;
+                }
+                if ($('#numeroActaAdendaIngreso').val() == "") {
+                    bootstrap_alert_adenda_ingreso.warning('Debe ingresar el número del acta');
+                    return false;
+                }
+                if ($('#idAdendaIngreso').val() == 0 && $('#documentoAdendaIngreso').prop('files').length == 0) {
+                    bootstrap_alert_adenda_ingreso.warning('Debe seleccionar el archivo');
+                    return false;
+                }
+                $('#adendaIngresoModal').modal('toggle');
+                bootstrap_alert_adenda_ingreso.removeWarning();
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/novedades/adendaIngresoProyecto",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        bootstrap_alert_adendas_ingreso.success("Adenda almacenada exitosamente");
+                        limpiarDatosVentanaAdendaIngreso();
+                        if (response != "") {
+                            proyectoModel.adendasIngreso.removeAll();
+                            var adendas = JSON.parse(response);
+                            for (var i = 0; i < adendas.length; i++) {
+                                proyectoModel.adendasIngreso.push(
+                                        {
+                                            idAdenda: ko.observable(adendas[i].idAdenda),
+                                            idTipoPersona: ko.observable(adendas[i].idTipoPersona),
+                                            nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
+                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
+                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            nombresPersona: ko.observable(adendas[i].nombresPersona),
+                                            apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                            fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
+                                            fechaIngresoFormateada: ko.observable(adendas[i].fechaIngresoFormateada)
+                                        }
+                                );
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        bootstrap_alert_adendas_ingreso.warning("Error al almacenar la adenda. " + thrownError);
+                    }});
+            });
+
+            function eliminarAdendaIngreso () {
+                $.ajax({
+                    type: 'GET',
+                    url: "${pageContext.request.contextPath}/novedades/eliminarAdendaIngreso/" + $('#idProyecto').val() + "/" + adendaIngresoEliminar.idAdenda(),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        bootstrap_alert_adendas_ingreso.success("Adenda eliminada exitosamente");
+                        $('#confirmacionEliminacionAdendaIngreso').modal('toggle');
+                        if (response != "") {
+                            proyectoModel.adendasIngreso.removeAll();
+                            var adendas = JSON.parse(response);
+                            for (var i = 0; i < adendas.length; i++) {
+                                proyectoModel.adendasIngreso.push(
+                                        {
+                                            idAdenda: ko.observable(adendas[i].idAdenda),
+                                            idTipoPersona: ko.observable(adendas[i].idTipoPersona),
+                                            nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
+                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
+                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            nombresPersona: ko.observable(adendas[i].nombresPersona),
+                                            apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                            fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
+                                            fechaIngresoFormateada: ko.observable(adendas[i].fechaIngresoFormateada)
+                                        }
+                                );
+                            }
+                        }
+                        
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        bootstrap_alert_adendas_ingreso.warning("Error al eliminar la adenda");
+                    }});
+            }            
+            
           $('#adicionProyecto').submit(function (evt) {
                 evt.preventDefault();
                 var formData = new FormData(this);
@@ -1067,6 +1796,7 @@
                                         {
                                             idAdicion: ko.observable(adiciones[i].idAdicion),
                                             monto: ko.observable(adiciones[i].monto),
+                                            montoFormateado: ko.observable(adiciones[i].montoFormateado),
                                             fechaFormateada: ko.observable(adiciones[i].fechaFormateada),
                                         }
                                 );
@@ -1096,6 +1826,7 @@
                                         {
                                             idAdicion: ko.observable(adiciones[i].idAdicion),
                                             monto: ko.observable(adiciones[i].monto),
+                                            montoFormateado: ko.observable(adiciones[i].montoFormateado),
                                             fechaFormateada: ko.observable(adiciones[i].fechaFormateada),
                                         }
                                 );
@@ -1275,7 +2006,7 @@
                     }});
             }
 
-            var ProyectoModel = function (actas, adendas, adiciones, prorrogas, plazos) {
+            var ProyectoModel = function (actas, adendasIngreso, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos) {
                 self = this;
                 self.actas = ko.observableArray(actas);
                 self.verDocumentoActa = function (acta) {
@@ -1288,26 +2019,76 @@
                 self.editarActa = function (acta) {
                     $('#idActa').val(acta.idActa());
                     $('#idTipoActa').val(acta.idTipoActa());
-                    $('#codigoActa').val(acta.codigo());
+                    $('#numeroActa').val(acta.numero());
                     $('#fechaActa').val(acta.fechaFormateada());
                     $('#observacionesActa').val(acta.observaciones());
-                    $('#nombreActa').val(acta.nombre());
                     $('#actaModal').modal('show');
                 };
 
-                self.adendas = ko.observableArray(adendas);
-                self.verDocumentoAdenda = function (adenda) {
-                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoAdenda/" + adenda.idAdenda();
+                self.adendasCambio = ko.observableArray(adendasCambio);
+                self.verDocumentoAdendaCambio = function (adenda) {
+                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoAdendaCambio/" + adenda.idAdenda();
                 };
-                self.eliminarAdenda = function (adenda) {
-                    adendaEliminar = adenda;
-                    $('#confirmacionEliminacionAdenda').modal('show');
+                self.eliminarAdendaCambio = function (adenda) {
+                    adendaCambioEliminar = adenda;
+                    $('#confirmacionEliminacionAdendaCambio').modal('show');
                 };
-                self.editarAdenda = function (adenda) {
+                self.editarAdendaCambio = function (adenda) {
                     $('#idAdenda').val(adenda.idAdenda());
-                    $('#modificacionAdenda').val(adenda.modificacion());
-                    $('#fechaAdenda').val(adenda.fechaFormateada());
-                    $('#adendaModal').modal('show');
+                    $('#fechaAdendaCambio').val(adenda.fechaCambioFormateada());
+                    $('#tipoPersonaAdendaCambio').val(adenda.idTipoPersona());
+                    $('#rolAdendaCambio').val(adenda.idRolAdendaCambio());
+                    $('#tipoIdentificacionPersonaAdendaCambio').val(adenda.idTipoIdentificacionPersona());
+                    $('#numeroIdentificacionPersonaAdendaCambio').val(adenda.numeroIdentificacionPersona());
+                    $('#fechaActaAdendaCambio').val(adenda.fechaActaFormateada());
+                    $('#nombresPersonaAdendaCambio').val(adenda.nombresPersona());
+                    $('#apellidoPersonaAdendaCambio').val(adenda.apellidoPersona());
+                    $('#numeroActaAdendaCambio').val(adenda.numeroActa());
+                    $('#observacionesAdendaCambio').val(adenda.observaciones());
+                    $('#adendaCambioModal').modal('show');
+                };
+
+                self.adendasIngreso = ko.observableArray(adendasIngreso);
+                self.verDocumentoAdendaIngreso = function (adenda) {
+                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoAdendaIngreso/" + adenda.idAdenda();
+                };
+                self.eliminarAdendaIngreso = function (adenda) {
+                    adendaIngresoEliminar = adenda;
+                    $('#confirmacionEliminacionAdendaIngreso').modal('show');
+                };
+                self.editarAdendaIngreso = function (adenda) {
+                    $('#idAdenda').val(adenda.idAdenda());
+                    $('#fechaAdendaIngreso').val(adenda.fechaIngresoFormateada());
+                    $('#tipoPersonaAdendaIngreso').val(adenda.idTipoPersona());
+                    $('#tipoIdentificacionPersonaAdendaIngreso').val(adenda.idTipoIdentificacionPersona());
+                    $('#numeroIdentificacionPersonaAdendaIngreso').val(adenda.numeroIdentificacionPersona());
+                    $('#fechaActaAdendaIngreso').val(adenda.fechaActaFormateada());
+                    $('#nombresPersonaAdendaIngreso').val(adenda.nombresPersona());
+                    $('#apellidoPersonaAdendaIngreso').val(adenda.apellidoPersona());
+                    $('#numeroActaAdendaIngreso').val(adenda.numeroActa());
+                    $('#adendaIngresoModal').modal('show');
+                };
+
+                self.adendasRetiro = ko.observableArray(adendasRetiro);
+                self.verDocumentoAdendaRetiro = function (adenda) {
+                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoAdendaRetiro/" + adenda.idAdenda();
+                };
+                self.eliminarAdendaRetiro = function (adenda) {
+                    adendaRetiroEliminar = adenda;
+                    $('#confirmacionEliminacionAdendaRetiro').modal('show');
+                };
+                self.editarAdendaRetiro = function (adenda) {
+                    $('#idAdenda').val(adenda.idAdenda());
+                    $('#fechaAdendaRetiro').val(adenda.fechaRetiroFormateada());
+                    $('#tipoPersonaAdendaRetiro').val(adenda.idTipoPersona());
+                    $('#tipoIdentificacionPersonaAdendaRetiro').val(adenda.idTipoIdentificacionPersona());
+                    $('#numeroIdentificacionPersonaAdendaRetiro').val(adenda.numeroIdentificacionPersona());
+                    $('#fechaActaAdendaRetiro').val(adenda.fechaActaFormateada());
+                    $('#nombresPersonaAdendaRetiro').val(adenda.nombresPersona());
+                    $('#apellidoPersonaAdendaRetiro').val(adenda.apellidoPersona());
+                    $('#numeroActaAdendaRetiro').val(adenda.numeroActa());
+                    $('#motivoAdendaRetiro').val(adenda.motivo());
+                    $('#adendaRetiroModal').modal('show');
                 };
 
                 self.adiciones = ko.observableArray(adiciones);
@@ -1360,8 +2141,12 @@
 
             var actas = new Array();
             var actaEliminar = null; 
-            var adendas = new Array();
-            var adendaEliminar = null; 
+            var adendasCambio = new Array();
+            var adendaCambioEliminar = null; 
+            var adendasIngreso = new Array();
+            var adendaIngresoEliminar = null; 
+            var adendasRetiro = new Array();
+            var adendaRetiroEliminar = null; 
             var adiciones = new Array();
             var adicionEliminar = null; 
             var prorrogas = new Array();
@@ -1371,8 +2156,14 @@
             <c:if test = "${actasProyectoJSON != null}">
             actas = ${actasProyectoJSON};
             </c:if>
-            <c:if test = "${adendasProyectoJSON != null}">
-            adendas = ${adendasProyectoJSON};
+            <c:if test = "${adendasCambioProyectoJSON != null}">
+            adendasCambio = ${adendasCambioProyectoJSON};
+            </c:if>
+            <c:if test = "${adendasRetiroProyectoJSON != null}">
+            adendasRetiro = ${adendasRetiroProyectoJSON};
+            </c:if>
+            <c:if test = "${adendasIngresoProyectoJSON != null}">
+            adendasIngreso = ${adendasIngresoProyectoJSON};
             </c:if>
             <c:if test = "${adicionesProyectoJSON != null}">
             adiciones = ${adicionesProyectoJSON};
@@ -1383,7 +2174,7 @@
             <c:if test = "${plazosProyectoJSON != null}">
             plazos = ${plazosProyectoJSON};
             </c:if>
-            var proyectoModel = new ProyectoModel(actas, adendas, adiciones, prorrogas, plazos);
+            var proyectoModel = new ProyectoModel(actas, adendasCambio, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos);
             ko.applyBindings(proyectoModel);
 
             bootstrap_alert_actas = function () { };
@@ -1413,36 +2204,115 @@
                 $('#observacionesActa').val("");
                 $('#nombreActa').val("");
                 $('#fechaActa').val("");
-                $('#codigoActa').val("");
+                $('#numeroActa').val("");
                 $('#documentoActa').val("");
             }
 
-            bootstrap_alert_adendas = function () { };
-            bootstrap_alert_adendas.warning = function (message) {
-                $('#alert_placeholder_adendas').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            bootstrap_alert_adendas_cambio = function () { };
+            bootstrap_alert_adendas_cambio.warning = function (message) {
+                $('#alert_placeholder_adendas_cambio').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
-            bootstrap_alert_adendas.success = function (message) {
-                $('#alert_placeholder_adendas').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            bootstrap_alert_adendas_cambio.success = function (message) {
+                $('#alert_placeholder_adendas_cambio').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
-            bootstrap_alert_adendas.removeWarning = function () {
+            bootstrap_alert_adendas_cambio.removeWarning = function () {
+                $('#alert_placeholder_adendas_cambio').html('');
+            };
+            bootstrap_alert_adenda_cambio = function () { };
+            bootstrap_alert_adenda_cambio.warning = function (message) {
+                $('#alert_placeholder_adenda_cambio').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_adenda_cambio.removeWarning = function () {
+                $('#alert_placeholder_adenda_cambio').html('');
+            };
+            function mostrarVentanaNuevaAdendaCambio() {
+                limpiarDatosVentanaAdendaCambio();
+                $('#adendaCambioModal').modal('show');
+            }
+            function limpiarDatosVentanaAdendaCambio() {
+                $('#idAdenda').val(0);
+                $('#fechaAdendaCambio').val("");
+                $('#tipoPersonaAdendaCambio').val("");
+                $('#rolAdendaCambio').val("");
+                $('#tipoIdentificacionPersonaAdendaCambio').val("");
+                $('#numeroIdentificacionPersonaAdendaCambio').val("");
+                $('#fechaActaAdendaCambio').val("");
+                $('#nombresPersonaAdendaCambio').val("");
+                $('#apellidoPersonaAdendaCambio').val("");
+                $('#numeroActaAdendaCambio').val("");
+                $('#observacionesAdendaCambio').val("");
+                $('#documentoAdendaCambio').val("");
+            }
+
+            bootstrap_alert_adendas_ingreso = function () { };
+            bootstrap_alert_adendas_ingreso.warning = function (message) {
+                $('#alert_placeholder_adendas_ingreso').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_adendas_ingreso.success = function (message) {
+                $('#alert_placeholder_adendas_ingreso').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_adendas_ingreso.removeWarning = function () {
                 $('#alert_placeholder_adendas').html('');
             };
-            bootstrap_alert_adenda = function () { };
-            bootstrap_alert_adenda.warning = function (message) {
+            bootstrap_alert_adendaIngreso = function () { };
+            bootstrap_alert_adendaIngreso.warning = function (message) {
                 $('#alert_placeholder_adenda').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
-            bootstrap_alert_adenda.removeWarning = function () {
+            bootstrap_alert_adendaIngreso.removeWarning = function () {
                 $('#alert_placeholder_adenda').html('');
             };
-            function mostrarVentanaNuevaAdenda() {
-                limpiarDatosVentanaActa();
+            function mostrarVentanaNuevaAdendaIngreso() {
+                limpiarDatosVentanaAdendaIngreso();
                 $('#adendaModal').modal('show');
             }
-            function limpiarDatosVentanaAdenda() {
-                $('#idActa').val(0);
-                $('#modificacionAdenda').val("");
-                $('#fechaAdenda').val("");
+            function limpiarDatosVentanaAdendaIngreso() {
+                $('#idAdenda').val(0);
+                $('#fechaAdendaIngreso').val("");
+                $('#tipoPersonaAdendaIngreso').val("");
+                $('#tipoIdentificacionPersonaAdendaIngreso').val("");
+                $('#numeroIdentificacionPersonaAdendaIngreso').val("");
+                $('#fechaActaAdendaIngreso').val("");
+                $('#nombresPersonaAdendaIngreso').val("");
+                $('#apellidoPersonaAdendaIngreso').val("");
+                $('#numeroActaAdendaIngreso').val("");
+                $('#observacionesAdendaIngreso').val("");
+                $('#documentoAdendaIngreso').val("");
             }
+            
+            bootstrap_alert_adendas_retiro = function () { };
+            bootstrap_alert_adendas_retiro.warning = function (message) {
+                $('#alert_placeholder_adendas_retiro').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_adendas_retiro.success = function (message) {
+                $('#alert_placeholder_adendas_retiro').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_adendas_retiro.removeWarning = function () {
+                $('#alert_placeholder_adendas_retiro').html('');
+            };
+            bootstrap_alert_adenda_retiro = function () { };
+            bootstrap_alert_adenda_retiro.warning = function (message) {
+                $('#alert_placeholder_adenda_retiro').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_adenda_retiro.removeWarning = function () {
+                $('#alert_placeholder_adenda_retiro').html('');
+            };
+            function mostrarVentanaNuevaAdendaRetiro() {
+                limpiarDatosVentanaAdendaRetiro();
+                $('#adendaRetiroModal').modal('show');
+            }
+            function limpiarDatosVentanaAdendaRetiro() {
+                $('#idAdenda').val(0);
+                $('#fechaAdendaRetiro').val("");
+                $('#tipoPersonaAdendaRetiro').val("");
+                $('#tipoIdentificacionPersonaAdendaRetiro').val("");
+                $('#numeroIdentificacionPersonaAdendaRetiro').val("");
+                $('#fechaActaAdendaRetiro').val("");
+                $('#nombresPersonaAdendaRetiro').val("");
+                $('#apellidoPersonaAdendaRetiro').val("");
+                $('#numeroActaAdendaRetiro').val("");
+                $('#motivoAdendaRetiro').val("");
+                $('#documentoAdendaRetiro').val("");
+            }            
 
             bootstrap_alert_adiciones = function () { };
             bootstrap_alert_adiciones.warning = function (message) {

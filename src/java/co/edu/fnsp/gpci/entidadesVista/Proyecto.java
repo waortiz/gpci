@@ -29,7 +29,6 @@ public class Proyecto {
     private String codigo;
     private boolean participacionInternacional;
     private TipoProyecto tipoProyecto;
-    private GrupoInvestigacion grupoInvestigacion;
     private RiesgoEtico riesgoEtico;
     private TipoContrato tipoContrato;
     private EnfoqueMetodologico enfoqueMetodologico;
@@ -41,7 +40,10 @@ public class Proyecto {
     private ArrayList<ProfesorProyecto> profesoresProyecto = new ArrayList<>();
     private ArrayList<EstudianteProyecto> estudiantesProyecto = new ArrayList<>();
     private ArrayList<PersonalExternoProyecto> personalExternoProyecto = new ArrayList<>();
-
+    private ArrayList<GrupoInvestigacion> gruposInvestigacion = new ArrayList<>();
+    private ArrayList<EntidadInternacional> entidadesInternacionales = new ArrayList<>();
+    private ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = new ArrayList<>();
+     
     /**
      * @return the idProyecto
      */
@@ -239,20 +241,6 @@ public class Proyecto {
     }
 
     /**
-     * @return the grupoInvestigacion
-     */
-    public GrupoInvestigacion getGrupoInvestigacion() {
-        return grupoInvestigacion;
-    }
-
-    /**
-     * @param grupoInvestigacion the grupoInvestigacion to set
-     */
-    public void setGrupoInvestigacion(GrupoInvestigacion grupoInvestigacion) {
-        this.grupoInvestigacion = grupoInvestigacion;
-    }
-
-    /**
      * @return the riesgoEtico
      */
     public RiesgoEtico getRiesgoEtico() {
@@ -419,37 +407,46 @@ public class Proyecto {
     public void setCompromisosProyecto(ArrayList<CompromisoProyecto> compromisosProyecto) {
         this.compromisosProyecto = compromisosProyecto;
     }    
-    
-    @Override
-    public String toString() {
-        String listadoObjetivosEspecificos = "";
-        for (ObjetivoEspecifico objetivo : objetivosEspecificos) {
-            listadoObjetivosEspecificos = listadoObjetivosEspecificos + "{idObjetivoEspecifico: " + objetivo.getIdObjetivoEspecifico()
-                    + ", descripcion: " + objetivo.getDescripcion() + "}";
-        }
 
-        return "{idProyecto: " + idProyecto
-                + ", nombreCompletoProyecto: " + nombreCompletoProyecto
-                + ", nombreCortoProyecto: " + nombreCortoProyecto
-                + ", fechaInicio: " + fechaInicio + ", fechaFinalizacion: " + fechaFinalizacion
-                + ", AreaTematica:" + areaTematica
-                + ", ingresadoSIGEP: " + ingresadoSIIU
-                + ", ingresadoSIU: " + ingresadoSIU
-                + ", codigoSIIU: " + codigoSIIU
-                + ", codigoCOLCIENCIAS: " + codigoCOLCIENCIAS
-                + ", codigoSIU: " + codigoSIU
-                + ", codigo: " + codigo
-                + ", participacionInternacional: " + participacionInternacional
-                + ", TipoProyecto: " + tipoProyecto
-                + ", GrupoInvestigacion: " + grupoInvestigacion
-                + ", RiesgoEtico: " + riesgoEtico
-                + ", TipoContrato: " + tipoContrato
-                + ", EnfoqueMetodologico: " + enfoqueMetodologico
-                + ", Convocatoria: " + convocatoria
-                + ", objetivoGeneral: " + objetivoGeneral
-                + ", EstadoProyecto: " + estado
-                + ", objetivosEspecificos: ["
-                + listadoObjetivosEspecificos
-                + "]}";
+    /**
+     * @return the gruposInvestigacion
+     */
+    public ArrayList<GrupoInvestigacion> getGruposInvestigacion() {
+        return gruposInvestigacion;
+    }
+
+    /**
+     * @param gruposInvestigacion the gruposInvestigacion to set
+     */
+    public void setGruposInvestigacion(ArrayList<GrupoInvestigacion> gruposInvestigacion) {
+        this.gruposInvestigacion = gruposInvestigacion;
+    }
+
+    /**
+     * @return the entidadesInternacionales
+     */
+    public ArrayList<EntidadInternacional> getEntidadesInternacionales() {
+        return entidadesInternacionales;
+    }
+
+    /**
+     * @param entidadesInternacionales the entidadesInternacionales to set
+     */
+    public void setEntidadesInternacionales(ArrayList<EntidadInternacional> entidadesInternacionales) {
+        this.entidadesInternacionales = entidadesInternacionales;
+    }
+
+    /**
+     * @return the fuentesFinanciacionProyecto
+     */
+    public ArrayList<FuenteFinanciacionProyecto> getFuentesFinanciacionProyecto() {
+        return fuentesFinanciacionProyecto;
+    }
+
+    /**
+     * @param fuentesFinanciacionProyecto the fuentesFinanciacionProyecto to set
+     */
+    public void setFuentesFinanciacionProyecto(ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto) {
+        this.fuentesFinanciacionProyecto = fuentesFinanciacionProyecto;
     }
 }

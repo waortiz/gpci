@@ -20,12 +20,25 @@
                             <tr>
                                 <td width="33%">C&oacute;digo:</td>
                                 <td width="33%">Nombre corto:</td>
-                                <td width="33%">Nombre completo proyecto:</td>
+                                <td width="33%">Convocatoria:</td>
                             </tr>
                             <tr>
                                 <td><form:input path="codigo" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el código" maxlength="15" /></td>
                                 <td><form:input path="nombreCortoProyecto" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el nombre corto" maxlength="100" /></td>
-                                <td><form:input path="nombreCompletoProyecto" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el nombre completo" maxlength="100" /></td>
+                                <td>
+                                    <div class="selectContainer">  
+                                        <form:select path="convocatoria" data-validation="required" data-validation-error-msg="Debe seleccionar la convocatoria" cssClass="form-control">
+                                            <form:option value=""></form:option>
+                                            <form:options items="${convocatorias}" itemLabel="nombre" itemValue="idConvocatoria" />
+                                        </form:select>
+                                    </div>  
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Nombre completo proyecto:</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><form:input path="nombreCompletoProyecto" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el nombre completo" maxlength="100" /></td>
                             </tr>
                             <tr>
                                 <td>Fecha de inicio:</td>
@@ -64,19 +77,19 @@
                                 <td><form:checkbox path="ingresadoSIU" /></td>
                             </tr>
                             <tr>
-                                <td>C&oacute;digo SIIU:</td>
                                 <td>C&oacute;digo COLCIENCIAS:</td>
+                                <td>C&oacute;digo SIIU:</td>
                                 <td>C&oacute;digo SIU</td>
                             </tr>
                             <tr>
-                                <td><form:input path="codigoSIIU" class="form-control" maxlength="50" /></td>
                                 <td><form:input path="codigoCOLCIENCIAS" class="form-control" data-validation="required" maxlength="50" data-validation-error-msg="Debe ingresar el c&oacute;digo COLCIENCIAS" /></td>
+                                <td><form:input path="codigoSIIU" class="form-control" maxlength="50" /></td>
                                 <td><form:input path="codigoSIU" class="form-control" data-validation="required" maxlength="50" data-validation-error-msg="Debe ingresar el c&oacute;digo SIU" /></td>
                             </tr>
                             <tr>
                                 <td>Participaci&oacute;n internacional:</td>
                                 <td>Tipo de proyecto:</td>
-                                <td>Grupo de investigaci&oacute;nn:</td>
+                                <td>Tipo de contrato:</td>
                             </tr>
                             <tr>
                                 <td><form:checkbox path="participacionInternacional" /></td>
@@ -89,21 +102,6 @@
                                     </div>  
                                 </td>
                                 <td>
-                                    <div class="selectContainer">
-                                        <form:select path="grupoInvestigacion" data-validation="required" data-validation-error-msg="Debe seleccionar el grupo de investigación" cssClass="form-control">
-                                            <form:option value=""></form:option>
-                                            <form:options items="${gruposInvestigacion}" itemLabel="nombre" itemValue="idGrupoInvestigacion"/>
-                                        </form:select>
-                                    </div>                                      
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Tipo de contrato:</td>
-                                <td>Enfoque metodol&oacute;gico:</td>
-                                <td>Convocatoria:</td>
-                            </tr>
-                            <tr>
-                                <td>
                                     <div class="selectContainer">  
                                         <form:select path="tipoContrato" data-validation="required" data-validation-error-msg="Debe seleccionar el tipo de contrato" cssClass="form-control">
                                             <form:option value=""></form:option>
@@ -111,7 +109,14 @@
                                         </form:select>
                                     </div>  
                                 </td>
-                                <td>
+                            </tr>
+                            <tr>
+                                <td>Enfoque metodol&oacute;gico:</td>
+                                <td>Riesgo &eacute;tico:</td>
+                                <td>Estado:</td>
+                            </tr>
+                            <tr>
+                                <td colspan="2">
                                     <div class="selectContainer">  
                                         <form:select path="enfoqueMetodologico" data-validation="required" data-validation-error-msg="Debe seleccionar el enfoque metodológico" cssClass="form-control">
                                             <form:option value=""></form:option>
@@ -121,36 +126,26 @@
                                 </td>
                                 <td>
                                     <div class="selectContainer">  
-                                        <form:select path="convocatoria" data-validation="required" data-validation-error-msg="Debe seleccionar la convocatoria" cssClass="form-control">
-                                            <form:option value=""></form:option>
-                                            <form:options items="${convocatorias}" itemLabel="nombre" itemValue="idConvocatoria" />
-                                        </form:select>
-                                    </div>  
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>Objetivo general:</td>
-                                <td>Estado:</td>
-                                <td>Riesgo &eacute;tico:</td>
-                            </tr>
-                            <tr>
-                                <td><form:input path="objetivoGeneral" class="form-control" maxlength="100" data-validation="required" data-validation-error-msg="Debe ingresar el objetivo general del proyecto" /></td>
-                                <td>
-                                    <div class="selectContainer">  
-                                        <form:select path="estado" data-validation="required" data-validation-error-msg="Debe seleccionar el estado" cssClass="form-control">
-                                            <form:option value=""></form:option>
-                                            <form:options items="${estadosProyecto}" itemLabel="nombre" itemValue="idEstadoProyecto" />
-                                        </form:select>  
-                                    </div>
-                                </td>
-                                <td>
-                                    <div class="selectContainer">  
                                         <form:select path="riesgoEtico" data-validation="required" data-validation-error-msg="Debe seleccionar el riesgo ético" cssClass="form-control">
                                             <form:option value=""></form:option>
                                             <form:options items="${riesgosEticos}" itemLabel="nombre" itemValue="idRiesgoEtico"/>
                                         </form:select>
                                     </div>
                                 </td>
+                                <td>
+                                    <div class="selectContainer">  
+                                        <form:select path="estado" data-validation="required" data-validation-error-msg="Debe seleccionar el estado" cssClass="form-control" disabled="true">
+                                            <form:option value=""></form:option>
+                                            <form:options items="${estadosProyecto}" itemLabel="nombre" itemValue="idEstadoProyecto" />
+                                        </form:select>  
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Objetivo general:</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><form:input path="objetivoGeneral" class="form-control" maxlength="100" data-validation="required" data-validation-error-msg="Debe ingresar el objetivo general del proyecto" /></td>
                             </tr>                            
                         </table>
                         <ul class="nav nav-tabs">
@@ -159,6 +154,9 @@
                           <li><a data-toggle="tab" href="#profesores">Profesores</a></li>
                           <li><a data-toggle="tab" href="#estudiantes">Estudiantes</a></li>
                           <li><a data-toggle="tab" href="#personalExterno">Personal Externo</a></li>
+                          <li><a data-toggle="tab" href="#gruposInvestigacion">Grupos de Investigación</a></li>
+                          <li><a data-toggle="tab" href="#entidadesInternacionales">Entidades Internacionales</a></li>
+                          <li><a data-toggle="tab" href="#fuentesFinanciacion">Fuentes de Financiación</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="objetivosEspecificos" class="tab-pane fade in active">
@@ -449,45 +447,52 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Código vinculación U. de A.:</td>
+                                                        <td>Tipo vinculación U. de A.:</td>
                                                         <td>Carta de cesión de derechos patrimonio:</td>
                                                     </tr>
                                                     <tr>
-                                                        <td><input type="text" id="codigoVinculacionUdeAProfesor" name="codigoVinculacionUdeAProfesor" class="form-control" /></td>
+                                                        <td>
+                                                            <select name="tipoViculacionProfesor" id="tipoViculacionProfesor" class="form-control">
+                                                                <option value=""></option>
+                                                                <c:forEach var="tipoVinculacion" items="${tiposVinculacion}">
+                                                                    <option value="${tipoVinculacion.getIdTipoVinculacion()}">${tipoVinculacion.getNombre()}</option>
+                                                                </c:forEach>
+                                                            </select>      
+                                                        </td>
                                                         <td><input type="checkbox" id="cartaCesionDerechosPatrimonioProfesor" name="cartaCesionDerechosPatrimonioProfesor" cssClass="form-control" /></td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Porcentaje de propiedad intelectual:</td>
-                                                        <td>Horas semana:</td>
+                                                        <td>Horas semana plan:</td>
+                                                        <td>Meses dedicados plan:</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
-                                                            <input type="text" id="porcentajePIProfesor" name="porcentajePIProfesor" class="form-control numbersOnly" maxlength="3" />
-                                                        </td>
                                                         <td>
                                                             <input type="text" id="horasSemanaProfesor" name="horasSemanaProfesor" class="form-control numbersOnly" maxlength="3" />
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Meses dedicados:</td>
-                                                        <td>Horas semana fuera del plan:</td>
-                                                    </tr>
-                                                    <tr>
                                                         <td>
                                                             <input type="text" id="mesesDedicadosProfesor" name="mesesDedicadosProfesor" class="form-control numbersOnly" maxlength="5" />
                                                         </td>
+                                                    </tr>                                
+                                                    <tr>
+                                                        <td>Horas semana fuera del plan:</td>
+                                                        <td>Meses fuera plan</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>
                                                             <input type="text" id="horasSemanaFueraPlanProfesor" name="horasSemanaFueraPlanProfesor" class="form-control numbersOnly" maxlength="3" />
                                                         </td>
-                                                    </tr>                                
-                                                    <tr>
-                                                        <td colspan="2">Meses fuera plan</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
+                                                        <td>
                                                             <input type="text" id="mesesFueraPlanProfesor" name="mesesFueraPlanProfesor" class="form-control numbersOnly" maxlength="5" />
                                                         </td>
                                                     </tr>                            
+                                                    <tr>
+                                                        <td colspan="2">Porcentaje de propiedad intelectual:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <input type="text" id="porcentajePIProfesor" name="porcentajePIProfesor" class="form-control numbersOnly" maxlength="3" />
+                                                        </td>
+                                                    </tr>
                                                 </table>
                                             </div>
                                             <div class="modal-footer">
@@ -561,7 +566,8 @@
                                                 <input type="hidden" class="form-control" data-bind="value: contacto, attr: { 'name': 'profesoresProyecto[' + $index() + '].contacto'  }">
                                                 <input type="hidden" class="form-control" data-bind="value: descripcionFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].descripcionFacultad'  }">
                                                 <input type="hidden" class="form-control" data-bind="value: idFacultad, attr: { 'name': 'profesoresProyecto[' + $index() + '].idFacultad'  }">
-                                                <input type="hidden" class="form-control" data-bind="value: codigoVinculacionUdeA, attr: { 'name': 'profesoresProyecto[' + $index() + '].codigoVinculacionUdeA'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idTipoVinculacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].idTipoVinculacion'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: nombreTipoVinculacion, attr: { 'name': 'profesoresProyecto[' + $index() + '].nombreTipoVinculacion'  }">
                                                 <input type="hidden" class="form-control" data-bind="value: cartaCesionDerechosPatrimonio, attr: { 'name': 'profesoresProyecto[' + $index() + '].cartaCesionDerechosPatrimonio'  }">
                                                 <input type="hidden" class="form-control" data-bind="value: porcentajePI, attr: { 'name': 'profesoresProyecto[' + $index() + '].porcentajePI' }">
                                                 <input type="hidden" class="form-control" data-bind="value: horasSemana, attr: { 'name': 'profesoresProyecto[' + $index() + '].horasSemana' }">
@@ -1005,6 +1011,316 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div id="gruposInvestigacion" class="tab-pane fade in active">
+                                <div class="alert alert-info" style="margin-top:20px;">
+                                    <strong>Grupos de Investigación</strong>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevoGrupoInvestigacion(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>                            
+                                </div>  
+                                <div class="modal fade" id="gruposInvestigacionModal" tabindex="-1" role="dialog" aria-labelledby="gruposInvestigacionModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Grupo de Investigación</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_grupoInvestigacion"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td>
+                                                            <select name="grupoInvestigacion" id="grupoInvestigacion" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="grupoInvestigacion" items="${gruposInvestigacion}">
+                                                                <option value="${grupoInvestigacion.getIdGrupoInvestigacion()}">${grupoInvestigacion.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>   
+                                                            <input type="hidden" id="consecutivo" name="consecutivo" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarGrupoInvestigacion">Aceptar</button>
+                                            </div>                                    
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="modal fade" id="confirmacionEliminacionGrupoInvestigacion" tabindex="-1" role="dialog" aria-labelledby="grupoInvestigacionModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Eliminar Grupo de Investigación</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de eliminar el grupo de investigación?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-danger btn-ok" onclick="eliminarGrupoInvestigacion();">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                    <thead>
+                                        <tr class="table-row">
+                                            <th style="width: 90%;text-align: center">Grupo de Investigación</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: { data: gruposInvestigacion }">
+                                        <tr class="table-row">
+                                            <td style="width: 90%">
+                                                <span data-bind="text: nombre" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'gruposInvestigacion[' + $index() + '].nombre'  }">
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarGrupoInvestigacion">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                                <input type="hidden" data-bind="value: idGrupoInvestigacion, attr: { 'name': 'gruposInvestigacion[' + $index() + '].idGrupoInvestigacion'  }" />
+                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'gruposInvestigacion[' + $index() + '].consecutivo'  }" />
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarGrupoInvestigacion">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>                 
+                            <div id="entidadesInternacionales" class="tab-pane fade in active">
+                                <div class="alert alert-info" style="margin-top:20px;">
+                                    <strong>Entidades Internacionales</strong>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevaEntidadInternacional(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>                            
+                                </div>  
+                                <div class="modal fade" id="entidadesInternacionalesModal" tabindex="-1" role="dialog" aria-labelledby="entidadesInternacionalesLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Entidad Internacional</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_entidadInternacional"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td>
+                                                            <input id="entidadInternacional" name="entidadInternacional" class="form-control" maxlength="200" />
+                                                            <input type="hidden" id="consecutivo" name="consecutivo" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarEntidadInternacional">Aceptar</button>
+                                            </div>                                    
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="modal fade" id="confirmacionEliminacionEntidadInternacional" tabindex="-1" role="dialog" aria-labelledby="EntidadInternacionalModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Eliminar Entidad Internacional</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de eliminar la entidad internacional?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-danger btn-ok" onclick="eliminarEntidadInternacional();">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                    <thead>
+                                        <tr class="table-row">
+                                            <th style="width: 90%;text-align: center">Entidad Internacional</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: { data: entidadesInternacionales }">
+                                        <tr class="table-row">
+                                            <td style="width: 90%">
+                                                <span data-bind="text: nombre" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'entidadesInternacionales[' + $index() + '].nombre'  }">
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarEntidadInternacional">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                                <input type="hidden" data-bind="value: idEntidadInternacional, attr: { 'name': 'entidadesInternacionales[' + $index() + '].idEntidadInternacional'  }" />
+                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'entidadesInternacionales[' + $index() + '].consecutivo'  }" />
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarEntidadInternacional">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>   
+                            <div id="fuentesFinanciacion" class="tab-pane fade">
+                                <div class="alert alert-info" style="margin-top:20px;">
+                                    <strong>Fuentes de Financiación</strong>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevaFuenteFinanciacionProyecto(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>
+                                </div>
+                                <div class="modal fade" id="fuenteFinanciacionProyectoModal" tabindex="-1" role="dialog" aria-labelledby="fuenteFinanciacionProyectoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Fuente Financiación</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_fuentesFinanciacion_proyecto"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td width="50%">Fuente:</td>
+                                                        <td width="50%">Tipo de fuente:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="fuenteFinanciacion" id="fuenteFinanciacion" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="fuenteFinanciacion" items="${fuentesFinanciacion}">
+                                                                <option value="${fuenteFinanciacion.getIdFuenteFinanciacion()}">${fuenteFinanciacion.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <select name="tipoFuenteFinanciacionProyecto" id="tipoFuenteFinanciacionProyecto" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoFuenteFinanciacion" items="${tiopsFuentesFinanciacionProyecto}">
+                                                                <option value="${tipoFuenteFinanciacion.getIdTipoFuenteFinanciacionProyecto()}">${tipoFuenteFinanciacion.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Monto en recursos frescos:</td>
+                                                        <td>Monto en especies:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                           <input type="text" class="numbersOnly form-control currencyField" id="montoFrescos" name="montoFrescos" />
+                                                        </td>
+                                                        <td>
+                                                           <input type="text" class="numbersOnly form-control currencyField" id="montoEspecies" name="montoEspecies" />
+                                                        </td>                                    
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarFuenteFinanciacionProyecto">Aceptar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>  
+                                <div class="modal fade" id="confirmacionEliminacionFuenteFinanciacionProyecto" tabindex="-1" role="dialog" aria-labelledby="fuenteFinanciacionProyectoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Eliminar Fuente Financiación</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de eliminar la fuente de financiación?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-danger btn-ok" onclick="eliminarFuenteFinanciacionProyecto();">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                  
+                                <table class="table table-hover tablaForm" style="width: 90%" align="center">
+                                    <thead>
+                                        <tr class="table-row">
+                                            <th style="width: 20%;text-align: center">Fuente financiación</th>
+                                            <th style="width: 20%;text-align: center">Tipo de fuente</th>
+                                            <th style="width: 20%;text-align: center">Monto en recursos frescos</th>
+                                            <th style="width: 20%;text-align: center">Monto en especies</th>
+                                            <th style="width: 10%">&nbsp;</th>
+                                            <th style="width: 10%">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: { data: fuentesFinanciacion }">
+                                        <tr class="table-row">
+                                            <td style="width: 20%">
+                                                <span data-bind="text: nombreFuenteFinanciacion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: nombreFuenteFinanciacion, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].nombreFuenteFinanciacion'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idFuenteFinanciacion, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].idFuenteFinanciacion'  }">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: nombreTipoFuenteFinanciacionProyecto" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: idTipoFuenteFinanciacionProyecto, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].idTipoFuenteFinanciacionProyecto'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: nombreFuenteFinanciacionProyecto, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].nombreTipoFuenteFinanciacionProyecto'  }">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: montoFrescosFormateado" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: montoFrescos, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].montoFrescos'  }">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: montoEspeciesFormateado" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: montoEspecies, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].montoEspecies'  }">
+                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].consecutivo'  }" />
+                                            </td>
+                                            <td style="width: 5%" align="center">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarFuenteFinanciacion">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td style="width: 5%" align="center">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarFuenteFinanciacion">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <table class='table table-hover' style='font-size:12px;'> 
                             <tr>
@@ -1027,6 +1343,11 @@
             </div>
         </div>
         <script>
+            var optsFC = { decimalSymbol: '.', digitGroupSymbol: ',' };
+            $(document).ready(function () {
+                $('.currencyField').css('text-align', 'right').formatCurrency(optsFC);
+            });
+            
             $.validate({
                 validateOnBlur: false, // disable validation when input looses focus
                 errorMessagePosition: 'top', // Instead of 'inline' which is default
@@ -1049,6 +1370,16 @@
                $('#confirmacionEliminacionObjetivoEspecifico').modal('toggle');
             }    
 
+            function eliminarGrupoInvestigacion() {
+               proyectoModel.gruposInvestigacion.remove(grupoInvestigacionEliminar);
+               $('#confirmacionEliminacionGrupoInvestigacion').modal('toggle');
+            }   
+
+            function eliminarEntidadInternacional() {
+               proyectoModel.entidadesInternacionales.remove(entidadInternacionalEliminar);
+               $('#confirmacionEliminacionEntidadInternacional').modal('toggle');
+            }   
+
             function eliminarProfesorProyecto() {
                proyectoModel.profesoresProyecto.remove(profesorProyectoEliminar);
                $('#confirmacionEliminacionProfesorProyecto').modal('toggle');
@@ -1069,7 +1400,12 @@
                $('#confirmacionEliminacionCompromisoProyecto').modal('toggle');
             }    
 
-            var ProyectoModel = function (objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto) {
+            function eliminarFuenteFinanciacionProyecto() {
+               proyectoModel.fuentesFinanciacionProyecto.remove(fuenteFinanciacionProyectoEliminar);
+               $('#confirmacionEliminacionFuenteFinanciacionProyecto').modal('toggle');
+            } 
+
+            var ProyectoModel = function (objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, gruposInvestigacion, entidadesInternacionales, fuentesFinanciacionProyecto) {
                 self = this;
 
                 self.objetivosEspecificos = ko.observableArray(objetivosEspecificos);
@@ -1188,8 +1524,8 @@
                         bootstrap_alert_profesores_proyecto.warning('Debe seleccionar el rol');
                         return false;
                     }
-                    if ($('#codigoVinculacionUdeAProfesor').val() == "") {
-                        bootstrap_alert_profesores_proyecto.warning('Debe ingresar el código de vinculación a la U de A');
+                    if ($('#tipoVinculacion').val() == "") {
+                        bootstrap_alert_profesores_proyecto.warning('Debe seleccionar el tipo vinculación a la U de A');
                         return false;
                     }
                     if ($('#porcentajePIProfesor').val() == "") {
@@ -1228,7 +1564,8 @@
                             descripcionFacultad: ko.observable($('#facultadProfesor option:selected').text()),
                             idRol: ko.observable($('#rolProfesor').val()),
                             descripcionRol: ko.observable($('#rolProfesor option:selected').text()),
-                            codigoVinculacionUdeA: ko.observable($('#codigoVinculacionUdeAProfesor').val()),
+                            nombreTipoVinculacion: ko.observable($('#tipoVinculacionProfesor option:selected').text()),
+                            idTipoVinculacion: ko.observable($('#tipoVinculacionProfesor').val()),
                             cartaCesionDerechosPatrimonio: ko.observable($('#cartaCesionDerechosPatrimonioProfesor').is(":checked")),
                             porcentajePI: ko.observable($('#porcentajePIProfesor').val()),
                             horasSemana: ko.observable($('#horasSemanaProfesor').val()),
@@ -1257,7 +1594,8 @@
                             self.profesoresProyecto()[indice].descripcionFacultad( $('#facultadProfesor option:selected').text());
                             self.profesoresProyecto()[indice].idRol( $('#rolProfesor').val());
                             self.profesoresProyecto()[indice].descripcionRol($('#rolProfesor option:selected').text());
-                            self.profesoresProyecto()[indice].codigoVinculacionUdeA( $('#codigoVinculacionUdeAProfesor').val());
+                            self.profesoresProyecto()[indice].idTipoVinculacion( $('#tipoVinculacionProfesor').val());
+                            self.profesoresProyecto()[indice].nombreTipoVinculacion($('#tipoVinculacionProfesor option:selected').text());
                             self.profesoresProyecto()[indice].cartaCesionDerechosPatrimonio( $('#cartaCesionDerechosPatrimonioProfesor').is(":checked"));
                             self.profesoresProyecto()[indice].porcentajePI( $('#porcentajePIProfesor').val());
                             self.profesoresProyecto()[indice].horasSemana( $('#horasSemanaProfesor').val());
@@ -1284,7 +1622,7 @@
                     $('#contactoProfesor').val(profesorProyecto.contacto());
                     $('#facultadProfesor').val(profesorProyecto.idFacultad());
                     $('#rolProfesor').val(profesorProyecto.idRol());
-                    $('#codigoVinculacionUdeAProfesor').val(profesorProyecto.codigoVinculacionUdeA());
+                    $('#tipoVinculacionProfesor').val(profesorProyecto.idTipoVinculacion());
                     $('#cartaCesionDerechosPatrimonioProfesor').prop('checked', profesorProyecto.cartaCesionDerechosPatrimonio());
                     $('#porcentajePIProfesor').val(profesorProyecto.porcentajePI());
                     $('#horasSemanaProfesor').val(profesorProyecto.horasSemana());
@@ -1548,6 +1886,157 @@
                     
                     $('#personalExternoProyectoModal').modal('show');
                 };
+                
+                self.gruposInvestigacion = ko.observableArray(gruposInvestigacion);
+                self.adicionarGrupoInvestigacion = function () {
+                    if ($('#grupoInvestigacion').val() == "") {
+                        bootstrap_alert_grupoInvestigacion.warning('Debe seleccionar el grupo de investigación');
+                        return false;
+                    }
+                    $('#gruposInvestigacionModal').modal('toggle');
+                    bootstrap_alert_grupoInvestigacion.removeWarning();
+                    if($('#consecutivo').val() == "") {
+                        for(i = 0; i < self.gruposInvestigacion().length; i++) {
+                            if(self.gruposInvestigacion()[i].idGrupoInvestigacion() == $('#grupoInvestigacion').val()) {
+                               bootstrap_alert_grupoInvestigacion.warning('El grupo de investigación ya hace parte del proyecto');
+                               return false;                               
+                            }
+                        }                        
+                        self.gruposInvestigacion.push({
+                            idGrupoInvestigacion: ko.observable($('#grupoInvestigacion').val()),
+                            consecutivo: ko.observable(self.gruposInvestigacion().length + 1),
+                            nombre: ko.observable($('#grupoInvestigacion option:selected').text())
+                        });
+                    } else {
+                        var consecutivo = parseInt($('#consecutivo').val(), 10);
+                        var indice = 0;
+                        for(i = 0; i < self.gruposInvestigacion().length; i++) {
+                           if(self.gruposInvestigacion()[i].consecutivo() == consecutivo){
+                              indice = i; 
+                              break;
+                           }
+                        }
+                        self.gruposInvestigacion()[indice].idGrupoInvestigacion($('#grupoInvestigacion').val());
+                        self.gruposInvestigacion()[indice].nombre($('#grupoInvestigacion option:selected').text());
+                    }
+                    
+                    limpiarDatosVentanaGrupoInvestigacion();
+                };
+                self.eliminarGrupoInvestigacion = function (grupoInvestigacion) {
+                    grupoInvestigacionEliminar = grupoInvestigacion;
+                    $('#confirmacionEliminacionGrupoInvestigacion').modal('show');                    
+                };
+                self.editarGrupoInvestigacion = function (grupoInvestigacion) {
+                    $('#grupoInvestigacion').val(grupoInvestigacion.idGrupoInvestigacion());
+                    $('#consecutivo').val(grupoInvestigacion.consecutivo());
+                    $('#gruposInvestigacionModal').modal('show'); 
+                };
+
+                self.entidadesInternacionales = ko.observableArray(entidadesInternacionales);
+                self.adicionarEntidadInternacional = function () {
+                    if ($('#entidadInternacional').val() == "") {
+                        bootstrap_alert_entidadInternacional.warning('Debe ingresar la entidad internacional');
+                        return false;
+                    }
+                    $('#entidadesInternacionalesModal').modal('toggle');
+                    bootstrap_alert_entidadInternacional.removeWarning();
+                    if($('#consecutivo').val() == "") {
+                        self.entidadesInternacionales.push({
+                            idEntidadInternacional: ko.observable(0),
+                            consecutivo: ko.observable(self.entidadesInternacionales().length + 1),
+                            nombre: ko.observable($('#entidadInternacional').val())
+                        });
+                    } else {
+                        var consecutivo = parseInt($('#consecutivo').val(), 10);
+                        var indice = 0;
+                        for(i = 0; i < self.entidadesInternacionales().length; i++) {
+                           if(self.entidadesInternacionales()[i].consecutivo() == consecutivo){
+                              indice = i; 
+                              break;
+                           }
+                        }
+                        self.entidadesInternacionales()[indice].nombre($('#entidadInternacional').val());
+                    }
+                    
+                    limpiarDatosVentanaEntidadInternacional();
+                };
+                self.eliminarEntidadInternacional = function (entidadInternacional) {
+                    entidadInternacionalEliminar = entidadInternacional;
+                    $('#confirmacionEliminacionEntidadInternacional').modal('show');                    
+                };
+                self.editarEntidadInternacional = function (entidadInternacional) {
+                    $('#entidadInternacional').val(entidadInternacional.nombre());
+                    $('#consecutivo').val(entidadInternacional.consecutivo());
+                    $('#entidadesInternacionalesModal').modal('show'); 
+                };
+
+                self.fuentesFinanciacionProyecto = ko.observableArray(fuentesFinanciacionProyecto);
+                self.adicionarFuenteFinanciacionProyecto = function () {
+                    if ($('#fuenteFinanciacion').val() == "") {
+                        bootstrap_alert_fuenteFinanciacion_proyecto.warning('Debe seleccionar la fuente de financiación');
+                        return false;
+                    }
+                    if ($('#tipoFuenteFinanciacionProyecto').val() == "") {
+                        bootstrap_alert_fuenteFinanciacion_proyecto.warning('Debe seleccionar el tipo de fuente de financiación');
+                        return false;
+                    }
+                    if ($('#montoEspecies').val() == "") {
+                        bootstrap_alert_fuenteFinanciacion_proyecto.warning('Debe ingresar el monto en especies');
+                        return false;
+                    }
+                    if ($('#montoFrescos').val() == "") {
+                        bootstrap_alert_fuenteFinanciacion_proyecto.warning('Debe ingresar el monto en recursos frescos');
+                        return false;
+                    }                    
+                    if($('#consecutivo').val() == "") {
+                        self.fuentesFinanciacionProyecto.push({
+                            idFuenteFinanciacionProyecto: ko.observable(0),
+                            idFuenteFinanciacion: ko.observable($('#fuenteFinanciacion').val()),
+                            nombreFuenteFinanciacion: ko.observable($('#fuenteFinanciacion option:selected').text()),
+                            idTipoFuenteFinanciacionProyecto: ko.observable($('#tipoFuenteFinanciacionProyecto').val()),
+                            nombreTipoFuenteFinanciacionProyecto: ko.observable($('#tipoFuenteFinanciacionProyecto option:selected').text()),
+                            montoEspecies : ko.observable($('#montoEspecies').val().replace("$", "").replace(",", "")),
+                            montoEspeciesFormateada : ko.observable($('#montoEspecies').val()),
+                            montoFrescos : ko.observable($('#montoFrescos').val().replace("$", "").replace(",", "")),
+                            montoFrescosFormateada : ko.observable($('#montoFrescos').val()),
+                            consecutivo: ko.observable(self.profesoresProyecto().length + 1)
+                        });
+                    } else {
+                            var consecutivo = parseInt($('#consecutivo').val(), 10);
+                            var indice = 0;
+                            for(i = 0; i < self.fuentesFinanciacionProyecto().length; i++) {
+                                if(self.fuentesFinanciacionProyecto()[i].consecutivo() == consecutivo){
+                                   indice = i; 
+                                   break;
+                                }
+                            }
+                            self.fuentesFinanciacionProyecto()[indice].idFuenteFinanciacion($('#fuenteFinanciacion').val());
+                            self.fuentesFinanciacionProyecto()[indice].nombreFuenteFinanciacion($('#fuenteFinanciacion option:selected').text());
+                            self.fuentesFinanciacionProyecto()[indice].idTipoFuenteFinanciacionProyecto($('#tipoFuenteFinanciacionProyecto').val());
+                            self.fuentesFinanciacionProyecto()[indice].nombreTipoFuenteFinanciacionProyecto( $('#tipoFuenteFinanciacionProyecto option:selected').val());
+                            self.fuentesFinanciacionProyecto()[indice].montoEspecies( $('#montoEspecies').val().replace("$", "").replace(",", ""));
+                            self.fuentesFinanciacionProyecto()[indice].montoFrescos( $('#montoFrescos').val().replace("$", "").replace(",", ""));
+                            self.fuentesFinanciacionProyecto()[indice].montoEspeciesFormateado( $('#montoEspecies').val());
+                            self.fuentesFinanciacionProyecto()[indice].montoFrescosFormateado( $('#montoFrescos').val());
+                    }
+
+                   $('#fuenteFinanciacionProyectoModal').modal('toggle');
+                   bootstrap_alert_fuentesFinanciacion_proyecto.removeWarning();
+                   limpiarDatosVentanaFuenteFinanciacionProyecto();
+                };
+                self.eliminarFuenteFinanciacionProyecto = function (fuenteFinanciacionProyecto) {
+                    fuenteFinanciacionProyectoEliminar = fuenteFinanciacionProyecto;
+                    $('#confirmacionEliminacionFuenteFinanciacionProyecto').modal('show');                    
+                };
+                self.editarFuenteFinanciacionProyecto = function (fuenteFinanciacionProyecto) {
+                    $('#consecutivo').val(fuenteFinanciacionProyecto.consecutivo());
+                    $('#idFuenteFinanciacion').val(fuenteFinanciacionProyecto.idFuenteFinanciacion());
+                    $('#idTipoFuenteFinanciacionProyecto').val(fuenteFinanciacionProyecto.idTipoFuenteFinanciacionProyecto());
+                    $('#montoEspecies').val(fuenteFinanciacionProyecto.montoEspecies());
+                    $('#montoFrescos').val(fuenteFinanciacionProyecto.montoFrescos());
+                    
+                    $('#fuenteFinanciacionProyectoModal').modal('show');
+                };
             };
 
             var objetivosEspecificos = new Array();
@@ -1555,12 +2044,18 @@
             var estudiantesProyecto = new Array();
             var personalExternoProyecto = new Array();
             var compromisosProyecto = new Array();
-
+            var gruposInvestigacion = new Array();
+            var entidadesInternacionales = new Array();
+            var fuentesFinanciacionProyecto = new Array();
+            
             var objetivoEspecificoEliminar = null;
             var profesorProyectoEliminar = null;
             var estudianteProyectoEliminar = null;
             var personalExternoProyectoEliminar = null;
             var compromisoProyectoEliminar = null;
+            var grupoInvestigacionEliminar = null;
+            var entidadInternacionalEliminar = null;
+            var fuenteFinanciacionProyectoEliminar = null;
 
             <c:if test = "${objetivosEspecificosJSON != null}">
             objetivosEspecificos = ${objetivosEspecificosJSON};
@@ -1577,8 +2072,17 @@
             <c:if test = "${compromisosProyectoJSON != null}">
             compromisosProyecto = ${compromisosProyectoJSON};
             </c:if>
+            <c:if test = "${gruposInvestigacionJSON != null}">
+            gruposInvestigacion = ${gruposInvestigacionJSON};
+            </c:if>
+            <c:if test = "${entidadesInternacionalesJSON != null}">
+            entidadesInternacionales = ${entidadesInternacionalesJSON};
+            </c:if>
+            <c:if test = "${fuentesFinanciacionProyectoJSON != null}">
+            fuentesFinanciacionProyecto = ${fuentesFinanciacionProyectoJSON};
+            </c:if>
                 
-            var proyectoModel = new ProyectoModel(objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto);
+            var proyectoModel = new ProyectoModel(objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, gruposInvestigacion, entidadesInternacionales, fuentesFinanciacionProyecto);
             ko.applyBindings(proyectoModel);
 
             bootstrap_alert_objetivosEspecificos = function () { };
@@ -1636,7 +2140,7 @@
                 $('#correoElectronicoProfesor').val("");
                 $('#facultadProfesor').val("");
                 $('#rolProfesor').val("");
-                $('#codigoVinculacionUdeAProfesor').val("");
+                $('#tipoVinculacionProfesor').val("");
                 $('#cartaCesionDerechosPatrimonioProfesor').prop('checked', false);
                 $('#porcentajePIProfesor').val("");
                 $('#horasSemanaProfesor').val("");
@@ -1825,4 +2329,55 @@
                     }
                 }
            }
+           
+            bootstrap_alert_grupoInvestigacion = function () { };
+            bootstrap_alert_grupoInvestigacion.warning = function (message) {
+                $('#alert_placeholder_grupoInvestigacion').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_grupoInvestigacion.removeWarning = function () {
+                $('#alert_placeholder_grupoInvestigacion').html('');
+            };
+            function mostrarVentanaNuevoGrupoInvestigacion() {
+                limpiarDatosVentanaGrupoInvestigacion();
+                $('#gruposInvestigacionModal').modal('show'); 
+            }
+            function limpiarDatosVentanaGrupoInvestigacion() {
+                $('#grupoInvestigacion').val("");
+                $('#consecutivo').val("");
+            }
+            
+            bootstrap_alert_entidadInternacional = function () { };
+            bootstrap_alert_entidadInternacional.warning = function (message) {
+                $('#alert_placeholder_entidadInternacional').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_entidadInternacional.removeWarning = function () {
+                $('#alert_placeholder_entidadInternacional').html('');
+            };
+            function mostrarVentanaNuevaEntidadInternacional() {
+                limpiarDatosVentanaEntidadInternacional();
+                $('#entidadesInternacionalesModal').modal('show'); 
+            }
+            function limpiarDatosVentanaEntidadInternacional() {
+                $('#entidadInternacional').val("");
+                $('#consecutivo').val("");
+            }            
+            
+            bootstrap_alert_fuenteFinanciacion_proyecto = function () { };
+            bootstrap_alert_fuenteFinanciacion_proyecto.warning = function (message) {
+                $('#alert_placeholder_fuentesFinanciacion_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_fuenteFinanciacion_proyecto.removeWarning = function () {
+                $('#alert_placeholder_fuentesFinanciacion_proyecto').html('');
+            };
+            function mostrarVentanaNuevaFuenteFinanciacionProyecto() {
+                limpiarDatosVentanaFuenteFinanciacionProyecto();
+                $('#fuenteFinanciacionProyectoModal').modal('show'); 
+            }
+            function limpiarDatosVentanaFuenteFinanciacionProyecto() {
+                $('#fuenteFinanciacion').val("");
+                $('#tipoFuenteFinanciacionProyecto').val("");
+                $('#montoEspecies').val("");
+                $('#montoFrescos').val("");
+                $('#consecutivo').val("");
+            }             
         </script>

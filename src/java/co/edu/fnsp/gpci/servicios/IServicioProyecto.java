@@ -23,7 +23,7 @@ public interface IServicioProyecto {
     void actualizarProyecto(Proyecto proyecto);
     Proyecto obtenerProyecto(long idProyecto);
     ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal);
-    Profesor obtenerProfesor(long numeroIdentificacion, int idTipoIdentificacion);
-    Estudiante obtenerEstudiante(long numeroIdentificacion, int idTipoIdentificacion);
-    PersonalExterno obtenerPersonalExterno(long numeroIdentificacion, int idTipoIdentificacion);
+    Profesor obtenerProfesor(int idTipoIdentificacion, long numeroIdentificacion);
+    Estudiante obtenerEstudiante(int idTipoIdentificacion, long numeroIdentificacion);
+    PersonalExterno obtenerPersonalExterno(int idTipoIdentificacion, long numeroIdentificacion);
 }

@@ -5,8 +5,6 @@
  */
 package co.edu.fnsp.gpci.entidades;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -31,7 +29,6 @@ public class Proyecto {
     private String codigo;
     private boolean participacionInternacional;
     private TipoProyecto tipoProyecto = new TipoProyecto();
-    private GrupoInvestigacion grupoInvestigacion = new GrupoInvestigacion();
     private RiesgoEtico riesgoEtico = new RiesgoEtico();
     private TipoContrato tipoContrato = new TipoContrato();
     private EnfoqueMetodologico enfoqueMetodologico = new EnfoqueMetodologico();
@@ -47,10 +44,15 @@ public class Proyecto {
     private ArrayList<co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto> profesoresProyecto = new ArrayList<>();
     private ArrayList<ActaProyecto> actasProyecto = new ArrayList<>();
     private ArrayList<ProrrogaProyecto> prorrogasProyecto = new ArrayList<>();
-    private ArrayList<AdendaProyecto> adendasProyecto = new ArrayList<>();
+    private ArrayList<AdendaIngresoProyecto> adendasIngresoProyecto = new ArrayList<>();
+    private ArrayList<AdendaCambioProyecto> adendasCambioProyecto = new ArrayList<>();
+    private ArrayList<AdendaRetiroProyecto> adendasRetiroProyecto = new ArrayList<>();
     private ArrayList<AdicionProyecto> adicionesProyecto = new ArrayList<>();
     private ArrayList<PlazoProyecto> plazosProyecto = new ArrayList<>();
-     
+    private ArrayList<GrupoInvestigacion> gruposInvestigacion = new ArrayList<>();
+    private ArrayList<EntidadInternacional> entidadesInternacionales = new ArrayList<>();
+    private ArrayList<co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = new ArrayList<>();
+
     /**
      * @return the personalExternoProyecto
      */
@@ -332,20 +334,6 @@ public class Proyecto {
     }
 
     /**
-     * @return the grupoInvestigacion
-     */
-    public GrupoInvestigacion getGrupoInvestigacion() {
-        return grupoInvestigacion;
-    }
-
-    /**
-     * @param grupoInvestigacion the grupoInvestigacion to set
-     */
-    public void setGrupoInvestigacion(GrupoInvestigacion grupoInvestigacion) {
-        this.grupoInvestigacion = grupoInvestigacion;
-    }
-
-    /**
      * @return the riesgoEtico
      */
     public RiesgoEtico getRiesgoEtico() {
@@ -471,7 +459,6 @@ public class Proyecto {
         this.codigo = codigo;
     }
 
-  
     /**
      * @return the prorrogasProyecto
      */
@@ -484,20 +471,6 @@ public class Proyecto {
      */
     public void setProrrogasProyecto(ArrayList<ProrrogaProyecto> prorrogasProyecto) {
         this.prorrogasProyecto = prorrogasProyecto;
-    }
-
-    /**
-     * @return the adendasProyecto
-     */
-    public ArrayList<AdendaProyecto> getAdendasProyecto() {
-        return adendasProyecto;
-    }
-
-    /**
-     * @param adendasProyecto the adendasProyecto to set
-     */
-    public void setAdendasProyecto(ArrayList<AdendaProyecto> adendasProyecto) {
-        this.adendasProyecto = adendasProyecto;
     }
 
     /**
@@ -526,30 +499,89 @@ public class Proyecto {
      */
     public void setPlazosProyecto(ArrayList<PlazoProyecto> plazosProyecto) {
         this.plazosProyecto = plazosProyecto;
-    }    
-    
-    @Override
-    public String toString() {
-        DateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        return "{idProyecto: " + idProyecto
-                + ", nombreCompletoProyecto: " + nombreCompletoProyecto
-                + ", nombreCortoProyecto: " + nombreCortoProyecto
-                + ", fechaInicio: " + formatter.format(fechaInicio) + ", fechaFinalizacion: " + formatter.format(fechaFinalizacion)
-                + ", AreaTematica:" + areaTematica
-                + ", ingresadoSIGEP: " + ingresadoSIIU
-                + ", ingresadoSIU: " + ingresadoSIU
-                + ", codigoSIIU: " + codigoSIIU
-                + ", codigoCOLCIENCIAS: " + codigoCOLCIENCIAS
-                + ", codigoSIU: " + codigoSIU
-                + ", codigo: " + codigo
-                + ", participacionInternacional: " + participacionInternacional
-                + ", TipoProyecto: " + tipoProyecto
-                + ", GrupoInvestigacion: " + grupoInvestigacion
-                + ", RiesgoEtico: " + riesgoEtico
-                + ", TipoContrato: " + tipoContrato
-                + ", EnfoqueMetodologico: " + enfoqueMetodologico
-                + ", Convocatoria: " + convocatoria
-                + ", objetivoGeneral: " + objetivoGeneral
-                + ", EstadoProyecto: " + estado + "}";
+    }
+
+    /**
+     * @return the entidadesInternacionales
+     */
+    public ArrayList<EntidadInternacional> getEntidadesInternacionales() {
+        return entidadesInternacionales;
+    }
+
+    /**
+     * @param entidadesInternacionales the entidadesInternacionales to set
+     */
+    public void setEntidadesInternacionales(ArrayList<EntidadInternacional> entidadesInternacionales) {
+        this.entidadesInternacionales = entidadesInternacionales;
+    }
+
+    /**
+     * @return the gruposInvestigacion
+     */
+    public ArrayList<GrupoInvestigacion> getGruposInvestigacion() {
+        return gruposInvestigacion;
+    }
+
+    /**
+     * @param gruposInvestigacion the gruposInvestigacion to set
+     */
+    public void setGruposInvestigacion(ArrayList<GrupoInvestigacion> gruposInvestigacion) {
+        this.gruposInvestigacion = gruposInvestigacion;
+    }
+
+    /**
+     * @return the fuentesFinanciacionProyecto
+     */
+    public ArrayList<co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto> getFuentesFinanciacionProyecto() {
+        return fuentesFinanciacionProyecto;
+    }
+
+    /**
+     * @param fuentesFinanciacionProyecto the fuentesFinanciacionProyecto to set
+     */
+    public void setFuentesFinanciacionProyecto(ArrayList<co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto> fuentesFinanciacionProyecto) {
+        this.fuentesFinanciacionProyecto = fuentesFinanciacionProyecto;
+    }
+
+    /**
+     * @return the adendasIngresoProyecto
+     */
+    public ArrayList<AdendaIngresoProyecto> getAdendasIngresoProyecto() {
+        return adendasIngresoProyecto;
+    }
+
+    /**
+     * @param adendasIngresoProyecto the adendasIngresoProyecto to set
+     */
+    public void setAdendasIngresoProyecto(ArrayList<AdendaIngresoProyecto> adendasIngresoProyecto) {
+        this.adendasIngresoProyecto = adendasIngresoProyecto;
+    }
+
+    /**
+     * @return the adendasCambioProyecto
+     */
+    public ArrayList<AdendaCambioProyecto> getAdendasCambioProyecto() {
+        return adendasCambioProyecto;
+    }
+
+    /**
+     * @param adendasCambioProyecto the adendasCambioProyecto to set
+     */
+    public void setAdendasCambioProyecto(ArrayList<AdendaCambioProyecto> adendasCambioProyecto) {
+        this.adendasCambioProyecto = adendasCambioProyecto;
+    }
+
+    /**
+     * @return the adendasRetiroProyecto
+     */
+    public ArrayList<AdendaRetiroProyecto> getAdendasRetiroProyecto() {
+        return adendasRetiroProyecto;
+    }
+
+    /**
+     * @param adendasRetiroProyecto the adendasRetiroProyecto to set
+     */
+    public void setAdendasRetiroProyecto(ArrayList<AdendaRetiroProyecto> adendasRetiroProyecto) {
+        this.adendasRetiroProyecto = adendasRetiroProyecto;
     }
 }

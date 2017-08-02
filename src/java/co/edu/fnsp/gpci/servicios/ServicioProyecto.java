@@ -70,17 +70,17 @@ public class ServicioProyecto implements IServicioProyecto {
     }
 
     @Override
-    public Profesor obtenerProfesor(long numeroIdentificacion, int idTipoIdentificacion) {
-        return repositorioProyecto.obtenerProfesor(numeroIdentificacion, idTipoIdentificacion);
+    public Profesor obtenerProfesor(int idTipoIdentificacion, long numeroIdentificacion) {
+        return repositorioProyecto.obtenerProfesor(idTipoIdentificacion, numeroIdentificacion);
     }
 
     @Override
-    public Estudiante obtenerEstudiante(long numeroIdentificacion, int idTipoIdentificacion) {
-        return repositorioProyecto.obtenerEstudiante(numeroIdentificacion, idTipoIdentificacion);
+    public Estudiante obtenerEstudiante(int idTipoIdentificacion, long numeroIdentificacion) {
+        return repositorioProyecto.obtenerEstudiante(idTipoIdentificacion, numeroIdentificacion);
     }
 
     @Override
-    public PersonalExterno obtenerPersonalExterno(long numeroIdentificacion, int idTipoIdentificacion) {
-        return repositorioProyecto.obtenerPersonalExterno(numeroIdentificacion, idTipoIdentificacion);
+    public PersonalExterno obtenerPersonalExterno(int idTipoIdentificacion, long numeroIdentificacion) {
+        return repositorioProyecto.obtenerPersonalExterno(idTipoIdentificacion, numeroIdentificacion);
     }
 }

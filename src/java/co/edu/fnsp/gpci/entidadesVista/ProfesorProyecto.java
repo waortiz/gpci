@@ -23,7 +23,8 @@ public class ProfesorProyecto {
     private int idRol;
     private String descripcionFacultad;
     private int idFacultad;
-    private String codigoVinculacionUdeA;
+    private String nombreTipoVinculacion;
+    private int idTipoVinculacion;
     private boolean cartaCesionDerechosPatrimonio;
     private double porcentajePI;
     private int horasSemana;
@@ -85,20 +86,6 @@ public class ProfesorProyecto {
      */
     public void setDescripcionRol(String descripcionRol) {
         this.descripcionRol = descripcionRol;
-    }
-
-    /**
-     * @return the codigoVinculacionUdeA
-     */
-    public String getCodigoVinculacionUdeA() {
-        return codigoVinculacionUdeA;
-    }
-
-    /**
-     * @param codigoVinculacionUdeA the codigoVinculacionUdeA to set
-     */
-    public void setCodigoVinculacionUdeA(String codigoVinculacionUdeA) {
-        this.codigoVinculacionUdeA = codigoVinculacionUdeA;
     }
 
     /**
@@ -301,5 +288,33 @@ public class ProfesorProyecto {
      */
     public void setMesesFueraPlan(String mesesFueraPlan) {
         this.mesesFueraPlan = mesesFueraPlan;
+    }
+
+    /**
+     * @return the nombreTipoVinculacion
+     */
+    public String getNombreTipoVinculacion() {
+        return nombreTipoVinculacion;
+    }
+
+    /**
+     * @param nombreTipoVinculacion the nombreTipoVinculacion to set
+     */
+    public void setNombreTipoVinculacion(String nombreTipoVinculacion) {
+        this.nombreTipoVinculacion = nombreTipoVinculacion;
+    }
+
+    /**
+     * @return the idTipoVinculacion
+     */
+    public int getIdTipoVinculacion() {
+        return idTipoVinculacion;
+    }
+
+    /**
+     * @param idTipoVinculacion the idTipoVinculacion to set
+     */
+    public void setIdTipoVinculacion(int idTipoVinculacion) {
+        this.idTipoVinculacion = idTipoVinculacion;
     }
 }

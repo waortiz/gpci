@@ -8,7 +8,9 @@ package co.edu.fnsp.gpci.repositorios;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.entidades.ActaProyecto;
-import co.edu.fnsp.gpci.entidades.AdendaProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
@@ -27,10 +29,6 @@ public interface IRepositorioNovedadProyecto {
     ArrayList<ActaProyecto> obtenerActasProyecto(long idProyecto);
     Documento obtenerDocumentoActaProyecto(long idActa);
     void eliminarActaProyecto(long idActa);
-    void guardarAdendaProyecto(long idProyecto, AdendaProyecto adendaProyecto, Documento documento);
-    ArrayList<AdendaProyecto> obtenerAdendasProyecto(long idProyecto);
-    Documento obtenerDocumentoAdendaProyecto(long idAdenda);
-    void eliminarAdendaProyecto(long idAdenda);
     void guardarAdicionProyecto(long idProyecto, AdicionProyecto actaProyecto, Documento documento);
     ArrayList<AdicionProyecto> obtenerAdicionesProyecto(long idProyecto);
     Documento obtenerDocumentoAdicionProyecto(long idAdicion);
@@ -43,4 +41,17 @@ public interface IRepositorioNovedadProyecto {
     ArrayList<PlazoProyecto> obtenerPlazosProyecto(long idProyecto);
     Documento obtenerDocumentoPlazoProyecto(long idPlazo);
     void eliminarPlazoProyecto(long idPlazo);    
+    void guardarAdendaCambioProyecto(long idProyecto, AdendaCambioProyecto adendaCambioProyecto, Documento documento);
+    ArrayList<AdendaCambioProyecto> obtenerAdendasCambioProyecto(long idProyecto);
+    Documento obtenerDocumentoAdendaCambioProyecto(long idAdenda);
+    void eliminarAdendaCambioProyecto(long idAdenda);
+    void guardarAdendaIngresoProyecto(long idProyecto, AdendaIngresoProyecto adendaIngresoProyecto, Documento documento);
+    ArrayList<AdendaIngresoProyecto> obtenerAdendasIngresoProyecto(long idProyecto);
+    Documento obtenerDocumentoAdendaIngresoProyecto(long idAdenda);
+    void eliminarAdendaIngresoProyecto(long idAdenda);
+    void guardarAdendaRetiroProyecto(long idProyecto, AdendaRetiroProyecto adendaRetiroProyecto, Documento documento);
+    ArrayList<AdendaRetiroProyecto> obtenerAdendasRetiroProyecto(long idProyecto);
+    Documento obtenerDocumentoAdendaRetiroProyecto(long idAdenda);
+    void eliminarAdendaRetiroProyecto(long idAdenda);
+
 }

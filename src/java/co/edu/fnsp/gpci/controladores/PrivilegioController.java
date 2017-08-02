@@ -44,7 +44,7 @@ public class PrivilegioController {
     public String mostrarCreacionPrivilegio(Model model) {
         ArrayList<OpcionMenu> opcionesMenu = servicioMenu.obtenerOpcionesMenu();
         model.addAttribute("opcionesMenuPorAsignar", opcionesMenu);
-        model.addAttribute("opcionesMenuAsignados",new ArrayList<>());
+        model.addAttribute("opcionesMenuAsignados", new ArrayList<>());
         model.addAttribute("privilegio", new Privilegio());
 
         return "privilegios/crear";
@@ -55,7 +55,16 @@ public class PrivilegioController {
     String crearUsuario(@ModelAttribute(value = "privilegio") Privilegio privilegio, Model model) {
         String mensaje = "";
         try {
-            servicioSeguridad.crearPrivilegio(privilegio);
+            boolean existe = false;
+            if (privilegio.getIdPrivilegio() == 0) {
+                existe = servicioSeguridad.existePrivilegio(privilegio.getCodigo());
+                if (existe) {
+                    mensaje = "El código del privilegio ya existe. por favor ingrese uno nuevo";
+                }
+            }
+            if (!existe) {
+                servicioSeguridad.crearPrivilegio(privilegio);
+            }
         } catch (Exception exc) {
             logger.error(exc);
             throw exc;

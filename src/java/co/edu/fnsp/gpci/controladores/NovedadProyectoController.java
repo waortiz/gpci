@@ -7,21 +7,30 @@ package co.edu.fnsp.gpci.controladores;
 
 import co.edu.fnsp.gpci.entidades.Documento;
 import co.edu.fnsp.gpci.entidades.ActaProyecto;
-import co.edu.fnsp.gpci.entidades.AdendaProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
+import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
+import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
+import co.edu.fnsp.gpci.entidades.Rol;
 import co.edu.fnsp.gpci.entidades.TipoActa;
+import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
+import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidadesVista.BusquedaProyectos;
+import co.edu.fnsp.gpci.entidadesVista.Estudiante;
 import co.edu.fnsp.gpci.entidadesVista.ProyectoEdicion;
 import co.edu.fnsp.gpci.servicios.IServicioMaestro;
 import co.edu.fnsp.gpci.servicios.IServicioNovedadProyecto;
+import co.edu.fnsp.gpci.servicios.IServicioProyecto;
 import co.edu.fnsp.gpci.utilidades.Util;
 import com.google.gson.Gson;
+import com.leonisa.salesforce.entities.TipoPersonaEnum;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -53,7 +62,10 @@ public class NovedadProyectoController {
 
     @Autowired
     private IServicioMaestro servicioMaestro;
-    
+
+    @Autowired
+    private IServicioProyecto servicioProyecto;
+
     /**
      *
      * @param model
@@ -107,10 +119,8 @@ public class NovedadProyectoController {
         proyectoEdicion.setConvocatoria(proyecto.getConvocatoria().getNombre());
         proyectoEdicion.setEnfoqueMetodologico(proyecto.getEnfoqueMetodologico().getNombre());
         proyectoEdicion.setEstado(proyecto.getEstado().getNombre());
-        SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
-        proyectoEdicion.setFechaInicio(formatter.format(proyecto.getFechaInicio()));
-        proyectoEdicion.setFechaFinalizacion(formatter.format(proyecto.getFechaFinalizacion()));
-        proyectoEdicion.setGrupoInvestigacion(proyecto.getGrupoInvestigacion().getNombre());
+        proyectoEdicion.setFechaInicio(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
+        proyectoEdicion.setFechaFinalizacion(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
         proyectoEdicion.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
         proyectoEdicion.setIngresadoSIIU(proyecto.isIngresadoSIIU());
         proyectoEdicion.setIngresadoSIU(proyecto.isIngresadoSIU());
@@ -122,15 +132,32 @@ public class NovedadProyectoController {
         proyectoEdicion.setTipoContrato(proyecto.getTipoContrato().getNombre());
         proyectoEdicion.setTipoProyecto(proyecto.getTipoProyecto().getNombre());
         proyectoEdicion.setActasProyecto(proyecto.getActasProyecto());
-        proyectoEdicion.setAdendasProyecto(proyecto.getAdendasProyecto());
+        proyectoEdicion.setAdendasCambioProyecto(proyecto.getAdendasCambioProyecto());
+        proyectoEdicion.setAdendasIngresoProyecto(proyecto.getAdendasIngresoProyecto());
+        proyectoEdicion.setAdendasRetiroProyecto(proyecto.getAdendasRetiroProyecto());
         proyectoEdicion.setAdicionesProyecto(proyecto.getAdicionesProyecto());
         proyectoEdicion.setProrrogasProyecto(proyecto.getProrrogasProyecto());
         proyectoEdicion.setPlazosProyecto(proyecto.getPlazosProyecto());
+
+        List<Rol> roles = servicioMaestro.obtenerRoles();
+        List<TipoIdentificacion> tiposIdentificacion = servicioMaestro.obtenerTiposIdentificacion();
+        List<TipoPersona> tiposPersona = servicioMaestro.obtenerTiposPersona();
+
+        model.addAttribute("tiposIdentificacion", tiposIdentificacion);
+        model.addAttribute("roles", roles);
+        model.addAttribute("tiposPersona", tiposPersona);
+
         if (proyecto.getActasProyecto().size() > 0) {
             model.addAttribute("actasProyectoJSON", proyectoEdicion.getActasProyectoJSON());
         }
-        if (proyecto.getAdendasProyecto().size() > 0) {
-            model.addAttribute("adendasProyectoJSON", proyectoEdicion.getAdendasProyectoJSON());
+        if (proyecto.getAdendasCambioProyecto().size() > 0) {
+            model.addAttribute("adendasCambioProyectoJSON", proyectoEdicion.getAdendasCambioProyectoJSON());
+        }
+        if (proyecto.getAdendasIngresoProyecto().size() > 0) {
+            model.addAttribute("adendasIngresoProyectoJSON", proyectoEdicion.getAdendasIngresoProyectoJSON());
+        }
+        if (proyecto.getAdendasRetiroProyecto().size() > 0) {
+            model.addAttribute("adendasRetiroProyectoJSON", proyectoEdicion.getAdendasRetiroProyectoJSON());
         }
         if (proyecto.getAdicionesProyecto().size() > 0) {
             model.addAttribute("adicionesProyectoJSON", proyectoEdicion.getAdicionesProyectoJSON());
@@ -157,8 +184,7 @@ public class NovedadProyectoController {
             ActaProyecto actaProyectoGuardar = new ActaProyecto();
             actaProyectoGuardar.setIdActa(actaProyecto.getIdActa());
             actaProyectoGuardar.setIdTipoActa(actaProyecto.getIdTipoActa());
-            actaProyectoGuardar.setNombre(actaProyecto.getNombreActa());
-            actaProyectoGuardar.setCodigo(actaProyecto.getCodigoActa());
+            actaProyectoGuardar.setNumero(actaProyecto.getNumeroActa());
             actaProyectoGuardar.setFecha(Util.obtenerFecha(actaProyecto.getFechaActa()));
             actaProyectoGuardar.setObservaciones(actaProyecto.getObservacionesActa());
 
@@ -206,26 +232,55 @@ public class NovedadProyectoController {
         }
 
         return json;
-    }      
-    
-    @RequestMapping(value = {"/adendaProyecto"}, method = RequestMethod.POST)
+    }
+
+    @RequestMapping(value = {"/adendaCambioProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
-    String guardarAdendaProyecto(@ModelAttribute(value = "adendaProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaProyecto adendaProyecto, Model model) throws Exception {
+    String guardarAdendaCambioProyecto(@ModelAttribute(value = "adendaCambioProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaCambioProyecto adendaCambioProyecto, Model model) throws Exception {
         String json = "";
         try {
-            AdendaProyecto adendaProyectoGuardar = new AdendaProyecto();
-            adendaProyectoGuardar.setIdAdenda(adendaProyecto.getIdAdenda());
-            adendaProyectoGuardar.setModificacion(adendaProyecto.getModificacionAdenda());
-            adendaProyectoGuardar.setFecha(Util.obtenerFecha(adendaProyecto.getFechaAdenda()));
-            Documento documento = null;
-            if (adendaProyecto.getDocumentoAdenda() != null) {
-                documento = new Documento();
-                documento.setContenido(adendaProyecto.getDocumentoAdenda().getBytes());
-                documento.setNombre(adendaProyecto.getDocumentoAdenda().getOriginalFilename());
-                documento.setTipoContenido(adendaProyecto.getDocumentoAdenda().getContentType());
+            AdendaCambioProyecto adendaProyectoGuardar = new AdendaCambioProyecto();
+            if (adendaCambioProyecto.getTipoPersonaAdendaCambio() == TipoPersonaEnum.PROFESOR.getIdTipoPersona()) {
+                Profesor profesor = servicioProyecto.obtenerProfesor(adendaCambioProyecto.getTipoIdentificacionPersonaAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAdendaCambio());
+                if (profesor != null) {
+                    adendaProyectoGuardar.setIdPersona(profesor.getIdProfesor());
+                } else {
+                    throw new Exception("El profesor no existe");
+                }
+            } else if (adendaCambioProyecto.getTipoPersonaAdendaCambio() == TipoPersonaEnum.ESTUDIANTE.getIdTipoPersona()) {
+                Estudiante estudiante = servicioProyecto.obtenerEstudiante(adendaCambioProyecto.getTipoIdentificacionPersonaAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAdendaCambio());
+                if (estudiante != null) {
+                    adendaProyectoGuardar.setIdPersona(estudiante.getIdEstudiante());
+                } else {
+                    throw new Exception("El estudiante no existe");
+                }
+            } else if (adendaCambioProyecto.getTipoPersonaAdendaCambio() == TipoPersonaEnum.PERSONAL_EXTERNO.getIdTipoPersona()) {
+                PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(adendaCambioProyecto.getTipoIdentificacionPersonaAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAdendaCambio());
+                if (personalExterno != null) {
+                    adendaProyectoGuardar.setIdPersona(personalExterno.getIdPersonalExterno());
+                } else {
+                    throw new Exception("El personal externo no existe");
+                }
             }
-            servicioNovedadProyecto.guardarAdendaProyecto(adendaProyecto.getIdProyecto(), adendaProyectoGuardar, documento);
-            ArrayList<AdendaProyecto> adendas = servicioNovedadProyecto.obtenerAdendasProyecto(adendaProyecto.getIdProyecto());
+
+            adendaProyectoGuardar.setIdAdenda(adendaCambioProyecto.getIdAdenda());
+            adendaProyectoGuardar.setFechaCambio(Util.obtenerFecha(adendaCambioProyecto.getFechaAdendaCambio()));
+            adendaProyectoGuardar.setFechaActa(Util.obtenerFecha(adendaCambioProyecto.getFechaActaAdendaCambio()));
+            adendaProyectoGuardar.setNumeroActa(adendaCambioProyecto.getNumeroActaAdendaCambio());
+            adendaProyectoGuardar.setIdRol(adendaCambioProyecto.getRolAdendaCambio());
+            adendaProyectoGuardar.setIdTipoPersona(adendaCambioProyecto.getTipoPersonaAdendaCambio());
+            adendaProyectoGuardar.setIdTipoIdentificacionPersona(adendaCambioProyecto.getTipoIdentificacionPersonaAdendaCambio());
+            adendaProyectoGuardar.setNumeroIdentificacionPersona(adendaCambioProyecto.getNumeroIdentificacionPersonaAdendaCambio());
+            adendaProyectoGuardar.setObservaciones(adendaCambioProyecto.getObservacionesAdendaCambio());
+            Documento documento = null;
+            if (adendaCambioProyecto.getDocumentoAdendaCambio() != null) {
+                documento = new Documento();
+                documento.setContenido(adendaCambioProyecto.getDocumentoAdendaCambio().getBytes());
+                documento.setNombre(adendaCambioProyecto.getDocumentoAdendaCambio().getOriginalFilename());
+                documento.setTipoContenido(adendaCambioProyecto.getDocumentoAdendaCambio().getContentType());
+            }
+            servicioNovedadProyecto.guardarAdendaCambioProyecto(adendaCambioProyecto.getIdProyecto(), adendaProyectoGuardar, documento);
+            ArrayList<AdendaCambioProyecto> adendas = servicioNovedadProyecto.obtenerAdendasCambioProyecto(adendaCambioProyecto.getIdProyecto());
             Gson gson = new Gson();
             json = gson.toJson(adendas);
 
@@ -237,22 +292,22 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = "/documentoAdenda/{idAdenda}", method = RequestMethod.GET)
+    @RequestMapping(value = "/documentoAdendaCambio/{idAdenda}", method = RequestMethod.GET)
     public void obtenerDocumentoAdenda(@PathVariable("idAdenda") long idAdenda, HttpServletResponse response) throws IOException {
-        Documento documento = servicioNovedadProyecto.obtenerDocumentoAdendaProyecto(idAdenda);
+        Documento documento = servicioNovedadProyecto.obtenerDocumentoAdendaCambioProyecto(idAdenda);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
         response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
         FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
     }
 
-    @RequestMapping(value = "/eliminarAdenda/{idProyecto}/{idAdenda}", method = RequestMethod.GET)
+    @RequestMapping(value = "/eliminarAdendaCambio/{idProyecto}/{idAdenda}", method = RequestMethod.GET)
     public @ResponseBody
     String eliminarAdenda(@PathVariable("idProyecto") long idProyecto, @PathVariable("idAdenda") long idAdenda, Model model) {
         String json = "";
         try {
-            servicioNovedadProyecto.eliminarAdendaProyecto(idAdenda);
-            ArrayList<AdendaProyecto> adendas = servicioNovedadProyecto.obtenerAdendasProyecto(idProyecto);
+            servicioNovedadProyecto.eliminarAdendaCambioProyecto(idAdenda);
+            ArrayList<AdendaCambioProyecto> adendas = servicioNovedadProyecto.obtenerAdendasCambioProyecto(idProyecto);
             Gson gson = new Gson();
             json = gson.toJson(adendas);
         } catch (Exception exc) {
@@ -261,7 +316,172 @@ public class NovedadProyectoController {
         }
 
         return json;
-    }     
+    }
+
+        @RequestMapping(value = {"/adendaIngresoProyecto"}, method = RequestMethod.POST)
+    public @ResponseBody
+    String guardarAdendaIngresoProyecto(@ModelAttribute(value = "adendaIngresoProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaIngresoProyecto adendaIngresoProyecto, Model model) throws Exception {
+        String json = "";
+        try {
+            AdendaIngresoProyecto adendaProyectoGuardar = new AdendaIngresoProyecto();
+            if (adendaIngresoProyecto.getTipoPersonaAdendaIngreso() == TipoPersonaEnum.PROFESOR.getIdTipoPersona()) {
+                Profesor profesor = servicioProyecto.obtenerProfesor(adendaIngresoProyecto.getTipoIdentificacionPersonaAdendaIngreso(), adendaIngresoProyecto.getNumeroIdentificacionPersonaAdendaIngreso());
+                if (profesor != null) {
+                    adendaProyectoGuardar.setIdPersona(profesor.getIdProfesor());
+                } else {
+                    throw new Exception("El profesor no existe");
+                }
+            } else if (adendaIngresoProyecto.getTipoPersonaAdendaIngreso() == TipoPersonaEnum.ESTUDIANTE.getIdTipoPersona()) {
+                Estudiante estudiante = servicioProyecto.obtenerEstudiante(adendaIngresoProyecto.getTipoIdentificacionPersonaAdendaIngreso(), adendaIngresoProyecto.getNumeroIdentificacionPersonaAdendaIngreso());
+                if (estudiante != null) {
+                    adendaProyectoGuardar.setIdPersona(estudiante.getIdEstudiante());
+                } else {
+                    throw new Exception("El estudiante no existe");
+                }
+            } else if (adendaIngresoProyecto.getTipoPersonaAdendaIngreso() == TipoPersonaEnum.PERSONAL_EXTERNO.getIdTipoPersona()) {
+                PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(adendaIngresoProyecto.getTipoIdentificacionPersonaAdendaIngreso(), adendaIngresoProyecto.getNumeroIdentificacionPersonaAdendaIngreso());
+                if (personalExterno != null) {
+                    adendaProyectoGuardar.setIdPersona(personalExterno.getIdPersonalExterno());
+                } else {
+                    throw new Exception("El personal externo no existe");
+                }
+            }
+
+            adendaProyectoGuardar.setIdAdenda(adendaIngresoProyecto.getIdAdenda());
+            adendaProyectoGuardar.setFechaIngreso(Util.obtenerFecha(adendaIngresoProyecto.getFechaAdendaIngreso()));
+            adendaProyectoGuardar.setFechaActa(Util.obtenerFecha(adendaIngresoProyecto.getFechaActaAdendaIngreso()));
+            adendaProyectoGuardar.setNumeroActa(adendaIngresoProyecto.getNumeroActaAdendaIngreso());
+            adendaProyectoGuardar.setIdTipoPersona(adendaIngresoProyecto.getTipoPersonaAdendaIngreso());
+            adendaProyectoGuardar.setIdTipoIdentificacionPersona(adendaIngresoProyecto.getTipoIdentificacionPersonaAdendaIngreso());
+            adendaProyectoGuardar.setNumeroIdentificacionPersona(adendaIngresoProyecto.getNumeroIdentificacionPersonaAdendaIngreso());
+            Documento documento = null;
+            if (adendaIngresoProyecto.getDocumentoAdendaIngreso() != null) {
+                documento = new Documento();
+                documento.setContenido(adendaIngresoProyecto.getDocumentoAdendaIngreso().getBytes());
+                documento.setNombre(adendaIngresoProyecto.getDocumentoAdendaIngreso().getOriginalFilename());
+                documento.setTipoContenido(adendaIngresoProyecto.getDocumentoAdendaIngreso().getContentType());
+            }
+            servicioNovedadProyecto.guardarAdendaIngresoProyecto(adendaIngresoProyecto.getIdProyecto(), adendaProyectoGuardar, documento);
+            ArrayList<AdendaIngresoProyecto> adendas = servicioNovedadProyecto.obtenerAdendasIngresoProyecto(adendaIngresoProyecto.getIdProyecto());
+            Gson gson = new Gson();
+            json = gson.toJson(adendas);
+
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
+        return json;
+    }
+
+    @RequestMapping(value = "/documentoAdendaIngreso/{idAdenda}", method = RequestMethod.GET)
+    public void obtenerDocumentoAdendaIngreso(@PathVariable("idAdenda") long idAdenda, HttpServletResponse response) throws IOException {
+        Documento documento = servicioNovedadProyecto.obtenerDocumentoAdendaIngresoProyecto(idAdenda);
+        response.setContentType(documento.getTipoContenido());
+        response.setContentLength(documento.getContenido().length);
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
+        FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
+    }
+
+    @RequestMapping(value = "/eliminarAdendaIngreso/{idProyecto}/{idAdenda}", method = RequestMethod.GET)
+    public @ResponseBody
+    String eliminarAdendaIngreso(@PathVariable("idProyecto") long idProyecto, @PathVariable("idAdenda") long idAdenda, Model model) {
+        String json = "";
+        try {
+            servicioNovedadProyecto.eliminarAdendaIngresoProyecto(idAdenda);
+            ArrayList<AdendaIngresoProyecto> adendas = servicioNovedadProyecto.obtenerAdendasIngresoProyecto(idProyecto);
+            Gson gson = new Gson();
+            json = gson.toJson(adendas);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
+        return json;
+    }
+
+        @RequestMapping(value = {"/adendaRetiroProyecto"}, method = RequestMethod.POST)
+    public @ResponseBody
+    String guardarAdendaRetiroProyecto(@ModelAttribute(value = "adendaRetiroProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaRetiroProyecto adendaRetiroProyecto, Model model) throws Exception {
+        String json = "";
+        try {
+            AdendaRetiroProyecto adendaProyectoGuardar = new AdendaRetiroProyecto();
+            if (adendaRetiroProyecto.getTipoPersonaAdendaRetiro() == TipoPersonaEnum.PROFESOR.getIdTipoPersona()) {
+                Profesor profesor = servicioProyecto.obtenerProfesor(adendaRetiroProyecto.getTipoIdentificacionPersonaAdendaRetiro(), adendaRetiroProyecto.getNumeroIdentificacionPersonaAdendaRetiro());
+                if (profesor != null) {
+                    adendaProyectoGuardar.setIdPersona(profesor.getIdProfesor());
+                } else {
+                    throw new Exception("El profesor no existe");
+                }
+            } else if (adendaRetiroProyecto.getTipoPersonaAdendaRetiro() == TipoPersonaEnum.ESTUDIANTE.getIdTipoPersona()) {
+                Estudiante estudiante = servicioProyecto.obtenerEstudiante(adendaRetiroProyecto.getTipoIdentificacionPersonaAdendaRetiro(), adendaRetiroProyecto.getNumeroIdentificacionPersonaAdendaRetiro());
+                if (estudiante != null) {
+                    adendaProyectoGuardar.setIdPersona(estudiante.getIdEstudiante());
+                } else {
+                    throw new Exception("El estudiante no existe");
+                }
+            } else if (adendaRetiroProyecto.getTipoPersonaAdendaRetiro() == TipoPersonaEnum.PERSONAL_EXTERNO.getIdTipoPersona()) {
+                PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(adendaRetiroProyecto.getTipoIdentificacionPersonaAdendaRetiro(), adendaRetiroProyecto.getNumeroIdentificacionPersonaAdendaRetiro());
+                if (personalExterno != null) {
+                    adendaProyectoGuardar.setIdPersona(personalExterno.getIdPersonalExterno());
+                } else {
+                    throw new Exception("El personal externo no existe");
+                }
+            }
+
+            adendaProyectoGuardar.setIdAdenda(adendaRetiroProyecto.getIdAdenda());
+            adendaProyectoGuardar.setFechaRetiro(Util.obtenerFecha(adendaRetiroProyecto.getFechaAdendaRetiro()));
+            adendaProyectoGuardar.setFechaActa(Util.obtenerFecha(adendaRetiroProyecto.getFechaActaAdendaRetiro()));
+            adendaProyectoGuardar.setNumeroActa(adendaRetiroProyecto.getNumeroActaAdendaRetiro());
+            adendaProyectoGuardar.setIdTipoPersona(adendaRetiroProyecto.getTipoPersonaAdendaRetiro());
+            adendaProyectoGuardar.setIdTipoIdentificacionPersona(adendaRetiroProyecto.getTipoIdentificacionPersonaAdendaRetiro());
+            adendaProyectoGuardar.setNumeroIdentificacionPersona(adendaRetiroProyecto.getNumeroIdentificacionPersonaAdendaRetiro());
+            adendaProyectoGuardar.setMotivo(adendaRetiroProyecto.getMotivoAdendaRetiro());
+            Documento documento = null;
+            if (adendaRetiroProyecto.getDocumentoAdendaRetiro() != null) {
+                documento = new Documento();
+                documento.setContenido(adendaRetiroProyecto.getDocumentoAdendaRetiro().getBytes());
+                documento.setNombre(adendaRetiroProyecto.getDocumentoAdendaRetiro().getOriginalFilename());
+                documento.setTipoContenido(adendaRetiroProyecto.getDocumentoAdendaRetiro().getContentType());
+            }
+            servicioNovedadProyecto.guardarAdendaRetiroProyecto(adendaRetiroProyecto.getIdProyecto(), adendaProyectoGuardar, documento);
+            ArrayList<AdendaRetiroProyecto> adendas = servicioNovedadProyecto.obtenerAdendasRetiroProyecto(adendaRetiroProyecto.getIdProyecto());
+            Gson gson = new Gson();
+            json = gson.toJson(adendas);
+
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
+        return json;
+    }
+
+    @RequestMapping(value = "/documentoAdendaRetiro/{idAdenda}", method = RequestMethod.GET)
+    public void obtenerDocumentoAdendaRetiro(@PathVariable("idAdenda") long idAdenda, HttpServletResponse response) throws IOException {
+        Documento documento = servicioNovedadProyecto.obtenerDocumentoAdendaRetiroProyecto(idAdenda);
+        response.setContentType(documento.getTipoContenido());
+        response.setContentLength(documento.getContenido().length);
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
+        FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
+    }
+
+    @RequestMapping(value = "/eliminarAdendaRetiro/{idProyecto}/{idAdenda}", method = RequestMethod.GET)
+    public @ResponseBody
+    String eliminarAdendaRetiro(@PathVariable("idProyecto") long idProyecto, @PathVariable("idAdenda") long idAdenda, Model model) {
+        String json = "";
+        try {
+            servicioNovedadProyecto.eliminarAdendaRetiroProyecto(idAdenda);
+            ArrayList<AdendaRetiroProyecto> adendas = servicioNovedadProyecto.obtenerAdendasRetiroProyecto(idProyecto);
+            Gson gson = new Gson();
+            json = gson.toJson(adendas);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
+        return json;
+    }
     
     @RequestMapping(value = {"/adicionProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
@@ -271,7 +491,11 @@ public class NovedadProyectoController {
             AdicionProyecto adicionProyectoGuardar = new AdicionProyecto();
             adicionProyectoGuardar.setIdAdicion(adicionProyecto.getIdAdicion());
             adicionProyectoGuardar.setMonto(adicionProyecto.getMontoAdicion());
-            adicionProyectoGuardar.setFecha(Util.obtenerFecha(adicionProyecto.getFechaAdicion()));
+            adicionProyectoGuardar.setDescripcion(adicionProyecto.getDescripcionAdicion());
+            adicionProyectoGuardar.setNumeroActa(adicionProyecto.getNumeroActaAdicion());
+            adicionProyectoGuardar.setFechaActa(Util.obtenerFecha(adicionProyecto.getFechaActaAdicion()));
+            adicionProyectoGuardar.setNumeroActaCODI(adicionProyecto.getNumeroActaCODIAdicion());
+            adicionProyectoGuardar.setFechaActaCODI(Util.obtenerFecha(adicionProyecto.getFechaActaCODIAdicion()));
             Documento documento = null;
             if (adicionProyecto.getDocumentoAdicion() != null) {
                 documento = new Documento();
@@ -316,8 +540,8 @@ public class NovedadProyectoController {
         }
 
         return json;
-    }    
-    
+    }
+
     @RequestMapping(value = {"/prorrogaProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarProrrogaProyecto(@ModelAttribute(value = "prorrogaProyecto") co.edu.fnsp.gpci.entidadesVista.ProrrogaProyecto prorrogaProyecto, Model model) throws Exception {
@@ -373,8 +597,8 @@ public class NovedadProyectoController {
 
         return json;
     }
-    
-   @RequestMapping(value = {"/plazoProyecto"}, method = RequestMethod.POST)
+
+    @RequestMapping(value = {"/plazoProyecto"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarPlazoProyecto(@ModelAttribute(value = "plazoProyecto") co.edu.fnsp.gpci.entidadesVista.PlazoProyecto plazoProyecto, Model model) throws Exception {
         String json = "";

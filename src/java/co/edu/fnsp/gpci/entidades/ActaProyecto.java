@@ -14,13 +14,12 @@ import java.util.Date;
 public class ActaProyecto {
 
     private long idActa;
-    private String nombre;
     private int idTipoActa;
     private String descripcionTipoActa;
     private Date fecha;
     private String fechaFormateada;
     private String observaciones;
-    private String codigo;
+    private String numero;
 
     /**
      * @return the idActa
@@ -34,20 +33,6 @@ public class ActaProyecto {
      */
     public void setIdActa(long idActa) {
         this.idActa = idActa;
-    }
-
-    /**
-     * @return the nombre
-     */
-    public String getNombre() {
-        return nombre;
-    }
-
-    /**
-     * @param nombre the nombre to set
-     */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
     }
 
     /**
@@ -118,19 +103,19 @@ public class ActaProyecto {
      */
     public void setDescripcionTipoActa(String descripcionTipoActa) {
         this.descripcionTipoActa = descripcionTipoActa;
-    }
-    
+    } 
+        
     /**
-     * @return the codigo
+     * @return the numero
      */
-    public String getCodigo() {
-        return codigo;
+    public String getNumero() {
+        return numero;
     }
 
     /**
-     * @param codigo the codigo to set
+     * @param numero the numero to set
      */
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
-    }    
+    public void setNumero(String numero) {
+        this.numero = numero;
+    }
 }

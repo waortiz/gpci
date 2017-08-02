@@ -3,10 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/privilegios/privilegios.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/usuarios/privilegios.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/privilegios/menu.jsp</file>
-            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/controladores/PrivilegioController.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/src/java/co/edu/fnsp/gpci/controladores/NovedadProyectoController.java</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/proyectos/crear.jsp</file>
+            <file>file:/D:/Desarrollo/Java/gpci/web/WEB-INF/jsp/novedades/editar.jsp</file>
         </group>
     </open-files>
 </project-private>

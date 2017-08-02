@@ -26,4 +26,5 @@ public interface IServicioSeguridad {
     void crearPrivilegio(Privilegio privilegio);
     void eliminarPrivilegio(int idPrivilegio);
     Privilegio obtenerPrivilegio(int idPrivilegio);
+    boolean existePrivilegio(String codigo);
 }

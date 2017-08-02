@@ -6,9 +6,13 @@
 package co.edu.fnsp.gpci.entidadesVista;
 
 import co.edu.fnsp.gpci.entidades.ActaProyecto;
-import co.edu.fnsp.gpci.entidades.AdendaProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
+import co.edu.fnsp.gpci.entidades.EntidadInternacional;
+import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
@@ -36,7 +40,6 @@ public class ProyectoEdicion {
     private String codigo;
     private boolean participacionInternacional;
     private String tipoProyecto;
-    private String grupoInvestigacion;
     private String riesgoEtico;
     private String tipoContrato;
     private String enfoqueMetodologico;
@@ -44,15 +47,20 @@ public class ProyectoEdicion {
     private String objetivoGeneral;
     private String estado;
     private ArrayList<ObjetivoEspecifico> objetivosEspecificos = new ArrayList<>();
+    private ArrayList<GrupoInvestigacion> gruposInvestigacion = new ArrayList<>();
+    private ArrayList<EntidadInternacional> entidadesInternacionales = new ArrayList<>();
     private ArrayList<ProfesorProyecto> profesoresProyecto = new ArrayList<>();
     private ArrayList<EstudianteProyecto> estudiantesProyecto = new ArrayList<>();
     private ArrayList<PersonalExternoProyecto> personalExternoProyecto = new ArrayList<>();
     private ArrayList<CompromisoProyecto> compromisosProyecto = new ArrayList<>();
     private ArrayList<ActaProyecto> actasProyecto = new ArrayList<>();
     private ArrayList<ProrrogaProyecto> prorrogasProyecto = new ArrayList<>();
-    private ArrayList<AdendaProyecto> adendasProyecto = new ArrayList<>();
+    private ArrayList<AdendaIngresoProyecto> adendasIngresoProyecto = new ArrayList<>();
+    private ArrayList<AdendaCambioProyecto> adendasCambioProyecto = new ArrayList<>();
+    private ArrayList<AdendaRetiroProyecto> adendasRetiroProyecto = new ArrayList<>();
     private ArrayList<AdicionProyecto> adicionesProyecto = new ArrayList<>();
     private ArrayList<PlazoProyecto> plazosProyecto = new ArrayList<>();
+    private ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = new ArrayList<>();
 
     /**
      * @return the areaTematica
@@ -66,13 +74,6 @@ public class ProyectoEdicion {
      */
     public String getTipoProyecto() {
         return tipoProyecto;
-    }
-
-    /**
-     * @return the grupoInvestigacion
-     */
-    public String getGrupoInvestigacion() {
-        return grupoInvestigacion;
     }
 
     /**
@@ -122,13 +123,6 @@ public class ProyectoEdicion {
      */
     public void setTipoProyecto(String tipoProyecto) {
         this.tipoProyecto = tipoProyecto;
-    }
-
-    /**
-     * @param grupoInvestigacion the grupoInvestigacion to set
-     */
-    public void setGrupoInvestigacion(String grupoInvestigacion) {
-        this.grupoInvestigacion = grupoInvestigacion;
     }
 
     /**
@@ -380,7 +374,7 @@ public class ProyectoEdicion {
      * @return the objetivosEspecificos
      */
     public String getObjetivosEspecificosJSON() {
-        return Util.obtenerObjetivosEspecificosJSON(this.objetivosEspecificos);
+        return Util.obtenerObjetivosEspecificosJSON(objetivosEspecificos);
     }
 
     /**
@@ -401,7 +395,7 @@ public class ProyectoEdicion {
      * @return the profesores proyecto JSON
      */
     public String getProfesoresProyectoJSON() {
-        return Util.obtenerProfesoresProyectoJSON(this.profesoresProyecto);
+        return Util.obtenerProfesoresProyectoJSON(profesoresProyecto);
     }
 
     /**
@@ -422,7 +416,7 @@ public class ProyectoEdicion {
      * @return the estudiantes proyecto JSON
      */
     public String getEstudiantesProyectoJSON() {
-        return Util.obtenerEstudiantesProyectoJSON(this.estudiantesProyecto);
+        return Util.obtenerEstudiantesProyectoJSON(estudiantesProyecto);
     }
 
     /**
@@ -444,7 +438,7 @@ public class ProyectoEdicion {
      */
     public String getPersonalExternoProyectoJSON() {
 
-        return Util.obtenerPersonalExternoProyectoJSON(this.personalExternoProyecto);
+        return Util.obtenerPersonalExternoProyectoJSON(this.getPersonalExternoProyecto());
     }
 
     /**
@@ -465,7 +459,7 @@ public class ProyectoEdicion {
      * @return the compromisosProyecto
      */
     public String getCompromisosProyectoJSON() {
-        return Util.obtenerCompromisosProyectoJSON(this.compromisosProyecto);
+        return Util.obtenerCompromisosProyectoJSON(compromisosProyecto);
 
     }
 
@@ -488,7 +482,7 @@ public class ProyectoEdicion {
      */
     public String getActasProyectoJSON() {
 
-        return Util.obtenerActasProyectoJSON(this.actasProyecto);
+        return Util.obtenerActasProyectoJSON(actasProyecto);
 
     }
 
@@ -514,26 +508,68 @@ public class ProyectoEdicion {
     }
 
     /**
-     * @return the adendasProyecto
+     * @return the adendasIngresoProyecto
      */
-    public ArrayList<AdendaProyecto> getAdendasProyecto() {
-        return adendasProyecto;
+    public ArrayList<AdendaIngresoProyecto> getAdendasIngresoProyecto() {
+        return adendasIngresoProyecto;
     }
 
     /**
-    * @return the adendasProyecto
+    * @return the adendasIngresoProyecto
     */
-    public String getAdendasProyectoJSON() {
-        return Util.obtenerAdendasProyectoJSON(adendasProyecto);
+    public String getAdendasIngresoProyectoJSON() {
+        return Util.obtenerAdendasIngresoProyectoJSON(adendasIngresoProyecto);
     }
     
     /**
-     * @param adendasProyecto the adendasProyecto to set
+     * @param adendasIngresoProyecto the adendasIngresoProyecto to set
      */
-    public void setAdendasProyecto(ArrayList<AdendaProyecto> adendasProyecto) {
-        this.adendasProyecto = adendasProyecto;
+    public void setAdendasIngresoProyecto(ArrayList<AdendaIngresoProyecto> adendasIngresoProyecto) {
+        this.adendasIngresoProyecto = adendasIngresoProyecto;
     }
 
+      /**
+     * @return the adendasRetiroProyecto
+     */
+    public ArrayList<AdendaRetiroProyecto> getAdendasRetiroProyecto() {
+        return adendasRetiroProyecto;
+    }
+
+    /**
+    * @return the adendasRetiroProyecto
+    */
+    public String getAdendasRetiroProyectoJSON() {
+        return Util.obtenerAdendasRetiroProyectoJSON(adendasRetiroProyecto);
+    }
+    
+    /**
+     * @param adendasRetiroProyecto the adendasRetiroProyecto to set
+     */
+    public void setAdendasRetiroProyecto(ArrayList<AdendaRetiroProyecto> adendasRetiroProyecto) {
+        this.adendasRetiroProyecto = adendasRetiroProyecto;
+    }
+    
+      /**
+     * @return the adendasCambioProyecto
+     */
+    public ArrayList<AdendaCambioProyecto> getAdendasCambioProyecto() {
+        return adendasCambioProyecto;
+    }
+
+    /**
+    * @return the adendasCambioProyecto
+    */
+    public String getAdendasCambioProyectoJSON() {
+        return Util.obtenerAdendasCambioProyectoJSON(adendasCambioProyecto);
+    }
+    
+    /**
+     * @param adendasCambioProyecto the adendasCambioProyecto to set
+     */
+    public void setAdendasCambioProyecto(ArrayList<AdendaCambioProyecto> adendasCambioProyecto) {
+        this.adendasCambioProyecto = adendasCambioProyecto;
+    }
+    
     /**
      * @return the adicionesProyecto
      */
@@ -573,6 +609,69 @@ public class ProyectoEdicion {
     * @return the plazosProyecto
     */
     public String getPlazosProyectoJSON() {
-        return Util.obtenerPlazosProyectoJSON(plazosProyecto);
+        return Util.obtenerPlazosProyectoJSON(this.plazosProyecto);
+    }
+
+    /**
+     * @return the gruposInvestigacion
+     */
+    public ArrayList<GrupoInvestigacion> getGruposInvestigacion() {
+        return gruposInvestigacion;
+    }
+
+            /**
+     * @return the JSON gruposInvestigacion
+     */
+    public String getGruposInvestigacionJSON() {
+        return Util.obtenerGruposInvestigacionJSON(gruposInvestigacion);
+    }
+    
+    /**
+     * @param gruposInvestigacion the gruposInvestigacion to set
+     */
+    public void setGruposInvestigacion(ArrayList<GrupoInvestigacion> gruposInvestigacion) {
+        this.gruposInvestigacion = gruposInvestigacion;
+    }
+
+    /**
+     * @return the entidadesInternacionales
+     */
+    public ArrayList<EntidadInternacional> getEntidadesInternacionales() {
+        return entidadesInternacionales;
+    }
+
+        /**
+     * @return the JSON entidadesInternacionales
+     */
+    public String getEntidadesInternacionalesJSON() {
+        return Util.obtenerEntidadesInternacionalesJSON(entidadesInternacionales);
+    }
+    
+    /**
+     * @param entidadesInternacionales the entidadesInternacionales to set
+     */
+    public void setEntidadesInternacionales(ArrayList<EntidadInternacional> entidadesInternacionales) {
+        this.entidadesInternacionales = entidadesInternacionales;
+    }
+
+    /**
+     * @return the fuentesFinanciacionProyecto
+     */
+    public ArrayList<FuenteFinanciacionProyecto> getFuentesFinanciacionProyecto() {
+        return fuentesFinanciacionProyecto;
+    }
+
+    /**
+     * @return the JSON fuentesFinanciacionProyecto
+     */
+    public String getFuentesFinanciacionProyectoJSON() {
+        return Util.obtenerFuentesFinanciacionProyectoJSON(fuentesFinanciacionProyecto);
+    }
+    
+    /**
+     * @param fuentesFinanciacionProyecto the fuentesFinanciacionProyecto to set
+     */
+    public void setFuentesFinanciacionProyecto(ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto) {
+        this.fuentesFinanciacionProyecto = fuentesFinanciacionProyecto;
     }
 }

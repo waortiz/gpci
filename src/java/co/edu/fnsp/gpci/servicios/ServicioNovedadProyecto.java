@@ -6,7 +6,9 @@
 package co.edu.fnsp.gpci.servicios;
 
 import co.edu.fnsp.gpci.entidades.ActaProyecto;
-import co.edu.fnsp.gpci.entidades.AdendaProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
@@ -75,42 +77,6 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.eliminarActaProyecto(idActa);
-            transactionManager.commit(txStatus);
-        } catch (Exception exc) {
-            transactionManager.rollback(txStatus);
-            throw exc;
-        }
-    }
-
-    @Override
-    public void guardarAdendaProyecto(long idProyecto, AdendaProyecto adendaProyecto, Documento documento) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
-        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
-        try {
-            repositorioNovedadProyecto.guardarAdendaProyecto(idProyecto, adendaProyecto, documento);
-            transactionManager.commit(txStatus);
-        } catch (Exception exc) {
-            transactionManager.rollback(txStatus);
-            throw exc;
-        }
-    }
-
-    @Override
-    public ArrayList<AdendaProyecto> obtenerAdendasProyecto(long idProyecto) {
-        return repositorioNovedadProyecto.obtenerAdendasProyecto(idProyecto);
-    }
-
-    @Override
-    public Documento obtenerDocumentoAdendaProyecto(long idAdenda) {
-        return repositorioNovedadProyecto.obtenerDocumentoAdendaProyecto(idAdenda);
-    }
-
-    @Override
-    public void eliminarAdendaProyecto(long idAdenda) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
-        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
-        try {
-            repositorioNovedadProyecto.eliminarAdendaProyecto(idAdenda);
             transactionManager.commit(txStatus);
         } catch (Exception exc) {
             transactionManager.rollback(txStatus);
@@ -225,4 +191,109 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
             throw exc;
         }
     }
+
+    @Override
+    public void guardarAdendaCambioProyecto(long idProyecto, AdendaCambioProyecto adendaCambioProyecto, Documento documento) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.guardarAdendaCambioProyecto(idProyecto, adendaCambioProyecto, documento);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }    }
+
+    @Override
+    public ArrayList<AdendaCambioProyecto> obtenerAdendasCambioProyecto(long idProyecto) {
+        return repositorioNovedadProyecto.obtenerAdendasCambioProyecto(idProyecto);
+    }
+    
+    @Override
+    public Documento obtenerDocumentoAdendaCambioProyecto(long idAdenda) {
+        return repositorioNovedadProyecto.obtenerDocumentoAdendaCambioProyecto(idAdenda);
+    }
+
+    @Override
+    public void eliminarAdendaCambioProyecto(long idAdenda) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.eliminarAdendaCambioProyecto(idAdenda);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }
+    }
+
+    @Override
+    public void guardarAdendaIngresoProyecto(long idProyecto, AdendaIngresoProyecto adendaIngresoProyecto, Documento documento) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.guardarAdendaIngresoProyecto(idProyecto, adendaIngresoProyecto, documento);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }    }
+
+    @Override
+    public ArrayList<AdendaIngresoProyecto> obtenerAdendasIngresoProyecto(long idProyecto) {
+        return repositorioNovedadProyecto.obtenerAdendasIngresoProyecto(idProyecto);
+    }
+    
+    @Override
+    public Documento obtenerDocumentoAdendaIngresoProyecto(long idAdenda) {
+        return repositorioNovedadProyecto.obtenerDocumentoAdendaIngresoProyecto(idAdenda);
+    }
+
+    @Override
+    public void eliminarAdendaIngresoProyecto(long idAdenda) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.eliminarAdendaIngresoProyecto(idAdenda);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }
+    }
+
+    @Override
+    public void guardarAdendaRetiroProyecto(long idProyecto, AdendaRetiroProyecto adendaRetiroProyecto, Documento documento) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.guardarAdendaRetiroProyecto(idProyecto, adendaRetiroProyecto, documento);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }    }
+
+    @Override
+    public ArrayList<AdendaRetiroProyecto> obtenerAdendasRetiroProyecto(long idProyecto) {
+        return repositorioNovedadProyecto.obtenerAdendasRetiroProyecto(idProyecto);
+    }
+    
+    @Override
+    public Documento obtenerDocumentoAdendaRetiroProyecto(long idAdenda) {
+        return repositorioNovedadProyecto.obtenerDocumentoAdendaRetiroProyecto(idAdenda);
+    }
+
+    @Override
+    public void eliminarAdendaRetiroProyecto(long idAdenda) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.eliminarAdendaRetiroProyecto(idAdenda);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }
+    }    
 }

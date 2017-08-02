@@ -103,4 +103,8 @@ public class ServicioSeguridad implements IServicioSeguridad {
         repositorioSeguridad.eliminarPrivilegio(idPrivilegio);
     }
 
+    @Override
+    public boolean existePrivilegio(String codigo) {
+        return repositorioSeguridad.existePrivilegio(codigo);
+    }
 }

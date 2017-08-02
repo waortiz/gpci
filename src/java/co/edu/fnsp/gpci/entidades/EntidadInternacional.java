@@ -9,23 +9,23 @@ package co.edu.fnsp.gpci.entidades;
  *
  * @author William
  */
-public class FuenteFinanciacion {
-    
-    private int idFuenteFinanciacion;
+public class EntidadInternacional {
+
+    private long idEntidadInternacional;
     private String nombre;
     
     /**
-     * @return the idFuenteFinanciacion
+     * @return the idEntidadInternacional
      */
-    public int getIdFuenteFinanciacion() {
-        return idFuenteFinanciacion;
+    public long getIdEntidadInternacional() {
+        return idEntidadInternacional;
     }
 
     /**
-     * @param idFuenteFinanciacion the idFuenteFinanciacion to set
+     * @param idEntidadInternacional the idEntidadInternacional to set
      */
-    public void setIdFuenteFinanciacion(int idFuenteFinanciacion) {
-        this.idFuenteFinanciacion = idFuenteFinanciacion;
+    public void setIdEntidadInternacional(long idEntidadInternacional) {
+        this.idEntidadInternacional = idEntidadInternacional;
     }
 
     /**

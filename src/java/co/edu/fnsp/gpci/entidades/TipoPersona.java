@@ -9,24 +9,10 @@ package co.edu.fnsp.gpci.entidades;
  *
  * @author William
  */
-public class FuenteFinanciacion {
-    
-    private int idFuenteFinanciacion;
-    private String nombre;
-    
-    /**
-     * @return the idFuenteFinanciacion
-     */
-    public int getIdFuenteFinanciacion() {
-        return idFuenteFinanciacion;
-    }
+public class TipoPersona {
 
-    /**
-     * @param idFuenteFinanciacion the idFuenteFinanciacion to set
-     */
-    public void setIdFuenteFinanciacion(int idFuenteFinanciacion) {
-        this.idFuenteFinanciacion = idFuenteFinanciacion;
-    }
+    private int idTipoPersona;
+    private String nombre;
 
     /**
      * @return the nombre
@@ -40,5 +26,19 @@ public class FuenteFinanciacion {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+    
+    /**
+     * @return the idTipoPersona
+     */
+    public int getIdTipoPersona() {
+        return idTipoPersona;
+    }
+
+    /**
+     * @param idTipoPersona the idTipoPersona to set
+     */
+    public void setIdTipoPersona(int idTipoPersona) {
+        this.idTipoPersona = idTipoPersona;
     }
 }

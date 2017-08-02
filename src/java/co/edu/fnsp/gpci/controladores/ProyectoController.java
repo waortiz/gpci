@@ -9,7 +9,6 @@ import co.edu.fnsp.gpci.editores.AreaTematicaEditor;
 import co.edu.fnsp.gpci.editores.ConvocatoriaEditor;
 import co.edu.fnsp.gpci.editores.EnfoqueMetodologicoEditor;
 import co.edu.fnsp.gpci.editores.EstadoProyectoEditor;
-import co.edu.fnsp.gpci.editores.GrupoInvestigacionEditor;
 import co.edu.fnsp.gpci.editores.RiesgoEticoEditor;
 import co.edu.fnsp.gpci.editores.TipoContratoEditor;
 import co.edu.fnsp.gpci.editores.TipoProyectoEditor;
@@ -18,6 +17,7 @@ import co.edu.fnsp.gpci.entidades.Convocatoria;
 import co.edu.fnsp.gpci.entidades.EnfoqueMetodologico;
 import co.edu.fnsp.gpci.entidades.EstadoProyecto;
 import co.edu.fnsp.gpci.entidades.Facultad;
+import co.edu.fnsp.gpci.entidades.FuenteFinanciacion;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
 import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.Profesor;
@@ -28,6 +28,7 @@ import co.edu.fnsp.gpci.entidades.RiesgoEtico;
 import co.edu.fnsp.gpci.entidades.Rol;
 import co.edu.fnsp.gpci.entidades.TipoContrato;
 import co.edu.fnsp.gpci.entidades.TipoEstudiante;
+import co.edu.fnsp.gpci.entidades.TipoFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import co.edu.fnsp.gpci.entidades.Usuario;
@@ -62,8 +63,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping(value = "/proyectos")
 public class ProyectoController {
+
     private static final Logger logger = LogManager.getLogger(NovedadProyectoController.class.getName());
-    
+
     @Autowired
     private IServicioProyecto servicioProyecto;
 
@@ -124,6 +126,8 @@ public class ProyectoController {
         List<Facultad> facultades = servicioMaestro.obtenerFacultades();
         List<TipoEstudiante> tiposEstudiante = servicioMaestro.obtenerTiposEstudiante();
         List<Programa> programas = servicioMaestro.obtenerProgramas();
+        List<TipoFuenteFinanciacionProyecto> tiposFuenteFinanciacionProyecto = servicioMaestro.obtenerTiposFuenteFinanciacionProyecto();
+        List<FuenteFinanciacion> fuentesFinanciacion = servicioMaestro.obtenerFuentesFinanciacion();
 
         model.addAttribute("areasTematicas", areasTematicas);
         model.addAttribute("tiposProyecto", tiposProyecto);
@@ -138,6 +142,8 @@ public class ProyectoController {
         model.addAttribute("facultades", facultades);
         model.addAttribute("tiposEstudiante", tiposEstudiante);
         model.addAttribute("programas", programas);
+        model.addAttribute("fuentesFinanciacion", fuentesFinanciacion);
+        model.addAttribute("tiposFuenteFinanciacionProyecto", tiposFuenteFinanciacionProyecto);
 
         model.addAttribute("proyecto", new co.edu.fnsp.gpci.entidadesVista.Proyecto());
 
@@ -173,7 +179,6 @@ public class ProyectoController {
 
             nuevoProyecto.setFechaInicio(Util.obtenerFecha(proyecto.getFechaInicio()));
             nuevoProyecto.setFechaFinalizacion(Util.obtenerFecha(proyecto.getFechaFinalizacion()));
-            nuevoProyecto.setGrupoInvestigacion(proyecto.getGrupoInvestigacion());
             nuevoProyecto.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
             nuevoProyecto.setIngresadoSIIU(proyecto.isIngresadoSIIU());
             nuevoProyecto.setIngresadoSIU(proyecto.isIngresadoSIU());
@@ -189,6 +194,8 @@ public class ProyectoController {
             nuevoProyecto.setEstudiantesProyecto(proyecto.getEstudiantesProyecto());
             nuevoProyecto.setPersonalExternoProyecto(proyecto.getPersonalExternoProyecto());
             nuevoProyecto.setCompromisosProyecto(proyecto.getCompromisosProyecto());
+            nuevoProyecto.setGruposInvestigacion(proyecto.getGruposInvestigacion());
+            nuevoProyecto.setEntidadesInternacionales(proyecto.getEntidadesInternacionales());
 
             if (proyecto.getIdProyecto() == 0) {
                 servicioProyecto.ingresarProyecto(nuevoProyecto);
@@ -228,6 +235,8 @@ public class ProyectoController {
             List<Facultad> facultades = servicioMaestro.obtenerFacultades();
             List<TipoEstudiante> tiposEstudiante = servicioMaestro.obtenerTiposEstudiante();
             List<Programa> programas = servicioMaestro.obtenerProgramas();
+            List<TipoFuenteFinanciacionProyecto> tiposFuenteFinanciacionProyecto = servicioMaestro.obtenerTiposFuenteFinanciacionProyecto();
+            List<FuenteFinanciacion> fuentesFinanciacion = servicioMaestro.obtenerFuentesFinanciacion();
 
             model.addAttribute("areasTematicas", areasTematicas);
             model.addAttribute("tiposProyecto", tiposProyecto);
@@ -242,6 +251,8 @@ public class ProyectoController {
             model.addAttribute("facultades", facultades);
             model.addAttribute("tiposEstudiante", tiposEstudiante);
             model.addAttribute("programas", programas);
+            model.addAttribute("fuentesFinanciacion", fuentesFinanciacion);
+            model.addAttribute("tiposFuenteFinanciacionProyecto", tiposFuenteFinanciacionProyecto);
 
             ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
             proyectoEdicion.setIdProyecto(proyecto.getIdProyecto());
@@ -255,7 +266,6 @@ public class ProyectoController {
             proyectoEdicion.setEstado(Integer.toString(proyecto.getEstado().getIdEstadoProyecto()));
             proyectoEdicion.setFechaInicio(proyecto.getFechaInicio());
             proyectoEdicion.setFechaFinalizacion(proyecto.getFechaFinalizacion());
-            proyectoEdicion.setGrupoInvestigacion(Integer.toString(proyecto.getGrupoInvestigacion().getIdGrupoInvestigacion()));
             proyectoEdicion.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
             proyectoEdicion.setIngresadoSIIU(proyecto.isIngresadoSIIU());
             proyectoEdicion.setIngresadoSIU(proyecto.isIngresadoSIU());
@@ -285,6 +295,18 @@ public class ProyectoController {
             proyectoEdicion.setCompromisosProyecto(proyecto.getCompromisosProyecto());
             if (proyectoEdicion.getCompromisosProyecto().size() > 0) {
                 model.addAttribute("compromisosProyectoJSON", proyectoEdicion.getCompromisosProyectoJSON());
+            }
+            proyectoEdicion.setGruposInvestigacion(proyecto.getGruposInvestigacion());
+            if (proyectoEdicion.getGruposInvestigacion().size() > 0) {
+                model.addAttribute("gruposInvestigacionJSON", proyectoEdicion.getGruposInvestigacionJSON());
+            }
+            proyectoEdicion.setEntidadesInternacionales(proyecto.getEntidadesInternacionales());
+            if (proyectoEdicion.getEntidadesInternacionales().size() > 0) {
+                model.addAttribute("entidadesInternacionalesJSON", proyectoEdicion.getEntidadesInternacionalesJSON());
+            }
+            proyectoEdicion.setFuentesFinanciacionProyecto(proyecto.getFuentesFinanciacionProyecto());
+            if (proyectoEdicion.getFuentesFinanciacionProyecto().size() > 0) {
+                model.addAttribute("fuentesFinanciacionProyectoJSON", proyectoEdicion.getFuentesFinanciacionProyectoJSON());
             }
 
             model.addAttribute("proyecto", proyectoEdicion);
@@ -340,9 +362,8 @@ public class ProyectoController {
         proyectoEdicion.setConvocatoria(Long.toString(proyecto.getConvocatoria().getIdConvocatoria()));
         proyectoEdicion.setEnfoqueMetodologico(Integer.toString(proyecto.getEnfoqueMetodologico().getIdEnfoqueMetodologico()));
         proyectoEdicion.setEstado(Integer.toString(proyecto.getEstado().getIdEstadoProyecto()));
-        proyectoEdicion.setFechaInicio(Util.formatter.format(proyecto.getFechaInicio()));
-        proyectoEdicion.setFechaFinalizacion(Util.formatter.format(proyecto.getFechaFinalizacion()));
-        proyectoEdicion.setGrupoInvestigacion(Integer.toString(proyecto.getGrupoInvestigacion().getIdGrupoInvestigacion()));
+        proyectoEdicion.setFechaInicio(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
+        proyectoEdicion.setFechaFinalizacion(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
         proyectoEdicion.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
         proyectoEdicion.setIngresadoSIIU(proyecto.isIngresadoSIIU());
         proyectoEdicion.setIngresadoSIU(proyecto.isIngresadoSIU());
@@ -373,6 +394,18 @@ public class ProyectoController {
         if (proyectoEdicion.getCompromisosProyecto().size() > 0) {
             model.addAttribute("compromisosProyectoJSON", proyectoEdicion.getCompromisosProyectoJSON());
         }
+        proyectoEdicion.setGruposInvestigacion(proyecto.getGruposInvestigacion());
+        if (proyecto.getGruposInvestigacion().size() > 0) {
+            model.addAttribute("gruposInvestigacionJSON", proyectoEdicion.getGruposInvestigacionJSON());
+        }
+        proyectoEdicion.setEntidadesInternacionales(proyecto.getEntidadesInternacionales());
+        if (proyecto.getEntidadesInternacionales().size() > 0) {
+            model.addAttribute("entidadesInternacionalesJSON", proyectoEdicion.getEntidadesInternacionalesJSON());
+        }
+        proyectoEdicion.setFuentesFinanciacionProyecto(proyecto.getFuentesFinanciacionProyecto());
+        if (proyectoEdicion.getFuentesFinanciacionProyecto().size() > 0) {
+            model.addAttribute("fuentesFinanciacionProyectoJSON", proyectoEdicion.getFuentesFinanciacionProyectoJSON());
+        }
 
         model.addAttribute("proyecto", proyectoEdicion);
 
@@ -383,7 +416,7 @@ public class ProyectoController {
     public @ResponseBody
     String buscarProfesor(@ModelAttribute(value = "busquedaPersona") BusquedaPersona busquedaPersona, Model model) {
 
-        Profesor profesor = servicioProyecto.obtenerProfesor(busquedaPersona.getNumeroIdentificacion(), busquedaPersona.getIdTipoIdentificacion());
+        Profesor profesor = servicioProyecto.obtenerProfesor(busquedaPersona.getIdTipoIdentificacion(), busquedaPersona.getNumeroIdentificacion());
         Gson gson = new Gson();
         String json = "";
         if (profesor != null) {
@@ -397,7 +430,7 @@ public class ProyectoController {
     public @ResponseBody
     String buscarEstudiante(@ModelAttribute(value = "busquedaPersona") BusquedaPersona busquedaPersona, Model model) {
 
-        co.edu.fnsp.gpci.entidadesVista.Estudiante estudiante = servicioProyecto.obtenerEstudiante(busquedaPersona.getNumeroIdentificacion(), busquedaPersona.getIdTipoIdentificacion());
+        co.edu.fnsp.gpci.entidadesVista.Estudiante estudiante = servicioProyecto.obtenerEstudiante(busquedaPersona.getIdTipoIdentificacion(), busquedaPersona.getNumeroIdentificacion());
         Gson gson = new Gson();
         String json = "";
         if (estudiante != null) {
@@ -411,7 +444,7 @@ public class ProyectoController {
     public @ResponseBody
     String buscarPersonalExterno(@ModelAttribute(value = "busquedaPersona") BusquedaPersona busquedaPersona, Model model) {
 
-        PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(busquedaPersona.getNumeroIdentificacion(), busquedaPersona.getIdTipoIdentificacion());
+        PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(busquedaPersona.getIdTipoIdentificacion(), busquedaPersona.getNumeroIdentificacion());
         Gson gson = new Gson();
         String json = "";
         if (personalExterno != null) {
@@ -425,7 +458,6 @@ public class ProyectoController {
     public void initBinder(WebDataBinder binder) {
         binder.registerCustomEditor(AreaTematica.class, new AreaTematicaEditor());
         binder.registerCustomEditor(TipoProyecto.class, new TipoProyectoEditor());
-        binder.registerCustomEditor(GrupoInvestigacion.class, new GrupoInvestigacionEditor());
         binder.registerCustomEditor(RiesgoEtico.class, new RiesgoEticoEditor());
         binder.registerCustomEditor(TipoContrato.class, new TipoContratoEditor());
         binder.registerCustomEditor(EnfoqueMetodologico.class, new EnfoqueMetodologicoEditor());

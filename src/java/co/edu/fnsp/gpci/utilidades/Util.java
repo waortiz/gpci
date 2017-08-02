@@ -6,15 +6,21 @@
 package co.edu.fnsp.gpci.utilidades;
 
 import co.edu.fnsp.gpci.entidades.ActaProyecto;
-import co.edu.fnsp.gpci.entidades.AdendaProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
+import co.edu.fnsp.gpci.entidades.EntidadInternacional;
+import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto;
+import co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto;
+import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,7 +32,8 @@ import java.util.Date;
  */
 public class Util {
 
-    public static final SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+    private static final SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+    private static final DecimalFormat decimalFormat = new DecimalFormat("$###.###,##");
 
     public static String obtenerActasProyectoJSON(ArrayList<ActaProyecto> actasProyecto) {
         String jscriptArray = "";
@@ -39,11 +46,10 @@ public class Util {
                 jscriptArray = jscriptArray
                         + "{idActa: ko.observable(" + actaProyecto.getIdActa() + "),"
                         + "idTipoActa: ko.observable(" + actaProyecto.getIdTipoActa() + "),"
-                        + "descripcionTipoActa:ko.observable('" + actaProyecto.getDescripcionTipoActa()+ "'),"
+                        + "descripcionTipoActa:ko.observable('" + actaProyecto.getDescripcionTipoActa() + "'),"
                         + "observaciones:ko.observable('" + actaProyecto.getObservaciones() + "'),"
-                        + "fechaFormateada:ko.observable('" + formatter.format(actaProyecto.getFecha()) + "'),"
-                        + "codigo:ko.observable('" + actaProyecto.getCodigo()+ "'),"
-                        + "nombre:ko.observable('" + actaProyecto.getNombre() + "')"
+                        + "fechaFormateada:ko.observable('" + simpleDateFormat.format(actaProyecto.getFecha()) + "'),"
+                        + "numero:ko.observable('" + actaProyecto.getNumero() + "')"
                         + "}";
                 if (i < actasProyecto.size() - 1) {
                     jscriptArray = jscriptArray + ",";
@@ -56,18 +62,90 @@ public class Util {
         return jscriptArray;
     }
 
-    public static String obtenerAdendasProyectoJSON(ArrayList<AdendaProyecto> adendasProyecto) {
+    public static String obtenerAdendasCambioProyectoJSON(ArrayList<AdendaCambioProyecto> adendasProyecto) {
         String jscriptArray = "";
 
         if (adendasProyecto.size() > 0) {
             jscriptArray = "[";
 
             for (int i = 0; i < adendasProyecto.size(); i++) {
-                AdendaProyecto adendaProyecto = adendasProyecto.get(i);
+                AdendaCambioProyecto adendaProyecto = adendasProyecto.get(i);
+                jscriptArray = jscriptArray
+                        + "{idAdenda: ko.observable(" + adendaProyecto.getIdAdenda()+ "),"
+                        + "idTipoPersona:ko.observable(" + adendaProyecto.getIdTipoPersona()+ "),"
+                        + "nombreTipoPersona:ko.observable('" + adendaProyecto.getNombreTipoPersona()+ "'),"
+                        + "idRol:ko.observable(" + adendaProyecto.getIdRol()+ "),"
+                        + "nombreRol:ko.observable('" + adendaProyecto.getNombreRol()+ "'),"
+                        + "idTipoIdentificacionPersona:ko.observable(" + adendaProyecto.getIdTipoIdentificacionPersona()+ "),"
+                        + "nombreTipoIdentificacionPersona:ko.observable('" + adendaProyecto.getNombreTipoIdentificacionPersona()+ "'),"
+                        + "numeroIdentificacionPersona:ko.observable(" + adendaProyecto.getNumeroIdentificacionPersona()+ "),"
+                        + "nombresPersona:ko.observable('" + adendaProyecto.getNombresPersona()+ "'),"
+                        + "apellidosPersona:ko.observable('" + adendaProyecto.getApellidosPersona()+ "'),"
+                        + "fechaCambioFormateada:ko.observable('" + simpleDateFormat.format(adendaProyecto.getFechaCambioFormateada()) + "'),"
+                        + "fechaActaFormateada:ko.observable('" + simpleDateFormat.format(adendaProyecto.getFechaActaFormateada()) + "')"
+                        + "}";
+                if (i < adendasProyecto.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+    }
+
+    public static String obtenerAdendasIngresoProyectoJSON(ArrayList<AdendaIngresoProyecto> adendasProyecto) {
+        String jscriptArray = "";
+
+        if (adendasProyecto.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < adendasProyecto.size(); i++) {
+                AdendaIngresoProyecto adendaProyecto = adendasProyecto.get(i);
                 jscriptArray = jscriptArray
                         + "{idAdenda: ko.observable(" + adendaProyecto.getIdAdenda() + "),"
-                        + "modificacion:ko.observable('" + adendaProyecto.getModificacion() + "'),"
-                        + "fechaFormateada:ko.observable('" + formatter.format(adendaProyecto.getFecha()) + "')"
+                        + "idTipoPersona:ko.observable(" + adendaProyecto.getIdTipoPersona()+ "),"
+                        + "nombreTipoPersona:ko.observable('" + adendaProyecto.getNombreTipoPersona()+ "'),"
+                        + "idTipoIdentificacionPersona:ko.observable(" + adendaProyecto.getIdTipoIdentificacionPersona()+ "),"
+                        + "nombreTipoIdentificacionPersona:ko.observable('" + adendaProyecto.getNombreTipoIdentificacionPersona()+ "'),"
+                        + "numeroIdentificacionPersona:ko.observable(" + adendaProyecto.getNumeroIdentificacionPersona()+ "),"
+                        + "nombresPersona:ko.observable('" + adendaProyecto.getNombresPersona()+ "'),"
+                        + "apellidosPersona:ko.observable('" + adendaProyecto.getApellidosPersona()+ "'),"
+                        + "fechaIngresoFormateada:ko.observable('" + simpleDateFormat.format(adendaProyecto.getFechaIngresoFormateada()) + "'),"
+                        + "fechaActaFormateada:ko.observable('" + simpleDateFormat.format(adendaProyecto.getFechaActaFormateada()) + "')"
+                        + "}";
+                if (i < adendasProyecto.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+    }
+
+    public static String obtenerAdendasRetiroProyectoJSON(ArrayList<AdendaRetiroProyecto> adendasProyecto) {
+        String jscriptArray = "";
+
+        if (adendasProyecto.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < adendasProyecto.size(); i++) {
+                AdendaRetiroProyecto adendaProyecto = adendasProyecto.get(i);
+                jscriptArray = jscriptArray
+                        + "{idAdenda: ko.observable(" + adendaProyecto.getIdAdenda() + "),"
+                        + "motivo:ko.observable('" + adendaProyecto.getMotivo()+ "'),"
+                        + "idTipoPersona:ko.observable(" + adendaProyecto.getIdTipoPersona()+ "),"
+                        + "nombreTipoPersona:ko.observable('" + adendaProyecto.getNombreTipoPersona()+ "'),"
+                        + "idTipoIdentificacionPersona:ko.observable(" + adendaProyecto.getIdTipoIdentificacionPersona()+ "),"
+                        + "nombreTipoIdentificacionPersona:ko.observable('" + adendaProyecto.getNombreTipoIdentificacionPersona()+ "'),"
+                        + "numeroIdentificacionPersona:ko.observable(" + adendaProyecto.getNumeroIdentificacionPersona()+ "),"
+                        + "nombresPersona:ko.observable('" + adendaProyecto.getNombresPersona()+ "'),"
+                        + "apellidosPersona:ko.observable('" + adendaProyecto.getApellidosPersona()+ "'),"
+                        + "fechaRetiroFormateada:ko.observable('" + simpleDateFormat.format(adendaProyecto.getFechaRetiroFormateada()) + "'),"
+                        + "fechaActaFormateada:ko.observable('" + simpleDateFormat.format(adendaProyecto.getFechaActaFormateada()) + "')"
                         + "}";
                 if (i < adendasProyecto.size() - 1) {
                     jscriptArray = jscriptArray + ",";
@@ -90,8 +168,13 @@ public class Util {
                 AdicionProyecto adicionProyecto = adicionesProyecto.get(i);
                 jscriptArray = jscriptArray
                         + "{idAdicion: ko.observable(" + adicionProyecto.getIdAdicion() + "),"
-                        + "fechaFormateada:ko.observable('" + formatter.format(adicionProyecto.getFecha()) + "'),"
-                        + "monto:ko.observable('" + adicionProyecto.getMonto() + "')"
+                        + "numeroActa:ko.observable('" + adicionProyecto.getNumeroActa() + "'),"
+                        + "fechaActaFormateada:ko.observable('" + simpleDateFormat.format(adicionProyecto.getFechaActa()) + "'),"
+                        + "descripcion:ko.observable('" + adicionProyecto.getDescripcion() + "'),"
+                        + "numeroActaCODI:ko.observable('" + adicionProyecto.getNumeroActaCODI() + "'),"
+                        + "fechaActaCODIFormateada:ko.observable('" + simpleDateFormat.format(adicionProyecto.getFechaActaCODI()) + "'),"
+                        + "monto:ko.observable(" + adicionProyecto.getMonto() + "),"
+                        + "montoFormateado:ko.observable(" + decimalFormat.format(adicionProyecto.getMonto()) + ")"
                         + "}";
                 if (i < adicionesProyecto.size() - 1) {
                     jscriptArray = jscriptArray + ",";
@@ -114,7 +197,7 @@ public class Util {
                 ProrrogaProyecto prorrogaProyecto = prorrogasProyecto.get(i);
                 jscriptArray = jscriptArray
                         + "{idProrroga: ko.observable(" + prorrogaProyecto.getIdProrroga() + "),"
-                        + "fechaFormateada:ko.observable('" + formatter.format(prorrogaProyecto.getFecha()) + "'),"
+                        + "fechaFormateada:ko.observable('" + simpleDateFormat.format(prorrogaProyecto.getFecha()) + "'),"
                         + "mesesAprobados:ko.observable(" + prorrogaProyecto.getMesesAprobados() + "),"
                         + "descripcion:ko.observable('" + prorrogaProyecto.getDescripcion() + "')"
                         + "}";
@@ -129,7 +212,7 @@ public class Util {
         return jscriptArray;
     }
 
-        public static String obtenerPlazosProyectoJSON(ArrayList<PlazoProyecto> plazosProyecto) {
+    public static String obtenerPlazosProyectoJSON(ArrayList<PlazoProyecto> plazosProyecto) {
         String jscriptArray = "";
 
         if (plazosProyecto.size() > 0) {
@@ -139,7 +222,7 @@ public class Util {
                 PlazoProyecto plazoProyecto = plazosProyecto.get(i);
                 jscriptArray = jscriptArray
                         + "{idPlazo: ko.observable(" + plazoProyecto.getIdPlazo() + "),"
-                        + "fechaFormateada:ko.observable('" + formatter.format(plazoProyecto.getFecha()) + "'),"
+                        + "fechaFormateada:ko.observable('" + simpleDateFormat.format(plazoProyecto.getFecha()) + "'),"
                         + "mesesAprobados:ko.observable(" + plazoProyecto.getMesesAprobados() + "),"
                         + "descripcion:ko.observable('" + plazoProyecto.getDescripcion() + "')"
                         + "}";
@@ -153,7 +236,7 @@ public class Util {
 
         return jscriptArray;
     }
-    
+
     public static String obtenerCompromisosProyectoJSON(ArrayList<CompromisoProyecto> compromisosProyecto) {
         String jscriptArray = "";
 
@@ -165,7 +248,7 @@ public class Util {
                 jscriptArray = jscriptArray
                         + "{idCompromisoProyecto: ko.observable(" + compromisoProyecto.getIdCompromisoProyecto() + "),"
                         + "descripcion:ko.observable('" + compromisoProyecto.getDescripcion() + "'),"
-                        + "fechaCompromisoFormateada:ko.observable('" + formatter.format(compromisoProyecto.getFechaCompromiso()) + "'),"
+                        + "fechaCompromisoFormateada:ko.observable('" + simpleDateFormat.format(compromisoProyecto.getFechaCompromiso()) + "'),"
                         + "consecutivo:ko.observable(" + i + ")"
                         + "}";
                 if (i < compromisosProyecto.size() - 1) {
@@ -268,7 +351,8 @@ public class Util {
                         + "{apellidos: ko.observable('" + profesorProyecto.getApellidos() + "'),"
                         + "nombres:ko.observable('" + profesorProyecto.getNombres() + "'),"
                         + "cartaCesionDerechosPatrimonio:ko.observable('" + profesorProyecto.isCartaCesionDerechosPatrimonio() + "'),"
-                        + "codigoVinculacionUdeA:ko.observable('" + profesorProyecto.getCodigoVinculacionUdeA() + "'),"
+                        + "idTipoVinculacion:ko.observable(" + profesorProyecto.getIdTipoVinculacion() + "),"
+                        + "nombreTipoVinculacion:ko.observable('" + profesorProyecto.getNombreTipoVinculacion() + "'),"
                         + "contacto:ko.observable('" + profesorProyecto.getContacto() + "'),"
                         + "correoElectronico:ko.observable('" + profesorProyecto.getCorreoElectronico() + "'),"
                         + "descripcionFacultad:ko.observable('" + profesorProyecto.getDescripcionFacultad() + "'),"
@@ -319,14 +403,96 @@ public class Util {
         }
 
         return jscriptArray;
+    }
 
+    public static String obtenerGruposInvestigacionJSON(ArrayList<GrupoInvestigacion> gruposInvestigacion) {
+        String jscriptArray = "";
+
+        if (gruposInvestigacion.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < gruposInvestigacion.size(); i++) {
+                GrupoInvestigacion grupoInvestigacion = gruposInvestigacion.get(i);
+                jscriptArray = jscriptArray
+                        + "{idGrupoInvestigacion: ko.observable(" + grupoInvestigacion.getIdGrupoInvestigacion() + "),"
+                        + "nombre:ko.observable('" + grupoInvestigacion.getNombre() + "'),"
+                        + "consecutivo:ko.observable(" + i + ")"
+                        + "}";
+                if (i < gruposInvestigacion.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+    }
+
+    public static String obtenerEntidadesInternacionalesJSON(ArrayList<EntidadInternacional> entidadesInternacionales) {
+        String jscriptArray = "";
+
+        if (entidadesInternacionales.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < entidadesInternacionales.size(); i++) {
+                EntidadInternacional entidadInternacional = entidadesInternacionales.get(i);
+                jscriptArray = jscriptArray
+                        + "{idEntidadInternacional: ko.observable(" + entidadInternacional.getIdEntidadInternacional() + "),"
+                        + "nombre:ko.observable('" + entidadInternacional.getNombre() + "'),"
+                        + "consecutivo:ko.observable(" + i + ")"
+                        + "}";
+                if (i < entidadesInternacionales.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+    }
+
+    public static String obtenerFuentesFinanciacionProyectoJSON(ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto) {
+        String jscriptArray = "";
+
+        if (fuentesFinanciacionProyecto.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < fuentesFinanciacionProyecto.size(); i++) {
+                FuenteFinanciacionProyecto fuenteFinanciacionProyecto = fuentesFinanciacionProyecto.get(i);
+                jscriptArray = jscriptArray
+                        + "{idEntidadInternacional: ko.observable(" + fuenteFinanciacionProyecto.getIdFuenteFinanciacionProyecto() + "),"
+                        + "idFuenteFinanciacion:ko.observable(" + fuenteFinanciacionProyecto.getIdFuenteFinanciacion() + "),"
+                        + "nombreFuenteFinanciacion:ko.observable('" + fuenteFinanciacionProyecto.getNombreFuenteFinanciacion() + "'),"
+                        + "idTipoFuenteFinanciacionProyecto:ko.observable(" + fuenteFinanciacionProyecto.getIdTipoFuenteFinanciacionProyecto() + "),"
+                        + "nombreTipoFuenteFinanciacionProyecto:ko.observable('" + fuenteFinanciacionProyecto.getNombreTipoFuenteFinanciacionProyecto() + "'),"
+                        + "montoFrescos:ko.observable(" + fuenteFinanciacionProyecto.getMontoFrescos() + "),"
+                        + "montoEspecies:ko.observable(" + fuenteFinanciacionProyecto.getMontoEspecies() + "),"
+                        + "montoFrescosFormateado:ko.observable(" + decimalFormat.format(fuenteFinanciacionProyecto.getMontoFrescos()) + "),"
+                        + "montoEspeciesFormateado:ko.observable(" + decimalFormat.format(fuenteFinanciacionProyecto.getMontoEspecies()) + "),"
+                        + "consecutivo:ko.observable(" + i + ")"
+                        + "}";
+                if (i < fuentesFinanciacionProyecto.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
     }
 
     public static String obtenerFechaFormateada(Date fecha) {
-        return formatter.format(fecha);
+        if (fecha != null) {
+            return simpleDateFormat.format(fecha);
+        }
+
+        return "";
     }
-    
+
     public static Date obtenerFecha(String fecha) throws ParseException {
-        return formatter.parse(fecha);
+        return simpleDateFormat.parse(fecha);
     }
 }

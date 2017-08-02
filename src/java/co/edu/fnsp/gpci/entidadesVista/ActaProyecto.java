@@ -13,12 +13,10 @@ import org.springframework.web.multipart.MultipartFile;
  * @author William
  */
 public class ActaProyecto {
-
     private long idActa;
     private long idProyecto;
     private int idTipoActa;
-    private String nombreActa;
-    private String codigoActa;
+    private String numeroActa;
     private String fechaActa;
     private String observacionesActa;
     private MultipartFile documentoActa;
@@ -49,20 +47,6 @@ public class ActaProyecto {
      */
     public void setIdProyecto(long idProyecto) {
         this.idProyecto = idProyecto;
-    }
-
-    /**
-     * @return the nombreActa
-     */
-    public String getNombreActa() {
-        return nombreActa;
-    }
-
-    /**
-     * @param nombreActa the nombreActa to set
-     */
-    public void setNombreActa(String nombreActa) {
-        this.nombreActa = nombreActa;
     }
 
     /**
@@ -108,20 +92,6 @@ public class ActaProyecto {
     }
 
     /**
-     * @return the codigoActa
-     */
-    public String getCodigoActa() {
-        return codigoActa;
-    }
-
-    /**
-     * @param codigoActa the codigoActa to set
-     */
-    public void setCodigoActa(String codigoActa) {
-        this.codigoActa = codigoActa;
-    }
-
-    /**
      * @return the fechaActa
      */
     public String getFechaActa() {
@@ -134,4 +104,18 @@ public class ActaProyecto {
     public void setFechaActa(String fechaActa) {
         this.fechaActa = fechaActa;
     }
+    
+    /**
+     * @return the numeroActa
+     */
+    public String getNumeroActa() {
+        return numeroActa;
+    }
+
+    /**
+     * @param numeroActa the numeroActa to set
+     */
+    public void setNumeroActa(String numeroActa) {
+        this.numeroActa = numeroActa;
+    }    
 }

@@ -6,7 +6,9 @@
 package co.edu.fnsp.gpci.repositorios;
 
 import co.edu.fnsp.gpci.entidades.ActaProyecto;
-import co.edu.fnsp.gpci.entidades.AdendaProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
 import co.edu.fnsp.gpci.entidades.Documento;
@@ -37,13 +39,29 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
     private SimpleJdbcCall obtenerProyecto;
     private SimpleJdbcCall obtenerProyectos;
 
-    private SimpleJdbcCall ingresarAdendaProyecto;
-    private SimpleJdbcCall actualizarAdendaProyecto;
-    private SimpleJdbcCall eliminarAdendaProyecto;
-    private SimpleJdbcCall obtenerAdendasProyecto;
-    private SimpleJdbcCall ingresarDocumentoAdendaProyecto;
-    private SimpleJdbcCall obtenerDocumentoAdendaProyecto;
-    private SimpleJdbcCall actualizarDocumentoAdendaProyecto;
+    private SimpleJdbcCall ingresarAdendaCambioProyecto;
+    private SimpleJdbcCall actualizarAdendaCambioProyecto;
+    private SimpleJdbcCall eliminarAdendaCambioProyecto;
+    private SimpleJdbcCall obtenerAdendasCambioProyecto;
+    private SimpleJdbcCall ingresarDocumentoAdendaCambioProyecto;
+    private SimpleJdbcCall obtenerDocumentoAdendaCambioProyecto;
+    private SimpleJdbcCall actualizarDocumentoAdendaCambioProyecto;
+
+    private SimpleJdbcCall ingresarAdendaIngresoProyecto;
+    private SimpleJdbcCall actualizarAdendaIngresoProyecto;
+    private SimpleJdbcCall eliminarAdendaIngresoProyecto;
+    private SimpleJdbcCall obtenerAdendasIngresoProyecto;
+    private SimpleJdbcCall ingresarDocumentoAdendaIngresoProyecto;
+    private SimpleJdbcCall obtenerDocumentoAdendaIngresoProyecto;
+    private SimpleJdbcCall actualizarDocumentoAdendaIngresoProyecto;
+
+    private SimpleJdbcCall ingresarAdendaRetiroProyecto;
+    private SimpleJdbcCall actualizarAdendaRetiroProyecto;
+    private SimpleJdbcCall eliminarAdendaRetiroProyecto;
+    private SimpleJdbcCall obtenerAdendasRetiroProyecto;
+    private SimpleJdbcCall ingresarDocumentoAdendaRetiroProyecto;
+    private SimpleJdbcCall obtenerDocumentoAdendaRetiroProyecto;
+    private SimpleJdbcCall actualizarDocumentoAdendaRetiroProyecto;
 
     private SimpleJdbcCall ingresarActaProyecto;
     private SimpleJdbcCall actualizarActaProyecto;
@@ -68,7 +86,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
     private SimpleJdbcCall ingresarDocumentoPlazoProyecto;
     private SimpleJdbcCall obtenerDocumentoPlazoProyecto;
     private SimpleJdbcCall actualizarDocumentoPlazoProyecto;
-    
+
     private SimpleJdbcCall ingresarAdicionProyecto;
     private SimpleJdbcCall actualizarAdicionProyecto;
     private SimpleJdbcCall eliminarAdicionProyecto;
@@ -85,13 +103,29 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         this.obtenerProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyecto");
         this.obtenerProyectos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyecto.class));
 
-        this.ingresarAdendaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarAdendaProyecto");
-        this.eliminarAdendaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarAdendaProyecto");
-        this.actualizarAdendaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarAdendaProyecto");
-        this.obtenerAdendasProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerAdendasProyecto").returningResultSet("adendasProyecto", BeanPropertyRowMapper.newInstance(AdendaProyecto.class));
-        this.ingresarDocumentoAdendaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoAdendaProyecto");
-        this.obtenerDocumentoAdendaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoAdendaProyecto");
-        this.actualizarDocumentoAdendaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoAdendaProyecto");
+        this.ingresarAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarAdendaCambioProyecto");
+        this.eliminarAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarAdendaCambioProyecto");
+        this.actualizarAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarAdendaCambioProyecto");
+        this.obtenerAdendasCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerAdendasCambioProyecto").returningResultSet("adendasCambioProyecto", BeanPropertyRowMapper.newInstance(AdendaCambioProyecto.class));
+        this.ingresarDocumentoAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoAdendaCambioProyecto");
+        this.obtenerDocumentoAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoAdendaCambioProyecto");
+        this.actualizarDocumentoAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoAdendaCambioProyecto");
+
+        this.ingresarAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarAdendaIngresoProyecto");
+        this.eliminarAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarAdendaIngresoProyecto");
+        this.actualizarAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarAdendaIngresoProyecto");
+        this.obtenerAdendasIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerAdendasIngresoProyecto").returningResultSet("adendasIngresoProyecto", BeanPropertyRowMapper.newInstance(AdendaIngresoProyecto.class));
+        this.ingresarDocumentoAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoAdendaIngresoProyecto");
+        this.obtenerDocumentoAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoAdendaIngresoProyecto");
+        this.actualizarDocumentoAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoAdendaIngresoProyecto");
+
+        this.ingresarAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarAdendaRetiroProyecto");
+        this.eliminarAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarAdendaRetiroProyecto");
+        this.actualizarAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarAdendaRetiroProyecto");
+        this.obtenerAdendasRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerAdendasRetiroProyecto").returningResultSet("adendasRetiroProyecto", BeanPropertyRowMapper.newInstance(AdendaRetiroProyecto.class));
+        this.ingresarDocumentoAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoAdendaRetiroProyecto");
+        this.obtenerDocumentoAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoAdendaRetiroProyecto");
+        this.actualizarDocumentoAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoAdendaRetiroProyecto");
 
         this.ingresarActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarActaProyecto");
         this.eliminarActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarActaProyecto");
@@ -152,8 +186,6 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         proyecto.setTipoProyecto(new TipoProyecto());
         proyecto.getTipoProyecto().setIdTipoProyecto((int) resultado.get("varIdTipoProyecto"));
         proyecto.getTipoProyecto().setNombre((String) resultado.get("varTipoProyecto"));
-        proyecto.getGrupoInvestigacion().setIdGrupoInvestigacion((int) resultado.get("varIdGrupoInvestigacion"));
-        proyecto.getGrupoInvestigacion().setNombre((String) resultado.get("varGrupoInvestigacion"));
         proyecto.getRiesgoEtico().setIdRiesgoEtico((int) resultado.get("varIdRiesgoEtico"));
         proyecto.getRiesgoEtico().setNombre((String) resultado.get("varRiesgoEtico"));
         proyecto.getTipoContrato().setIdTipoContrato((int) resultado.get("varIdTipoContrato"));
@@ -166,17 +198,35 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         proyecto.getEstado().setIdEstadoProyecto((int) resultado.get("varIdEstado"));
         proyecto.getEstado().setNombre((String) resultado.get("varEstado"));
 
-        Map resultadoAdendas = obtenerAdendasProyecto.execute(parametros);
-        ArrayList<AdendaProyecto> adendas = (ArrayList<AdendaProyecto>) resultadoAdendas.get("adendasProyecto");
-        for (AdendaProyecto adendaProyecto : adendas) {
-            adendaProyecto.setFechaFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFecha()));
+        Map resultadoAdendasIngreso = obtenerAdendasIngresoProyecto.execute(parametros);
+        ArrayList<AdendaIngresoProyecto> adendasIngreso = (ArrayList<AdendaIngresoProyecto>) resultadoAdendasIngreso.get("adendasIngresoProyecto");
+        for (AdendaIngresoProyecto adendaProyecto : adendasIngreso) {
+            adendaProyecto.setFechaIngresoFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaIngreso()));
+            adendaProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaActa()));
         }
-        proyecto.setAdendasProyecto(adendas);
+        proyecto.setAdendasIngresoProyecto(adendasIngreso);
+
+        Map resultadoAdendasCambio = obtenerAdendasCambioProyecto.execute(parametros);
+        ArrayList<AdendaCambioProyecto> adendasCambio = (ArrayList<AdendaCambioProyecto>) resultadoAdendasCambio.get("adendasCambioProyecto");
+        for (AdendaCambioProyecto adendaProyecto : adendasCambio) {
+            adendaProyecto.setFechaCambioFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaCambio()));
+            adendaProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaActa()));
+        }
+        proyecto.setAdendasCambioProyecto(adendasCambio);
+
+        Map resultadoAdendasRetiro = obtenerAdendasRetiroProyecto.execute(parametros);
+        ArrayList<AdendaRetiroProyecto> adendasRetiro = (ArrayList<AdendaRetiroProyecto>) resultadoAdendasRetiro.get("adendasRetiroProyecto");
+        for (AdendaRetiroProyecto adendaProyecto : adendasRetiro) {
+            adendaProyecto.setFechaRetiroFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaRetiro()));
+            adendaProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaActa()));
+        }
+        proyecto.setAdendasRetiroProyecto(adendasRetiro);
 
         Map resultadoAdiciones = obtenerAdicionesProyecto.execute(parametros);
         ArrayList<AdicionProyecto> adicionesProyecto = (ArrayList<AdicionProyecto>) resultadoAdiciones.get("adicionesProyecto");
         for (AdicionProyecto adicionProyecto : adicionesProyecto) {
-            adicionProyecto.setFechaFormateada(Util.obtenerFechaFormateada(adicionProyecto.getFecha()));
+            adicionProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(adicionProyecto.getFechaActa()));
+            adicionProyecto.setFechaActaCODIFormateada(Util.obtenerFechaFormateada(adicionProyecto.getFechaActaCODI()));
         }
         proyecto.setAdicionesProyecto(adicionesProyecto);
 
@@ -222,10 +272,9 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             MapSqlParameterSource parametrosIngresoActaProyecto = new MapSqlParameterSource();
             parametrosIngresoActaProyecto.addValue("varIdProyecto", idProyecto);
             parametrosIngresoActaProyecto.addValue("varIdTipoActa", actaProyecto.getIdTipoActa());
-            parametrosIngresoActaProyecto.addValue("varNombre", actaProyecto.getNombre());
             parametrosIngresoActaProyecto.addValue("varObservaciones", actaProyecto.getObservaciones());
             parametrosIngresoActaProyecto.addValue("varFecha", actaProyecto.getFecha());
-            parametrosIngresoActaProyecto.addValue("varCodigo", actaProyecto.getCodigo());
+            parametrosIngresoActaProyecto.addValue("varNumero", actaProyecto.getNumero());
             Map resultado = ingresarActaProyecto.execute(parametrosIngresoActaProyecto);
             long idActa = (long) resultado.get("varIdActa");
 
@@ -240,10 +289,9 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             MapSqlParameterSource parametrosActualizacionActaProyecto = new MapSqlParameterSource();
             parametrosActualizacionActaProyecto.addValue("varIdActa", actaProyecto.getIdActa());
             parametrosActualizacionActaProyecto.addValue("varIdTipoActa", actaProyecto.getIdTipoActa());
-            parametrosActualizacionActaProyecto.addValue("varNombre", actaProyecto.getNombre());
             parametrosActualizacionActaProyecto.addValue("varObservaciones", actaProyecto.getObservaciones());
             parametrosActualizacionActaProyecto.addValue("varFecha", actaProyecto.getFecha());
-            parametrosActualizacionActaProyecto.addValue("varCodigo", actaProyecto.getCodigo());
+            parametrosActualizacionActaProyecto.addValue("varNumero", actaProyecto.getNumero());
             actualizarActaProyecto.execute(parametrosActualizacionActaProyecto);
 
             if (documento != null) {
@@ -294,14 +342,17 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
     }
 
     @Override
-    public void guardarAdendaProyecto(long idProyecto, AdendaProyecto adendaProyecto, Documento documento) {
+    public void guardarAdendaIngresoProyecto(long idProyecto, AdendaIngresoProyecto adendaProyecto, Documento documento) {
 
         if (adendaProyecto.getIdAdenda() == 0) {
             MapSqlParameterSource parametrosIngresoAdendaProyecto = new MapSqlParameterSource();
             parametrosIngresoAdendaProyecto.addValue("varIdProyecto", idProyecto);
-            parametrosIngresoAdendaProyecto.addValue("varModificacion", adendaProyecto.getModificacion());
-            parametrosIngresoAdendaProyecto.addValue("varFecha", adendaProyecto.getFecha());
-            Map resultado = ingresarAdendaProyecto.execute(parametrosIngresoAdendaProyecto);
+            parametrosIngresoAdendaProyecto.addValue("varIdTipoPersona", adendaProyecto.getIdTipoPersona());
+            parametrosIngresoAdendaProyecto.addValue("varIdPersona", adendaProyecto.getIdPersona());
+            parametrosIngresoAdendaProyecto.addValue("varFechaIngreso", adendaProyecto.getFechaIngreso());
+            parametrosIngresoAdendaProyecto.addValue("varFechaActa", adendaProyecto.getFechaActa());
+            parametrosIngresoAdendaProyecto.addValue("varNumeroActa", adendaProyecto.getNumeroActa());
+            Map resultado = ingresarAdendaIngresoProyecto.execute(parametrosIngresoAdendaProyecto);
             long idAdenda = (long) resultado.get("varIdAdenda");
 
             MapSqlParameterSource parametrosIngresoDocumentoAdendaProyecto = new MapSqlParameterSource();
@@ -309,14 +360,17 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosIngresoDocumentoAdendaProyecto.addValue("varNombre", documento.getNombre());
             parametrosIngresoDocumentoAdendaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
             parametrosIngresoDocumentoAdendaProyecto.addValue("varContenido", documento.getContenido());
-            ingresarDocumentoAdendaProyecto.execute(parametrosIngresoDocumentoAdendaProyecto);
+            ingresarDocumentoAdendaIngresoProyecto.execute(parametrosIngresoDocumentoAdendaProyecto);
 
         } else {
             MapSqlParameterSource parametrosActualizacionAdendaProyecto = new MapSqlParameterSource();
             parametrosActualizacionAdendaProyecto.addValue("varIdAdenda", adendaProyecto.getIdAdenda());
-            parametrosActualizacionAdendaProyecto.addValue("varModificacion", adendaProyecto.getModificacion());
-            parametrosActualizacionAdendaProyecto.addValue("varFecha", adendaProyecto.getFecha());
-            actualizarAdendaProyecto.execute(parametrosActualizacionAdendaProyecto);
+            parametrosActualizacionAdendaProyecto.addValue("varIdTipoPersona", adendaProyecto.getIdTipoPersona());
+            parametrosActualizacionAdendaProyecto.addValue("varIdPersona", adendaProyecto.getIdPersona());
+            parametrosActualizacionAdendaProyecto.addValue("varFechaIngreso", adendaProyecto.getFechaIngreso());
+            parametrosActualizacionAdendaProyecto.addValue("varFechaActa", adendaProyecto.getFechaActa());
+            parametrosActualizacionAdendaProyecto.addValue("varNumeroActa", adendaProyecto.getNumeroActa());
+            actualizarAdendaIngresoProyecto.execute(parametrosActualizacionAdendaProyecto);
 
             if (documento != null) {
                 MapSqlParameterSource parametrosActualizacionDocumentoAdendaProyecto = new MapSqlParameterSource();
@@ -324,32 +378,33 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
                 parametrosActualizacionDocumentoAdendaProyecto.addValue("varNombre", documento.getNombre());
                 parametrosActualizacionDocumentoAdendaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
                 parametrosActualizacionDocumentoAdendaProyecto.addValue("varContenido", documento.getContenido());
-                actualizarDocumentoAdendaProyecto.execute(parametrosActualizacionDocumentoAdendaProyecto);
+                actualizarDocumentoAdendaIngresoProyecto.execute(parametrosActualizacionDocumentoAdendaProyecto);
             }
         }
     }
 
     @Override
-    public ArrayList<AdendaProyecto> obtenerAdendasProyecto(long idProyecto) {
+    public ArrayList<AdendaIngresoProyecto> obtenerAdendasIngresoProyecto(long idProyecto) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdProyecto", idProyecto);
 
-        Map resultadoAdendasProyecto = obtenerAdendasProyecto.execute(parametros);
-        ArrayList<AdendaProyecto> adendasProyecto = (ArrayList<AdendaProyecto>) resultadoAdendasProyecto.get("adendasProyecto");
-        for (AdendaProyecto adendaProyecto : adendasProyecto) {
-            adendaProyecto.setFechaFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFecha()));
+        Map resultadoAdendasProyecto = obtenerAdendasIngresoProyecto.execute(parametros);
+        ArrayList<AdendaIngresoProyecto> adendasProyecto = (ArrayList<AdendaIngresoProyecto>) resultadoAdendasProyecto.get("adendasIngresoProyecto");
+        for (AdendaIngresoProyecto adendaProyecto : adendasProyecto) {
+            adendaProyecto.setFechaIngresoFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaIngreso()));
+            adendaProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaActa()));
         }
 
         return adendasProyecto;
     }
 
     @Override
-    public Documento obtenerDocumentoAdendaProyecto(long idAdenda) {
+    public Documento obtenerDocumentoAdendaIngresoProyecto(long idAdenda) {
         Documento documento = new Documento();
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdAdenda", idAdenda);
 
-        Map resultado = obtenerDocumentoAdendaProyecto.execute(parametros);
+        Map resultado = obtenerDocumentoAdendaIngresoProyecto.execute(parametros);
 
         documento.setNombre((String) resultado.get("varNombre"));
         documento.setTipoContenido((String) resultado.get("varTipoContenido"));
@@ -359,10 +414,174 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
     }
 
     @Override
-    public void eliminarAdendaProyecto(long idAdenda) {
+    public void eliminarAdendaIngresoProyecto(long idAdenda) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdAdenda", idAdenda);
-        eliminarAdendaProyecto.execute(parametros);
+        eliminarAdendaIngresoProyecto.execute(parametros);
+    }
+
+    @Override
+    public void guardarAdendaRetiroProyecto(long idProyecto, AdendaRetiroProyecto adendaProyecto, Documento documento) {
+
+        if (adendaProyecto.getIdAdenda() == 0) {
+            MapSqlParameterSource parametrosIngresoAdendaProyecto = new MapSqlParameterSource();
+            parametrosIngresoAdendaProyecto.addValue("varIdProyecto", idProyecto);
+            parametrosIngresoAdendaProyecto.addValue("varIdTipoPersona", adendaProyecto.getIdTipoPersona());
+            parametrosIngresoAdendaProyecto.addValue("varIdPersona", adendaProyecto.getIdPersona());
+            parametrosIngresoAdendaProyecto.addValue("varMotivo", adendaProyecto.getMotivo());
+            parametrosIngresoAdendaProyecto.addValue("varFechaActa", adendaProyecto.getFechaActa());
+            parametrosIngresoAdendaProyecto.addValue("varNumeroActa", adendaProyecto.getNumeroActa());
+            parametrosIngresoAdendaProyecto.addValue("varFechaRetiro", adendaProyecto.getFechaRetiro());
+            Map resultado = ingresarAdendaRetiroProyecto.execute(parametrosIngresoAdendaProyecto);
+            long idAdenda = (long) resultado.get("varIdAdenda");
+
+            MapSqlParameterSource parametrosIngresoDocumentoAdendaProyecto = new MapSqlParameterSource();
+            parametrosIngresoDocumentoAdendaProyecto.addValue("varIdAdenda", idAdenda);
+            parametrosIngresoDocumentoAdendaProyecto.addValue("varNombre", documento.getNombre());
+            parametrosIngresoDocumentoAdendaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+            parametrosIngresoDocumentoAdendaProyecto.addValue("varContenido", documento.getContenido());
+            ingresarDocumentoAdendaRetiroProyecto.execute(parametrosIngresoDocumentoAdendaProyecto);
+
+        } else {
+            MapSqlParameterSource parametrosActualizacionAdendaProyecto = new MapSqlParameterSource();
+            parametrosActualizacionAdendaProyecto.addValue("varIdAdenda", adendaProyecto.getIdAdenda());
+            parametrosActualizacionAdendaProyecto.addValue("varIdTipoPersona", adendaProyecto.getIdTipoPersona());
+            parametrosActualizacionAdendaProyecto.addValue("varIdPersona", adendaProyecto.getIdPersona());
+            parametrosActualizacionAdendaProyecto.addValue("varMotivo", adendaProyecto.getMotivo());
+            parametrosActualizacionAdendaProyecto.addValue("varFechaActa", adendaProyecto.getFechaActa());
+            parametrosActualizacionAdendaProyecto.addValue("varNumeroActa", adendaProyecto.getNumeroActa());
+            parametrosActualizacionAdendaProyecto.addValue("varFechaRetiro", adendaProyecto.getFechaRetiro());
+            actualizarAdendaRetiroProyecto.execute(parametrosActualizacionAdendaProyecto);
+
+            if (documento != null) {
+                MapSqlParameterSource parametrosActualizacionDocumentoAdendaProyecto = new MapSqlParameterSource();
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varIdAdenda", adendaProyecto.getIdAdenda());
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varNombre", documento.getNombre());
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varContenido", documento.getContenido());
+                actualizarDocumentoAdendaRetiroProyecto.execute(parametrosActualizacionDocumentoAdendaProyecto);
+            }
+        }
+    }
+
+    @Override
+    public ArrayList<AdendaRetiroProyecto> obtenerAdendasRetiroProyecto(long idProyecto) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdProyecto", idProyecto);
+
+        Map resultadoAdendasProyecto = obtenerAdendasRetiroProyecto.execute(parametros);
+        ArrayList<AdendaRetiroProyecto> adendasProyecto = (ArrayList<AdendaRetiroProyecto>) resultadoAdendasProyecto.get("adendasRetiroProyecto");
+        for (AdendaRetiroProyecto adendaProyecto : adendasProyecto) {
+            adendaProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaActa()));
+            adendaProyecto.setFechaRetiroFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaRetiro()));
+        }
+
+        return adendasProyecto;
+    }
+
+    @Override
+    public Documento obtenerDocumentoAdendaRetiroProyecto(long idAdenda) {
+        Documento documento = new Documento();
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdAdenda", idAdenda);
+
+        Map resultado = obtenerDocumentoAdendaRetiroProyecto.execute(parametros);
+
+        documento.setNombre((String) resultado.get("varNombre"));
+        documento.setTipoContenido((String) resultado.get("varTipoContenido"));
+        documento.setContenido((byte[]) resultado.get("varContenido"));
+
+        return documento;
+    }
+
+    @Override
+    public void eliminarAdendaRetiroProyecto(long idAdenda) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdAdenda", idAdenda);
+        eliminarAdendaRetiroProyecto.execute(parametros);
+    }
+
+    @Override
+    public void guardarAdendaCambioProyecto(long idProyecto, AdendaCambioProyecto adendaProyecto, Documento documento) {
+
+        if (adendaProyecto.getIdAdenda() == 0) {
+            MapSqlParameterSource parametrosIngresoAdendaProyecto = new MapSqlParameterSource();
+            parametrosIngresoAdendaProyecto.addValue("varIdProyecto", idProyecto);
+            parametrosIngresoAdendaProyecto.addValue("varIdTipoPersona", adendaProyecto.getIdTipoPersona());
+            parametrosIngresoAdendaProyecto.addValue("varIdRol", adendaProyecto.getIdRol());
+            parametrosIngresoAdendaProyecto.addValue("varIdPersona", adendaProyecto.getIdPersona());
+            parametrosIngresoAdendaProyecto.addValue("varObservaciones", adendaProyecto.getObservaciones());
+            parametrosIngresoAdendaProyecto.addValue("varFechaActa", adendaProyecto.getFechaActa());
+            parametrosIngresoAdendaProyecto.addValue("varNumeroActa", adendaProyecto.getNumeroActa());
+            parametrosIngresoAdendaProyecto.addValue("varFechaCambio", adendaProyecto.getFechaCambio());
+            Map resultado = ingresarAdendaCambioProyecto.execute(parametrosIngresoAdendaProyecto);
+            long idAdenda = (long) resultado.get("varIdAdenda");
+
+            MapSqlParameterSource parametrosIngresoDocumentoAdendaProyecto = new MapSqlParameterSource();
+            parametrosIngresoDocumentoAdendaProyecto.addValue("varIdAdenda", idAdenda);
+            parametrosIngresoDocumentoAdendaProyecto.addValue("varNombre", documento.getNombre());
+            parametrosIngresoDocumentoAdendaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+            parametrosIngresoDocumentoAdendaProyecto.addValue("varContenido", documento.getContenido());
+            ingresarDocumentoAdendaCambioProyecto.execute(parametrosIngresoDocumentoAdendaProyecto);
+
+        } else {
+            MapSqlParameterSource parametrosActualizacionAdendaProyecto = new MapSqlParameterSource();
+            parametrosActualizacionAdendaProyecto.addValue("varIdAdenda", adendaProyecto.getIdAdenda());
+            parametrosActualizacionAdendaProyecto.addValue("varIdTipoPersona", adendaProyecto.getIdTipoPersona());
+            parametrosActualizacionAdendaProyecto.addValue("varIdRol", adendaProyecto.getIdRol());
+            parametrosActualizacionAdendaProyecto.addValue("varIdPersona", adendaProyecto.getIdPersona());
+            parametrosActualizacionAdendaProyecto.addValue("varObservaciones", adendaProyecto.getObservaciones());
+            parametrosActualizacionAdendaProyecto.addValue("varFechaActa", adendaProyecto.getFechaActa());
+            parametrosActualizacionAdendaProyecto.addValue("varNumeroActa", adendaProyecto.getNumeroActa());
+            parametrosActualizacionAdendaProyecto.addValue("varFechaCambio", adendaProyecto.getFechaCambio());
+            actualizarAdendaCambioProyecto.execute(parametrosActualizacionAdendaProyecto);
+
+            if (documento != null) {
+                MapSqlParameterSource parametrosActualizacionDocumentoAdendaProyecto = new MapSqlParameterSource();
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varIdAdenda", adendaProyecto.getIdAdenda());
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varNombre", documento.getNombre());
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+                parametrosActualizacionDocumentoAdendaProyecto.addValue("varContenido", documento.getContenido());
+                actualizarDocumentoAdendaCambioProyecto.execute(parametrosActualizacionDocumentoAdendaProyecto);
+            }
+        }
+    }
+
+    @Override
+    public ArrayList<AdendaCambioProyecto> obtenerAdendasCambioProyecto(long idProyecto) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdProyecto", idProyecto);
+
+        Map resultadoAdendasProyecto = obtenerAdendasCambioProyecto.execute(parametros);
+        ArrayList<AdendaCambioProyecto> adendasProyecto = (ArrayList<AdendaCambioProyecto>) resultadoAdendasProyecto.get("adendasCambioProyecto");
+        for (AdendaCambioProyecto adendaProyecto : adendasProyecto) {
+            adendaProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaActa()));
+            adendaProyecto.setFechaCambioFormateada(Util.obtenerFechaFormateada(adendaProyecto.getFechaCambio()));
+        }
+
+        return adendasProyecto;
+    }
+
+    @Override
+    public Documento obtenerDocumentoAdendaCambioProyecto(long idAdenda) {
+        Documento documento = new Documento();
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdAdenda", idAdenda);
+
+        Map resultado = obtenerDocumentoAdendaCambioProyecto.execute(parametros);
+
+        documento.setNombre((String) resultado.get("varNombre"));
+        documento.setTipoContenido((String) resultado.get("varTipoContenido"));
+        documento.setContenido((byte[]) resultado.get("varContenido"));
+
+        return documento;
+    }
+
+    @Override
+    public void eliminarAdendaCambioProyecto(long idAdenda) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdAdenda", idAdenda);
+        eliminarAdendaCambioProyecto.execute(parametros);
     }
 
     @Override
@@ -372,7 +591,11 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             MapSqlParameterSource parametrosIngresoAdicionProyecto = new MapSqlParameterSource();
             parametrosIngresoAdicionProyecto.addValue("varIdProyecto", idProyecto);
             parametrosIngresoAdicionProyecto.addValue("varMonto", adicionProyecto.getMonto());
-            parametrosIngresoAdicionProyecto.addValue("varFecha", adicionProyecto.getFecha());
+            parametrosIngresoAdicionProyecto.addValue("varDescripcion", adicionProyecto.getDescripcion());
+            parametrosIngresoAdicionProyecto.addValue("varFechaActa", adicionProyecto.getFechaActa());
+            parametrosIngresoAdicionProyecto.addValue("varFechaActaCODI", adicionProyecto.getFechaActaCODI());
+            parametrosIngresoAdicionProyecto.addValue("varNumeroActa", adicionProyecto.getNumeroActa());
+            parametrosIngresoAdicionProyecto.addValue("varNumeroActaCODI", adicionProyecto.getNumeroActaCODI());
             Map resultado = ingresarAdicionProyecto.execute(parametrosIngresoAdicionProyecto);
             long idAdicion = (long) resultado.get("varIdAdicion");
 
@@ -387,7 +610,11 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             MapSqlParameterSource parametrosActualizacionAdicionProyecto = new MapSqlParameterSource();
             parametrosActualizacionAdicionProyecto.addValue("varIdAdicion", adicionProyecto.getIdAdicion());
             parametrosActualizacionAdicionProyecto.addValue("varMonto", adicionProyecto.getMonto());
-            parametrosActualizacionAdicionProyecto.addValue("varFecha", adicionProyecto.getFecha());
+            parametrosActualizacionAdicionProyecto.addValue("varDescripcion", adicionProyecto.getDescripcion());
+            parametrosActualizacionAdicionProyecto.addValue("varFechaActa", adicionProyecto.getFechaActa());
+            parametrosActualizacionAdicionProyecto.addValue("varFechaActaCODI", adicionProyecto.getFechaActaCODI());
+            parametrosActualizacionAdicionProyecto.addValue("varNumeroActa", adicionProyecto.getNumeroActa());
+            parametrosActualizacionAdicionProyecto.addValue("varNumeroActaCODI", adicionProyecto.getNumeroActaCODI());
             actualizarAdicionProyecto.execute(parametrosActualizacionAdicionProyecto);
 
             if (documento != null) {
@@ -409,7 +636,8 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         Map resultadoAdicionsProyecto = obtenerAdicionesProyecto.execute(parametros);
         ArrayList<AdicionProyecto> adicionesProyecto = (ArrayList<AdicionProyecto>) resultadoAdicionsProyecto.get("adicionesProyecto");
         for (AdicionProyecto adicionProyecto : adicionesProyecto) {
-            adicionProyecto.setFechaFormateada(Util.obtenerFechaFormateada(adicionProyecto.getFecha()));
+            adicionProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(adicionProyecto.getFechaActa()));
+            adicionProyecto.setFechaActaCODIFormateada(Util.obtenerFechaFormateada(adicionProyecto.getFechaActaCODI()));
         }
 
         return adicionesProyecto;
@@ -512,7 +740,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         parametros.addValue("varIdProrroga", idProrroga);
         eliminarProrrogaProyecto.execute(parametros);
     }
-    
+
     @Override
     public void guardarPlazoProyecto(long idProyecto, PlazoProyecto plazoProyecto, Documento documento) {
 

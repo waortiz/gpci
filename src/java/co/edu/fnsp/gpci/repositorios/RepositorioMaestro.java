@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.Convocatoria;
 import co.edu.fnsp.gpci.entidades.EnfoqueMetodologico;
 import co.edu.fnsp.gpci.entidades.EstadoProyecto;
 import co.edu.fnsp.gpci.entidades.Facultad;
+import co.edu.fnsp.gpci.entidades.FuenteFinanciacion;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
 import co.edu.fnsp.gpci.entidades.Programa;
 import co.edu.fnsp.gpci.entidades.RiesgoEtico;
@@ -17,7 +18,9 @@ import co.edu.fnsp.gpci.entidades.Rol;
 import co.edu.fnsp.gpci.entidades.TipoActa;
 import co.edu.fnsp.gpci.entidades.TipoContrato;
 import co.edu.fnsp.gpci.entidades.TipoEstudiante;
+import co.edu.fnsp.gpci.entidades.TipoFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
+import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -50,6 +53,9 @@ public class RepositorioMaestro implements IRepositorioMaestro {
     private SimpleJdbcCall obtenerTiposEstudiante;
     private SimpleJdbcCall obtenerTiposActa;
     private SimpleJdbcCall obtenerProgramas;
+    private SimpleJdbcCall obtenerFuentesFinanciacion;
+    private SimpleJdbcCall obtenerTiposFuentesFinanciacionProyecto;
+    private SimpleJdbcCall obtenerTiposPersona;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -84,6 +90,12 @@ public class RepositorioMaestro implements IRepositorioMaestro {
                 returningResultSet("programas", BeanPropertyRowMapper.newInstance(Programa.class));
         this.obtenerTiposActa = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerTiposActa").
                 returningResultSet("tiposActa", BeanPropertyRowMapper.newInstance(TipoActa.class));
+        this.obtenerFuentesFinanciacion = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerFuentesFinanciacion").
+                returningResultSet("fuentesFinanciacion", BeanPropertyRowMapper.newInstance(FuenteFinanciacion.class));
+        this.obtenerTiposFuentesFinanciacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerTiposFuentesFinanciacionProyecto").
+                returningResultSet("tiposFuentesFinanciacionProyecto", BeanPropertyRowMapper.newInstance(TipoFuenteFinanciacionProyecto.class));
+        this.obtenerTiposPersona = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerTiposPersona").
+                returningResultSet("tiposPersona", BeanPropertyRowMapper.newInstance(TipoPersona.class));
     }
 
     @Override
@@ -155,7 +167,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         Map resultado = obtenerTiposIdentificacion.execute(new HashMap<>());
         ArrayList<TipoIdentificacion> tiposIdentificacion = (ArrayList<TipoIdentificacion>) resultado.get("tiposIdentificacion");
 
-        return tiposIdentificacion;    
+        return tiposIdentificacion;
     }
 
     @Override
@@ -163,7 +175,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         Map resultado = obtenerRoles.execute(new HashMap<>());
         ArrayList<Rol> roles = (ArrayList<Rol>) resultado.get("roles");
 
-        return roles;    
+        return roles;
     }
 
     @Override
@@ -171,7 +183,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         Map resultado = obtenerFacultades.execute(new HashMap<>());
         ArrayList<Facultad> facultades = (ArrayList<Facultad>) resultado.get("facultades");
 
-        return facultades;    
+        return facultades;
     }
 
     @Override
@@ -179,7 +191,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         Map resultado = obtenerTiposEstudiante.execute(new HashMap<>());
         ArrayList<TipoEstudiante> tiposEstudiante = (ArrayList<TipoEstudiante>) resultado.get("tiposEstudiante");
 
-        return tiposEstudiante;   
+        return tiposEstudiante;
     }
 
     @Override
@@ -187,7 +199,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         Map resultado = obtenerProgramas.execute(new HashMap<>());
         ArrayList<Programa> programas = (ArrayList<Programa>) resultado.get("programas");
 
-        return programas;   
+        return programas;
     }
 
     @Override
@@ -196,5 +208,29 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         ArrayList<TipoActa> tiposActa = (ArrayList<TipoActa>) resultado.get("tiposActa");
 
         return tiposActa;
+    }
+
+    @Override
+    public ArrayList<TipoFuenteFinanciacionProyecto> obtenerTiposFuenteFinanciacionProyecto() {
+        Map resultado = obtenerTiposFuentesFinanciacionProyecto.execute(new HashMap<>());
+        ArrayList<TipoFuenteFinanciacionProyecto> tiposFuenteFinanciacionProyecto = (ArrayList<TipoFuenteFinanciacionProyecto>) resultado.get("tiposFuenteFinanciacionProyecto");
+
+        return tiposFuenteFinanciacionProyecto;
+    }
+
+    @Override
+    public ArrayList<FuenteFinanciacion> obtenerFuentesFinanciacion() {
+        Map resultado = obtenerFuentesFinanciacion.execute(new HashMap<>());
+        ArrayList<FuenteFinanciacion> fuentesFinanciacion = (ArrayList<FuenteFinanciacion>) resultado.get("fuentesFinanciacion");
+
+        return fuentesFinanciacion;
+    }
+
+    @Override
+    public ArrayList<TipoPersona> obtenerTiposPersona() {
+        Map resultado = obtenerTiposPersona.execute(new HashMap<>());
+        ArrayList<TipoPersona> tiposPersona = (ArrayList<TipoPersona>) resultado.get("tiposPersona");
+
+        return tiposPersona;
     }
 }
