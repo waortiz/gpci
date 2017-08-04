@@ -17,7 +17,11 @@ public class ProrrogaProyecto {
     private long idProrroga;
     private String descripcionProrroga;
     private int mesesAprobadosProrroga;
-    private String fechaProrroga;
+    private String montoAprobadoProrroga;
+    private String fechaActaProrroga;
+    private String numeroActaProrroga;
+    private String fechaActaCODIProrroga;
+    private String numeroActaCODIProrroga;    
     private MultipartFile documentoProrroga;
     
     /**
@@ -91,16 +95,72 @@ public class ProrrogaProyecto {
     }
 
     /**
-     * @return the fechaProrroga
+     * @return the fechaActaProrroga
      */
-    public String getFechaProrroga() {
-        return fechaProrroga;
+    public String getFechaActaProrroga() {
+        return fechaActaProrroga;
     }
 
     /**
-     * @param fechaProrroga the fechaProrroga to set
+     * @param fechaActaProrroga the fechaActaProrroga to set
      */
-    public void setFechaProrroga(String fechaProrroga) {
-        this.fechaProrroga = fechaProrroga;
+    public void setFechaActaProrroga(String fechaActaProrroga) {
+        this.fechaActaProrroga = fechaActaProrroga;
+    }
+
+    /**
+     * @return the numeroActaProrroga
+     */
+    public String getNumeroActaProrroga() {
+        return numeroActaProrroga;
+    }
+
+    /**
+     * @param numeroActaProrroga the numeroActaProrroga to set
+     */
+    public void setNumeroActaProrroga(String numeroActaProrroga) {
+        this.numeroActaProrroga = numeroActaProrroga;
+    }
+
+    /**
+     * @return the fechaActaCODIProrroga
+     */
+    public String getFechaActaCODIProrroga() {
+        return fechaActaCODIProrroga;
+    }
+
+    /**
+     * @param fechaActaCODIProrroga the fechaActaCODIProrroga to set
+     */
+    public void setFechaActaCODIProrroga(String fechaActaCODIProrroga) {
+        this.fechaActaCODIProrroga = fechaActaCODIProrroga;
+    }
+
+    /**
+     * @return the numeroActaCODIProrroga
+     */
+    public String getNumeroActaCODIProrroga() {
+        return numeroActaCODIProrroga;
+    }
+
+    /**
+     * @param numeroActaCODIProrroga the numeroActaCODIProrroga to set
+     */
+    public void setNumeroActaCODIProrroga(String numeroActaCODIProrroga) {
+        this.numeroActaCODIProrroga = numeroActaCODIProrroga;
+    }
+
+    /**
+     * @return the montoAprobadoProrroga
+     */
+    public String getMontoAprobadoProrroga() {
+        return montoAprobadoProrroga;
+    }
+
+    /**
+     * @param montoAprobadoProrroga the montoAprobadoProrroga to set
+     */
+    public void setMontoAprobadoProrroga(String montoAprobadoProrroga) {
+        this.montoAprobadoProrroga = montoAprobadoProrroga;
     }
 }

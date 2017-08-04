@@ -11,6 +11,8 @@ import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
+import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
+import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.Profesor;
@@ -142,10 +144,14 @@ public class NovedadProyectoController {
         List<Rol> roles = servicioMaestro.obtenerRoles();
         List<TipoIdentificacion> tiposIdentificacion = servicioMaestro.obtenerTiposIdentificacion();
         List<TipoPersona> tiposPersona = servicioMaestro.obtenerTiposPersona();
-
+        List<TipoActa> tiposActa = servicioMaestro.obtenerTiposActa();
+        List<CompromisoProyecto> compromisosProyecto = servicioProyecto.obtenerCompromisosProyecto(idProyecto);
+        
+        model.addAttribute("tiposActa", tiposActa);
         model.addAttribute("tiposIdentificacion", tiposIdentificacion);
         model.addAttribute("roles", roles);
         model.addAttribute("tiposPersona", tiposPersona);
+        model.addAttribute("compromisosProyecto", compromisosProyecto);
 
         if (proyecto.getActasProyecto().size() > 0) {
             model.addAttribute("actasProyectoJSON", proyectoEdicion.getActasProyectoJSON());
@@ -168,9 +174,10 @@ public class NovedadProyectoController {
         if (proyecto.getPlazosProyecto().size() > 0) {
             model.addAttribute("plazosProyectoJSON", proyectoEdicion.getPlazosProyectoJSON());
         }
-        List<TipoActa> tiposActa = servicioMaestro.obtenerTiposActa();
+        if (proyecto.getCumplimientoCompromisosProyecto().size() > 0) {
+            model.addAttribute("cumplimientoCompromisosProyectoJSON", proyectoEdicion.getCumplimientoCompromisosProyectoJSON());
+        }
 
-        model.addAttribute("tiposActa", tiposActa);
         model.addAttribute("proyecto", proyectoEdicion);
 
         return "novedades/editar";
@@ -551,7 +558,11 @@ public class NovedadProyectoController {
             prorrogaProyectoGuardar.setIdProrroga(prorrogaProyecto.getIdProrroga());
             prorrogaProyectoGuardar.setDescripcion(prorrogaProyecto.getDescripcionProrroga());
             prorrogaProyectoGuardar.setMesesAprobados(prorrogaProyecto.getMesesAprobadosProrroga());
-            prorrogaProyectoGuardar.setFecha(Util.obtenerFecha(prorrogaProyecto.getFechaProrroga()));
+            prorrogaProyectoGuardar.setFechaActa(Util.obtenerFecha(prorrogaProyecto.getFechaActaProrroga()));
+            prorrogaProyectoGuardar.setFechaActa(Util.obtenerFecha(prorrogaProyecto.getFechaActaProrroga()));
+            prorrogaProyectoGuardar.setNumeroActaCODI(prorrogaProyecto.getNumeroActaCODIProrroga());
+            prorrogaProyectoGuardar.setFechaActaCODI(Util.obtenerFecha(prorrogaProyecto.getFechaActaCODIProrroga()));
+            prorrogaProyectoGuardar.setMontoAprobado(Util.obtenerNumero(prorrogaProyecto.getMontoAprobadoProrroga()));
             Documento documento = null;
             if (prorrogaProyecto.getDocumentoProrroga() != null) {
                 documento = new Documento();
@@ -607,7 +618,10 @@ public class NovedadProyectoController {
             plazoProyectoGuardar.setIdPlazo(plazoProyecto.getIdPlazo());
             plazoProyectoGuardar.setDescripcion(plazoProyecto.getDescripcionPlazo());
             plazoProyectoGuardar.setMesesAprobados(plazoProyecto.getMesesAprobadosPlazo());
-            plazoProyectoGuardar.setFecha(Util.obtenerFecha(plazoProyecto.getFechaPlazo()));
+            plazoProyectoGuardar.setFechaActa(Util.obtenerFecha(plazoProyecto.getFechaActaPlazo()));
+            plazoProyectoGuardar.setFechaActaCODI(Util.obtenerFecha(plazoProyecto.getFechaActaCODIPlazo()));
+            plazoProyectoGuardar.setNumeroActa(plazoProyecto.getNumeroActaPlazo());
+            plazoProyectoGuardar.setNumeroActaCODI(plazoProyecto.getNumeroActaCODIPlazo());
             Documento documento = null;
             if (plazoProyecto.getDocumentoPlazo() != null) {
                 documento = new Documento();
@@ -646,6 +660,62 @@ public class NovedadProyectoController {
             ArrayList<PlazoProyecto> plazos = servicioNovedadProyecto.obtenerPlazosProyecto(idProyecto);
             Gson gson = new Gson();
             json = gson.toJson(plazos);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
+        return json;
+    }
+    
+       @RequestMapping(value = {"/cumplimientoCompromisoProyecto"}, method = RequestMethod.POST)
+    public @ResponseBody
+    String guardarCumplimientoCompromisoProyecto(@ModelAttribute(value = "cumplimientoCompromisoProyecto") co.edu.fnsp.gpci.entidadesVista.CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto, Model model) throws Exception {
+        String json = "";
+        try {
+            CumplimientoCompromisoProyecto cumplimientoCompromisoProyectoGuardar = new CumplimientoCompromisoProyecto();
+            cumplimientoCompromisoProyectoGuardar.setIdCumplimientoCompromisoProyecto(cumplimientoCompromisoProyecto.getIdCumplimientoCompromisoProyecto());
+            cumplimientoCompromisoProyectoGuardar.setIdCompromisoProyecto(cumplimientoCompromisoProyecto.getCompromisoProyecto());
+            cumplimientoCompromisoProyectoGuardar.setFechaActa(Util.obtenerFecha(cumplimientoCompromisoProyecto.getFechaActaCumplimientoCompromisoProyecto()));
+            cumplimientoCompromisoProyectoGuardar.setNumeroActa(cumplimientoCompromisoProyecto.getNumeroActaCumplimientoCompromisoProyecto());
+            Documento documento = null;
+            if (cumplimientoCompromisoProyecto.getDocumentoCumplimientoCompromisoProyecto()!= null) {
+                documento = new Documento();
+                documento.setContenido(cumplimientoCompromisoProyecto.getDocumentoCumplimientoCompromisoProyecto().getBytes());
+                documento.setNombre(cumplimientoCompromisoProyecto.getDocumentoCumplimientoCompromisoProyecto().getOriginalFilename());
+                documento.setTipoContenido(cumplimientoCompromisoProyecto.getDocumentoCumplimientoCompromisoProyecto().getContentType());
+            }
+            servicioNovedadProyecto.guardarCumplimientoCompromisoProyecto(cumplimientoCompromisoProyecto.getIdProyecto(), cumplimientoCompromisoProyectoGuardar, documento);
+            ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisos = servicioNovedadProyecto.obtenerCumplimientoCompromisosProyecto(cumplimientoCompromisoProyecto.getIdProyecto());
+            Gson gson = new Gson();
+            json = gson.toJson(cumplimientoCompromisos);
+
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
+        return json;
+    }
+
+    @RequestMapping(value = "/documentoCumplimientoCompromisoProyecto/{idCumplimientoCompromisoProyecto}", method = RequestMethod.GET)
+    public void obtenerDocumentoCumplimientoCompromisoProyecto(@PathVariable("idCumplimientoCompromisoProyecto") long idCumplimientoCompromisoProyecto, HttpServletResponse response) throws IOException {
+        Documento documento = servicioNovedadProyecto.obtenerDocumentoCumplimientoCompromisoProyecto(idCumplimientoCompromisoProyecto);
+        response.setContentType(documento.getTipoContenido());
+        response.setContentLength(documento.getContenido().length);
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
+        FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
+    }
+
+    @RequestMapping(value = "/eliminarCumplimientoCompromisoProyecto/{idProyecto}/{idCumplimientoCompromisoProyecto}", method = RequestMethod.GET)
+    public @ResponseBody
+    String eliminarCumplimientoCompromisoProyecto(@PathVariable("idProyecto") long idProyecto, @PathVariable("idCumplimientoCompromisoProyecto") long idCumplimientoCompromisoProyecto, Model model) {
+        String json = "";
+        try {
+            servicioNovedadProyecto.eliminarCumplimientoCompromisoProyecto(idCumplimientoCompromisoProyecto);
+            ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisos = servicioNovedadProyecto.obtenerCumplimientoCompromisosProyecto(idProyecto);
+            Gson gson = new Gson();
+            json = gson.toJson(cumplimientoCompromisos);
         } catch (Exception exc) {
             logger.error(exc);
             throw exc;

@@ -5,6 +5,7 @@
  */
 package co.edu.fnsp.gpci.repositorios;
 
+import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.EntidadInternacional;
@@ -17,8 +18,6 @@ import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import co.edu.fnsp.gpci.entidadesVista.Estudiante;
 import co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto;
-import co.edu.fnsp.gpci.utilidades.Util;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -83,6 +82,11 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     private SimpleJdbcCall actualizarFuenteFinanciacionProyecto;
     private SimpleJdbcCall eliminarFuenteFinanciacionProyecto;
     private SimpleJdbcCall obtenerFuentesFinanciacionProyecto;
+
+    private SimpleJdbcCall ingresarAlertaAvalProyecto;
+    private SimpleJdbcCall actualizarAlertaAvalProyecto;
+    private SimpleJdbcCall eliminarAlertaAvalProyecto;
+    private SimpleJdbcCall obtenerAlertasAvalProyecto;
     
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -135,7 +139,11 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         this.eliminarFuenteFinanciacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarFuenteFinanciacionProyecto");
         this.actualizarFuenteFinanciacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarFuenteFinanciacionProyecto");
         this.obtenerFuentesFinanciacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerFuentesFinanciacionProyecto").returningResultSet("fuentesFinanciacionProyecto", BeanPropertyRowMapper.newInstance(FuenteFinanciacionProyecto.class));
-       
+
+        this.ingresarAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarAlertaAvalProyecto");
+        this.eliminarAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarAlertaAvalProyecto");
+        this.actualizarAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarAlertaAvalProyecto");
+        this.obtenerAlertasAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAlertasAvalProyecto").returningResultSet("alertasAvalProyecto", BeanPropertyRowMapper.newInstance(AlertaAvalProyecto.class));
     }
 
     @Override
@@ -261,10 +269,10 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametrosIngresoCompromiso.addValue("varIdProyecto", idProyecto);
         for (CompromisoProyecto compromiso : proyecto.getCompromisosProyecto()) {
             parametrosIngresoCompromiso.addValue("varDescripcion", compromiso.getDescripcion());
-            parametrosIngresoCompromiso.addValue("varFecha", compromiso.getFechaCompromiso());
+            parametrosIngresoCompromiso.addValue("varIdTipoCompromiso", compromiso.getIdTipoCompromiso());
             ingresarCompromisoProyecto.execute(parametrosIngresoCompromiso);
         }
-        
+
         MapSqlParameterSource parametrosIngresoFuenteFinanciacionProyecto = new MapSqlParameterSource();
         parametrosIngresoFuenteFinanciacionProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
         for (FuenteFinanciacionProyecto fuenteFinanciacion : proyecto.getFuentesFinanciacionProyecto()) {
@@ -275,7 +283,18 @@ public class RepositorioProyecto implements IRepositorioProyecto {
                 parametrosIngresoFuenteFinanciacionProyecto.addValue("varMontoEspecies", fuenteFinanciacion.getMontoEspecies());
                 ingresarFuenteFinanciacionProyecto.execute(parametrosIngresoFuenteFinanciacionProyecto);
             }
-        }        
+        }
+
+        MapSqlParameterSource parametrosIngresoAlertaAval = new MapSqlParameterSource();
+        parametrosIngresoAlertaAval.addValue("varIdProyecto", idProyecto);
+        for (AlertaAvalProyecto alertaAvalProyecto : proyecto.getAlertasAvalProyecto()) {
+            parametrosIngresoAlertaAval.addValue("varDescripcion", alertaAvalProyecto.getDescripcion());
+            parametrosIngresoAlertaAval.addValue("varIdTipoAval", alertaAvalProyecto.getIdTipoAval());
+            parametrosIngresoAlertaAval.addValue("varIdTipoAval", alertaAvalProyecto.getIdTipoAval());
+            parametrosIngresoAlertaAval.addValue("varFechaActa", alertaAvalProyecto.getFechaActa());
+            parametrosIngresoAlertaAval.addValue("varNumeroActa", alertaAvalProyecto.getNumeroActa());
+            ingresarAlertaAvalProyecto.execute(parametrosIngresoAlertaAval);
+        }
     }
 
     @Override
@@ -313,6 +332,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         this.ActualizarGruposInvestigacion(proyecto);
         this.ActualizarEntidadesInternacionales(proyecto);
         this.ActualizarFuentesFinanciacionProyecto(proyecto);
+        this.ActualizarAlertasAvalProyecto(proyecto);
     }
 
     @Override
@@ -383,8 +403,8 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         Map resultadoFuentesFinanciacion = obtenerFuentesFinanciacionProyecto.execute(parametros);
         ArrayList<co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = (ArrayList<co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto>) resultadoFuentesFinanciacion.get("fuentesFinanciacionProyecto");
-        proyecto.setFuentesFinanciacionProyecto(fuentesFinanciacionProyecto);        
-        
+        proyecto.setFuentesFinanciacionProyecto(fuentesFinanciacionProyecto);
+
         return proyecto;
     }
 
@@ -453,15 +473,12 @@ public class RepositorioProyecto implements IRepositorioProyecto {
                 }
             }
             if (compromisoProyectoModificado == null) {
-                parametrosEliminacionCompromisoProyecto.addValue("varIdCompromiso", compromisoProyectoActual.getIdCompromisoProyecto());
+                parametrosEliminacionCompromisoProyecto.addValue("varIdCompromisoProyecto", compromisoProyectoActual.getIdCompromisoProyecto());
                 eliminarCompromisoProyecto.execute(parametrosEliminacionCompromisoProyecto);
             } else {
-                parametrosActualizacionCompromisoProyecto.addValue("varIdCompromiso", compromisoProyectoModificado.getIdCompromisoProyecto());
+                parametrosActualizacionCompromisoProyecto.addValue("varIdCompromisoProyecto", compromisoProyectoModificado.getIdCompromisoProyecto());
                 parametrosActualizacionCompromisoProyecto.addValue("varDescripcion", compromisoProyectoModificado.getDescripcion());
-                try {
-                    parametrosActualizacionCompromisoProyecto.addValue("varFecha", Util.obtenerFecha(compromisoProyectoModificado.getFechaCompromisoFormateada()));
-                } catch (ParseException ex) {
-                }
+                parametrosActualizacionCompromisoProyecto.addValue("varIdTipoCompromiso", compromisoProyectoModificado.getIdTipoCompromiso());
                 actualizarCompromisoProyecto.execute(parametrosActualizacionCompromisoProyecto);
             }
         }
@@ -471,13 +488,19 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         for (CompromisoProyecto compromisoProyecto : proyecto.getCompromisosProyecto()) {
             if (compromisoProyecto.getIdCompromisoProyecto() == 0) {
                 parametrosIngresoCompromisoProyecto.addValue("varDescripcion", compromisoProyecto.getDescripcion());
-                try {
-                    parametrosIngresoCompromisoProyecto.addValue("varFecha", Util.obtenerFecha(compromisoProyecto.getFechaCompromisoFormateada()));
-                } catch (ParseException ex) {
-                }
+                parametrosIngresoCompromisoProyecto.addValue("varIdTipoCompromiso", compromisoProyecto.getIdTipoCompromiso());
                 ingresarCompromisoProyecto.execute(parametrosIngresoCompromisoProyecto);
             }
         }
+    }
+
+    @Override
+    public ArrayList<CompromisoProyecto> obtenerCompromisosProyecto(long idProyecto) {
+        MapSqlParameterSource parametrosConsultaCompromisosProyecto = new MapSqlParameterSource();
+        parametrosConsultaCompromisosProyecto.addValue("varIdProyecto", idProyecto);
+        Map resultadoCompromisosProyecto = obtenerCompromisosProyecto.execute(parametrosConsultaCompromisosProyecto);
+        ArrayList<CompromisoProyecto> compromisosProyecto = (ArrayList<CompromisoProyecto>) resultadoCompromisosProyecto.get("compromisosProyecto");
+        return compromisosProyecto;
     }
 
     private void ActualizarProfesoresProyecto(Proyecto proyecto) {
@@ -858,4 +881,56 @@ public class RepositorioProyecto implements IRepositorioProyecto {
             }
         }
     }
+    
+    private void ActualizarAlertasAvalProyecto(Proyecto proyecto) {
+        MapSqlParameterSource parametrosConsultaAlertasAvalProyecto = new MapSqlParameterSource();
+        parametrosConsultaAlertasAvalProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
+        Map resultadoAlertaAvalsProyecto = obtenerAlertasAvalProyecto.execute(parametrosConsultaAlertasAvalProyecto);
+        ArrayList<AlertaAvalProyecto> alertasAvalProyectoActuales = (ArrayList<AlertaAvalProyecto>) resultadoAlertaAvalsProyecto.get("alertasAvalProyecto");
+
+        MapSqlParameterSource parametrosEliminacionAlertaAvalProyecto = new MapSqlParameterSource();
+        MapSqlParameterSource parametrosActualizacionAlertaAvalProyecto = new MapSqlParameterSource();
+        for (AlertaAvalProyecto alertaAvalProyectoActual : alertasAvalProyectoActuales) {
+            AlertaAvalProyecto alertaAvalProyectoModificado = null;
+            for (AlertaAvalProyecto alertaAvalProyecto : proyecto.getAlertasAvalProyecto()) {
+                if (alertaAvalProyecto.getIdAlertaAvalProyecto() == alertaAvalProyectoActual.getIdAlertaAvalProyecto()) {
+                    alertaAvalProyectoModificado = alertaAvalProyecto;
+                    break;
+                }
+            }
+            if (alertaAvalProyectoModificado == null) {
+                parametrosEliminacionAlertaAvalProyecto.addValue("varIdAlertaAvalProyecto", alertaAvalProyectoActual.getIdAlertaAvalProyecto());
+                eliminarAlertaAvalProyecto.execute(parametrosEliminacionAlertaAvalProyecto);
+            } else {
+                parametrosActualizacionAlertaAvalProyecto.addValue("varIdAlertaAvalProyecto", alertaAvalProyectoModificado.getIdAlertaAvalProyecto());
+                parametrosActualizacionAlertaAvalProyecto.addValue("varDescripcion", alertaAvalProyectoModificado.getDescripcion());
+                parametrosActualizacionAlertaAvalProyecto.addValue("varIdTipoAval", alertaAvalProyectoModificado.getIdTipoAval());
+                parametrosActualizacionAlertaAvalProyecto.addValue("varFechaActa", alertaAvalProyectoModificado.getFechaActa());
+                parametrosActualizacionAlertaAvalProyecto.addValue("varNumeroActa", alertaAvalProyectoModificado.getNumeroActa());
+                actualizarAlertaAvalProyecto.execute(parametrosActualizacionAlertaAvalProyecto);
+            }
+        }
+
+        MapSqlParameterSource parametrosIngresoAlertaAvalProyecto = new MapSqlParameterSource();
+        parametrosIngresoAlertaAvalProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
+        for (AlertaAvalProyecto alertaAvalProyecto : proyecto.getAlertasAvalProyecto()) {
+            if (alertaAvalProyecto.getIdAlertaAvalProyecto() == 0) {
+                parametrosIngresoAlertaAvalProyecto.addValue("varDescripcion", alertaAvalProyecto.getDescripcion());
+                parametrosIngresoAlertaAvalProyecto.addValue("varIdTipoAval", alertaAvalProyecto.getIdTipoAval());
+                parametrosIngresoAlertaAvalProyecto.addValue("varFechaActa", alertaAvalProyecto.getFechaActa());
+                parametrosIngresoAlertaAvalProyecto.addValue("varNumeroActa", alertaAvalProyecto.getNumeroActa());
+                ingresarAlertaAvalProyecto.execute(parametrosIngresoAlertaAvalProyecto);
+            }
+        }
+    }
+
+    @Override
+    public ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto) {
+        MapSqlParameterSource parametrosConsultaAlertaAvalsProyecto = new MapSqlParameterSource();
+        parametrosConsultaAlertaAvalsProyecto.addValue("varIdProyecto", idProyecto);
+        Map resultadoAlertaAvalsProyecto = obtenerAlertasAvalProyecto.execute(parametrosConsultaAlertaAvalsProyecto);
+        ArrayList<AlertaAvalProyecto> alertasAvalProyecto = (ArrayList<AlertaAvalProyecto>) resultadoAlertaAvalsProyecto.get("alertasAvalProyecto");
+        return alertasAvalProyecto;
+    }
+
 }

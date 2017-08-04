@@ -15,9 +15,9 @@ public class AdicionProyecto {
 
      private long idAdicion;
      private long monto;
-     private String fechaActaFormateada;
      private String descripcion;
      private Date fechaActa; 
+     private String fechaActaFormateada;
      private String numeroActa;
      private Date fechaActaCODI;
      private String fechaActaCODIFormateada;

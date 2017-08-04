@@ -6,35 +6,36 @@
 package co.edu.fnsp.gpci.entidades;
 
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
  * @author William
  */
-public class PlazoProyecto {
+public class AlertaAvalProyecto {
 
-    private long idPlazo;
+    private int idAlertaAvalProyecto;
     private String descripcion;
+    private String nombreTipoAval;
+    private int idTipoAval;
+    
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date fechaActa;
     private String fechaActaFormateada;
     private String numeroActa;
-    private Date fechaActaCODI;
-    private String fechaActaCODIFormateada;
-    private String numeroActaCODI;
-    private int mesesAprobados;
-
+    
     /**
-     * @return the idPlazo
+     * @return the idAlertaAvalProyecto
      */
-    public long getIdPlazo() {
-        return idPlazo;
+    public int getIdAlertaAvalProyecto() {
+        return idAlertaAvalProyecto;
     }
 
     /**
-     * @param idPlazo the idPlazo to set
+     * @param idAlertaAvalProyecto the idAlertaAvalProyecto to set
      */
-    public void setIdPlazo(long idPlazo) {
-        this.idPlazo = idPlazo;
+    public void setIdAlertaAvalProyecto(int idAlertaAvalProyecto) {
+        this.idAlertaAvalProyecto = idAlertaAvalProyecto;
     }
 
     /**
@@ -52,17 +53,31 @@ public class PlazoProyecto {
     }
 
     /**
-     * @return the mesesAprobados
+     * @return the nombreTipoAval
      */
-    public int getMesesAprobados() {
-        return mesesAprobados;
+    public String getNombreTipoAval() {
+        return nombreTipoAval;
     }
 
     /**
-     * @param mesesAprobados the mesesAprobados to set
+     * @param nombreTipoAval the nombreTipoAval to set
      */
-    public void setMesesAprobados(int mesesAprobados) {
-        this.mesesAprobados = mesesAprobados;
+    public void setNombreTipoAval(String nombreTipoAval) {
+        this.nombreTipoAval = nombreTipoAval;
+    }
+
+    /**
+     * @return the idTipoAval
+     */
+    public int getIdTipoAval() {
+        return idTipoAval;
+    }
+
+    /**
+     * @param idTipoAval the idTipoAval to set
+     */
+    public void setIdTipoAval(int idTipoAval) {
+        this.idTipoAval = idTipoAval;
     }
 
     /**
@@ -106,46 +121,5 @@ public class PlazoProyecto {
     public void setNumeroActa(String numeroActa) {
         this.numeroActa = numeroActa;
     }
-
-    /**
-     * @return the fechaActaCODI
-     */
-    public Date getFechaActaCODI() {
-        return fechaActaCODI;
-    }
-
-    /**
-     * @param fechaActaCODI the fechaActaCODI to set
-     */
-    public void setFechaActaCODI(Date fechaActaCODI) {
-        this.fechaActaCODI = fechaActaCODI;
-    }
-
-    /**
-     * @return the fechaActaCODIFormateada
-     */
-    public String getFechaActaCODIFormateada() {
-        return fechaActaCODIFormateada;
-    }
-
-    /**
-     * @param fechaActaCODIFormateada the fechaActaCODIFormateada to set
-     */
-    public void setFechaActaCODIFormateada(String fechaActaCODIFormateada) {
-        this.fechaActaCODIFormateada = fechaActaCODIFormateada;
-    }
-
-    /**
-     * @return the numeroActaCODI
-     */
-    public String getNumeroActaCODI() {
-        return numeroActaCODI;
-    }
-
-    /**
-     * @param numeroActaCODI the numeroActaCODI to set
-     */
-    public void setNumeroActaCODI(String numeroActaCODI) {
-        this.numeroActaCODI = numeroActaCODI;
-    }
+   
 }

@@ -5,33 +5,17 @@
  */
 package co.edu.fnsp.gpci.entidades;
 
-import java.util.Date;
-
 /**
  *
  * @author William
  */
 public class CompromisoProyecto {
-    
+
     private int idCompromisoProyecto;
-    private Date fechaCompromiso;
-    private String fechaCompromisoFormateada;
     private String descripcion;
+    private String nombreTipoCompromiso;
+    private int idTipoCompromiso;
     
-    /**
-     * @return the descripcion
-     */
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    /**
-     * @param descripcion the descripcion to set
-     */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
     /**
      * @return the idCompromisoProyecto
      */
@@ -47,30 +31,45 @@ public class CompromisoProyecto {
     }
 
     /**
-     * @return the fechaCompromiso
+     * @return the descripcion
      */
-    public Date getFechaCompromiso() {
-        return fechaCompromiso;
+    public String getDescripcion() {
+        return descripcion;
     }
 
     /**
-     * @param fechaCompromiso the fechaCompromiso to set
+     * @param descripcion the descripcion to set
      */
-    public void setFechaCompromiso(Date fechaCompromiso) {
-        this.fechaCompromiso = fechaCompromiso;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
     }
 
     /**
-     * @return the fechaCompromisoFormateada
+     * @return the nombreTipoCompromiso
      */
-    public String getFechaCompromisoFormateada() {
-        return fechaCompromisoFormateada;
+    public String getNombreTipoCompromiso() {
+        return nombreTipoCompromiso;
     }
 
     /**
-     * @param fechaCompromisoFormateada the fechaCompromisoFormateada to set
+     * @param nombreTipoCompromiso the nombreTipoCompromiso to set
      */
-    public void setFechaCompromisoFormateada(String fechaCompromisoFormateada) {
-        this.fechaCompromisoFormateada = fechaCompromisoFormateada;
+    public void setNombreTipoCompromiso(String nombreTipoCompromiso) {
+        this.nombreTipoCompromiso = nombreTipoCompromiso;
     }
+
+    /**
+     * @return the idTipoCompromiso
+     */
+    public int getIdTipoCompromiso() {
+        return idTipoCompromiso;
+    }
+
+    /**
+     * @param idTipoCompromiso the idTipoCompromiso to set
+     */
+    public void setIdTipoCompromiso(int idTipoCompromiso) {
+        this.idTipoCompromiso = idTipoCompromiso;
+    }
+   
 }

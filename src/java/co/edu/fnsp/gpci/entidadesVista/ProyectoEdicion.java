@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
+import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.EntidadInternacional;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
@@ -61,6 +62,8 @@ public class ProyectoEdicion {
     private ArrayList<AdicionProyecto> adicionesProyecto = new ArrayList<>();
     private ArrayList<PlazoProyecto> plazosProyecto = new ArrayList<>();
     private ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = new ArrayList<>();
+    private ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = new ArrayList<>();
+    private ArrayList<AlertaAvalProyecto> alertasAvalProyecto = new ArrayList<>();
 
     /**
      * @return the areaTematica
@@ -493,13 +496,13 @@ public class ProyectoEdicion {
         return prorrogasProyecto;
     }
 
-     /**
-    * @return the prorrogasProyecto
-    */
+    /**
+     * @return the prorrogasProyecto
+     */
     public String getProrrogasProyectoJSON() {
         return Util.obtenerProrrogasProyectoJSON(prorrogasProyecto);
     }
-    
+
     /**
      * @param prorrogasProyecto the prorrogasProyecto to set
      */
@@ -515,12 +518,12 @@ public class ProyectoEdicion {
     }
 
     /**
-    * @return the adendasIngresoProyecto
-    */
+     * @return the adendasIngresoProyecto
+     */
     public String getAdendasIngresoProyectoJSON() {
         return Util.obtenerAdendasIngresoProyectoJSON(adendasIngresoProyecto);
     }
-    
+
     /**
      * @param adendasIngresoProyecto the adendasIngresoProyecto to set
      */
@@ -528,7 +531,7 @@ public class ProyectoEdicion {
         this.adendasIngresoProyecto = adendasIngresoProyecto;
     }
 
-      /**
+    /**
      * @return the adendasRetiroProyecto
      */
     public ArrayList<AdendaRetiroProyecto> getAdendasRetiroProyecto() {
@@ -536,20 +539,20 @@ public class ProyectoEdicion {
     }
 
     /**
-    * @return the adendasRetiroProyecto
-    */
+     * @return the adendasRetiroProyecto
+     */
     public String getAdendasRetiroProyectoJSON() {
         return Util.obtenerAdendasRetiroProyectoJSON(adendasRetiroProyecto);
     }
-    
+
     /**
      * @param adendasRetiroProyecto the adendasRetiroProyecto to set
      */
     public void setAdendasRetiroProyecto(ArrayList<AdendaRetiroProyecto> adendasRetiroProyecto) {
         this.adendasRetiroProyecto = adendasRetiroProyecto;
     }
-    
-      /**
+
+    /**
      * @return the adendasCambioProyecto
      */
     public ArrayList<AdendaCambioProyecto> getAdendasCambioProyecto() {
@@ -557,19 +560,19 @@ public class ProyectoEdicion {
     }
 
     /**
-    * @return the adendasCambioProyecto
-    */
+     * @return the adendasCambioProyecto
+     */
     public String getAdendasCambioProyectoJSON() {
         return Util.obtenerAdendasCambioProyectoJSON(adendasCambioProyecto);
     }
-    
+
     /**
      * @param adendasCambioProyecto the adendasCambioProyecto to set
      */
     public void setAdendasCambioProyecto(ArrayList<AdendaCambioProyecto> adendasCambioProyecto) {
         this.adendasCambioProyecto = adendasCambioProyecto;
     }
-    
+
     /**
      * @return the adicionesProyecto
      */
@@ -583,7 +586,7 @@ public class ProyectoEdicion {
     public String getAdicionesProyectoJSON() {
         return Util.obtenerAdicionesProyectoJSON(adicionesProyecto);
     }
-    
+
     /**
      * @param adicionesProyecto the adicionesProyecto to set
      */
@@ -604,10 +607,10 @@ public class ProyectoEdicion {
     public void setPlazosProyecto(ArrayList<PlazoProyecto> plazosProyecto) {
         this.plazosProyecto = plazosProyecto;
     }
-    
-     /**
-    * @return the plazosProyecto
-    */
+
+    /**
+     * @return the plazosProyecto
+     */
     public String getPlazosProyectoJSON() {
         return Util.obtenerPlazosProyectoJSON(this.plazosProyecto);
     }
@@ -619,13 +622,13 @@ public class ProyectoEdicion {
         return gruposInvestigacion;
     }
 
-            /**
+    /**
      * @return the JSON gruposInvestigacion
      */
     public String getGruposInvestigacionJSON() {
         return Util.obtenerGruposInvestigacionJSON(gruposInvestigacion);
     }
-    
+
     /**
      * @param gruposInvestigacion the gruposInvestigacion to set
      */
@@ -640,13 +643,13 @@ public class ProyectoEdicion {
         return entidadesInternacionales;
     }
 
-        /**
+    /**
      * @return the JSON entidadesInternacionales
      */
     public String getEntidadesInternacionalesJSON() {
         return Util.obtenerEntidadesInternacionalesJSON(entidadesInternacionales);
     }
-    
+
     /**
      * @param entidadesInternacionales the entidadesInternacionales to set
      */
@@ -667,11 +670,54 @@ public class ProyectoEdicion {
     public String getFuentesFinanciacionProyectoJSON() {
         return Util.obtenerFuentesFinanciacionProyectoJSON(fuentesFinanciacionProyecto);
     }
-    
+
     /**
      * @param fuentesFinanciacionProyecto the fuentesFinanciacionProyecto to set
      */
     public void setFuentesFinanciacionProyecto(ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto) {
         this.fuentesFinanciacionProyecto = fuentesFinanciacionProyecto;
+    }
+
+    /**
+     * @return the cumplimientoCompromisosProyecto
+     */
+    public ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto> getCumplimientoCompromisosProyecto() {
+        return cumplimientoCompromisosProyecto;
+    }
+
+    /**
+     * @return the cumplimientoCompromisosProyecto
+     */
+    public String getCumplimientoCompromisosProyectoJSON() {
+        return Util.obtenerCumplimientoCompromisosProyectoJSON(cumplimientoCompromisosProyecto);
+    }
+
+    /**
+     * @param cumplimientoCompromisosProyecto the
+     * cumplimientoCompromisosProyecto to set
+     */
+    public void setCumplimientoCompromisosProyecto(ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto) {
+        this.cumplimientoCompromisosProyecto = cumplimientoCompromisosProyecto;
+    }
+
+    /**
+     * @return the alertasAvalProyecto
+     */
+    public ArrayList<AlertaAvalProyecto> getAlertasAvalProyecto() {
+        return alertasAvalProyecto;
+    }
+
+    /**
+     * @return the alertasAvalProyecto
+     */
+    public String getAlertasAvalProyectoJSON() {
+        return Util.obtenerAlertasAvalProyectoJSON(alertasAvalProyecto);
+    }
+
+    /**
+     * @param alertasAvalProyecto the alertasAvalProyecto to set
+     */
+    public void setAlertasAvalProyecto(ArrayList<AlertaAvalProyecto> alertasAvalProyecto) {
+        this.alertasAvalProyecto = alertasAvalProyecto;
     }
 }

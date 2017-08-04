@@ -11,6 +11,7 @@ import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
+import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
@@ -95,6 +96,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
     private SimpleJdbcCall obtenerDocumentoAdicionProyecto;
     private SimpleJdbcCall actualizarDocumentoAdicionProyecto;
 
+    private SimpleJdbcCall ingresarCumplimientoCompromisoProyecto;
+    private SimpleJdbcCall actualizarCumplimientoCompromisoProyecto;
+    private SimpleJdbcCall eliminarCumplimientoCompromisoProyecto;
+    private SimpleJdbcCall obtenerCumplimientoCompromisosProyecto;
+    private SimpleJdbcCall ingresarDocumentoCumplimientoCompromisoProyecto;
+    private SimpleJdbcCall obtenerDocumentoCumplimientoCompromisoProyecto;
+    private SimpleJdbcCall actualizarDocumentoCumplimientoCompromisoProyecto;
+    
     @Autowired
     public void setDataSource(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -158,6 +167,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         this.ingresarDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoPlazoProyecto");
         this.obtenerDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoPlazoProyecto");
         this.actualizarDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoPlazoProyecto");
+
+        this.ingresarCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarCumplimientoCompromisoProyecto");
+        this.eliminarCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarCumplimientoCompromisoProyecto");
+        this.actualizarCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarCumplimientoCompromisoProyecto");
+        this.obtenerCumplimientoCompromisosProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerCumplimientoCompromisosProyecto").returningResultSet("cumplimientoCompromisosProyecto", BeanPropertyRowMapper.newInstance(CumplimientoCompromisoProyecto.class));
+        this.ingresarDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoCumplimientoCompromisoProyecto");
+        this.obtenerDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoCumplimientoCompromisoProyecto");
+        this.actualizarDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoCumplimientoCompromisoProyecto");
     }
 
     @Override
@@ -240,16 +257,28 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         Map resultadoProrrogas = obtenerProrrogasProyecto.execute(parametros);
         ArrayList<ProrrogaProyecto> prorrogasProyecto = (ArrayList<ProrrogaProyecto>) resultadoProrrogas.get("prorrogasProyecto");
         for (ProrrogaProyecto prorrogaProyecto : prorrogasProyecto) {
-            prorrogaProyecto.setFechaFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFecha()));
+            prorrogaProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFechaActa()));
+            prorrogaProyecto.setFechaActaCODIFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFechaActaCODI()));
+            prorrogaProyecto.setMontoAprobadoFormateado(Util.obtenerNumeroFormatoMoneda(prorrogaProyecto.getMontoAprobado()));
         }
         proyecto.setProrrogasProyecto(prorrogasProyecto);
 
         Map resultadoPlazos = obtenerPlazosProyecto.execute(parametros);
         ArrayList<PlazoProyecto> plazosProyecto = (ArrayList<PlazoProyecto>) resultadoPlazos.get("plazosProyecto");
         for (PlazoProyecto plazoProyecto : plazosProyecto) {
-            plazoProyecto.setFechaFormateada(Util.obtenerFechaFormateada(plazoProyecto.getFecha()));
+            plazoProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(plazoProyecto.getFechaActa()));
+            plazoProyecto.setFechaActaCODIFormateada(Util.obtenerFechaFormateada(plazoProyecto.getFechaActaCODI()));
         }
         proyecto.setPlazosProyecto(plazosProyecto);
+
+        Map resultadoCumplimientoCompromisos = obtenerCumplimientoCompromisosProyecto.execute(parametros);
+        ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = (ArrayList<CumplimientoCompromisoProyecto>) resultadoCumplimientoCompromisos.get("cumplimientoCompromisosProyecto");
+        for (CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto : cumplimientoCompromisosProyecto) {
+            cumplimientoCompromisoProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(cumplimientoCompromisoProyecto.getFechaActa()));
+        }
+        proyecto.setCumplimientoCompromisosProyecto(cumplimientoCompromisosProyecto);
+       
+        
         return proyecto;
     }
 
@@ -673,7 +702,11 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosIngresoProrrogaProyecto.addValue("varIdProyecto", idProyecto);
             parametrosIngresoProrrogaProyecto.addValue("varDescripcion", prorrogaProyecto.getDescripcion());
             parametrosIngresoProrrogaProyecto.addValue("varMesesAprobados", prorrogaProyecto.getMesesAprobados());
-            parametrosIngresoProrrogaProyecto.addValue("varFecha", prorrogaProyecto.getFecha());
+            parametrosIngresoProrrogaProyecto.addValue("varFechaActa", prorrogaProyecto.getFechaActa());
+            parametrosIngresoProrrogaProyecto.addValue("varNumeroActa", prorrogaProyecto.getNumeroActa());
+            parametrosIngresoProrrogaProyecto.addValue("varFechaActaCODI", prorrogaProyecto.getFechaActaCODI());
+            parametrosIngresoProrrogaProyecto.addValue("varNumeroActaCODI", prorrogaProyecto.getNumeroActaCODI());
+            parametrosIngresoProrrogaProyecto.addValue("varMontoAprobado()", prorrogaProyecto.getMontoAprobado());
             Map resultado = ingresarProrrogaProyecto.execute(parametrosIngresoProrrogaProyecto);
             long idProrroga = (long) resultado.get("varIdProrroga");
 
@@ -689,7 +722,11 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosActualizacionProrrogaProyecto.addValue("varIdProrroga", prorrogaProyecto.getIdProrroga());
             parametrosActualizacionProrrogaProyecto.addValue("varDescripcion", prorrogaProyecto.getDescripcion());
             parametrosActualizacionProrrogaProyecto.addValue("varMesesAprobados", prorrogaProyecto.getMesesAprobados());
-            parametrosActualizacionProrrogaProyecto.addValue("varFecha", prorrogaProyecto.getFecha());
+            parametrosActualizacionProrrogaProyecto.addValue("varFechaActa", prorrogaProyecto.getFechaActa());
+            parametrosActualizacionProrrogaProyecto.addValue("varNumeroActa", prorrogaProyecto.getNumeroActa());
+            parametrosActualizacionProrrogaProyecto.addValue("varFechaActaCODI", prorrogaProyecto.getFechaActaCODI());
+            parametrosActualizacionProrrogaProyecto.addValue("varNumeroActaCODI", prorrogaProyecto.getNumeroActaCODI());
+            parametrosActualizacionProrrogaProyecto.addValue("varMontoAprobado", prorrogaProyecto.getMontoAprobado());
             actualizarProrrogaProyecto.execute(parametrosActualizacionProrrogaProyecto);
 
             if (documento != null) {
@@ -711,7 +748,9 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         Map resultadoProrrogasProyecto = obtenerProrrogasProyecto.execute(parametros);
         ArrayList<ProrrogaProyecto> prorrogasProyecto = (ArrayList<ProrrogaProyecto>) resultadoProrrogasProyecto.get("prorrogasProyecto");
         for (ProrrogaProyecto prorrogaProyecto : prorrogasProyecto) {
-            prorrogaProyecto.setFechaFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFecha()));
+            prorrogaProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFechaActa()));
+            prorrogaProyecto.setFechaActaCODIFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFechaActaCODI()));
+            prorrogaProyecto.setMontoAprobadoFormateado(Util.obtenerNumeroFormatoMoneda(prorrogaProyecto.getMontoAprobado()));
         }
 
         return prorrogasProyecto;
@@ -749,7 +788,10 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosIngresoPlazoProyecto.addValue("varIdProyecto", idProyecto);
             parametrosIngresoPlazoProyecto.addValue("varDescripcion", plazoProyecto.getDescripcion());
             parametrosIngresoPlazoProyecto.addValue("varMesesAprobados", plazoProyecto.getMesesAprobados());
-            parametrosIngresoPlazoProyecto.addValue("varFecha", plazoProyecto.getFecha());
+            parametrosIngresoPlazoProyecto.addValue("varFechaActa", plazoProyecto.getFechaActa());
+            parametrosIngresoPlazoProyecto.addValue("varNumeroActa", plazoProyecto.getNumeroActa());
+            parametrosIngresoPlazoProyecto.addValue("varFechaActaCODI", plazoProyecto.getFechaActaCODI());
+            parametrosIngresoPlazoProyecto.addValue("varNumeroActaCODI", plazoProyecto.getNumeroActaCODI());
             Map resultado = ingresarPlazoProyecto.execute(parametrosIngresoPlazoProyecto);
             long idPlazo = (long) resultado.get("varIdPlazo");
 
@@ -765,7 +807,10 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosActualizacionPlazoProyecto.addValue("varIdPlazo", plazoProyecto.getIdPlazo());
             parametrosActualizacionPlazoProyecto.addValue("varDescripcion", plazoProyecto.getDescripcion());
             parametrosActualizacionPlazoProyecto.addValue("varMesesAprobados", plazoProyecto.getMesesAprobados());
-            parametrosActualizacionPlazoProyecto.addValue("varFecha", plazoProyecto.getFecha());
+            parametrosActualizacionPlazoProyecto.addValue("varFechaActa", plazoProyecto.getFechaActa());
+            parametrosActualizacionPlazoProyecto.addValue("varNumeroActa", plazoProyecto.getNumeroActa());
+            parametrosActualizacionPlazoProyecto.addValue("varFechaActaCODI", plazoProyecto.getFechaActaCODI());
+            parametrosActualizacionPlazoProyecto.addValue("varNumeroActaCODI", plazoProyecto.getNumeroActaCODI());
             actualizarPlazoProyecto.execute(parametrosActualizacionPlazoProyecto);
 
             if (documento != null) {
@@ -787,7 +832,8 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         Map resultadoPlazosProyecto = obtenerPlazosProyecto.execute(parametros);
         ArrayList<PlazoProyecto> plazosProyecto = (ArrayList<PlazoProyecto>) resultadoPlazosProyecto.get("plazosProyecto");
         for (PlazoProyecto plazoProyecto : plazosProyecto) {
-            plazoProyecto.setFechaFormateada(Util.obtenerFechaFormateada(plazoProyecto.getFecha()));
+            plazoProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(plazoProyecto.getFechaActa()));
+            plazoProyecto.setFechaActaCODIFormateada(Util.obtenerFechaFormateada(plazoProyecto.getFechaActaCODI()));
         }
 
         return plazosProyecto;
@@ -815,5 +861,81 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdPlazo", idPlazo);
         eliminarPlazoProyecto.execute(parametros);
+    }
+    
+     @Override
+    public void guardarCumplimientoCompromisoProyecto(long idProyecto, CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto, Documento documento) {
+
+        if (cumplimientoCompromisoProyecto.getIdCumplimientoCompromisoProyecto() == 0) {
+            MapSqlParameterSource parametrosIngresoCumplimientoCompromisoProyecto = new MapSqlParameterSource();
+            parametrosIngresoCumplimientoCompromisoProyecto.addValue("varIdProyecto", idProyecto);
+            parametrosIngresoCumplimientoCompromisoProyecto.addValue("varIdCompromisoProyecto", cumplimientoCompromisoProyecto.getIdCompromisoProyecto());
+            parametrosIngresoCumplimientoCompromisoProyecto.addValue("varFechaActa", cumplimientoCompromisoProyecto.getFechaActa());
+            parametrosIngresoCumplimientoCompromisoProyecto.addValue("varNumeroActa", cumplimientoCompromisoProyecto.getNumeroActa());
+            Map resultado = ingresarCumplimientoCompromisoProyecto.execute(parametrosIngresoCumplimientoCompromisoProyecto);
+            long idCumplimientoCompromiso = (long) resultado.get("varIdCumplimientoCompromisoProyecto");
+
+            MapSqlParameterSource parametrosIngresoDocumentoCumplimientoCompromisoProyecto = new MapSqlParameterSource();
+            parametrosIngresoDocumentoCumplimientoCompromisoProyecto.addValue("varIdCumplimientoCompromisoProyecto", idCumplimientoCompromiso);
+            parametrosIngresoDocumentoCumplimientoCompromisoProyecto.addValue("varNombre", documento.getNombre());
+            parametrosIngresoDocumentoCumplimientoCompromisoProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+            parametrosIngresoDocumentoCumplimientoCompromisoProyecto.addValue("varContenido", documento.getContenido());
+            ingresarDocumentoCumplimientoCompromisoProyecto.execute(parametrosIngresoDocumentoCumplimientoCompromisoProyecto);
+
+        } else {
+            MapSqlParameterSource parametrosActualizacionCumplimientoCompromisoProyecto = new MapSqlParameterSource();
+            parametrosActualizacionCumplimientoCompromisoProyecto.addValue("varIdCumplimientoCompromisoProyecto", cumplimientoCompromisoProyecto.getIdCumplimientoCompromisoProyecto());
+            parametrosActualizacionCumplimientoCompromisoProyecto.addValue("varIdCompromisoProyecto", cumplimientoCompromisoProyecto.getIdCompromisoProyecto());
+            parametrosActualizacionCumplimientoCompromisoProyecto.addValue("varFechaActa", cumplimientoCompromisoProyecto.getFechaActa());
+            parametrosActualizacionCumplimientoCompromisoProyecto.addValue("varNumeroActa", cumplimientoCompromisoProyecto.getNumeroActa());
+            actualizarCumplimientoCompromisoProyecto.execute(parametrosActualizacionCumplimientoCompromisoProyecto);
+
+            if (documento != null) {
+                MapSqlParameterSource parametrosActualizacionDocumentoCumplimientoCompromisoProyecto = new MapSqlParameterSource();
+                parametrosActualizacionDocumentoCumplimientoCompromisoProyecto.addValue("varIdCumplimientoCompromisoProyecto", cumplimientoCompromisoProyecto.getIdCumplimientoCompromisoProyecto());
+                parametrosActualizacionDocumentoCumplimientoCompromisoProyecto.addValue("varNombre", documento.getNombre());
+                parametrosActualizacionDocumentoCumplimientoCompromisoProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+                parametrosActualizacionDocumentoCumplimientoCompromisoProyecto.addValue("varContenido", documento.getContenido());
+                actualizarDocumentoCumplimientoCompromisoProyecto.execute(parametrosActualizacionDocumentoCumplimientoCompromisoProyecto);
+            }
+        }
+    }
+
+    @Override
+    public ArrayList<CumplimientoCompromisoProyecto> obtenerCumplimientoCompromisosProyecto(long idProyecto) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdProyecto", idProyecto);
+
+        Map resultadoCumplimientoCompromisosProyecto = obtenerCumplimientoCompromisosProyecto.execute(parametros);
+        ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = (ArrayList<CumplimientoCompromisoProyecto>) resultadoCumplimientoCompromisosProyecto.get("plazosProyecto");
+        for (CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto : cumplimientoCompromisosProyecto) {
+            cumplimientoCompromisoProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(cumplimientoCompromisoProyecto.getFechaActa()));
+        }
+
+        return cumplimientoCompromisosProyecto;
+
+    }
+
+    @Override
+    public Documento obtenerDocumentoCumplimientoCompromisoProyecto(long idCumplimientoCompromisoProyecto) {
+        Documento documento = new Documento();
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdCumplimientoCompromisoProyecto", idCumplimientoCompromisoProyecto);
+
+        Map resultado = obtenerDocumentoCumplimientoCompromisoProyecto.execute(parametros);
+
+        documento.setNombre((String) resultado.get("varNombre"));
+        documento.setTipoContenido((String) resultado.get("varTipoContenido"));
+        documento.setContenido((byte[]) resultado.get("varContenido"));
+
+        return documento;
+
+    }
+
+    @Override
+    public void eliminarCumplimientoCompromisoProyecto(long idCumplimientoCompromisoProyecto) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdCumplimientoCompromisoProyecto", idCumplimientoCompromisoProyecto);
+        eliminarCumplimientoCompromisoProyecto.execute(parametros);
     }
 }

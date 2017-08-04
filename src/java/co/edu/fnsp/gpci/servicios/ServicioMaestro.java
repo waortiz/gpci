@@ -16,6 +16,8 @@ import co.edu.fnsp.gpci.entidades.Programa;
 import co.edu.fnsp.gpci.entidades.RiesgoEtico;
 import co.edu.fnsp.gpci.entidades.Rol;
 import co.edu.fnsp.gpci.entidades.TipoActa;
+import co.edu.fnsp.gpci.entidades.TipoAval;
+import co.edu.fnsp.gpci.entidades.TipoCompromiso;
 import co.edu.fnsp.gpci.entidades.TipoContrato;
 import co.edu.fnsp.gpci.entidades.TipoEstudiante;
 import co.edu.fnsp.gpci.entidades.TipoFuenteFinanciacionProyecto;
@@ -24,6 +26,7 @@ import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import co.edu.fnsp.gpci.repositorios.IRepositorioMaestro;
 import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -120,5 +123,15 @@ public class ServicioMaestro implements IServicioMaestro {
     @Override
     public ArrayList<TipoPersona> obtenerTiposPersona() {
         return repositorioMaestro.obtenerTiposPersona();
+    }
+
+    @Override
+    public ArrayList<TipoCompromiso> obtenerTiposCompromiso() {
+        return repositorioMaestro.obtenerTiposCompromiso();
+    }
+
+    @Override
+    public ArrayList<TipoAval> obtenerTiposAval() {
+        return repositorioMaestro.obtenerTiposAval();
     }
 }

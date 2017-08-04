@@ -16,6 +16,8 @@ import co.edu.fnsp.gpci.entidades.Programa;
 import co.edu.fnsp.gpci.entidades.RiesgoEtico;
 import co.edu.fnsp.gpci.entidades.Rol;
 import co.edu.fnsp.gpci.entidades.TipoActa;
+import co.edu.fnsp.gpci.entidades.TipoAval;
+import co.edu.fnsp.gpci.entidades.TipoCompromiso;
 import co.edu.fnsp.gpci.entidades.TipoContrato;
 import co.edu.fnsp.gpci.entidades.TipoEstudiante;
 import co.edu.fnsp.gpci.entidades.TipoFuenteFinanciacionProyecto;
@@ -23,6 +25,7 @@ import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -63,4 +66,8 @@ public interface IServicioMaestro {
     ArrayList<FuenteFinanciacion> obtenerFuentesFinanciacion();
 
     ArrayList<TipoPersona> obtenerTiposPersona();
+
+    ArrayList<TipoCompromiso> obtenerTiposCompromiso();
+
+    ArrayList<TipoAval> obtenerTiposAval();
 }

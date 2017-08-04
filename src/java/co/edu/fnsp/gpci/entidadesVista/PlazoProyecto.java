@@ -16,8 +16,11 @@ public class PlazoProyecto {
     private long idProyecto;
     private long idPlazo;
     private String descripcionPlazo;
+    private String fechaActaPlazo;
+    private String numeroActaPlazo;
+    private String fechaActaCODIPlazo;
+    private String numeroActaCODIPlazo;
     private int mesesAprobadosPlazo;
-    private String fechaPlazo;
     private MultipartFile documentoPlazo;
     
     /**
@@ -91,16 +94,58 @@ public class PlazoProyecto {
     }
 
     /**
-     * @return the fechaPlazo
+     * @return the numeroActaPlazo
      */
-    public String getFechaPlazo() {
-        return fechaPlazo;
+    public String getNumeroActaPlazo() {
+        return numeroActaPlazo;
     }
 
     /**
-     * @param fechaPlazo the fechaPlazo to set
+     * @param numeroActaPlazo the numeroActaPlazo to set
      */
-    public void setFechaPlazo(String fechaPlazo) {
-        this.fechaPlazo = fechaPlazo;
+    public void setNumeroActaPlazo(String numeroActaPlazo) {
+        this.numeroActaPlazo = numeroActaPlazo;
+    }
+
+    /**
+     * @return the numeroActaCODIPlazo
+     */
+    public String getNumeroActaCODIPlazo() {
+        return numeroActaCODIPlazo;
+    }
+
+    /**
+     * @param numeroActaCODIPlazo the numeroActaCODIPlazo to set
+     */
+    public void setNumeroActaCODIPlazo(String numeroActaCODIPlazo) {
+        this.numeroActaCODIPlazo = numeroActaCODIPlazo;
+    }
+
+    /**
+     * @return the fechaActaPlazo
+     */
+    public String getFechaActaPlazo() {
+        return fechaActaPlazo;
+    }
+
+    /**
+     * @param fechaActaPlazo the fechaActaPlazo to set
+     */
+    public void setFechaActaPlazo(String fechaActaPlazo) {
+        this.fechaActaPlazo = fechaActaPlazo;
+    }
+
+    /**
+     * @return the fechaActaCODIPlazo
+     */
+    public String getFechaActaCODIPlazo() {
+        return fechaActaCODIPlazo;
+    }
+
+    /**
+     * @param fechaActaCODIPlazo the fechaActaCODIPlazo to set
+     */
+    public void setFechaActaCODIPlazo(String fechaActaCODIPlazo) {
+        this.fechaActaCODIPlazo = fechaActaCODIPlazo;
     }
 }

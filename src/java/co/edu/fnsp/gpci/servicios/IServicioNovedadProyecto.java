@@ -12,6 +12,7 @@ import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
+import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
@@ -33,11 +34,11 @@ public interface IServicioNovedadProyecto {
     ArrayList<AdicionProyecto> obtenerAdicionesProyecto(long idProyecto);
     Documento obtenerDocumentoAdicionProyecto(long idAdicion);
     void eliminarAdicionProyecto(long idAdicion);
-    void guardarProrrogaProyecto(long idProyecto, ProrrogaProyecto actaProyecto, Documento documento);
+    void guardarProrrogaProyecto(long idProyecto, ProrrogaProyecto prorrogaroyecto, Documento documento);
     ArrayList<ProrrogaProyecto> obtenerProrrogasProyecto(long idProyecto);
     Documento obtenerDocumentoProrrogaProyecto(long idProrroga);
     void eliminarProrrogaProyecto(long idProrroga);    
-    void guardarPlazoProyecto(long idProyecto, PlazoProyecto actaProyecto, Documento documento);
+    void guardarPlazoProyecto(long idProyecto, PlazoProyecto plazoProyecto, Documento documento);
     ArrayList<PlazoProyecto> obtenerPlazosProyecto(long idProyecto);
     Documento obtenerDocumentoPlazoProyecto(long idPlazo);
     void eliminarPlazoProyecto(long idPlazo);        
@@ -52,5 +53,9 @@ public interface IServicioNovedadProyecto {
     void guardarAdendaRetiroProyecto(long idProyecto, AdendaRetiroProyecto adendaRetiroProyecto, Documento documento);
     ArrayList<AdendaRetiroProyecto> obtenerAdendasRetiroProyecto(long idProyecto);
     Documento obtenerDocumentoAdendaRetiroProyecto(long idAdenda);
-    void eliminarAdendaRetiroProyecto(long idAdenda);    
+    void eliminarAdendaRetiroProyecto(long idAdenda);   
+    void guardarCumplimientoCompromisoProyecto(long idProyecto, CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto, Documento documento);
+    ArrayList<CumplimientoCompromisoProyecto> obtenerCumplimientoCompromisosProyecto(long idProyecto);
+    Documento obtenerDocumentoCumplimientoCompromisoProyecto(long idCumplimientoCompromiso);
+    void eliminarCumplimientoCompromisoProyecto(long idCumplimientoCompromiso);        
 }

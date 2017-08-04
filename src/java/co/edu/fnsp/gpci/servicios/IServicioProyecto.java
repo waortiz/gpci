@@ -5,6 +5,8 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
+import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
+import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.Proyecto;
@@ -26,4 +28,6 @@ public interface IServicioProyecto {
     Profesor obtenerProfesor(int idTipoIdentificacion, long numeroIdentificacion);
     Estudiante obtenerEstudiante(int idTipoIdentificacion, long numeroIdentificacion);
     PersonalExterno obtenerPersonalExterno(int idTipoIdentificacion, long numeroIdentificacion);
+    ArrayList<CompromisoProyecto> obtenerCompromisosProyecto(long idProyecto);
+    ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto);
 }

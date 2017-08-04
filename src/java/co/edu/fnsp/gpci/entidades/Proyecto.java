@@ -52,7 +52,9 @@ public class Proyecto {
     private ArrayList<GrupoInvestigacion> gruposInvestigacion = new ArrayList<>();
     private ArrayList<EntidadInternacional> entidadesInternacionales = new ArrayList<>();
     private ArrayList<co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = new ArrayList<>();
-
+    private ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = new ArrayList<>();
+    private ArrayList<AlertaAvalProyecto> alertasAvalProyecto = new ArrayList<>();
+    
     /**
      * @return the personalExternoProyecto
      */
@@ -583,5 +585,33 @@ public class Proyecto {
      */
     public void setAdendasRetiroProyecto(ArrayList<AdendaRetiroProyecto> adendasRetiroProyecto) {
         this.adendasRetiroProyecto = adendasRetiroProyecto;
+    }
+
+    /**
+     * @return the cumplimientoCompromisosProyecto
+     */
+    public ArrayList<CumplimientoCompromisoProyecto> getCumplimientoCompromisosProyecto() {
+        return cumplimientoCompromisosProyecto;
+    }
+
+    /**
+     * @param cumplimientoCompromisosProyecto the cumplimientoCompromisosProyecto to set
+     */
+    public void setCumplimientoCompromisosProyecto(ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto) {
+        this.cumplimientoCompromisosProyecto = cumplimientoCompromisosProyecto;
+    }
+
+    /**
+     * @return the alertasAvalProyecto
+     */
+    public ArrayList<AlertaAvalProyecto> getAlertasAvalProyecto() {
+        return alertasAvalProyecto;
+    }
+
+    /**
+     * @param alertasAvalProyecto the alertasAvalProyecto to set
+     */
+    public void setAlertasAvalProyecto(ArrayList<AlertaAvalProyecto> alertasAvalProyecto) {
+        this.alertasAvalProyecto = alertasAvalProyecto;
     }
 }

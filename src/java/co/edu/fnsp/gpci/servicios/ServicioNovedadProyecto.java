@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
+import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
@@ -272,7 +273,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
         } catch (Exception exc) {
             transactionManager.rollback(txStatus);
             throw exc;
-        }    }
+        }
+    }
 
     @Override
     public ArrayList<AdendaRetiroProyecto> obtenerAdendasRetiroProyecto(long idProyecto) {
@@ -296,4 +298,39 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
             throw exc;
         }
     }    
+
+    @Override
+    public void guardarCumplimientoCompromisoProyecto(long idProyecto, CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto, Documento documento) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.guardarCumplimientoCompromisoProyecto(idProyecto, cumplimientoCompromisoProyecto, documento);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }
+    }
+
+    @Override
+    public ArrayList<CumplimientoCompromisoProyecto> obtenerCumplimientoCompromisosProyecto(long idProyecto) {
+        return repositorioNovedadProyecto.obtenerCumplimientoCompromisosProyecto(idProyecto);
+    }
+
+    @Override
+    public Documento obtenerDocumentoCumplimientoCompromisoProyecto(long idCumplimientoCompromiso) {
+        return repositorioNovedadProyecto.obtenerDocumentoCumplimientoCompromisoProyecto(idCumplimientoCompromiso);
+    }
+
+    @Override
+    public void eliminarCumplimientoCompromisoProyecto(long idCumplimientoCompromiso) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.eliminarCumplimientoCompromisoProyecto(idCumplimientoCompromiso);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }    }
 }

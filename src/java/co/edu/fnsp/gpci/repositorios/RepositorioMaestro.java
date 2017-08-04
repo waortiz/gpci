@@ -16,6 +16,8 @@ import co.edu.fnsp.gpci.entidades.Programa;
 import co.edu.fnsp.gpci.entidades.RiesgoEtico;
 import co.edu.fnsp.gpci.entidades.Rol;
 import co.edu.fnsp.gpci.entidades.TipoActa;
+import co.edu.fnsp.gpci.entidades.TipoAval;
+import co.edu.fnsp.gpci.entidades.TipoCompromiso;
 import co.edu.fnsp.gpci.entidades.TipoContrato;
 import co.edu.fnsp.gpci.entidades.TipoEstudiante;
 import co.edu.fnsp.gpci.entidades.TipoFuenteFinanciacionProyecto;
@@ -56,6 +58,8 @@ public class RepositorioMaestro implements IRepositorioMaestro {
     private SimpleJdbcCall obtenerFuentesFinanciacion;
     private SimpleJdbcCall obtenerTiposFuentesFinanciacionProyecto;
     private SimpleJdbcCall obtenerTiposPersona;
+    private SimpleJdbcCall obtenerTiposCompromiso;
+    private SimpleJdbcCall obtenerTiposAval;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -96,6 +100,10 @@ public class RepositorioMaestro implements IRepositorioMaestro {
                 returningResultSet("tiposFuentesFinanciacionProyecto", BeanPropertyRowMapper.newInstance(TipoFuenteFinanciacionProyecto.class));
         this.obtenerTiposPersona = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerTiposPersona").
                 returningResultSet("tiposPersona", BeanPropertyRowMapper.newInstance(TipoPersona.class));
+        this.obtenerTiposCompromiso = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerTiposCompromiso").
+                returningResultSet("tiposCompromiso", BeanPropertyRowMapper.newInstance(TipoCompromiso.class));
+        this.obtenerTiposAval = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerTiposAval").
+                returningResultSet("tiposAval", BeanPropertyRowMapper.newInstance(TipoAval.class));
     }
 
     @Override
@@ -232,5 +240,21 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         ArrayList<TipoPersona> tiposPersona = (ArrayList<TipoPersona>) resultado.get("tiposPersona");
 
         return tiposPersona;
+    }
+
+    @Override
+    public ArrayList<TipoCompromiso> obtenerTiposCompromiso() {
+        Map resultado = obtenerTiposCompromiso.execute(new HashMap<>());
+        ArrayList<TipoCompromiso> tiposCompromiso = (ArrayList<TipoCompromiso>) resultado.get("tiposCompromiso");
+
+        return tiposCompromiso;
+    }
+
+    @Override
+    public ArrayList<TipoAval> obtenerTiposAval() {
+        Map resultado = obtenerTiposAval.execute(new HashMap<>());
+        ArrayList<TipoAval> tiposAval = (ArrayList<TipoAval>) resultado.get("tiposAval");
+
+        return tiposAval;
     }
 }

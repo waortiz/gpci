@@ -15,9 +15,15 @@ public class ProrrogaProyecto {
 
     private long idProrroga;
     private String descripcion;
-    private Date fecha;
-    private String fechaFormateada;
+    private Date fechaActa; 
+    private String fechaActaFormateada;
+    private String numeroActa;
+    private Date fechaActaCODI;
+    private String fechaActaCODIFormateada;
+    private String numeroActaCODI;
     private int mesesAprobados;
+    private long montoAprobado;
+    private String montoAprobadoFormateado;
 
     /**
      * @return the idProrroga
@@ -60,32 +66,116 @@ public class ProrrogaProyecto {
     public void setMesesAprobados(int mesesAprobados) {
         this.mesesAprobados = mesesAprobados;
     }
-    
+
     /**
-     * @return the fecha
+     * @return the fechaActa
      */
-    public Date getFecha() {
-        return fecha;
+    public Date getFechaActa() {
+        return fechaActa;
     }
 
     /**
-     * @param fecha the fecha to set
+     * @param fechaActa the fechaActa to set
      */
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }    
-        
-    /**
-     * @return the fechaFormateada
-     */
-    public String getFechaFormateada() {
-        return fechaFormateada;
+    public void setFechaActa(Date fechaActa) {
+        this.fechaActa = fechaActa;
     }
 
     /**
-     * @param fechaFormateada the fechaFormateada to set
+     * @return the fechaActaFormateada
      */
-    public void setFechaFormateada(String fechaFormateada) {
-        this.fechaFormateada = fechaFormateada;
+    public String getFechaActaFormateada() {
+        return fechaActaFormateada;
+    }
+
+    /**
+     * @param fechaActaFormateada the fechaActaFormateada to set
+     */
+    public void setFechaActaFormateada(String fechaActaFormateada) {
+        this.fechaActaFormateada = fechaActaFormateada;
+    }
+
+    /**
+     * @return the numeroActa
+     */
+    public String getNumeroActa() {
+        return numeroActa;
+    }
+
+    /**
+     * @param numeroActa the numeroActa to set
+     */
+    public void setNumeroActa(String numeroActa) {
+        this.numeroActa = numeroActa;
+    }
+
+    /**
+     * @return the fechaActaCODI
+     */
+    public Date getFechaActaCODI() {
+        return fechaActaCODI;
+    }
+
+    /**
+     * @param fechaActaCODI the fechaActaCODI to set
+     */
+    public void setFechaActaCODI(Date fechaActaCODI) {
+        this.fechaActaCODI = fechaActaCODI;
+    }
+
+    /**
+     * @return the fechaActaCODIFormateada
+     */
+    public String getFechaActaCODIFormateada() {
+        return fechaActaCODIFormateada;
+    }
+
+    /**
+     * @param fechaActaCODIFormateada the fechaActaCODIFormateada to set
+     */
+    public void setFechaActaCODIFormateada(String fechaActaCODIFormateada) {
+        this.fechaActaCODIFormateada = fechaActaCODIFormateada;
+    }
+
+    /**
+     * @return the numeroActaCODI
+     */
+    public String getNumeroActaCODI() {
+        return numeroActaCODI;
+    }
+
+    /**
+     * @param numeroActaCODI the numeroActaCODI to set
+     */
+    public void setNumeroActaCODI(String numeroActaCODI) {
+        this.numeroActaCODI = numeroActaCODI;
+    }
+
+    /**
+     * @return the montoAprobado
+     */
+    public long getMontoAprobado() {
+        return montoAprobado;
+    }
+
+    /**
+     * @param montoAprobado the montoAprobado to set
+     */
+    public void setMontoAprobado(long montoAprobado) {
+        this.montoAprobado = montoAprobado;
+    }
+
+    /**
+     * @return the montoAprobadoFormateado
+     */
+    public String getMontoAprobadoFormateado() {
+        return montoAprobadoFormateado;
+    }
+
+    /**
+     * @param montoAprobadoFormateado the montoAprobadoFormateado to set
+     */
+    public void setMontoAprobadoFormateado(String montoAprobadoFormateado) {
+        this.montoAprobadoFormateado = montoAprobadoFormateado;
     }
 }

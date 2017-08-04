@@ -26,6 +26,8 @@ import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.entidades.RiesgoEtico;
 import co.edu.fnsp.gpci.entidades.Rol;
+import co.edu.fnsp.gpci.entidades.TipoAval;
+import co.edu.fnsp.gpci.entidades.TipoCompromiso;
 import co.edu.fnsp.gpci.entidades.TipoContrato;
 import co.edu.fnsp.gpci.entidades.TipoEstudiante;
 import co.edu.fnsp.gpci.entidades.TipoFuenteFinanciacionProyecto;
@@ -128,6 +130,8 @@ public class ProyectoController {
         List<Programa> programas = servicioMaestro.obtenerProgramas();
         List<TipoFuenteFinanciacionProyecto> tiposFuenteFinanciacionProyecto = servicioMaestro.obtenerTiposFuenteFinanciacionProyecto();
         List<FuenteFinanciacion> fuentesFinanciacion = servicioMaestro.obtenerFuentesFinanciacion();
+        List<TipoCompromiso> tiposCompromiso = servicioMaestro.obtenerTiposCompromiso();
+        List<TipoAval> tiposAval = servicioMaestro.obtenerTiposAval();
 
         model.addAttribute("areasTematicas", areasTematicas);
         model.addAttribute("tiposProyecto", tiposProyecto);
@@ -144,6 +148,8 @@ public class ProyectoController {
         model.addAttribute("programas", programas);
         model.addAttribute("fuentesFinanciacion", fuentesFinanciacion);
         model.addAttribute("tiposFuenteFinanciacionProyecto", tiposFuenteFinanciacionProyecto);
+        model.addAttribute("tiposCompromiso", tiposCompromiso);
+        model.addAttribute("tiposAval", tiposAval);
 
         model.addAttribute("proyecto", new co.edu.fnsp.gpci.entidadesVista.Proyecto());
 
@@ -237,7 +243,9 @@ public class ProyectoController {
             List<Programa> programas = servicioMaestro.obtenerProgramas();
             List<TipoFuenteFinanciacionProyecto> tiposFuenteFinanciacionProyecto = servicioMaestro.obtenerTiposFuenteFinanciacionProyecto();
             List<FuenteFinanciacion> fuentesFinanciacion = servicioMaestro.obtenerFuentesFinanciacion();
-
+            List<TipoCompromiso> tiposCompromiso = servicioMaestro.obtenerTiposCompromiso();
+            List<TipoAval> tiposAval = servicioMaestro.obtenerTiposAval();
+            
             model.addAttribute("areasTematicas", areasTematicas);
             model.addAttribute("tiposProyecto", tiposProyecto);
             model.addAttribute("gruposInvestigacion", gruposInvestigacion);
@@ -253,7 +261,9 @@ public class ProyectoController {
             model.addAttribute("programas", programas);
             model.addAttribute("fuentesFinanciacion", fuentesFinanciacion);
             model.addAttribute("tiposFuenteFinanciacionProyecto", tiposFuenteFinanciacionProyecto);
-
+            model.addAttribute("tiposCompromiso", tiposCompromiso);
+            model.addAttribute("tiposAval", tiposAval);
+            
             ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
             proyectoEdicion.setIdProyecto(proyecto.getIdProyecto());
             proyectoEdicion.setAreaTematica(Integer.toString(proyecto.getAreaTematica().getIdAreaTematica()));
@@ -307,6 +317,10 @@ public class ProyectoController {
             proyectoEdicion.setFuentesFinanciacionProyecto(proyecto.getFuentesFinanciacionProyecto());
             if (proyectoEdicion.getFuentesFinanciacionProyecto().size() > 0) {
                 model.addAttribute("fuentesFinanciacionProyectoJSON", proyectoEdicion.getFuentesFinanciacionProyectoJSON());
+            }
+            proyectoEdicion.setAlertasAvalProyecto(proyecto.getAlertasAvalProyecto());
+            if (proyectoEdicion.getAlertasAvalProyecto().size() > 0) {
+                model.addAttribute("alertasAvalProyectoJSON", proyectoEdicion.getAlertasAvalProyectoJSON());
             }
 
             model.addAttribute("proyecto", proyectoEdicion);
@@ -406,7 +420,11 @@ public class ProyectoController {
         if (proyectoEdicion.getFuentesFinanciacionProyecto().size() > 0) {
             model.addAttribute("fuentesFinanciacionProyectoJSON", proyectoEdicion.getFuentesFinanciacionProyectoJSON());
         }
-
+        proyectoEdicion.setAlertasAvalProyecto(proyecto.getAlertasAvalProyecto());
+        if (proyectoEdicion.getAlertasAvalProyecto().size() > 0) {
+            model.addAttribute("alertasAvalProyectoJSON", proyectoEdicion.getAlertasAvalProyectoJSON());
+        }
+            
         model.addAttribute("proyecto", proyectoEdicion);
 
         return "proyectos/crear";

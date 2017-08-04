@@ -144,6 +144,7 @@
                           <li><a data-toggle="tab" href="#adicionesTab">Adiciones</a></li>
                           <li><a data-toggle="tab" href="#prorrogasTab">Prórrogas</a></li>
                           <li><a data-toggle="tab" href="#plazosTab">Plazos</a></li>
+                          <li><a data-toggle="tab" href="#cumplimientoCompromisosProyectoTab">Cumplimiento compromisos</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="actasTab" class="tab-pane fade in active">                            
@@ -321,7 +322,7 @@
                                     <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
                                     <td style="width: 10%;text-align: center"><strong>Rol</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Fecha Cambio</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Fecha de cambio</strong></td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                 </tr>
@@ -452,7 +453,7 @@
                                                  </table>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td>Fecha cambio</td>                                                        
+                                                        <td>Fecha de cambio</td>                                                        
                                                         <td>Rol</td>                                                        
                                                     </tr>
                                                     <tr>
@@ -532,7 +533,7 @@
                                     <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Fecha Ingreso</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Fecha de ingreso</strong></td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                 </tr>
@@ -660,7 +661,7 @@
                                                  </table>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td colspan="2">Fecha ingreso</td>                                                        
+                                                        <td colspan="2">Fecha de ingreso</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
@@ -724,7 +725,7 @@
                                     <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
                                     <td style="width: 10%;text-align: center"><strong>Rol</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Fecha Retiro</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Fecha de retiro</strong></td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                 </tr>
@@ -852,7 +853,7 @@
                                                  </table>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td colspna="2">Fecha cambio</td>                                                        
+                                                        <td colspna="2">Fecha de retiro</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td colspna="2">
@@ -918,8 +919,10 @@
                             <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                             <thead>
                                 <tr class="table-row">
-                                    <td style="width: 70%;text-align: center"><strong>Monto</strong></td>
-                                    <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
+                                    <td style="width: 25%;text-align: center"><strong>Descripción</strong></td>
+                                    <td style="width: 20%;text-align: center"><strong>Monto</strong></td>
+                                    <td style="width: 20%;text-align: center"><strong>Fecha acta</strong></td>
+                                    <td style="width: 20%;text-align: center"><strong>Número del Acta</strong></td>
                                     <td style="width: 5%;text-align: center">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
@@ -927,13 +930,17 @@
                             </thead>
                             <tbody  data-bind="foreach: { data: adiciones }">
                                 <tr class="table-row">
-                                    <td style="width: 70%">
-                                        <span data-bind="text: montoFormateado" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: monto, attr: { 'name': 'adiciones[' + $index() + '].monto'  }">
+                                    <td style="width: 25%">
+                                        <span data-bind="text: descripcion" ></span>
                                     </td>
-                                    <td style="width: 15%">
-                                        <span data-bind="text: fechaFormateada" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: fechaFormateada, attr: { 'name': 'adiciones[' + $index() + '].fechaFormateada'  }">
+                                    <td style="width: 20%">
+                                        <span data-bind="text: montoFormateado" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: fechaActaFormateada" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: numeroActa" ></span>
                                     </td>
                                     <td style="width: 5%">
                                         <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdicion" title="Ver adicion">
@@ -944,7 +951,6 @@
                                         <button class="btn btn-dark" data-bind="click: $root.eliminarAdicion" title="Eliminar adición">
                                             <i class="glyphicon glyphicon-trash"></i>
                                         </button>
-                                        <input type="hidden" data-bind="value: idAdicion, attr: { 'name': 'adiciones[' + $index() + '].idAdicion'  }" />
                                     </td>
                                     <td style="width: 5%">
                                         <button class="btn btn-dark" data-bind="click: $root.editarAdicion" title="Editar adición">
@@ -991,32 +997,55 @@
                                                 <div id="alert_placeholder_adicion"></div>
                                                 <table class="tablaForm">
                                                     <tr>
+                                                        <td>Descripción</td>
                                                         <td>Monto</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input id="montoAdicion" name="montoAdicion" class="form-control numbersOnly currencyField" />
+                                                            <input id="descripcionAdicion" name="descripcionAdicion" class="form-control" maxlength="100" />
+                                                        </td>
+                                                        <td>
+                                                            <input id="montoAdicion" name="montoAdicion" class="form-control numbersOnly currencyField" maxlength="20" />
                                                             <input type="hidden" id="idAdicion" name="idAdicion" value="0"/>
                                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                             <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Fecha</td>                                                        
+                                                        <td>Fecha acta</td>                                                        
+                                                        <td>Número del acta</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaAdicion" name="fechaAdicion" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaAdicion" name="fechaActaAdicion" class="form-control datepicker" readonly="true" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
+                                                        <td>
+                                                            <input id="numeroActaAdicion" name="numeroActaAdicion" class="form-control datepicker" maxlength="45" />
+                                                        </td>
                                                     </tr>                                                    
                                                     <tr>
-                                                        <td>Documento</td>
+                                                        <td>Fecha acta CODI</td>                                                        
+                                                        <td>Número del acta CODI</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaActaCODIAdicion" name="fechaActaCODIAdicion" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <input id="numeroActaCODIAdicion" name="numeroActaCODIAdicion" class="form-control datepicker" maxlength="45" />
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td colspan="2">Documento</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
                                                             <input type="file" id="documentoAdicion" name="documentoAdicion" class="form-control" />
                                                         </td>
                                                     </tr>
@@ -1042,9 +1071,11 @@
                             <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                                 <thead>
                                     <tr class="table-row">
-                                        <td style="width: 50%;text-align: center"><strong>Descripción</strong></td>
-                                        <td style="width: 20%;text-align: center"><strong>Meses aprobados</strong></td>
-                                        <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
+                                        <td style="width: 25%;text-align: center"><strong>Descripción</strong></td>
+                                        <td style="width: 10%;text-align: center"><strong>Meses aprobados</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Monto aprobado</strong></td>
+                                        <td style="width: 15%;text-align: center"><strong>Fecha acta</strong></td>
+                                        <td style="width: 15%;text-align: center"><strong>Número del acta</strong></td>
                                         <td style="width: 5%;text-align: center">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
@@ -1052,17 +1083,20 @@
                                 </thead>
                                 <tbody data-bind="foreach: { data: prorrogas }">
                                     <tr class="table-row">
-                                    <td style="width: 50%">
+                                    <td style="width: 25%">
                                         <span data-bind="text: descripcion" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'prorrogas[' + $index() + '].descripcion'  }">
+                                    </td>
+                                    <td style="width: 10%">
+                                        <span data-bind="text: mesesAprobados" ></span>
                                     </td>
                                     <td style="width: 20%">
-                                        <span data-bind="text: mesesAprobados" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: mesesAprobados, attr: { 'name': 'prorrogas[' + $index() + '].mesesAprobados'  }">
+                                        <span data-bind="text: montoAprobadoFormateado" ></span>
                                     </td>
                                     <td style="width: 15%">
-                                        <span data-bind="text: fechaFormateada" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: fechaFormateada, attr: { 'name': 'prorrogas[' + $index() + '].fechaFormateada'  }">
+                                        <span data-bind="text: fechaActaFormateada" ></span>
+                                    </td>
+                                    <td style="width: 15%">
+                                        <span data-bind="text: numeroActa" ></span>
                                     </td>
                                     <td style="width: 5%">
                                         <button class="btn btn-dark" data-bind="click: $root.verDocumentoProrroga" title="Ver prórroga">
@@ -1120,10 +1154,10 @@
                                                 <div id="alert_placeholder_prorroga"></div>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td>Descripción</td>
+                                                        <td colspan="2">Descripción</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="2">
                                                             <input id="descripcionProrroga" name="descripcionProrroga" class="form-control" />
                                                             <input type="hidden" id="idProrroga" name="idProrroga" value="0"/>
                                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -1132,28 +1166,51 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Meses aprobados</td>
+                                                        <td>Monto aprobado</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <input type="text" id="mesesAprobadosProrroga" name="mesesAprobadosProrroga" class="form-control numbersOnly" maxlength="4">
                                                         </td>
+                                                        <td>
+                                                            <input id="montoAprobadoProrroga" name="montoAprobadoProrroga" class="form-control numbersOnly currencyField" maxlength="20" />
+                                                        </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Fecha</td>                                                        
+                                                        <td>Fecha acta</td>                                                        
+                                                        <td>Número del acta</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaProrroga" name="fechaProrroga" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaProrroga" name="fechaActaProrroga" class="form-control datepicker" readonly="true" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
+                                                        <td>
+                                                            <input id="numeroActaProrroga" name="numeroActaProrroga" class="form-control datepicker" maxlength="45" />
+                                                        </td>
                                                     </tr>                                                    
                                                     <tr>
-                                                        <td>Documento</td>
+                                                        <td>Fecha acta CODI</td>                                                        
+                                                        <td>Número del acta CODI</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaActaCODIProrroga" name="fechaActaCODIProrroga" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <input id="numeroActaCODIProrroga" name="numeroActaCODIProrroga" class="form-control datepicker" maxlength="45" />
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td colspan="2">Documento</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
                                                             <input type="file" id="documentoProrroga" name="documentoProrroga" class="form-control" />
                                                         </td>
                                                     </tr>
@@ -1179,9 +1236,10 @@
                             <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                                 <thead>
                                     <tr class="table-row">
-                                        <td style="width: 50%;text-align: center"><strong>Descripción</strong></td>
+                                        <td style="width: 30%;text-align: center"><strong>Descripción</strong></td>
                                         <td style="width: 20%;text-align: center"><strong>Meses aprobados</strong></td>
-                                        <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Fecha acta</strong></td>
+                                        <td style="width: 15%;text-align: center"><strong>Número del acta</strong></td>
                                         <td style="width: 5%;text-align: center">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
@@ -1189,17 +1247,17 @@
                                 </thead>
                                 <tbody data-bind="foreach: { data: plazos }">
                                     <tr class="table-row">
-                                    <td style="width: 50%">
+                                    <td style="width: 30%">
                                         <span data-bind="text: descripcion" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'plazos[' + $index() + '].descripcion'  }">
                                     </td>
                                     <td style="width: 20%">
                                         <span data-bind="text: mesesAprobados" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: mesesAprobados, attr: { 'name': 'plazos[' + $index() + '].mesesAprobados'  }">
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: fechaActaFormateada" ></span>
                                     </td>
                                     <td style="width: 15%">
-                                        <span data-bind="text: fechaFormateada" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: fechaFormateada, attr: { 'name': 'plazos[' + $index() + '].fechaFormateada'  }">
+                                        <span data-bind="text: numeroActa" ></span>
                                     </td>
                                     <td style="width: 5%">
                                         <button class="btn btn-dark" data-bind="click: $root.verDocumentoPlazo" title="Ver plazo">
@@ -1258,40 +1316,189 @@
                                                 <table class="tablaForm">
                                                     <tr>
                                                         <td>Descripción</td>
+                                                        <td>Meses aprobados</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input id="descripcionPlazo" name="descripcionPlazo" class="form-control" />
+                                                            <input id="descripcionPlazo" name="descripcionPlazo" class="form-control" maxlength="100" />
                                                             <input type="hidden" id="idPlazo" name="idPlazo" value="0"/>
                                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                             <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Meses aprobados</td>
-                                                    </tr>
-                                                    <tr>
                                                         <td>
                                                             <input type="text" id="mesesAprobadosPlazo" name="mesesAprobadosPlazo" class="form-control numbersOnly" maxlength="4">
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Fecha</td>                                                        
+                                                        <td>Fecha acta</td>                                                        
+                                                        <td>Número del acta</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaPlazo" name="fechaPlazo" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaProrroga" name="fechaActaProrroga" class="form-control datepicker" readonly="true" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
+                                                        <td>
+                                                            <input id="numeroActaProrroga" name="numeroActaProrroga" class="form-control datepicker" maxlength="45" />
+                                                        </td>
                                                     </tr>                                                    
                                                     <tr>
-                                                        <td>Documento</td>
+                                                        <td>Fecha acta CODI</td>                                                        
+                                                        <td>Número del acta CODI</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaActaCODIProrroga" name="fechaActaCODIProrroga" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <input id="numeroActaCODIProrroga" name="numeroActaCODIProrroga" class="form-control datepicker" maxlength="45" />
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td colspan="2">Documento</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
                                                             <input type="file" id="documentoPlazo" name="documentoPlazo" class="form-control" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary">Aceptar</button>
+                                            </div>   
+                                        </form:form>
+                                    </div>
+                                </div>  
+                            </div>                               
+                        </div>   
+                        <div id="cumplimientoCompromisosProyectoTab" class="tab-pane fade">
+                            <div class="alert alert-info" style="margin-top:20px;">
+                                <strong>Cumplimiento de Compromisos</strong>
+                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaCumplimientoCompromisoProyecto(); return false;">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>                            
+                            </div>
+                            <div id="alert_placeholder_cumplimiento_compromisos_proyecto"></div>
+                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                <thead>
+                                    <tr class="table-row">
+                                        <td style="width: 45%;text-align: center"><strong>Compromiso</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Fecha acta</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Número del acta</strong></td>
+                                        <td style="width: 5%;text-align: center">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: { data: cumplimientoCompromisosProyecto }">
+                                    <tr class="table-row">
+                                    <td style="width: 45%">
+                                        <span data-bind="text: descripcionCompromisoProyecto" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: fechaActaFormateada" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: numeroActa" ></span>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.verDocumentoCumplimientoCompromisoProyecto" title="Ver cumplimiento compromiso">
+                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.eliminarCumplimientoCompromisoProyecto" title="Eliminar cumplimiento compromiso">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.editarCumplimientoCompromisoProyecto" title="Editar cumplimiento compromiso">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="modal fade" id="confirmacionEliminacionCumplimientoCompromisoProyecto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="alert alert-info">
+                                                <strong>Eliminar Cumplimiento de Compromiso</strong>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro de eliminar la cumplimiento compromiso?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                            <a class="btn btn-danger btn-ok" onclick="eliminarCumplimientoCompromisoProyecto();">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="cumplimientoCompromisoProyectoModal" tabindex="-1" role="dialog" aria-labelledby="cumplimientoCompromisoProyectoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/cumplimientoCompromisoProyecto" modelAttribute="cumplimientoCompromisoProyecto" enctype="multipart/form-data">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Cumplimiento de Compromiso</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_cumplimiento_compromiso_proyecto"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td colspan="2">Compromiso</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="compromisoProyecto" id="compromisoProyecto" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="compromisoProyecto" items="${compromisosProyecto}">
+                                                                <option value="${compromiso.getIdCompromisoProyecto()}">${tipoActa.getDescripcion()}</option>
+                                                            </c:forEach>
+                                                            </select>      
+                                                            <input type="hidden" id="idCumplimientoCompromisoProyecto" name="idCumplimientoCompromisoProyecto" value="0"/>
+                                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Fecha acta</td>                                                        
+                                                        <td>Número del acta</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaActaCumplimientoCompromisoProyecto" name="fechaActaCumplimientoCompromisoProyecto" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <input id="numeroActaCumplimientoCompromisoProyecto" name="numeroActaCumplimientoCompromisoProyecto" class="form-control datepicker" maxlength="45" />
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td colspan="2">Documento</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <input type="file" id="documentoCumplimientoCompromisoProyecto" name="documentoCumplimientoCompromisoProyecto" class="form-control" />
                                                         </td>
                                                     </tr>
                                                 </table>
@@ -1766,8 +1973,24 @@
                     bootstrap_alert_adicion.warning('Debe ingresar el monto');
                     return false;
                 }
-                if ($('#fechaAdicion').val() == "") {
-                    bootstrap_alert_adicion.warning('Debe ingresar la fecha');
+                if ($('#fechaActaAdicion').val() == "") {
+                    bootstrap_alert_adicion.warning('Debe ingresar la fecha del acta');
+                    return false;
+                }
+                if ($('#numeroActaAdicion').val() == "") {
+                    bootstrap_alert_adicion.warning('Debe ingresar el número del acta');
+                    return false;
+                }
+                if ($('#fechaActaCODIAdicion').val() == "") {
+                    bootstrap_alert_adicion.warning('Debe ingresar la fecha del acta CODI');
+                    return false;
+                }
+                if ($('#numeroActaCODIAdicion').val() == "") {
+                    bootstrap_alert_adicion.warning('Debe ingresar el número del acta CODI');
+                    return false;
+                }
+                if ($('#descripcionAdicion').val() == "") {
+                    bootstrap_alert_adicion.warning('Debe ingresar la descripción');
                     return false;
                 }
                 if ($('#idAdicion').val() == 0 && $('#documentoAdicion').prop('files').length == 0) {
@@ -1797,7 +2020,10 @@
                                             idAdicion: ko.observable(adiciones[i].idAdicion),
                                             monto: ko.observable(adiciones[i].monto),
                                             montoFormateado: ko.observable(adiciones[i].montoFormateado),
-                                            fechaFormateada: ko.observable(adiciones[i].fechaFormateada),
+                                            fechaActaFormateada: ko.observable(adiciones[i].fechaActaFormateada),
+                                            descripcion : ko.observable(adiciones[i].descripcion),
+                                            numeroActaCODI : ko.observable(adiciones[i].numeroActaCODI),
+                                            fechaActaCODIFormateada : ko.observable(adiciones[i].fechaActaCODIFormateada)
                                         }
                                 );
                             }
@@ -1827,7 +2053,10 @@
                                             idAdicion: ko.observable(adiciones[i].idAdicion),
                                             monto: ko.observable(adiciones[i].monto),
                                             montoFormateado: ko.observable(adiciones[i].montoFormateado),
-                                            fechaFormateada: ko.observable(adiciones[i].fechaFormateada),
+                                            fechaActaFormateada: ko.observable(adiciones[i].fechaActaFormateada),
+                                            descripcion : ko.observable(adiciones[i].descripcion),
+                                            numeroActaCODI : ko.observable(adiciones[i].numeroActaCODI),
+                                            fechaActaCODIFormateada : ko.observable(adiciones[i].fechaActaCODIFormateada)
                                         }
                                 );
                             }
@@ -1845,16 +2074,32 @@
                     bootstrap_alert_prorroga.warning('Debe ingresar la descripción');
                     return false;
                 }
-                if ($('#fechaProrroga').val() == "") {
-                    bootstrap_alert_prorroga.warning('Debe ingresar la fecha');
+                if ($('#mesesAprobadosProrroga').val() == "") {
+                    bootstrap_alert_prorroga.warning('Debe ingresar los meses aprobados');
+                    return false;
+                }
+                if ($('#montoAprobadoProrroga').val() == "") {
+                    bootstrap_alert_prorroga.warning('Debe ingresar el monto aprobado');
+                    return false;
+                }
+                if ($('#fechaActaProrroga').val() == "") {
+                    bootstrap_alert_prorroga.warning('Debe ingresar la fecha del acta');
+                    return false;
+                }
+                if ($('#numeroActaProrroga').val() == "") {
+                    bootstrap_alert_prorroga.warning('Debe ingresar el número del acta');
+                    return false;
+                }
+                if ($('#fechaActaCODIProrroga').val() == "") {
+                    bootstrap_alert_prorroga.warning('Debe ingresar la fecha del acta CODI');
+                    return false;
+                }
+                if ($('#numeroActaCODIProrroga').val() == "") {
+                    bootstrap_alert_prorroga.warning('Debe ingresar el número del acta CODI');
                     return false;
                 }
                 if ($('#idProrroga').val() == 0 && $('#documentoProrroga').prop('files').length == 0) {
                     bootstrap_alert_prorroga.warning('Debe seleccionar el archivo');
-                    return false;
-                }
-                if ($('#mesesAprobadosProrroga').val() == "") {
-                    bootstrap_alert_prorroga.warning('Debe ingresar los meses aprobados');
                     return false;
                 }
                 $('#prorrogaModal').modal('toggle');
@@ -1880,7 +2125,11 @@
                                             idProrroga: ko.observable(prorrogas[i].idProrroga),
                                             descripcion: ko.observable(prorrogas[i].descripcion),
                                             mesesAprobados: ko.observable(prorrogas[i].mesesAprobados),
-                                            fechaFormateada: ko.observable(prorrogas[i].fechaFormateada),
+                                            montoAprobado: ko.observable(prorrogas[i].montoAprobado),
+                                            fechaActaFormateada: ko.observable(prorrogas[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(prorrogas[i].numeroActa),
+                                            fechaActaCODIFormateada: ko.observable(prorrogas[i].fechaActaCODIFormateada),
+                                            numeroActaCODI: ko.observable(prorrogas[i].numeroActaCODI)
                                         }
                                 );
                             }
@@ -1900,7 +2149,6 @@
                     },
                     success: function (response) {
                         bootstrap_alert_prorrogas.success("Prórroga eliminada exitosamente");
-                        proyectoModel.prorrogas.remove(prorrogaEliminar);
                         $('#confirmacionEliminacionProrroga').modal('toggle');
                         if (response != "") {
                             proyectoModel.prorrogas.removeAll();
@@ -1911,7 +2159,10 @@
                                             idProrroga: ko.observable(prorrogas[i].idProrroga),
                                             descripcion: ko.observable(prorrogas[i].descripcion),
                                             mesesAprobados: ko.observable(prorrogas[i].mesesAprobados),
-                                            fechaFormateada: ko.observable(prorrogas[i].fechaFormateada),
+                                            fechaActaFormateada: ko.observable(prorrogas[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(prorrogas[i].numeroActa),
+                                            fechaActaCODIFormateada: ko.observable(prorrogas[i].fechaActaCODIFormateada),
+                                            numeroActaCODI: ko.observable(prorrogas[i].numeroActaCODI)
                                         }
                                 );
                             }
@@ -1929,16 +2180,28 @@
                     bootstrap_alert_plazo.warning('Debe ingresar la descripción');
                     return false;
                 }
-                if ($('#fechaPlazo').val() == "") {
-                    bootstrap_alert_plazo.warning('Debe ingresar la fecha');
+                if ($('#mesesAprobadosPlazo').val() == "") {
+                    bootstrap_alert_plazo.warning('Debe ingresar los meses aprobados');
+                    return false;
+                }
+                if ($('#fechaActaPlazo').val() == "") {
+                    bootstrap_alert_plazo.warning('Debe ingresar la fecha del acta');
+                    return false;
+                }
+                if ($('#numeroActaPlazo').val() == "") {
+                    bootstrap_alert_plazo.warning('Debe ingresar el número del acta');
+                    return false;
+                }
+                if ($('#fechaActaCODIPlazo').val() == "") {
+                    bootstrap_alert_plazo.warning('Debe ingresar la fecha del acta CODI');
+                    return false;
+                }
+                if ($('#numeroActaCODIPlazo').val() == "") {
+                    bootstrap_alert_plazo.warning('Debe ingresar el número del acta CODI');
                     return false;
                 }
                 if ($('#idPlazo').val() == 0 && $('#documentoPlazo').prop('files').length == 0) {
                     bootstrap_alert_plazo.warning('Debe seleccionar el archivo');
-                    return false;
-                }
-                if ($('#mesesAprobadosPlazo').val() == "") {
-                    bootstrap_alert_plazo.warning('Debe ingresar los meses aprobados');
                     return false;
                 }
                 $('#plazoModal').modal('toggle');
@@ -1964,7 +2227,10 @@
                                             idPlazo: ko.observable(plazos[i].idPlazo),
                                             descripcion: ko.observable(plazos[i].descripcion),
                                             mesesAprobados: ko.observable(plazos[i].mesesAprobados),
-                                            fechaFormateada: ko.observable(plazos[i].fechaFormateada),
+                                            fechaActaFormateada: ko.observable(plazos[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(plazos[i].numeroActa),
+                                            fechaActaCODIFormateada: ko.observable(plazos[i].fechaActaCODIFormateada),
+                                            numeroActaCODI: ko.observable(plazos[i].numeroActaCODI)
                                         }
                                 );
                             }
@@ -1984,7 +2250,6 @@
                     },
                     success: function (response) {
                         bootstrap_alert_plazos.success("Plazo eliminado exitosamente");
-                        proyectoModel.plazos.remove(plazoEliminar);
                         $('#confirmacionEliminacionPlazo').modal('toggle');
                         if (response != "") {
                             proyectoModel.plazos.removeAll();
@@ -1995,7 +2260,10 @@
                                             idPlazo: ko.observable(plazos[i].idPlazo),
                                             descripcion: ko.observable(plazos[i].descripcion),
                                             mesesAprobados: ko.observable(plazos[i].mesesAprobados),
-                                            fechaFormateada: ko.observable(plazos[i].fechaFormateada),
+                                            fechaActaFormateada: ko.observable(plazos[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(plazos[i].numeroActa),
+                                            fechaActaCODIFormateada: ko.observable(plazos[i].fechaActaCODIFormateada),
+                                            numeroActaCODI: ko.observable(plazos[i].numeroActaCODI)
                                         }
                                 );
                             }
@@ -2006,7 +2274,92 @@
                     }});
             }
 
-            var ProyectoModel = function (actas, adendasIngreso, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos) {
+      $('#cumplimientoCompromisoProyecto').submit(function (evt) {
+                evt.preventDefault();
+                var formData = new FormData(this);
+                if ($('#compromisoProyecto').val() == "") {
+                    alert_placeholder_cumplimiento_compromiso_proyecto.warning('Debe seleccionar el compromiso');
+                    return false;
+                }
+                if ($('#fechaActaCumplimientoCompromisoProyecto').val() == "") {
+                    alert_placeholder_cumplimiento_compromiso_proyecto.warning('Debe ingresar la fecha del acta');
+                    return false;
+                }
+                if ($('#numeroActaCumplimientoCompromisoProyecto').val() == "") {
+                    alert_placeholder_cumplimiento_compromiso_proyecto.warning('Debe ingresar el número del acta');
+                    return false;
+                }
+                if ($('#idCumplimientoCompromisoProyecto').val() == 0 && $('#documentoCumplimientoCompromisoProyecto').prop('files').length == 0) {
+                    alert_placeholder_cumplimiento_compromiso_proyecto.warning('Debe seleccionar el archivo');
+                    return false;
+                }
+                $('#cumplimientoCompromisoProyectoModal').modal('toggle');
+                alert_placeholder_cumplimiento_compromiso_proyecto.removeWarning();
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/novedades/cumplimientoCompromisoProyecto",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        alert_placeholder_cumplimiento_compromisos_proyecto.success("Cumplimiento del compromiso almacenado exitosamente");
+                        limpiarDatosVentanaCumplimientoCompromisoProyecto();
+                        if (response != "") {
+                            proyectoModel.cumplimientoCompromisosProyecto.removeAll();
+                            var cumplimientoCompromisosProyecto = JSON.parse(response);
+                            for (var i = 0; i < cumplimientoCompromisosProyecto.length; i++) {
+                                proyectoModel.cumplimientoCompromisosProyecto.push(
+                                        {
+                                            idCumplimientoCompromisoProyecto: ko.observable(cumplimientoCompromisosProyecto[i].idCumplimientoCompromisoProyecto),
+                                            idCompromisoProyecto: ko.observable(cumplimientoCompromisosProyecto[i].idCompromisoProyecto),
+                                            descripcionCompromisoProyecto: ko.observable(cumplimientoCompromisosProyecto[i].descripcionCompromisoProyecto),
+                                            fechaActaFormateada: ko.observable(cumplimientoCompromisosProyecto[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(cumplimientoCompromisosProyecto[i].numeroActa)
+                                        }
+                                );
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert_placeholder_cumplimiento_compromisos_proyecto.warning("Error al almacenar el cumplimiento del compromiso");
+                    }});
+            });
+
+            function eliminarCumplimientoCompromisoProyecto () {
+                $.ajax({
+                    type: 'GET',
+                    url: "${pageContext.request.contextPath}/novedades/eliminarCumplimientoCompromisoProyecto/" + $('#idProyecto').val() + "/" + cumplimientoCompromisoEliminarProyecto.idCumplimientoCompromisoProyecto(),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        alert_placeholder_cumplimiento_compromisos_proyecto.success("Cumplimiento del compromiso eliminado exitosamente");
+                        $('#confirmacionEliminacionCumplimientoCompromisoProyecto').modal('toggle');
+                        if (response != "") {
+                            proyectoModel.cumplimientoCompromisosProyecto.removeAll();
+                            var cumplimientoCompromisosProyecto = JSON.parse(response);
+                            for (var i = 0; i < cumplimientoCompromisosProyecto.length; i++) {
+                                proyectoModel.cumplimientoCompromisosProyecto.push(
+                                        {
+                                            idCumplimientoCompromisoProyecto: ko.observable(cumplimientoCompromisosProyecto[i].idCumplimientoCompromisoProyecto),
+                                            idCompromisoProyecto: ko.observable(cumplimientoCompromisosProyecto[i].idCompromisoProyecto),
+                                            descripcionCompromisoProyecto: ko.observable(cumplimientoCompromisosProyecto[i].descripcionCompromisoProyecto),
+                                            fechaActaFormateada: ko.observable(cumplimientoCompromisosProyecto[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(cumplimientoCompromisosProyecto[i].numeroActa)
+                                        }
+                                );
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert_placeholder_cumplimiento_compromisos_proyecto.warning("Error al eliminar el cumplimiento del compromiso");
+                    }});
+            }
+
+            var ProyectoModel = function (actas, adendasIngreso, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto) {
                 self = this;
                 self.actas = ko.observableArray(actas);
                 self.verDocumentoActa = function (acta) {
@@ -2137,6 +2490,22 @@
                     $('#fechaPlazo').val(plazo.fechaFormateada());
                     $('#plazoModal').modal('show');
                 };                
+                
+                self.cumplimientoCompromisosProyecto = ko.observableArray(cumplimientoCompromisosProyecto);
+                self.verDocumentoCumplimientoCompromisoProyecto = function (cumplimientoCompromisoProyecto) {
+                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoCumplimientoCompromisoProyecto/" + cumplimientoCompromisoProyecto.idCumplimientoCompromisoProyecto();
+                };
+                self.eliminarCumplimientoCompromisoProyecto = function (cumplimientoCompromisoProyecto) {
+                    cumplimientoCompromisoEliminarProyecto = cumplimientoCompromisoProyecto;
+                    $('#confirmacionEliminacionCumplimientoCompromisoProyecto').modal('show');
+                };
+                self.editarCumplimientoCompromisoProyecto = function (cumplimientoCompromisoProyecto) {
+                    $('#idCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.idCumplimientoCompromisoProyecto());
+                    $('#compromisoProyecto').val(cumplimientoCompromisoProyecto.idCompromisoProyecto());
+                    $('#fechaActaCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.fechaActaFormateada());
+                    $('#numeroActaCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.numeroActaFormateada());
+                    $('#cumplimientoCompromisoModal').modal('show');
+                };                  
             };
 
             var actas = new Array();
@@ -2153,6 +2522,8 @@
             var prorrogaEliminar = null; 
             var plazos = new Array();
             var plazoEliminar = null; 
+            var cumplimientoCompromisosProyecto = new Array();
+            var cumplimientoCompromisoEliminarProyecto = null; 
             <c:if test = "${actasProyectoJSON != null}">
             actas = ${actasProyectoJSON};
             </c:if>
@@ -2174,7 +2545,10 @@
             <c:if test = "${plazosProyectoJSON != null}">
             plazos = ${plazosProyectoJSON};
             </c:if>
-            var proyectoModel = new ProyectoModel(actas, adendasCambio, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos);
+            <c:if test = "${cumplimientoCompromisosProyectoProyectoJSON != null}">
+            cumplimientoCompromisosProyecto = ${cumplimientoCompromisosProyectoJSON};
+            </c:if>
+            var proyectoModel = new ProyectoModel(actas, adendasCambio, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto);
             ko.applyBindings(proyectoModel);
 
             bootstrap_alert_actas = function () { };
@@ -2338,7 +2712,11 @@
             function limpiarDatosVentanaAdicion() {
                 $('#idActa').val(0);
                 $('#montoAdicion').val("");
-                $('#fechaAdicion').val("");
+                $('#fechaActaAdicion').val("");
+                $('#numeroActaAdicion').val("");
+                $('#fechaActaCODIAdicion').val("");
+                $('#numeroActaCODIAdicion').val("");
+                $('#descripcionAdicion').val("");
             }   
             
             bootstrap_alert_prorrogas = function () { };
@@ -2366,8 +2744,12 @@
                 $('#idProrroga').val(0);
                 $('#descripcionProrroga').val("");
                 $('#mesesAprobadosProrroga').val("");
+                $('#montoAprobadoProrroga').val("");
                 $('#documentoProrroga').val("");
-                $('#fechaProrroga').val("");
+                $('#fechaActaProrroga').val("");
+                $('#numeroActaProrroga').val("");
+                $('#fechaActaCODIProrroga').val("");
+                $('#numeroActaCODIProrroga').val("");
             } 
             
             bootstrap_alert_plazos = function () { };
@@ -2396,6 +2778,38 @@
                 $('#descripcionPlazo').val("");
                 $('#mesesAprobadosPlazo').val("");
                 $('#documentoPlazo').val("");
-                $('#fechaPlazo').val("");
+                $('#fechaActaPlazo').val("");
+                $('#numeroActaPlazo').val("");
+                $('#fechaActaCODIPlazo').val("");
+                $('#numeroActaCODIPlazo').val("");
+            }              
+            
+            alert_placeholder_cumplimiento_compromisos_proyecto = function () { };
+            alert_placeholder_cumplimiento_compromisos_proyecto.warning = function (message) {
+                $('#alert_placeholder_cumplimiento_compromisos_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            alert_placeholder_cumplimiento_compromisos_proyecto.success = function (message) {
+                $('#alert_placeholder_cumplimiento_compromisos_proyecto').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            alert_placeholder_cumplimiento_compromisos_proyecto.removeWarning = function () {
+                $('#alert_placeholder_cumplimiento_compromisos_proyecto').html('');
+            };
+            alert_placeholder_cumplimiento_compromiso_proyecto = function () { };
+            alert_placeholder_cumplimiento_compromiso_proyecto.warning = function (message) {
+                $('#alert_placeholder_cumplimiento_compromiso_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            alert_placeholder_cumplimiento_compromiso_proyecto.removeWarning = function () {
+                $('#alert_placeholder_cumplimiento_compromiso_proyecto').html('');
+            };
+            function mostrarVentanaNuevaCumplimientoCompromisoProyecto() {
+                limpiarDatosVentanaCumplimientoCompromisoProyecto();
+                $('#cumplimientoCompromisoProyectoModal').modal('show');
+            }
+            function limpiarDatosVentanaCumplimientoCompromisoProyecto() {
+                $('#idCumplimientoCompromisoProyecto').val(0);
+                $('#cumplimientoCompromiso').val("");
+                $('#documentoCumplimientoCompromisoProyecto').val("");
+                $('#fechaActaCumplimientoCompromisoProyecto').val("");
+                $('#numeroActaCumplimientoCompromisoProyecto').val("");
             }              
         </script>

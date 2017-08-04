@@ -157,6 +157,7 @@
                           <li><a data-toggle="tab" href="#gruposInvestigacion">Grupos de Investigación</a></li>
                           <li><a data-toggle="tab" href="#entidadesInternacionales">Entidades Internacionales</a></li>
                           <li><a data-toggle="tab" href="#fuentesFinanciacion">Fuentes de Financiación</a></li>
+                          <li><a data-toggle="tab" href="#alertasAval">Alertas Aval Condicionado</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="objetivosEspecificos" class="tab-pane fade in active">
@@ -277,15 +278,16 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Fecha</td>                                                        
+                                                        <td>Tipo de compromiso</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <div class="input-group date">
-                                                                <input id="fechaCompromisoProyecto" name="fechaCompromisoProyecto" class="form-control datepicker" readonly="true" />
-                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                                            </div>                                                        
-                                                        </td>
+                                                            <select name="tipoCompromiso" id="tipoCompromiso" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoCompromiso" items="${tiposCompromiso}">
+                                                                <option value="${tipoCompromiso.getIdTipoCompromiso()}">${tipoCompromiso.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>                                                            </td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -321,7 +323,7 @@
                                     <thead>
                                         <tr class="table-row">
                                             <th style="width: 70%;text-align: center">Compromiso</th>
-                                            <th style="width: 20%;text-align: center">Fecha</th>
+                                            <th style="width: 20%;text-align: center">Tipo</th>
                                             <th style="width: 5%">&nbsp;</th>
                                             <th style="width: 5%">&nbsp;</th>
                                         </tr>
@@ -333,8 +335,9 @@
                                                 <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'compromisosProyecto[' + $index() + '].descripcion'  }">
                                             </td>
                                             <td style="width: 20%">
-                                                <span data-bind="text: fechaCompromisoFormateada" ></span>
-                                                <input type="hidden" class="form-control" data-bind="value: fechaCompromisoFormateada, attr: { 'name': 'compromisosProyecto[' + $index() + '].fechaCompromisoFormateada'  }">
+                                                <span data-bind="text: nombreTipoCompromiso" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: nombreTipoCompromiso, attr: { 'name': 'compromisosProyecto[' + $index() + '].nombreTipoCompromiso'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idTipoCompromiso, attr: { 'name': 'compromisosProyecto[' + $index() + '].idTipoCompromiso'  }">
                                             </td>
                                             <td style="width: 5%">
                                                 <button class="btn btn-dark" data-bind="click: $root.eliminarCompromisoProyecto">
@@ -1321,6 +1324,143 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div id="alertasAval" class="tab-pane fade">
+                                <div class="alert alert-info" style="margin-top:20px;">
+                                    <strong>Alertas Aval Condicionado</strong>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevaAlertaAvalProyecto(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>                            
+                                </div>  
+                                <div class="modal fade" id="alertasAvalProyectoModal" tabindex="-1" role="dialog" aria-labelledby="alertasAvalModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Alerta Aval Condicionado</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_alertas_aval_proyecto"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td>Descripción</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input id="descripcionAlertaAvalProyecto" name="descripcionAlertaAvalProyecto" class="form-control" maxlength="200" />
+                                                            <input type="hidden" id="consecutivo" name="consecutivo" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tipo de aval</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="tipoAvalProyecto" id="tipoAval" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoAval" items="${tiposAval}">
+                                                                <option value="${tipoAval.getIdTipoAval()}">${tipoAval.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>                                                            </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Fecha acta</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaActaAlertaAvalProyecto" name="fechaActaAlertaAvalProyecto" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td>Número del acta</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input id="numeroActaAlertaAvalProyecto" name="numeroActaAlertaAvalProyecto" class="form-control datepicker" maxlength="45" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarAlertaAvalProyecto">Aceptar</button>
+                                            </div>                                    
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="modal fade" id="confirmacionEliminacionAlertaAvalProyecto" tabindex="-1" role="dialog" aria-labelledby="alertaAvalProyectoModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Eliminar Alerta Aval de Cumplimiento</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de eliminar la alerta de aval de cumplimiento?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-danger btn-ok" onclick="eliminarAlertaAvalProyecto();">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                   
+                                <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                    <thead>
+                                        <tr class="table-row">
+                                            <th style="width: 30%;text-align: center">Descripción</th>
+                                            <th style="width: 20%;text-align: center">Tipo de aval</th>
+                                            <th style="width: 20%;text-align: center">Fecha acta</th>
+                                            <th style="width: 20%;text-align: center">Número de acta</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody  data-bind="foreach: { data: alertasAvalProyecto }">
+                                        <tr class="table-row">
+                                            <td style="width: 30%">
+                                                <span data-bind="text: descripcion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'alertasAvalProyecto[' + $index() + '].descripcion'  }">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: nombreTipoAval" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: nombreTipoAval, attr: { 'name': 'alertasAvalProyecto[' + $index() + '].nombreTipoAval'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: idTipoAval, attr: { 'name': 'alertasAvalProyecto[' + $index() + '].idTipoAval'  }">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: fechaActa" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: fechaActa, attr: { 'name': 'alertasAvalProyecto[' + $index() + '].fechaActa'  }">
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: numeroActa" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: numeroActa, attr: { 'name': 'alertasAvalProyecto[' + $index() + '].numeroActa'  }">
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarAlertaAvalProyecto">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                                <input type="hidden" data-bind="value: idAlertaAvalProyecto, attr: { 'name': 'alertasAvalProyecto[' + $index() + '].idAlertaAvalProyecto'  }" />
+                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'alertasAvalProyecto[' + $index() + '].consecutivo'  }" />
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarAlertaAvalProyecto">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                         <table class='table table-hover' style='font-size:12px;'> 
                             <tr>
@@ -1405,7 +1545,12 @@
                $('#confirmacionEliminacionFuenteFinanciacionProyecto').modal('toggle');
             } 
 
-            var ProyectoModel = function (objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, gruposInvestigacion, entidadesInternacionales, fuentesFinanciacionProyecto) {
+            function eliminarAlertaAvalProyecto() {
+               proyectoModel.alertaAvalProyecto.remove(alertaAvalEliminar);
+               $('#confirmacionEliminacionAlertaAvalProyecto').modal('toggle');
+            }  
+
+            var ProyectoModel = function (objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, gruposInvestigacion, entidadesInternacionales, fuentesFinanciacionProyecto, alertasAvalProyecto) {
                 self = this;
 
                 self.objetivosEspecificos = ko.observableArray(objetivosEspecificos);
@@ -1452,8 +1597,8 @@
                         bootstrap_alert_compromisos_proyecto.warning('Debe ingresar el compromiso');
                         return false;
                     }
-                    if ($('#fechaCompromisoProyecto').val() == "") {
-                        bootstrap_alert_compromisos_proyecto.warning('Debe ingresar la fecha del compromiso');
+                    if ($('#tipoCompromiso').val() == "") {
+                        bootstrap_alert_compromisos_proyecto.warning('Debe seleccionar el tipo de compromiso');
                         return false;
                     }
                     $('#compromisosProyectoModal').modal('toggle');
@@ -1463,7 +1608,8 @@
                             idCompromisoProyecto: ko.observable(0),
                             consecutivo: ko.observable(self.compromisosProyecto().length + 1),
                             descripcion: ko.observable($('#compromisoProyecto').val()),
-                            fechaCompromisoFormateada: ko.observable($('#fechaCompromisoProyecto').val())
+                            nombreTipoCompromiso: ko.observable($('#tipoCompromiso option:selected').text()),
+                            idTipoCompromiso: ko.observable($('#tipoCompromiso').val())
                         });
                     } else {
                         var consecutivo = parseInt($('#consecutivo').val(), 10);
@@ -1486,7 +1632,7 @@
                 self.editarCompromisoProyecto = function (compromisoProyecto) {
                     $('#compromisoProyecto').val(compromisoProyecto.descripcion());
                     $('#consecutivo').val(compromisoProyecto.consecutivo());
-                    $('#fechaCompromisoProyecto').val(compromisoProyecto.fechaCompromisoFormateada());
+                    $('#tipoCompromiso').val(compromisoProyecto.idTipoCompromiso());
                     $('#compromisosProyectoModal').modal('show'); 
                 };
 
@@ -2037,6 +2183,67 @@
                     
                     $('#fuenteFinanciacionProyectoModal').modal('show');
                 };
+                
+                self.alertasAvalProyecto = ko.observableArray(alertasAvalProyecto);
+                self.adicionarAlertaAvalProyecto = function () {
+                    if ($('#descripcionAlertaAvalProyecto').val() == "") {
+                        bootstrap_alert_alertas_aval_proyecto.warning('Debe ingresar la descripción');
+                        return false;
+                    }
+                    if ($('#tipoAval').val() == "") {
+                        bootstrap_alert_alertas_aval_proyecto.warning('Debe seleccionar el tipo de aval');
+                        return false;
+                    }
+                    if ($('#fechaActaAlertaAvalProyecto').val() == "") {
+                        bootstrap_alert_alertas_aval_proyecto.warning('Debe ingresar la fecha del acta');
+                        return false;
+                    }
+                    if ($('#numeroActaAlertaAvalProyecto').val() == "") {
+                        bootstrap_alert_alertas_aval_proyecto.warning('Debe ingresar el número del acta');
+                        return false;
+                    }
+                    $('#alertasAvalProyectoModal').modal('toggle');
+                    bootstrap_alert_alertas_aval_proyecto.removeWarning();
+                    if($('#consecutivo').val() == "") {
+                        self.alertasAvalProyecto.push({
+                            idAlertaAvalProyecto: ko.observable(0),
+                            consecutivo: ko.observable(self.alertasAvalProyecto().length + 1),
+                            descripcion: ko.observable($('#descripcionAlertaAvalProyecto').val()),
+                            nombreTipoAval: ko.observable($('#tipoAvalProyecto option:selected').text()),
+                            idTipoAval: ko.observable($('#tipoAvalProyecto').val()),
+                            fechaActa: ko.observable($('#fechaAlertaAvalProyecto').val()),
+                            numeroActa: ko.observable($('#numeroAlertaAvalProyecto').val())
+                        });
+                    } else {
+                        var consecutivo = parseInt($('#consecutivo').val(), 10);
+                        var indice = 0;
+                        for(i = 0; i < self.alertasAvalProyecto().length; i++) {
+                           if(self.alertasAvalProyecto()[i].consecutivo() == consecutivo){
+                              indice = i; 
+                              break;
+                           }
+                        }
+                        self.alertasAvalProyecto()[indice].descripcion($('#descripcionAlertaAvalProyecto').val());
+                        self.alertasAvalProyecto()[indice].fechaActa($('#fechaActaAlertaAvalProyecto').val());
+                        self.alertasAvalProyecto()[indice].numeroActa($('#numeroActaAlertaAvalProyecto').val());
+                        self.alertasAvalProyecto()[indice].idTipoAval($('#tipoAvalProyecto').val());
+                        self.alertasAvalProyecto()[indice].nombreTipoAval($('#tipoAvalProyecto option:selected').text());
+                    }
+                    
+                    limpiarDatosVentanaAlertaAvalProyecto();
+                };
+                self.eliminarAlertaAvalProyecto = function (alertaAvalProyecto) {
+                    alertaAvalProyectoEliminar = alertaAvalProyecto;
+                    $('#confirmacionEliminacionAlertaAval').modal('show');                    
+                };
+                self.editarCompromisoProyecto = function (alertaAvalProyecto) {
+                    $('#descripcionAlertaAvalProyecto').val(alertaAvalProyecto.descripcion());
+                    $('#consecutivo').val(alertaAvalProyecto.consecutivo());
+                    $('#tipoAvalProyecto').val(alertaAvalProyecto.idTipoAval());
+                    $('#fechaActaAlertaAvalProyecto').val(alertaAvalProyecto.fechaActaFormateada);
+                    $('#numeroActaAlertaAvalProyecto').val(alertaAvalProyecto.numeroActa);
+                    $('#alertasAvalProyectoModal').modal('show'); 
+                };
             };
 
             var objetivosEspecificos = new Array();
@@ -2047,6 +2254,7 @@
             var gruposInvestigacion = new Array();
             var entidadesInternacionales = new Array();
             var fuentesFinanciacionProyecto = new Array();
+            var alertasAvalProyecto = new Array();
             
             var objetivoEspecificoEliminar = null;
             var profesorProyectoEliminar = null;
@@ -2056,6 +2264,7 @@
             var grupoInvestigacionEliminar = null;
             var entidadInternacionalEliminar = null;
             var fuenteFinanciacionProyectoEliminar = null;
+            var alertaAvalProyectoEliminar = null;
 
             <c:if test = "${objetivosEspecificosJSON != null}">
             objetivosEspecificos = ${objetivosEspecificosJSON};
@@ -2081,8 +2290,11 @@
             <c:if test = "${fuentesFinanciacionProyectoJSON != null}">
             fuentesFinanciacionProyecto = ${fuentesFinanciacionProyectoJSON};
             </c:if>
+            <c:if test = "${alertasAvalProyectoJSON != null}">
+            alertasAvalProyecto = ${alertasAvalProyectoJSON};
+            </c:if>
                 
-            var proyectoModel = new ProyectoModel(objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, gruposInvestigacion, entidadesInternacionales, fuentesFinanciacionProyecto);
+            var proyectoModel = new ProyectoModel(objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, gruposInvestigacion, entidadesInternacionales, fuentesFinanciacionProyecto, alertasAvalProyecto);
             ko.applyBindings(proyectoModel);
 
             bootstrap_alert_objetivosEspecificos = function () { };
@@ -2113,9 +2325,9 @@
                 $('#compromisosProyectoModal').modal('show'); 
             }
             function limpiarDatosVentanaCompromisoProyecto() {
-                $('#compromisoProyecto').val("");
                 $('#consecutivo').val("");
-                $('#fechaCompromisoProyecto').val("");
+                $('#tipoCompromiso').val("");
+                $('#compromisoProyecto').val("");
             }
 
             bootstrap_alert_profesores_proyecto = function () { };
@@ -2380,4 +2592,23 @@
                 $('#montoFrescos').val("");
                 $('#consecutivo').val("");
             }             
+            
+            bootstrap_alert_alertas_aval_proyecto = function () { };
+            bootstrap_alert_alertas_aval_proyecto.warning = function (message) {
+                $('#alert_placeholder_alertas_aval_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_alertas_aval_proyecto.removeWarning = function () {
+                $('#alert_placeholder_alertas_aval_proyecto').html('');
+            };
+            function mostrarVentanaNuevaAlertaAvalProyecto() {
+                limpiarDatosVentanaAlertaAvalProyecto();
+                $('#alertasAvalProyectoModal').modal('show'); 
+            }
+            function limpiarDatosVentanaAlertaAvalProyecto() {
+                $('#consecutivo').val("");
+                $('#tipoAvalProyecto').val("");
+                $('#descripcionAlertaAvalProyecto').val("");
+                $('#fechaActaAlertaAvalProyecto').val("");
+                $('#numeroActaAlertaAvalProyecto').val("");
+            }
         </script>

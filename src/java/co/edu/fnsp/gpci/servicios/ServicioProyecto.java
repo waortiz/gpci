@@ -5,6 +5,8 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
+import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
+import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.Proyecto;
@@ -82,5 +84,15 @@ public class ServicioProyecto implements IServicioProyecto {
     @Override
     public PersonalExterno obtenerPersonalExterno(int idTipoIdentificacion, long numeroIdentificacion) {
         return repositorioProyecto.obtenerPersonalExterno(idTipoIdentificacion, numeroIdentificacion);
+    }
+
+    @Override
+    public ArrayList<CompromisoProyecto> obtenerCompromisosProyecto(long idProyecto) {
+        return repositorioProyecto.obtenerCompromisosProyecto(idProyecto);
+    }
+
+    @Override
+    public ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto) {
+        return repositorioProyecto.obtenerAlertasAvalProyecto(idProyecto);
     }
 }

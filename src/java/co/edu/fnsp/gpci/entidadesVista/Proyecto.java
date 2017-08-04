@@ -43,6 +43,7 @@ public class Proyecto {
     private ArrayList<GrupoInvestigacion> gruposInvestigacion = new ArrayList<>();
     private ArrayList<EntidadInternacional> entidadesInternacionales = new ArrayList<>();
     private ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = new ArrayList<>();
+    private ArrayList<AlertaAvalProyecto> alertasAvalProyecto = new ArrayList<>();
      
     /**
      * @return the idProyecto
@@ -448,5 +449,19 @@ public class Proyecto {
      */
     public void setFuentesFinanciacionProyecto(ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto) {
         this.fuentesFinanciacionProyecto = fuentesFinanciacionProyecto;
+    }
+
+    /**
+     * @return the alertasAvalProyecto
+     */
+    public ArrayList<AlertaAvalProyecto> getAlertasAvalProyecto() {
+        return alertasAvalProyecto;
+    }
+
+    /**
+     * @param alertasAvalProyecto the alertasAvalProyecto to set
+     */
+    public void setAlertasAvalProyecto(ArrayList<AlertaAvalProyecto> alertasAvalProyecto) {
+        this.alertasAvalProyecto = alertasAvalProyecto;
     }
 }
