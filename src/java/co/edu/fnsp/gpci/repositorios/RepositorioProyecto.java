@@ -602,6 +602,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         if (resultado.get("varIdProfesor") != null) {
             profesor = new Profesor();
+            profesor.setIdProfesor((long)resultado.get("varIdProfesor"));
             profesor.setNombres((String) resultado.get("varNombres"));
             profesor.setApellidos((String) resultado.get("varApellidos"));
             profesor.setContacto((String) resultado.get("varContacto"));
@@ -692,6 +693,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         if (resultado.get("varIdEstudiante") != null) {
             estudiante = new Estudiante();
+            estudiante.setIdEstudiante((long)resultado.get("varIdEstudiante"));
             estudiante.setNombres((String) resultado.get("varNombres"));
             estudiante.setApellidos((String) resultado.get("varApellidos"));
             estudiante.setContacto((String) resultado.get("varContacto"));
@@ -771,6 +773,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         if (resultado.get("varIdPersonalExterno") != null) {
             personalExterno = new PersonalExterno();
+            personalExterno.setIdPersonalExterno((long)resultado.get("varIdPersonalExterno"));
             personalExterno.setNombres((String) resultado.get("varNombres"));
             personalExterno.setApellidos((String) resultado.get("varApellidos"));
             personalExterno.setCorreoElectronico((String) resultado.get("varCorreoElectronico"));

@@ -5,8 +5,6 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
-import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -16,11 +14,9 @@ import org.springframework.web.multipart.MultipartFile;
 public class AdendaCambioProyecto {
 
     private long idProyecto;
-    private long idAdenda;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaAdendaCambio;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaActaAdendaCambio;
+    private long idAdendaCambio;
+    private String fechaAdendaCambio;
+    private String fechaActaAdendaCambio;
     private String numeroActaAdendaCambio;
     private int tipoPersonaAdendaCambio;
     private int tipoIdentificacionPersonaAdendaCambio;
@@ -28,6 +24,20 @@ public class AdendaCambioProyecto {
     private int rolAdendaCambio;
     private String observacionesAdendaCambio;    
     private MultipartFile documentoAdendaCambio;
+
+    /**
+     * @return the idAdendaCambio
+     */
+    public long getIdAdendaCambio() {
+        return idAdendaCambio;
+    }
+
+    /**
+     * @param idAdendaCambio the idAdendaCambio to set
+     */
+    public void setIdAdendaCambio(long idAdendaCambio) {
+        this.idAdendaCambio = idAdendaCambio;
+    }
 
     /**
      * @return the idProyecto
@@ -44,30 +54,16 @@ public class AdendaCambioProyecto {
     }
 
     /**
-     * @return the idAdenda
-     */
-    public long getIdAdenda() {
-        return idAdenda;
-    }
-
-    /**
-     * @param idAdenda the idAdenda to set
-     */
-    public void setIdAdenda(long idAdenda) {
-        this.idAdenda = idAdenda;
-    }
-
-    /**
      * @return the fechaActaAdendaCambio
      */
-    public Date getFechaActaAdendaCambio() {
+    public String getFechaActaAdendaCambio() {
         return fechaActaAdendaCambio;
     }
 
     /**
      * @param fechaActaAdendaCambio the fechaActaAdendaCambio to set
      */
-    public void setFechaActaAdendaCambio(Date fechaActaAdendaCambio) {
+    public void setFechaActaAdendaCambio(String fechaActaAdendaCambio) {
         this.fechaActaAdendaCambio = fechaActaAdendaCambio;
     }
 
@@ -172,14 +168,14 @@ public class AdendaCambioProyecto {
     /**
      * @return the fechaAdendaCambio
      */
-    public Date getFechaAdendaCambio() {
+    public String getFechaAdendaCambio() {
         return fechaAdendaCambio;
     }
 
     /**
      * @param fechaAdendaCambio the fechaAdendaCambio to set
      */
-    public void setFechaAdendaCambio(Date fechaAdendaCambio) {
+    public void setFechaAdendaCambio(String fechaAdendaCambio) {
         this.fechaAdendaCambio = fechaAdendaCambio;
     }
 }

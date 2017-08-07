@@ -21,6 +21,8 @@ import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
+import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
+import co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
 
@@ -66,9 +68,9 @@ public class ProyectoEdicion {
     private ArrayList<AdicionProyecto> adicionesProyecto = new ArrayList<>();
     private ArrayList<PlazoProyecto> plazosProyecto = new ArrayList<>();
     private ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = new ArrayList<>();
-    private ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = new ArrayList<>();
+    private ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = new ArrayList<>();
     private ArrayList<AlertaAvalProyecto> alertasAvalProyecto = new ArrayList<>();
-    private ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto = new ArrayList<>();
+    private ArrayList<CumplimientoAlertaAvalProyecto> cumplimientoAlertasAvalProyecto = new ArrayList<>();
 
     /**
      * @return the areaTematica
@@ -679,7 +681,7 @@ public class ProyectoEdicion {
     /**
      * @return the cumplimientoCompromisosProyecto
      */
-    public ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto> getCumplimientoCompromisosProyecto() {
+    public ArrayList<CumplimientoCompromisoProyecto> getCumplimientoCompromisosProyecto() {
         return cumplimientoCompromisosProyecto;
     }
 
@@ -694,7 +696,7 @@ public class ProyectoEdicion {
      * @param cumplimientoCompromisosProyecto the
      * cumplimientoCompromisosProyecto to set
      */
-    public void setCumplimientoCompromisosProyecto(ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto) {
+    public void setCumplimientoCompromisosProyecto(ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto) {
         this.cumplimientoCompromisosProyecto = cumplimientoCompromisosProyecto;
     }
 
@@ -720,23 +722,23 @@ public class ProyectoEdicion {
     }
 
     /**
-     * @return the cumplimientosAlertasAvalProyecto
+     * @return the cumplimientoAlertasAvalProyecto
      */
-    public ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto> getCumplimientosAlertasAvalProyecto() {
-        return cumplimientosAlertasAvalProyecto;
+    public ArrayList<CumplimientoAlertaAvalProyecto> getCumplimientoAlertasAvalProyecto() {
+        return cumplimientoAlertasAvalProyecto;
     }
 
     /**
-    * @return the cumplimientosAlertasAvalProyecto
+    * @return the cumplimientoAlertasAvalProyecto
     */
-    public String getCumplimientosAlertasAvalProyectoJSON() {
-        return Util.obtenerCumplimientosAlertasAvalProyectoJSON(cumplimientosAlertasAvalProyecto);
+    public String getCumplimientoAlertasAvalProyectoJSON() {
+        return Util.obtenerCumplimientosAlertasAvalProyectoJSON(cumplimientoAlertasAvalProyecto);
     }
     
     /**
-     * @param cumplimientosAlertasAvalProyecto the cumplimientosAlertasAvalProyecto to set
+     * @param cumplimientoAlertasAvalProyecto the cumplimientoAlertasAvalProyecto to set
      */
-    public void setCumplimientosAlertasAvalProyecto(ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto) {
-        this.cumplimientosAlertasAvalProyecto = cumplimientosAlertasAvalProyecto;
+    public void setCumplimientoAlertasAvalProyecto(ArrayList<CumplimientoAlertaAvalProyecto> cumplimientoAlertasAvalProyecto) {
+        this.cumplimientoAlertasAvalProyecto = cumplimientoAlertasAvalProyecto;
     }
 }

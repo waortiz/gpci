@@ -15,6 +15,7 @@ import co.edu.fnsp.gpci.editores.TipoProyectoEditor;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
 import co.edu.fnsp.gpci.entidades.Convocatoria;
 import co.edu.fnsp.gpci.entidades.EnfoqueMetodologico;
+import co.edu.fnsp.gpci.entidades.EntidadInternacionalProyecto;
 import co.edu.fnsp.gpci.entidades.EstadoProyecto;
 import co.edu.fnsp.gpci.entidades.Estudiante;
 import co.edu.fnsp.gpci.entidades.Facultad;
@@ -158,7 +159,7 @@ public class ProyectoController {
         model.addAttribute("tiposAval", tiposAval);
         model.addAttribute("tiposVinculacion", tiposVinculacion);
         
-        model.addAttribute("proyecto", new co.edu.fnsp.gpci.entidadesVista.Proyecto());
+        model.addAttribute("proyecto", new Proyecto());
 
         return "proyectos/crear";
     }
@@ -170,54 +171,21 @@ public class ProyectoController {
      * @return
      */
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
-    public String crearProyecto(@ModelAttribute("proyecto") co.edu.fnsp.gpci.entidadesVista.Proyecto proyecto, Model model) {
+    public String crearProyecto(@ModelAttribute("proyecto") Proyecto proyecto, Model model) {
 
         try {
-            Proyecto nuevoProyecto = new Proyecto();
-            nuevoProyecto.setIdProyecto(proyecto.getIdProyecto());
-            nuevoProyecto.setAreaTematica(proyecto.getAreaTematica());
-            nuevoProyecto.setCodigo(proyecto.getCodigo());
-            nuevoProyecto.setCodigoCOLCIENCIAS(proyecto.getCodigoCOLCIENCIAS());
-            nuevoProyecto.setCodigoSIIU(proyecto.getCodigoSIIU());
-            nuevoProyecto.setCodigoSIU(proyecto.getCodigoSIU());
-            nuevoProyecto.setConvocatoria(proyecto.getConvocatoria());
-            nuevoProyecto.setEnfoqueMetodologico(proyecto.getEnfoqueMetodologico());
-            nuevoProyecto.setEstado(proyecto.getEstado());
-            nuevoProyecto.setFechaCreacion(new Date());
-
-            if (nuevoProyecto.getIdProyecto() == 0) {
+            if (proyecto.getIdProyecto() == 0) {
+                proyecto.setFechaCreacion(new Date());
                 Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
-                nuevoProyecto.setUsuarioCreacion(usuario);
+                proyecto.setUsuarioCreacion(usuario);
             }
-
-            nuevoProyecto.setFechaInicio(Util.obtenerFecha(proyecto.getFechaInicio()));
-            nuevoProyecto.setFechaFinalizacion(Util.obtenerFecha(proyecto.getFechaFinalizacion()));
-            nuevoProyecto.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
-            nuevoProyecto.setIngresadoSIIU(proyecto.isIngresadoSIIU());
-            nuevoProyecto.setIngresadoSIU(proyecto.isIngresadoSIU());
-            nuevoProyecto.setNombreCompletoProyecto(proyecto.getNombreCompletoProyecto());
-            nuevoProyecto.setNombreCortoProyecto(proyecto.getNombreCortoProyecto());
-            nuevoProyecto.setObjetivoGeneral(proyecto.getObjetivoGeneral());
-            nuevoProyecto.setParticipacionInternacional(proyecto.isParticipacionInternacional());
-            nuevoProyecto.setRiesgoEtico(proyecto.getRiesgoEtico());
-            nuevoProyecto.setTipoContrato(proyecto.getTipoContrato());
-            nuevoProyecto.setTipoProyecto(proyecto.getTipoProyecto());
-
-            nuevoProyecto.setGruposInvestigacion(proyecto.getGruposInvestigacion());
-            nuevoProyecto.setObjetivosEspecificos(proyecto.getObjetivosEspecificos());
-            nuevoProyecto.setCompromisosProyecto(proyecto.getCompromisosProyecto());
-            nuevoProyecto.setProfesoresProyecto(proyecto.getProfesoresProyecto());
-            nuevoProyecto.setEstudiantesProyecto(proyecto.getEstudiantesProyecto());
-            nuevoProyecto.setPersonalExternoProyecto(proyecto.getPersonalExternoProyecto());
-            nuevoProyecto.setAlertasAvalProyecto(proyecto.getAlertasAvalProyecto());
-            nuevoProyecto.setFuentesFinanciacionProyecto(proyecto.getFuentesFinanciacionProyecto());
-            if (proyecto.isParticipacionInternacional()) {
-                nuevoProyecto.setEntidadesInternacionalesProyecto(proyecto.getEntidadesInternacionalesProyecto());
+            if (!proyecto.isParticipacionInternacional()) {
+                proyecto.setEntidadesInternacionalesProyecto(new ArrayList<>());
             }
             if (proyecto.getIdProyecto() == 0) {
-                servicioProyecto.ingresarProyecto(nuevoProyecto);
+                servicioProyecto.ingresarProyecto(proyecto);
             } else {
-                servicioProyecto.actualizarProyecto(nuevoProyecto);
+                servicioProyecto.actualizarProyecto(proyecto);
             }
 
             model.addAttribute("proyectos", new ArrayList<>());
@@ -286,8 +254,8 @@ public class ProyectoController {
             proyectoEdicion.setConvocatoria(Long.toString(proyecto.getConvocatoria().getIdConvocatoria()));
             proyectoEdicion.setEnfoqueMetodologico(Integer.toString(proyecto.getEnfoqueMetodologico().getIdEnfoqueMetodologico()));
             proyectoEdicion.setEstado(Integer.toString(proyecto.getEstado().getIdEstadoProyecto()));
-            proyectoEdicion.setFechaInicio(proyecto.getFechaInicio());
-            proyectoEdicion.setFechaFinalizacion(proyecto.getFechaFinalizacion());
+            proyectoEdicion.setFechaInicio(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
+            proyectoEdicion.setFechaFinalizacion(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
             proyectoEdicion.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
             proyectoEdicion.setIngresadoSIIU(proyecto.isIngresadoSIIU());
             proyectoEdicion.setIngresadoSIU(proyecto.isIngresadoSIU());

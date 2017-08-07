@@ -118,7 +118,7 @@ public class ServicioProyecto implements IServicioProyecto {
         calendar.setTime(proyecto.getFechaFinalizacion());
         calendar.add(Calendar.MONTH, meses);
         Date fechaFinalizacion = calendar.getTime();
-        if (fechaFinalizacion.compareTo(new Date()) <= 0) {
+        if (fechaFinalizacion.compareTo(new Date()) >= 0) {
             estadoProyecto.setIdEstadoProyecto(EstadoProyectoEnum.EJECUCION.getIdEstadoProyecto());
             proyecto.setEstado(estadoProyecto);
         } else if (fechaFinalizacion.compareTo(new Date()) < 0) {

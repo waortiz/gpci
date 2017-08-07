@@ -25,6 +25,36 @@
             <mvc:exclude-mapping path="/login/cambiarClave" />
             <mvc:exclude-mapping path="/login/crear" />
             <mvc:exclude-mapping path="/login/recuperarClave" />
+            <mvc:exclude-mapping path="/proyectos/estudiantes" />
+            <mvc:exclude-mapping path="/proyectos/profesores" />
+            <mvc:exclude-mapping path="/proyectos/personalExterno" />
+            <mvc:exclude-mapping path="/novedades/acta" />
+            <mvc:exclude-mapping path="/novedades/documentoActa/**" />
+            <mvc:exclude-mapping path="/novedades/eliminarActa/**" />
+            <mvc:exclude-mapping path="/novedades/adendaCambio" />
+            <mvc:exclude-mapping path="/novedades/documentoAdendaCambio/**" />
+            <mvc:exclude-mapping path="/novedades/eliminarAdendaCambio/**" />
+            <mvc:exclude-mapping path="/novedades/adendaIngreso" />
+            <mvc:exclude-mapping path="/novedades/documentoAdendaIngreso/**" />
+            <mvc:exclude-mapping path="/novedades/eliminarAdendaIngreso/**" />
+            <mvc:exclude-mapping path="/novedades/adendaRetiro" />
+            <mvc:exclude-mapping path="/novedades/documentoAdendaRetiro/**" />
+            <mvc:exclude-mapping path="/novedades/eliminarAdendaRetiro/**" />
+            <mvc:exclude-mapping path="/novedades/adicion" />
+            <mvc:exclude-mapping path="/novedades/documentoAdicion/**" />
+            <mvc:exclude-mapping path="/novedades/eliminarAdicion/**" />
+            <mvc:exclude-mapping path="/novedades/prorroga" />
+            <mvc:exclude-mapping path="/novedades/documentoProrroga/**" />
+            <mvc:exclude-mapping path="/novedades/eliminarProrroga/**" />
+            <mvc:exclude-mapping path="/novedades/plazo" />
+            <mvc:exclude-mapping path="/novedades/documentoPlazo/**" />
+            <mvc:exclude-mapping path="/novedades/eliminarPlazo/**" />
+            <mvc:exclude-mapping path="/novedades/cumplimientoCompromiso" />
+            <mvc:exclude-mapping path="/novedades/documentoCumplimientoCompromiso/**" />
+            <mvc:exclude-mapping path="/novedades/eliminarCumplimientoCompromiso/**" />
+            <mvc:exclude-mapping path="/novedades/cumplimientoAlertaAval" />
+            <mvc:exclude-mapping path="/novedades/documentoCumplimientoAlertaAval/**" />
+            <mvc:exclude-mapping path="/novedades/eliminarCumplimientoAlertaAval/**" />
             <ref bean="gpciInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

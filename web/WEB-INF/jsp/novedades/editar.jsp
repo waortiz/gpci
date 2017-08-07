@@ -144,8 +144,8 @@
                           <li><a data-toggle="tab" href="#adicionesTab">Adiciones</a></li>
                           <li><a data-toggle="tab" href="#prorrogasTab">Prórrogas</a></li>
                           <li><a data-toggle="tab" href="#plazosTab">Plazos</a></li>
-                          <li><a data-toggle="tab" href="#cumplimientoCompromisosProyectoTab">Cumplimiento compromisos</a></li>
-                          <li><a data-toggle="tab" href="#cumplimientosAlertasAvalProyectoTab">Cumplimiento alertas aval</a></li>
+                          <li><a data-toggle="tab" href="#cumplimientoCompromisosProyectoTab">Compromisos</a></li>
+                          <li><a data-toggle="tab" href="#cumplimientoAlertasAvalProyectoTab">Alertas aval</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="actasTab" class="tab-pane fade in active">                            
@@ -159,12 +159,11 @@
                             <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                                 <thead>          
                                     <tr class="table-row">
-                                        <td style="width: 20%;text-align: center"><strong>Nombre</strong></td>
-                                        <td style="width: 10%;text-align: center"><strong>Tipo</strong></td>
-                                        <td style="width: 15%;text-align: center"><strong>Código</strong></td>
-                                        <td style="width: 10%;text-align: center"><strong>Fecha</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Tipo</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Número</strong></td>
+                                        <td style="width: 15%;text-align: center"><strong>Fecha</strong></td>
                                         <td style="width: 30%;text-align: center"><strong>Observaciones</strong></td>
-                                        <td style="width: 5%;text-align: center">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                     </tr>
@@ -172,25 +171,16 @@
                                 <tbody data-bind="foreach: { data: actas }">
                                     <tr class="table-row">
                                     <td style="width: 20%">
-                                        <span data-bind="text: nombre" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'actas[' + $index() + '].nombre'  }">
-                                    </td>
-                                    <td style="width: 10%">
                                         <span data-bind="text: descripcionTipoActa" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: descripcionTipoActa, attr: { 'name': 'actas[' + $index() + '].descripcionTipoActa'  }">
-                                        <input type="hidden" class="form-control" data-bind="value: idTipoActa, attr: { 'name': 'actas[' + $index() + '].idTipoActa'  }">
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: numero" ></span>
                                     </td>
                                     <td style="width: 15%">
-                                        <span data-bind="text: numero" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: numero, attr: { 'name': 'actas[' + $index() + '].numero'  }">
-                                    </td>
-                                    <td style="width: 10%">
                                         <span data-bind="text: fechaFormateada" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: fechaFormateada, attr: { 'name': 'actas[' + $index() + '].fechaFormateada'  }">
                                     </td>
                                     <td style="width: 30%">
                                         <span data-bind="text: observaciones" ></span>
-                                        <input type="hidden" class="form-control" data-bind="value: observaciones, attr: { 'name': 'actas[' + $index() + '].observaciones'  }">
                                     </td>
                                     <td style="width: 5%">
                                         <button class="btn btn-dark" data-bind="click: $root.verDocumentoActa" title="Ver acta">
@@ -201,7 +191,6 @@
                                         <button class="btn btn-dark" data-bind="click: $root.eliminarActa" title="Eliminar acta">
                                             <i class="glyphicon glyphicon-trash"></i>
                                         </button>
-                                        <input type="hidden" data-bind="value: idActa, attr: { 'name': 'actas[' + $index() + '].idActa'  }" />
                                     </td>
                                     <td style="width: 5%">
                                         <button class="btn btn-dark" data-bind="click: $root.editarActa" title="Editar acta">
@@ -301,6 +290,9 @@
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                                 <button type="submit" class="btn btn-primary">Aceptar</button>
                                             </div>   
+                                            <input type="hidden" id="idActa" name="idActa" value="0"/>
+                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                         </form:form>
                                     </div>
                                 </div>  
@@ -308,7 +300,7 @@
                         </div>
                         <div id="adendasCambioTab" class="tab-pane fade">
                             <div class="alert alert-info" style="margin-top:20px;">
-                                <strong>Adendas</strong>
+                                <strong>Adendas de Cambio</strong>
                                 <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaCambio(); return false;">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>                            
@@ -317,7 +309,7 @@
                             <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                               <thead>
                                 <tr class="table-row">
-                                    <td style="width: 10%;text-align: center"><strong>Tipo persona</strong></td>
+                                    <td style="width: 5%;text-align: center"><strong>Tipo persona</strong></td>
                                     <td style="width: 10%;text-align: center"><strong>Tipo de identificación</strong></td>
                                     <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
@@ -326,24 +318,25 @@
                                     <td style="width: 10%;text-align: center"><strong>Fecha de cambio</strong></td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
+                                    <td style="width: 5%">&nbsp;</td>
                                 </tr>
                               </thead>
                               <tbody data-bind="foreach: { data: adendasCambio }">
                                 <tr class="table-row">
-                                    <td style="width: 10%">
+                                    <td style="width: 5%">
                                         <span data-bind="text: nombreTipoPersona" ></span>
                                     </td>
                                     <td style="width: 10%">
-                                        <span data-bind="text: nombreTipoIdentifacion" ></span>
+                                        <span data-bind="text: nombreTipoIdentificacionPersona" ></span>
                                     </td>
                                     <td style="width: 10%">
-                                        <span data-bind="text: numeroIdentficacion" ></span>
+                                        <span data-bind="text: numeroIdentificacionPersona" ></span>
                                     </td>
                                     <td style="width: 20%">
-                                        <span data-bind="text: nombres" ></span>
+                                        <span data-bind="text: nombresPersona" ></span>
                                     </td>
                                     <td style="width: 20%">
-                                        <span data-bind="text: apellidos" ></span>
+                                        <span data-bind="text: apellidosPersona" ></span>
                                     </td>
                                     <td style="width: 10%">
                                         <span data-bind="text: nombreRol" ></span>
@@ -390,13 +383,13 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal fade" id="adendaModal" tabindex="-1" role="dialog" aria-labelledby="adendaCambioModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="adendaCambioModal" tabindex="-1" role="dialog" aria-labelledby="adendaCambioModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaCambioProyecto" modelAttribute="adendaCambioProyecto" enctype="multipart/form-data">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaCambio" modelAttribute="adendaCambioProyecto" enctype="multipart/form-data">
                                             <div class="modal-header">
                                                 <div class="alert alert-info">
-                                                    <strong>Adenda</strong>
+                                                    <strong>Adenda de Cambio</strong>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
@@ -406,13 +399,10 @@
                                                 <div id="alert_placeholder_adenda_cambio"></div>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td width="30%">Tipo persona</td>
-                                                        <td width="30%">Tipo de identificación:</td>
-                                                        <td width="30%">Número de identificación:</td>
-                                                        <td width="10%">&nbsp;</td>
+                                                        <td colspan="3">Tipo persona</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="3">
                                                             <select name="tipoPersonaAdendaCambio" id="tipoPersonaAdendaCambio" class="form-control">
                                                                 <option value=""></option>
                                                             <c:forEach var="tipoPersona" items="${tiposPersona}">
@@ -420,6 +410,13 @@
                                                             </c:forEach>
                                                             </select>    
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="45%">Tipo de identificación:</td>
+                                                        <td width="45%">Número de identificación:</td>
+                                                        <td width="10%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>
                                                             <select name="tipoIdentificacionPersonaAdendaCambio" id="tipoIdentificacionPersonaAdendaCambio" class="form-control">
                                                                 <option value=""></option>
@@ -429,7 +426,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaCambio" name="numeroIdentificacionPersonaAdendaCambio" />
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaCambio" name="numeroIdentificacionPersonaAdendaCambio" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -440,14 +437,18 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Nombres:</td>
-                                                        <td>Apellidos:</td>                                    
+                                                        <td colspan="3">Nombres:</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="3">
                                                             <input type="text" id="nombresPersonaAdendaCambio" name="nombresPersonaAdendaCambio" class="form-control" readonly />
                                                         </td>
-                                                        <td>
+                                                    </tr>                                                        
+                                                    <tr>
+                                                        <td colspan="3">Apellidos:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3">
                                                             <input type="text" id="apellidosPersonaAdendaCambio" name="apellidosPersonaAdendaCambio" class="form-control" readonly />
                                                         </td>                                    
                                                     </tr>                                                        
@@ -485,7 +486,7 @@
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" id="numeroActaAdendaCambio" name="numeroActaAdendaCambio" />
+                                                            <input type="text" class="form-control" id="numeroActaAdendaCambio" name="numeroActaAdendaCambio" maxlength="45" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -510,7 +511,7 @@
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                                 <button type="submit" class="btn btn-primary">Aceptar</button>
                                             </div>   
-                                            <input type="hidden" id="idAdenda" name="idAdenda" value="0"/>
+                                            <input type="hidden" id="idAdendaCambio" name="idAdendaCambio" value="0"/>
                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                             <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                         </form:form>
@@ -520,21 +521,22 @@
                         </div>     
                         <div id="adendasIngresoTab" class="tab-pane fade">
                             <div class="alert alert-info" style="margin-top:20px;">
-                                <strong>Adendas</strong>
+                                <strong>Adendas de Ingreso</strong>
                                 <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaIngreso(); return false;">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>                            
                             </div>
-                            <div id="alert_placeholder_adendas_cambio"></div>
+                            <div id="alert_placeholder_adendas_ingreso"></div>
                             <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                               <thead>
                                 <tr class="table-row">
-                                    <td style="width: 15%;text-align: center"><strong>Tipo persona</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Tipo persona</strong></td>
                                     <td style="width: 15%;text-align: center"><strong>Tipo de identificación</strong></td>
                                     <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
                                     <td style="width: 10%;text-align: center"><strong>Fecha de ingreso</strong></td>
+                                    <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                 </tr>
@@ -545,16 +547,16 @@
                                         <span data-bind="text: nombreTipoPersona" ></span>
                                     </td>
                                     <td style="width: 15%">
-                                        <span data-bind="text: nombreTipoIdentifacion" ></span>
+                                        <span data-bind="text: nombreTipoIdentificacionPersona" ></span>
                                     </td>
                                     <td style="width: 10%">
-                                        <span data-bind="text: numeroIdentficacion" ></span>
+                                        <span data-bind="text: numeroIdentificacionPersona" ></span>
                                     </td>
                                     <td style="width: 20%">
-                                        <span data-bind="text: nombres" ></span>
+                                        <span data-bind="text: nombresPersona" ></span>
                                     </td>
                                     <td style="width: 20%">
-                                        <span data-bind="text: apellidos" ></span>
+                                        <span data-bind="text: apellidosPersona" ></span>
                                     </td>
                                     <td style="width: 15%">
                                         <span data-bind="text: fechaIngresoFormateada" ></span>
@@ -598,29 +600,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal fade" id="adendaModal" tabindex="-1" role="dialog" aria-labelledby="adendaIngresoModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="adendaIngresoModal" tabindex="-1" role="dialog" aria-labelledby="adendaIngresoModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaIngresoProyecto" modelAttribute="adendaIngresoProyecto" enctype="multipart/form-data">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaIngreso" modelAttribute="adendaIngresoProyecto" enctype="multipart/form-data">
                                             <div class="modal-header">
                                                 <div class="alert alert-info">
-                                                    <strong>Adenda</strong>
+                                                    <strong>Adenda de Ingreso</strong>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                             </div>
                                             <div class="modal-body">
-                                                <div id="alert_placeholder_adenda_cambio"></div>
+                                                <div id="alert_placeholder_adenda_ingreso"></div>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td width="30%">Tipo persona</td>
-                                                        <td width="30%">Tipo de identificación:</td>
-                                                        <td width="30%">Número de identificación:</td>
-                                                        <td width="10%">&nbsp;</td>
+                                                        <td colspan="3">Tipo persona</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="3">
                                                             <select name="tipoPersonaAdendaIngreso" id="tipoPersonaAdendaIngreso" class="form-control">
                                                                 <option value=""></option>
                                                             <c:forEach var="tipoPersona" items="${tiposPersona}">
@@ -628,6 +627,13 @@
                                                             </c:forEach>
                                                             </select>    
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="45%">Tipo de identificación:</td>
+                                                        <td width="45%">Número de identificación:</td>
+                                                        <td width="10%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>
                                                             <select name="tipoIdentificacionPersonaAdendaIngreso" id="tipoIdentificacionPersonaAdendaIngreso" class="form-control">
                                                                 <option value=""></option>
@@ -637,7 +643,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaIngreso" name="numeroIdentificacionPersonaAdendaIngreso" />
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaIngreso" name="numeroIdentificacionPersonaAdendaIngreso" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -648,14 +654,17 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Nombres:</td>
-                                                        <td>Apellidos:</td>                                    
+                                                        <td colspan="3">Nombres:</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="3">
                                                             <input type="text" id="nombresPersonaAdendaIngreso" name="nombresPersonaAdendaIngreso" class="form-control" readonly />
                                                         </td>
-                                                        <td>
+                                                    <tr>
+                                                        <td colspan="3">Apellidos:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3">
                                                             <input type="text" id="apellidosPersonaAdendaIngreso" name="apellidosPersonaAdendaIngreso" class="form-control" readonly />
                                                         </td>                                    
                                                     </tr>                                                        
@@ -684,7 +693,7 @@
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" id="numeroActaAdendaIngreso" name="numeroActaAdendaIngreso" />
+                                                            <input type="text" class="form-control" id="numeroActaAdendaIngreso" name="numeroActaAdendaIngreso" maxlength="45"/>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -701,7 +710,7 @@
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                                 <button type="submit" class="btn btn-primary">Aceptar</button>
                                             </div>   
-                                            <input type="hidden" id="idAdenda" name="idAdenda" value="0"/>
+                                            <input type="hidden" id="idAdendaIngreso" name="idAdendaIngreso" value="0"/>
                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                             <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                         </form:form>
@@ -711,44 +720,48 @@
                         </div>     
                         <div id="adendasRetiroTab" class="tab-pane fade">
                             <div class="alert alert-info" style="margin-top:20px;">
-                                <strong>Adendas</strong>
+                                <strong>Adendas de Retiro</strong>
                                 <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaRetiro(); return false;">
                                     <i class="glyphicon glyphicon-plus"></i>
                                 </button>                            
                             </div>
-                            <div id="alert_placeholder_adendas_cambio"></div>
+                            <div id="alert_placeholder_adendas_retiro"></div>
                             <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                               <thead>
                                 <tr class="table-row">
-                                    <td style="width: 10%;text-align: center"><strong>Tipo persona</strong></td>
+                                    <td style="width: 5%;text-align: center"><strong>Tipo persona</strong></td>
                                     <td style="width: 10%;text-align: center"><strong>Tipo de identificación</strong></td>
                                     <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Rol</strong></td>
+                                    <td style="width: 10%;text-align: center"><strong>Motivo</strong></td>
                                     <td style="width: 10%;text-align: center"><strong>Fecha de retiro</strong></td>
+                                    <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                 </tr>
                               </thead>
                               <tbody data-bind="foreach: { data: adendasRetiro }">
                                 <tr class="table-row">
-                                    <td style="width: 10%">
+                                    <td style="width: 5%">
                                         <span data-bind="text: nombreTipoPersona" ></span>
                                     </td>
                                     <td style="width: 10%">
-                                        <span data-bind="text: nombreTipoIdentifacion" ></span>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <span data-bind="text: nombres" ></span>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <span data-bind="text: apellidos" ></span>
+                                        <span data-bind="text: nombreTipoIdentificacionPersona" ></span>
                                     </td>
                                     <td style="width: 10%">
-                                        <span data-bind="text: nombreRol" ></span>
+                                        <span data-bind="text: numeroIdentificacionPersona" ></span>
                                     </td>
-                                    <td style="width: 15%">
+                                    <td style="width: 20%">
+                                        <span data-bind="text: nombresPersona" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: apellidosPersona" ></span>
+                                    </td>
+                                    <td style="width: 10%">
+                                        <span data-bind="text: motivo" ></span>
+                                    </td>
+                                    <td style="width: 10%">
                                         <span data-bind="text: fechaRetiroFormateada" ></span>
                                     </td>
                                     <td style="width: 5%">
@@ -790,29 +803,26 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="modal fade" id="adendaModal" tabindex="-1" role="dialog" aria-labelledby="adendaRetiroModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="adendaRetiroModal" tabindex="-1" role="dialog" aria-labelledby="adendaRetiroModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaRetiroProyecto" modelAttribute="adendaRetiroProyecto" enctype="multipart/form-data">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaRetiro" modelAttribute="adendaRetiroProyecto" enctype="multipart/form-data">
                                             <div class="modal-header">
                                                 <div class="alert alert-info">
-                                                    <strong>Adenda</strong>
+                                                    <strong>Adenda de Retiro</strong>
                                                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                                         <span aria-hidden="true">&times;</span>
                                                     </button>
                                                 </div>
                                             </div>
                                             <div class="modal-body">
-                                                <div id="alert_placeholder_adenda_cambio"></div>
+                                                <div id="alert_placeholder_adenda_retiro"></div>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td width="30%">Tipo persona</td>
-                                                        <td width="30%">Tipo de identificación:</td>
-                                                        <td width="30%">Número de identificación:</td>
-                                                        <td width="10%">&nbsp;</td>
+                                                        <td colspan="3">Tipo persona</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="3">
                                                             <select name="tipoPersonaAdendaRetiro" id="tipoPersonaAdendaRetiro" class="form-control">
                                                                 <option value=""></option>
                                                             <c:forEach var="tipoPersona" items="${tiposPersona}">
@@ -820,6 +830,13 @@
                                                             </c:forEach>
                                                             </select>    
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td width="45%">Tipo de identificación:</td>
+                                                        <td width="45%">Número de identificación:</td>
+                                                        <td width="10%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>
                                                             <select name="tipoIdentificacionPersonaAdendaRetiro" id="tipoIdentificacionPersonaAdendaRetiro" class="form-control">
                                                                 <option value=""></option>
@@ -829,7 +846,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaRetiro" name="numeroIdentificacionPersonaAdendaRetiro" />
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaRetiro" name="numeroIdentificacionPersonaAdendaRetiro" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -840,14 +857,18 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Nombres:</td>
-                                                        <td>Apellidos:</td>                                    
+                                                        <td colspan="3">Nombres:</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="3">
                                                             <input type="text" id="nombresPersonaAdendaRetiro" name="nombresPersonaAdendaRetiro" class="form-control" readonly />
                                                         </td>
-                                                        <td>
+                                                    </tr>                                                        
+                                                    <tr>
+                                                        <td colspan="3">Apellidos:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="3">
                                                             <input type="text" id="apellidosPersonaAdendaRetiro" name="apellidosPersonaAdendaRetiro" class="form-control" readonly />
                                                         </td>                                    
                                                     </tr>                                                        
@@ -876,7 +897,7 @@
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="form-control" id="numeroActaAdendaRetiro" name="numeroActaAdendaRetiro" />
+                                                            <input type="text" class="form-control" id="numeroActaAdendaRetiro" name="numeroActaAdendaRetiro" maxlength="45"/>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -901,7 +922,7 @@
                                                 <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                                 <button type="submit" class="btn btn-primary">Aceptar</button>
                                             </div>   
-                                            <input type="hidden" id="idAdenda" name="idAdenda" value="0"/>
+                                            <input type="hidden" id="idAdendaRetiro" name="idAdendaRetiro" value="0"/>
                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                             <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                         </form:form>
@@ -924,7 +945,7 @@
                                     <td style="width: 20%;text-align: center"><strong>Monto</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Fecha acta</strong></td>
                                     <td style="width: 20%;text-align: center"><strong>Número del Acta</strong></td>
-                                    <td style="width: 5%;text-align: center">&nbsp;</td>
+                                    <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                 </tr>
@@ -985,7 +1006,7 @@
                             <div class="modal fade" id="adicionModal" tabindex="-1" role="dialog" aria-labelledby="adicionModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adicionProyecto" modelAttribute="adicionProyecto" enctype="multipart/form-data">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adicion" modelAttribute="adicionProyecto" enctype="multipart/form-data">
                                             <div class="modal-header">
                                                 <div class="alert alert-info">
                                                     <strong>Adicion</strong>
@@ -998,14 +1019,18 @@
                                                 <div id="alert_placeholder_adicion"></div>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td>Descripción</td>
-                                                        <td>Monto</td>
+                                                        <td colspan="2">Descripción</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="2">
                                                             <input id="descripcionAdicion" name="descripcionAdicion" class="form-control" maxlength="100" />
                                                         </td>
-                                                        <td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Monto</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
                                                             <input id="montoAdicion" name="montoAdicion" class="form-control currencyField" maxlength="20" />
                                                             <input type="hidden" id="idAdicion" name="idAdicion" value="0"/>
                                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -1077,7 +1102,7 @@
                                         <td style="width: 20%;text-align: center"><strong>Monto aprobado</strong></td>
                                         <td style="width: 15%;text-align: center"><strong>Fecha acta</strong></td>
                                         <td style="width: 15%;text-align: center"><strong>Número del acta</strong></td>
-                                        <td style="width: 5%;text-align: center">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                     </tr>
@@ -1142,7 +1167,7 @@
                             <div class="modal fade" id="prorrogaModal" tabindex="-1" role="dialog" aria-labelledby="prorrogaModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/prorrogaProyecto" modelAttribute="prorrogaProyecto" enctype="multipart/form-data">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/prorroga" modelAttribute="prorrogaProyecto" enctype="multipart/form-data">
                                             <div class="modal-header">
                                                 <div class="alert alert-info">
                                                     <strong>Prórroga</strong>
@@ -1241,7 +1266,7 @@
                                         <td style="width: 20%;text-align: center"><strong>Meses aprobados</strong></td>
                                         <td style="width: 20%;text-align: center"><strong>Fecha acta</strong></td>
                                         <td style="width: 15%;text-align: center"><strong>Número del acta</strong></td>
-                                        <td style="width: 5%;text-align: center">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                     </tr>
@@ -1269,7 +1294,6 @@
                                         <button class="btn btn-dark" data-bind="click: $root.eliminarPlazo" title="Eliminar plazo">
                                             <i class="glyphicon glyphicon-trash"></i>
                                         </button>
-                                        <input type="hidden" data-bind="value: idPlazo, attr: { 'name': 'plazos[' + $index() + '].idPlazo'  }" />
                                     </td>
                                     <td style="width: 5%">
                                         <button class="btn btn-dark" data-bind="click: $root.editarPlazo" title="Editar plazo">
@@ -1303,7 +1327,7 @@
                             <div class="modal fade" id="plazoModal" tabindex="-1" role="dialog" aria-labelledby="plazoModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/plazoProyecto" modelAttribute="plazoProyecto" enctype="multipart/form-data">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/plazo" modelAttribute="plazoProyecto" enctype="multipart/form-data">
                                             <div class="modal-header">
                                                 <div class="alert alert-info">
                                                     <strong>Plazo</strong>
@@ -1316,17 +1340,21 @@
                                                 <div id="alert_placeholder_plazo"></div>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td>Descripción</td>
-                                                        <td>Meses aprobados</td>
+                                                        <td colspan="2">Descripción</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="2">
                                                             <input id="descripcionPlazo" name="descripcionPlazo" class="form-control" maxlength="100" />
                                                             <input type="hidden" id="idPlazo" name="idPlazo" value="0"/>
                                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                             <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
                                                         </td>
-                                                        <td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Meses aprobados</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
                                                             <input type="text" id="mesesAprobadosPlazo" name="mesesAprobadosPlazo" class="form-control numbersOnly" maxlength="4">
                                                         </td>
                                                     </tr>
@@ -1337,12 +1365,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaProrroga" name="fechaActaProrroga" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaPlazo" name="fechaActaPlazo" class="form-control datepicker" readonly="true" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input id="numeroActaProrroga" name="numeroActaProrroga" class="form-control datepicker" maxlength="45" />
+                                                            <input type="text" id="numeroActaPlazo" name="numeroActaPlazo" class="form-control datepicker" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1352,12 +1380,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaCODIProrroga" name="fechaActaCODIProrroga" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaCODIPlazo" name="fechaActaCODIPlazo" class="form-control datepicker" readonly="true" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input id="numeroActaCODIProrroga" name="numeroActaCODIProrroga" class="form-control datepicker" maxlength="45" />
+                                                            <input type="text" id="numeroActaCODIPlazo" name="numeroActaCODIPlazo" class="form-control datepicker" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1393,7 +1421,7 @@
                                         <td style="width: 45%;text-align: center"><strong>Compromiso</strong></td>
                                         <td style="width: 20%;text-align: center"><strong>Fecha acta</strong></td>
                                         <td style="width: 20%;text-align: center"><strong>Número del acta</strong></td>
-                                        <td style="width: 5%;text-align: center">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                     </tr>
@@ -1451,7 +1479,7 @@
                             <div class="modal fade" id="cumplimientoCompromisoProyectoModal" tabindex="-1" role="dialog" aria-labelledby="cumplimientoCompromisoProyectoModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/cumplimientoCompromisoProyecto" modelAttribute="cumplimientoCompromisoProyecto" enctype="multipart/form-data">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/cumplimientoCompromiso" modelAttribute="cumplimientoCompromisoProyecto" enctype="multipart/form-data">
                                             <div class="modal-header">
                                                 <div class="alert alert-info">
                                                     <strong>Cumplimiento de Compromiso</strong>
@@ -1467,11 +1495,11 @@
                                                         <td colspan="2">Compromiso</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="2">
                                                             <select name="compromisoProyecto" id="compromisoProyecto" class="form-control">
                                                                 <option value=""></option>
                                                             <c:forEach var="compromisoProyecto" items="${compromisosProyecto}">
-                                                                <option value="${compromiso.getIdCompromisoProyecto()}">${tipoActa.getDescripcion()}</option>
+                                                                <option value="${compromisoProyecto.getIdCompromisoProyecto()}">${compromisoProyecto.getDescripcion()}</option>
                                                             </c:forEach>
                                                             </select>      
                                                             <input type="hidden" id="idCumplimientoCompromisoProyecto" name="idCumplimientoCompromisoProyecto" value="0"/>
@@ -1491,7 +1519,7 @@
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input id="numeroActaCumplimientoCompromisoProyecto" name="numeroActaCumplimientoCompromisoProyecto" class="form-control datepicker" maxlength="45" />
+                                                            <input type="text" id="numeroActaCumplimientoCompromisoProyecto" name="numeroActaCumplimientoCompromisoProyecto" class="form-control datepicker" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1513,7 +1541,7 @@
                                 </div>  
                             </div>                               
                         </div>   
-                       <div id="cumplimientosAlertasAvalProyectoTab" class="tab-pane fade">
+                       <div id="cumplimientoAlertasAvalProyectoTab" class="tab-pane fade">
                             <div class="alert alert-info" style="margin-top:20px;">
                                 <strong>Cumplimiento de las Alertas de Aval</strong>
                                 <button class="btn btn-dark" onclick="mostrarVentanaNuevaCumplimientoAlertaAvalProyecto(); return false;">
@@ -1527,12 +1555,12 @@
                                         <td style="width: 45%;text-align: center"><strong>Alerta aval</strong></td>
                                         <td style="width: 20%;text-align: center"><strong>Fecha acta</strong></td>
                                         <td style="width: 20%;text-align: center"><strong>Número del acta</strong></td>
-                                        <td style="width: 5%;text-align: center">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
                                     </tr>
                                 </thead>
-                                <tbody data-bind="foreach: { data: cumplimientosAlertasAvalProyecto }">
+                                <tbody data-bind="foreach: { data: cumplimientoAlertasAvalProyecto }">
                                     <tr class="table-row">
                                     <td style="width: 45%">
                                         <span data-bind="text: descripcionAlertaAvalProyecto" ></span>
@@ -1585,7 +1613,7 @@
                             <div class="modal fade" id="cumplimientoAlertaAvalProyectoModal" tabindex="-1" role="dialog" aria-labelledby="cumplimientoAlertaAvalProyectoModalLabel" aria-hidden="true">
                                 <div class="modal-dialog" role="document">
                                     <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/cumplimientoAlertaAvalProyecto" modelAttribute="cumplimientoAlertaAvalProyecto" enctype="multipart/form-data">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/cumplimientoAlertaAval" modelAttribute="cumplimientoAlertaAvalProyecto" enctype="multipart/form-data">
                                             <div class="modal-header">
                                                 <div class="alert alert-info">
                                                     <strong>Cumplimiento de Alerta Aval</strong>
@@ -1601,7 +1629,7 @@
                                                         <td colspan="2">Alerta Aval</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="2">
                                                             <select name="alertaAvalProyecto" id="alertaAvalProyecto" class="form-control">
                                                                 <option value=""></option>
                                                             <c:forEach var="alertaAvalProyecto" items="${alertasAvalProyecto}">
@@ -1625,7 +1653,7 @@
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input id="numeroActaCumplimientoAlertaAvalProyecto" name="numeroActaCumplimientoAlertaAvalProyecto" class="form-control datepicker" maxlength="45" />
+                                                            <input type="text" id="numeroActaCumplimientoAlertaAvalProyecto" name="numeroActaCumplimientoAlertaAvalProyecto" class="form-control datepicker" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1726,7 +1754,7 @@
                 bootstrap_alert_acta.removeWarning();
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/novedades/actaProyecto",
+                    url: "${pageContext.request.contextPath}/novedades/acta",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -1760,6 +1788,7 @@
             });
 
             function eliminarActa () {
+                $('#confirmacionEliminacionActa').modal('toggle');
                 $.ajax({
                     type: 'GET',
                     url: "${pageContext.request.contextPath}/novedades/eliminarActa/" + $('#idProyecto').val() + "/" + actaEliminar.idActa(),
@@ -1768,7 +1797,6 @@
                     },
                     success: function (response) {
                         bootstrap_alert_actas.success("Acta eliminada exitosamente");
-                        $('#confirmacionEliminacionActa').modal('toggle');
                         if (response != "") {
                             proyectoModel.actas.removeAll();
                             var actas = JSON.parse(response);
@@ -1790,6 +1818,55 @@
                         bootstrap_alert_actas.warning("Error al eliminar el acta");
                     }});
             }
+
+          function buscarPersonaAdendaCambio() {
+          
+                if ($('#tipoPersonaAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe seleccionar el tipo de persona');
+                    return false;
+                }
+                if ($('#tipoIdentificacionPersonaAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe seleccionar el tipo de identificación');
+                    return false;
+                }
+                if ($('#numeroIdentificacionPersonaAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe ingresar el número de identificación');
+                    return false;
+                }
+
+                var tipoIdentificacion = $('#tipoIdentificacionPersonaAdendaCambio').val();
+                var numeroIdentificacion = $('#numeroIdentificacionPersonaAdendaCambio').val();
+                var tipoPersona = "";
+                if ($('#tipoPersonaAdendaCambio').val() == "1") {
+                    tipoPersona = "profesores";
+                } else if ($('#tipoPersonaAdendaCambio').val() == "2") {
+                    tipoPersona = "estudiantes";
+                } else if ($('#tipoPersonaAdendaCambio').val() == "3") {
+                    tipoPersona = "personalExterno";
+                }
+
+                $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/proyectos/" + tipoPersona,
+                        data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                        beforeSend: function(xhr){
+                           xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                        },                        
+                        success: function(response){
+                           if(response != "") {
+                             var estudiante = JSON.parse(response);
+                             $('#nombresPersonaAdendaCambio').val(estudiante.nombres);
+                             $('#apellidosPersonaAdendaCambio').val(estudiante.apellidos);
+                           } else {
+                             $('#nombresPersonaAdendaCambio').val("");
+                             $('#apellidosPersonaAdendaCambio').val("");
+                           }    
+                        },
+                        error: function(e){
+                            bootstrap_alert_adenda_cambio.warning(e);
+                        }
+                    });
+           }
 
             $('#adendaCambioProyecto').submit(function (evt) {
                 evt.preventDefault();
@@ -1830,7 +1907,7 @@
                 bootstrap_alert_adenda_cambio.removeWarning();
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/novedades/adendaCambioProyecto",
+                    url: "${pageContext.request.contextPath}/novedades/adendaCambio",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -1849,8 +1926,9 @@
                                             idAdenda: ko.observable(adendas[i].idAdenda),
                                             idTipoPersona: ko.observable(adendas[i].idTipoPersona),
                                             nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
-                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
-                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
+                                            nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
+                                            numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
                                             nombresPersona: ko.observable(adendas[i].nombresPersona),
                                             apellidosPersona: ko.observable(adendas[i].apellidosPersona),
                                             idRol: ko.observable(adendas[i].idRol),
@@ -1868,6 +1946,7 @@
             });
 
             function eliminarAdendaCambio () {
+                $('#confirmacionEliminacionAdendaCambio').modal('toggle');
                 $.ajax({
                     type: 'GET',
                     url: "${pageContext.request.contextPath}/novedades/eliminarAdendaCambio/" + $('#idProyecto').val() + "/" + adendaCambioEliminar.idAdenda(),
@@ -1876,7 +1955,6 @@
                     },
                     success: function (response) {
                         bootstrap_alert_adendas_cambio.success("Adenda eliminada exitosamente");
-                        $('#confirmacionEliminacionAdendaCambio').modal('toggle');
                         if (response != "") {
                             proyectoModel.adendasCambio.removeAll();
                             var adendas = JSON.parse(response);
@@ -1886,8 +1964,9 @@
                                             idAdenda: ko.observable(adendas[i].idAdenda),
                                             idTipoPersona: ko.observable(adendas[i].idTipoPersona),
                                             nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
-                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
-                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
+                                            nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
+                                            numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
                                             nombresPersona: ko.observable(adendas[i].nombresPersona),
                                             apellidosPersona: ko.observable(adendas[i].apellidosPersona),
                                             idRol: ko.observable(adendas[i].idRol),
@@ -1904,6 +1983,55 @@
                         bootstrap_alert_adendas_cambio.warning("Error al eliminar la adenda");
                     }});
             }
+
+          function buscarPersonaAdendaRetiro() {
+          
+                if ($('#tipoPersonaAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe seleccionar el tipo de persona');
+                    return false;
+                }
+                if ($('#tipoIdentificacionPersonaAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe seleccionar el tipo de identificación');
+                    return false;
+                }
+                if ($('#numeroIdentificacionPersonaAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe ingresar el número de identificación');
+                    return false;
+                }
+
+                var tipoIdentificacion = $('#tipoIdentificacionPersonaAdendaRetiro').val();
+                var numeroIdentificacion = $('#numeroIdentificacionPersonaAdendaRetiro').val();
+                var tipoPersona = "";
+                if ($('#tipoPersonaAdendaRetiro').val() == "1") {
+                    tipoPersona = "profesores";
+                } else if ($('#tipoPersonaAdendaRetiro').val() == "2") {
+                    tipoPersona = "estudiantes";
+                } else if ($('#tipoPersonaAdendaRetiro').val() == "3") {
+                    tipoPersona = "personalExterno";
+                }
+
+                $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/proyectos/" + tipoPersona,
+                        data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                        beforeSend: function(xhr){
+                           xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                        },                        
+                        success: function(response){
+                           if(response != "") {
+                             var estudiante = JSON.parse(response);
+                             $('#nombresPersonaAdendaRetiro').val(estudiante.nombres);
+                             $('#apellidosPersonaAdendaRetiro').val(estudiante.apellidos);
+                           } else {
+                             $('#nombresPersonaAdendaRetiro').val("");
+                             $('#apellidosPersonaAdendaRetiro').val("");
+                           }    
+                        },
+                        error: function(e){
+                            bootstrap_alert_adenda_retiro.warning(e);
+                        }
+                    });
+           }
 
            $('#adendaRetiroProyecto').submit(function (evt) {
                 evt.preventDefault();
@@ -1936,6 +2064,10 @@
                     bootstrap_alert_adenda_retiro.warning('Debe ingresar el número del acta');
                     return false;
                 }
+                if ($('#fechaActaAdendaRetiro').val() == "") {
+                    bootstrap_alert_adenda_retiro.warning('Debe ingresar la fecha del acta de retiro');
+                    return false;
+                }
                 if ($('#idAdendaRetiro').val() == 0 && $('#documentoAdendaRetiro').prop('files').length == 0) {
                     bootstrap_alert_adenda_retiro.warning('Debe seleccionar el archivo');
                     return false;
@@ -1944,7 +2076,7 @@
                 bootstrap_alert_adenda_retiro.removeWarning();
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/novedades/adendaRetiroProyecto",
+                    url: "${pageContext.request.contextPath}/novedades/adendaRetiro",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -1963,11 +2095,13 @@
                                             idAdenda: ko.observable(adendas[i].idAdenda),
                                             idTipoPersona: ko.observable(adendas[i].idTipoPersona),
                                             nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
-                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
-                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
+                                            nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
+                                            numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
                                             nombresPersona: ko.observable(adendas[i].nombresPersona),
                                             apellidosPersona: ko.observable(adendas[i].apellidosPersona),
                                             motivo: ko.observable(adendas[i].motivo),
+                                            numeroActa: ko.observable(adendas[i].numeroActa),
                                             fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
                                             fechaRetiroFormateada: ko.observable(adendas[i].fechaRetiroFormateada)
                                         }
@@ -1981,6 +2115,7 @@
             });
 
             function eliminarAdendaRetiro() {
+                $('#confirmacionEliminacionAdendaRetiro').modal('toggle');
                 $.ajax({
                     type: 'GET',
                     url: "${pageContext.request.contextPath}/novedades/eliminarAdendaRetiro/" + $('#idProyecto').val() + "/" + adendaRetiroEliminar.idAdenda(),
@@ -1989,7 +2124,6 @@
                     },
                     success: function (response) {
                         bootstrap_alert_adendas_retiro.success("Adenda eliminada exitosamente");
-                        $('#confirmacionEliminacionAdendaRetiro').modal('toggle');
                         if (response != "") {
                             proyectoModel.adendasRetiro.removeAll();
                             var adendas = JSON.parse(response);
@@ -1999,10 +2133,12 @@
                                             idAdenda: ko.observable(adendas[i].idAdenda),
                                             idTipoPersona: ko.observable(adendas[i].idTipoPersona),
                                             nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
-                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
-                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
+                                            nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
+                                            numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
                                             nombresPersona: ko.observable(adendas[i].nombresPersona),
                                             apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                            numeroActa: ko.observable(adendas[i].numeroActa),
                                             fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
                                             motivo: ko.observable(adendas[i].motivo),
                                             fechaRetiroFormateada: ko.observable(adendas[i].fechaRetiroFormateada)
@@ -2017,7 +2153,56 @@
                     }});
             }
             
-           $('#adendaIngresoProyecto').submit(function (evt) {
+          function buscarPersonaAdendaIngreso() {
+          
+                if ($('#tipoPersonaAdendaIngreso').val() == "") {
+                    bootstrap_alert_adenda_ingreso.warning('Debe seleccionar el tipo de persona');
+                    return false;
+                }
+                if ($('#tipoIdentificacionPersonaAdendaIngreso').val() == "") {
+                    bootstrap_alert_adenda_ingreso.warning('Debe seleccionar el tipo de identificación');
+                    return false;
+                }
+                if ($('#numeroIdentificacionPersonaAdendaIngreso').val() == "") {
+                    bootstrap_alert_adenda_ingreso.warning('Debe ingresar el número de identificación');
+                    return false;
+                }
+
+                var tipoIdentificacion = $('#tipoIdentificacionPersonaAdendaIngreso').val();
+                var numeroIdentificacion = $('#numeroIdentificacionPersonaAdendaIngreso').val();
+                var tipoPersona = "";
+                if ($('#tipoPersonaAdendaIngreso').val() == "1") {
+                    tipoPersona = "profesores";
+                } else if ($('#tipoPersonaAdendaIngreso').val() == "2") {
+                    tipoPersona = "estudiantes";
+                } else if ($('#tipoPersonaAdendaIngreso').val() == "3") {
+                    tipoPersona = "personalExterno";
+                }
+
+                $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/proyectos/" + tipoPersona,
+                        data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                        beforeSend: function(xhr){
+                           xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                        },                        
+                        success: function(response){
+                           if(response != "") {
+                             var estudiante = JSON.parse(response);
+                             $('#nombresPersonaAdendaIngreso').val(estudiante.nombres);
+                             $('#apellidosPersonaAdendaIngreso').val(estudiante.apellidos);
+                           } else {
+                             $('#nombresPersonaAdendaIngreso').val("");
+                             $('#apellidosPersonaAdendaIngreso').val("");
+                           }    
+                        },
+                        error: function(e){
+                            bootstrap_alert_adenda_ingreso.warning(e);
+                        }
+                    });
+           }
+
+            $('#adendaIngresoProyecto').submit(function (evt) {
                 evt.preventDefault();
                 var formData = new FormData(this);
                 if ($('#tipoPersonaAdendaIngreso').val() == "") {
@@ -2052,7 +2237,7 @@
                 bootstrap_alert_adenda_ingreso.removeWarning();
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/novedades/adendaIngresoProyecto",
+                    url: "${pageContext.request.contextPath}/novedades/adendaIngreso",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -2071,10 +2256,12 @@
                                             idAdenda: ko.observable(adendas[i].idAdenda),
                                             idTipoPersona: ko.observable(adendas[i].idTipoPersona),
                                             nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
-                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
-                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
+                                            nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
+                                            numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
                                             nombresPersona: ko.observable(adendas[i].nombresPersona),
                                             apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                            numeroActa: ko.observable(adendas[i].numeroActa),
                                             fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
                                             fechaIngresoFormateada: ko.observable(adendas[i].fechaIngresoFormateada)
                                         }
@@ -2088,6 +2275,7 @@
             });
 
             function eliminarAdendaIngreso () {
+                $('#confirmacionEliminacionAdendaIngreso').modal('toggle');
                 $.ajax({
                     type: 'GET',
                     url: "${pageContext.request.contextPath}/novedades/eliminarAdendaIngreso/" + $('#idProyecto').val() + "/" + adendaIngresoEliminar.idAdenda(),
@@ -2096,7 +2284,6 @@
                     },
                     success: function (response) {
                         bootstrap_alert_adendas_ingreso.success("Adenda eliminada exitosamente");
-                        $('#confirmacionEliminacionAdendaIngreso').modal('toggle');
                         if (response != "") {
                             proyectoModel.adendasIngreso.removeAll();
                             var adendas = JSON.parse(response);
@@ -2106,10 +2293,12 @@
                                             idAdenda: ko.observable(adendas[i].idAdenda),
                                             idTipoPersona: ko.observable(adendas[i].idTipoPersona),
                                             nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
-                                            idTipoIdentifacionPersona: ko.observable(adendas[i].idTipoIdentifacionPersona),
-                                            nombreTipoIdentifacionPersona: ko.observable(adendas[i].nombreTipoIdentifacionPersona),
+                                            idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
+                                            nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
+                                            numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
                                             nombresPersona: ko.observable(adendas[i].nombresPersona),
                                             apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                            numeroActa: ko.observable(adendas[i].numeroActa),
                                             fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
                                             fechaIngresoFormateada: ko.observable(adendas[i].fechaIngresoFormateada)
                                         }
@@ -2158,7 +2347,7 @@
                 bootstrap_alert_adicion.removeWarning();
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/novedades/adicionProyecto",
+                    url: "${pageContext.request.contextPath}/novedades/adicion",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -2177,10 +2366,11 @@
                                             idAdicion: ko.observable(adiciones[i].idAdicion),
                                             monto: ko.observable(adiciones[i].monto),
                                             montoFormateado: ko.observable(adiciones[i].montoFormateado),
-                                            fechaActaFormateada: ko.observable(adiciones[i].fechaActaFormateada),
                                             descripcion : ko.observable(adiciones[i].descripcion),
-                                            numeroActaCODI : ko.observable(adiciones[i].numeroActaCODI),
-                                            fechaActaCODIFormateada : ko.observable(adiciones[i].fechaActaCODIFormateada)
+                                            fechaActaFormateada: ko.observable(adiciones[i].fechaActaFormateada),
+                                            numeroActa : ko.observable(adiciones[i].numeroActa),
+                                            fechaActaCODIFormateada : ko.observable(adiciones[i].fechaActaCODIFormateada),
+                                            numeroActaCODI : ko.observable(adiciones[i].numeroActaCODI)
                                         }
                                 );
                             }
@@ -2192,6 +2382,7 @@
             });
 
             function eliminarAdicion () {
+                $('#confirmacionEliminacionAdicion').modal('toggle');
                 $.ajax({
                     type: 'GET',
                     url: "${pageContext.request.contextPath}/novedades/eliminarAdicion/" + $('#idProyecto').val() + "/" + adicionEliminar.idAdicion(),
@@ -2200,7 +2391,6 @@
                     },
                     success: function (response) {
                         bootstrap_alert_adiciones.success("Adición eliminada exitosamente");
-                        $('#confirmacionEliminacionAdicion').modal('toggle');
                         if (response != "") {
                             proyectoModel.adiciones.removeAll();
                             var adiciones = JSON.parse(response);
@@ -2211,6 +2401,7 @@
                                             monto: ko.observable(adiciones[i].monto),
                                             montoFormateado: ko.observable(adiciones[i].montoFormateado),
                                             fechaActaFormateada: ko.observable(adiciones[i].fechaActaFormateada),
+                                            numeroActa : ko.observable(adiciones[i].numeroActa),
                                             descripcion : ko.observable(adiciones[i].descripcion),
                                             numeroActaCODI : ko.observable(adiciones[i].numeroActaCODI),
                                             fechaActaCODIFormateada : ko.observable(adiciones[i].fechaActaCODIFormateada)
@@ -2263,7 +2454,7 @@
                 bootstrap_alert_prorroga.removeWarning();
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/novedades/prorrogaProyecto",
+                    url: "${pageContext.request.contextPath}/novedades/prorroga",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -2283,6 +2474,7 @@
                                             descripcion: ko.observable(prorrogas[i].descripcion),
                                             mesesAprobados: ko.observable(prorrogas[i].mesesAprobados),
                                             montoAprobado: ko.observable(prorrogas[i].montoAprobado),
+                                            montoAprobadoFormateado: ko.observable(prorrogas[i].montoAprobadoFormateado),
                                             fechaActaFormateada: ko.observable(prorrogas[i].fechaActaFormateada),
                                             numeroActa: ko.observable(prorrogas[i].numeroActa),
                                             fechaActaCODIFormateada: ko.observable(prorrogas[i].fechaActaCODIFormateada),
@@ -2298,6 +2490,7 @@
             });
 
             function eliminarProrroga () {
+                $('#confirmacionEliminacionProrroga').modal('toggle');
                 $.ajax({
                     type: 'GET',
                     url: "${pageContext.request.contextPath}/novedades/eliminarProrroga/" + $('#idProyecto').val() + "/" + prorrogaEliminar.idProrroga(),
@@ -2306,7 +2499,6 @@
                     },
                     success: function (response) {
                         bootstrap_alert_prorrogas.success("Prórroga eliminada exitosamente");
-                        $('#confirmacionEliminacionProrroga').modal('toggle');
                         if (response != "") {
                             proyectoModel.prorrogas.removeAll();
                             var prorrogas = JSON.parse(response);
@@ -2365,7 +2557,7 @@
                 bootstrap_alert_plazo.removeWarning();
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/novedades/plazoProyecto",
+                    url: "${pageContext.request.contextPath}/novedades/plazo",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -2399,6 +2591,7 @@
             });
 
             function eliminarPlazo () {
+                $('#confirmacionEliminacionPlazo').modal('toggle');
                 $.ajax({
                     type: 'GET',
                     url: "${pageContext.request.contextPath}/novedades/eliminarPlazo/" + $('#idProyecto').val() + "/" + plazoEliminar.idPlazo(),
@@ -2407,7 +2600,6 @@
                     },
                     success: function (response) {
                         bootstrap_alert_plazos.success("Plazo eliminado exitosamente");
-                        $('#confirmacionEliminacionPlazo').modal('toggle');
                         if (response != "") {
                             proyectoModel.plazos.removeAll();
                             var plazos = JSON.parse(response);
@@ -2454,7 +2646,7 @@
                 alert_placeholder_cumplimiento_compromiso_proyecto.removeWarning();
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/novedades/cumplimientoCompromisoProyecto",
+                    url: "${pageContext.request.contextPath}/novedades/cumplimientoCompromiso",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -2486,15 +2678,15 @@
             });
 
             function eliminarCumplimientoCompromisoProyecto () {
+                $('#confirmacionEliminacionCumplimientoCompromisoProyecto').modal('toggle');
                 $.ajax({
                     type: 'GET',
-                    url: "${pageContext.request.contextPath}/novedades/eliminarCumplimientoCompromisoProyecto/" + $('#idProyecto').val() + "/" + cumplimientoCompromisoEliminarProyecto.idCumplimientoCompromisoProyecto(),
+                    url: "${pageContext.request.contextPath}/novedades/eliminarCumplimientoCompromiso/" + $('#idProyecto').val() + "/" + cumplimientoCompromisoEliminarProyecto.idCumplimientoCompromisoProyecto(),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
                         alert_placeholder_cumplimiento_compromisos_proyecto.success("Cumplimiento del compromiso eliminado exitosamente");
-                        $('#confirmacionEliminacionCumplimientoCompromisoProyecto').modal('toggle');
                         if (response != "") {
                             proyectoModel.cumplimientoCompromisosProyecto.removeAll();
                             var cumplimientoCompromisosProyecto = JSON.parse(response);
@@ -2539,7 +2731,7 @@
                 alert_placeholder_cumplimiento_alerta_aval_proyecto.removeWarning();
                 $.ajax({
                     type: "POST",
-                    url: "${pageContext.request.contextPath}/novedades/cumplimientoAlertaAvalProyecto",
+                    url: "${pageContext.request.contextPath}/novedades/cumplimientoAlertaAval",
                     data: formData,
                     processData: false,
                     contentType: false,
@@ -2550,16 +2742,16 @@
                         alert_placeholder_cumplimientos_alertas_aval_proyecto.success("Cumplimiento de la alerta de aval almacenado exitosamente");
                         limpiarDatosVentanaCumplimientoAlertaAvalProyecto();
                         if (response != "") {
-                            proyectoModel.cumplimientosAlertasAvalProyecto.removeAll();
-                            var cumplimientosAlertasAvalProyecto = JSON.parse(response);
-                            for (var i = 0; i < cumplimientosAlertasAvalProyecto.length; i++) {
-                                proyectoModel.cumplimientosAlertasAvalProyecto.push(
+                            proyectoModel.cumplimientoAlertasAvalProyecto.removeAll();
+                            var cumplimientoAlertasAvalProyecto = JSON.parse(response);
+                            for (var i = 0; i < cumplimientoAlertasAvalProyecto.length; i++) {
+                                proyectoModel.cumplimientoAlertasAvalProyecto.push(
                                         {
-                                            idCumplimientoAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].idCumplimientoAlertaAvalProyecto),
-                                            idAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].idAlertaAvalProyecto),
-                                            descripcionAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].descripcionAlertaAvalProyecto),
-                                            fechaActaFormateada: ko.observable(cumplimientosAlertasAvalProyecto[i].fechaActaFormateada),
-                                            numeroActa: ko.observable(cumplimientosAlertasAvalProyecto[i].numeroActa)
+                                            idCumplimientoAlertaAvalProyecto: ko.observable(cumplimientoAlertasAvalProyecto[i].idCumplimientoAlertaAvalProyecto),
+                                            idAlertaAvalProyecto: ko.observable(cumplimientoAlertasAvalProyecto[i].idAlertaAvalProyecto),
+                                            descripcionAlertaAvalProyecto: ko.observable(cumplimientoAlertasAvalProyecto[i].descripcionAlertaAvalProyecto),
+                                            fechaActaFormateada: ko.observable(cumplimientoAlertasAvalProyecto[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(cumplimientoAlertasAvalProyecto[i].numeroActa)
                                         }
                                 );
                             }
@@ -2571,26 +2763,26 @@
             });
 
             function eliminarCumplimientoAlertaAvalProyecto () {
+                $('#confirmacionEliminacionCumplimientoAlertaAvalProyecto').modal('toggle');
                 $.ajax({
                     type: 'GET',
-                    url: "${pageContext.request.contextPath}/novedades/eliminarCumplimientoAlertaAvalProyecto/" + $('#idProyecto').val() + "/" + cumplimientoAlertaAvalEliminarProyecto.idCumplimientoAlertaAvalProyecto(),
+                    url: "${pageContext.request.contextPath}/novedades/eliminarCumplimientoAlertaAval/" + $('#idProyecto').val() + "/" + cumplimientoAlertaAvalEliminarProyecto.idCumplimientoAlertaAvalProyecto(),
                     beforeSend: function (xhr) {
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
                         alert_placeholder_cumplimientos_alertas_aval_proyecto.success("Cumplimiento de la alerta de aval eliminado exitosamente");
-                        $('#confirmacionEliminacionCumplimientoAlertaAvalProyecto').modal('toggle');
                         if (response != "") {
-                            proyectoModel.cumplimientosAlertasAvalProyecto.removeAll();
-                            var cumplimientosAlertasAvalProyecto = JSON.parse(response);
-                            for (var i = 0; i < cumplimientosAlertasAvalProyecto.length; i++) {
-                                proyectoModel.cumplimientosAlertasAvalProyecto.push(
+                            proyectoModel.cumplimientoAlertasAvalProyecto.removeAll();
+                            var cumplimientoAlertasAvalProyecto = JSON.parse(response);
+                            for (var i = 0; i < cumplimientoAlertasAvalProyecto.length; i++) {
+                                proyectoModel.cumplimientoAlertasAvalProyecto.push(
                                         {
-                                            idCumplimientoAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].idCumplimientoAlertaAvalProyecto),
-                                            idAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].idAlertaAvalProyecto),
-                                            descripcionAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].descripcionAlertaAvalProyecto),
-                                            fechaActaFormateada: ko.observable(cumplimientosAlertasAvalProyecto[i].fechaActaFormateada),
-                                            numeroActa: ko.observable(cumplimientosAlertasAvalProyecto[i].numeroActa)
+                                            idCumplimientoAlertaAvalProyecto: ko.observable(cumplimientoAlertasAvalProyecto[i].idCumplimientoAlertaAvalProyecto),
+                                            idAlertaAvalProyecto: ko.observable(cumplimientoAlertasAvalProyecto[i].idAlertaAvalProyecto),
+                                            descripcionAlertaAvalProyecto: ko.observable(cumplimientoAlertasAvalProyecto[i].descripcionAlertaAvalProyecto),
+                                            fechaActaFormateada: ko.observable(cumplimientoAlertasAvalProyecto[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(cumplimientoAlertasAvalProyecto[i].numeroActa)
                                         }
                                 );
                             }
@@ -2601,7 +2793,7 @@
                     }});
             }
 
-            var ProyectoModel = function (actas, adendasIngreso, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto, cumplimientosAlertasAvalProyecto) {
+            var ProyectoModel = function (actas, adendasIngreso, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto, cumplimientoAlertasAvalProyecto) {
                 self = this;
                 self.actas = ko.observableArray(actas);
                 self.verDocumentoActa = function (acta) {
@@ -2629,15 +2821,15 @@
                     $('#confirmacionEliminacionAdendaCambio').modal('show');
                 };
                 self.editarAdendaCambio = function (adenda) {
-                    $('#idAdenda').val(adenda.idAdenda());
+                    $('#idAdendaCambio').val(adenda.idAdenda());
                     $('#fechaAdendaCambio').val(adenda.fechaCambioFormateada());
                     $('#tipoPersonaAdendaCambio').val(adenda.idTipoPersona());
-                    $('#rolAdendaCambio').val(adenda.idRolAdendaCambio());
+                    $('#rolAdendaCambio').val(adenda.idRol());
                     $('#tipoIdentificacionPersonaAdendaCambio').val(adenda.idTipoIdentificacionPersona());
                     $('#numeroIdentificacionPersonaAdendaCambio').val(adenda.numeroIdentificacionPersona());
                     $('#fechaActaAdendaCambio').val(adenda.fechaActaFormateada());
                     $('#nombresPersonaAdendaCambio').val(adenda.nombresPersona());
-                    $('#apellidoPersonaAdendaCambio').val(adenda.apellidoPersona());
+                    $('#apellidosPersonaAdendaCambio').val(adenda.apellidosPersona());
                     $('#numeroActaAdendaCambio').val(adenda.numeroActa());
                     $('#observacionesAdendaCambio').val(adenda.observaciones());
                     $('#adendaCambioModal').modal('show');
@@ -2652,14 +2844,14 @@
                     $('#confirmacionEliminacionAdendaIngreso').modal('show');
                 };
                 self.editarAdendaIngreso = function (adenda) {
-                    $('#idAdenda').val(adenda.idAdenda());
+                    $('#idAdendaIngreso').val(adenda.idAdenda());
                     $('#fechaAdendaIngreso').val(adenda.fechaIngresoFormateada());
                     $('#tipoPersonaAdendaIngreso').val(adenda.idTipoPersona());
                     $('#tipoIdentificacionPersonaAdendaIngreso').val(adenda.idTipoIdentificacionPersona());
                     $('#numeroIdentificacionPersonaAdendaIngreso').val(adenda.numeroIdentificacionPersona());
                     $('#fechaActaAdendaIngreso').val(adenda.fechaActaFormateada());
                     $('#nombresPersonaAdendaIngreso').val(adenda.nombresPersona());
-                    $('#apellidoPersonaAdendaIngreso').val(adenda.apellidoPersona());
+                    $('#apellidosPersonaAdendaIngreso').val(adenda.apellidosPersona());
                     $('#numeroActaAdendaIngreso').val(adenda.numeroActa());
                     $('#adendaIngresoModal').modal('show');
                 };
@@ -2673,14 +2865,14 @@
                     $('#confirmacionEliminacionAdendaRetiro').modal('show');
                 };
                 self.editarAdendaRetiro = function (adenda) {
-                    $('#idAdenda').val(adenda.idAdenda());
+                    $('#idAdendaRetiro').val(adenda.idAdenda());
                     $('#fechaAdendaRetiro').val(adenda.fechaRetiroFormateada());
                     $('#tipoPersonaAdendaRetiro').val(adenda.idTipoPersona());
                     $('#tipoIdentificacionPersonaAdendaRetiro').val(adenda.idTipoIdentificacionPersona());
                     $('#numeroIdentificacionPersonaAdendaRetiro').val(adenda.numeroIdentificacionPersona());
                     $('#fechaActaAdendaRetiro').val(adenda.fechaActaFormateada());
                     $('#nombresPersonaAdendaRetiro').val(adenda.nombresPersona());
-                    $('#apellidoPersonaAdendaRetiro').val(adenda.apellidoPersona());
+                    $('#apellidosPersonaAdendaRetiro').val(adenda.apellidosPersona());
                     $('#numeroActaAdendaRetiro').val(adenda.numeroActa());
                     $('#motivoAdendaRetiro').val(adenda.motivo());
                     $('#adendaRetiroModal').modal('show');
@@ -2696,8 +2888,12 @@
                 };
                 self.editarAdicion = function (adicion) {
                     $('#idAdicion').val(adicion.idAdicion());
-                    $('#montoAdicion').val(adicion.monto());
-                    $('#fechaAdicion').val(adicion.fechaFormateada());
+                    $('#descripcionAdicion').val(adicion.descripcion());
+                    $('#montoAdicion').val(adicion.montoFormateado());
+                    $('#fechaActaCODIAdicion').val(adicion.fechaActaCODIFormateada());
+                    $('#numeroActaCODIAdicion').val(adicion.numeroActaCODI());
+                    $('#fechaActaAdicion').val(adicion.fechaActaFormateada());
+                    $('#numeroActaAdicion').val(adicion.numeroActa());
                     $('#adicionModal').modal('show');
                 };
 
@@ -2713,7 +2909,11 @@
                     $('#idProrroga').val(prorroga.idProrroga());
                     $('#descripcionProrroga').val(prorroga.descripcion());
                     $('#mesesAprobadosProrroga').val(prorroga.mesesAprobados());
-                    $('#fechaProrroga').val(prorroga.fechaFormateada());
+                    $('#montoAprobadoProrroga').val(prorroga.montoAprobadoFormateado());
+                    $('#fechaActaCODIProrroga').val(prorroga.fechaActaCODIFormateada());
+                    $('#numeroActaCODIProrroga').val(prorroga.numeroActaCODI());
+                    $('#fechaActaProrroga').val(prorroga.fechaActaFormateada());
+                    $('#numeroActaProrroga').val(prorroga.numeroActa());
                     $('#prorrogaModal').modal('show');
                 };
                 
@@ -2729,13 +2929,16 @@
                     $('#idPlazo').val(plazo.idPlazo());
                     $('#descripcionPlazo').val(plazo.descripcion());
                     $('#mesesAprobadosPlazo').val(plazo.mesesAprobados());
-                    $('#fechaPlazo').val(plazo.fechaFormateada());
+                    $('#fechaActaCODIPlazo').val(plazo.fechaActaCODIFormateada());
+                    $('#numeroActaCODIPlazo').val(plazo.numeroActaCODI());
+                    $('#fechaActaPlazo').val(plazo.fechaActaFormateada());
+                    $('#numeroActaPlazo').val(plazo.numeroActa());
                     $('#plazoModal').modal('show');
                 };                
                 
                 self.cumplimientoCompromisosProyecto = ko.observableArray(cumplimientoCompromisosProyecto);
                 self.verDocumentoCumplimientoCompromisoProyecto = function (cumplimientoCompromisoProyecto) {
-                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoCumplimientoCompromisoProyecto/" + cumplimientoCompromisoProyecto.idCumplimientoCompromisoProyecto();
+                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoCumplimientoCompromiso/" + cumplimientoCompromisoProyecto.idCumplimientoCompromisoProyecto();
                 };
                 self.eliminarCumplimientoCompromisoProyecto = function (cumplimientoCompromisoProyecto) {
                     cumplimientoCompromisoEliminarProyecto = cumplimientoCompromisoProyecto;
@@ -2745,24 +2948,24 @@
                     $('#idCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.idCumplimientoCompromisoProyecto());
                     $('#compromisoProyecto').val(cumplimientoCompromisoProyecto.idCompromisoProyecto());
                     $('#fechaActaCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.fechaActaFormateada());
-                    $('#numeroActaCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.numeroActaFormateada());
-                    $('#cumplimientoCompromisoModal').modal('show');
+                    $('#numeroActaCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.numeroActa());
+                    $('#cumplimientoCompromisoProyectoModal').modal('show');
                 };                 
                 
-                self.cumplimientosAlertasAvalProyecto = ko.observableArray(cumplimientosAlertasAvalProyecto);
+                self.cumplimientoAlertasAvalProyecto = ko.observableArray(cumplimientoAlertasAvalProyecto);
                 self.verDocumentoCumplimientoAlertaAvalProyecto = function (cumplimientoAlertaAvalProyecto) {
-                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoCumplimientoAlertaAvalProyecto/" + cumplimientoAlertaAvalProyecto.idCumplimientoAlertaAvalProyecto();
+                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoCumplimientoAlertaAval/" + cumplimientoAlertaAvalProyecto.idCumplimientoAlertaAvalProyecto();
                 };
-                self.eliminarCumplimientoAlertaAvalProyecto = function (cumplimientoCompromisoProyecto) {
+                self.eliminarCumplimientoAlertaAvalProyecto = function (cumplimientoAlertaAvalProyecto) {
                     cumplimientoAlertaAvalEliminarProyecto = cumplimientoAlertaAvalProyecto;
                     $('#confirmacionEliminacionCumplimientoAlertaAvalProyecto').modal('show');
                 };
-                self.editarCumplimientoAlertaAvalProyecto = function (cumplimientoCompromisoProyecto) {
-                    $('#idCumplimientoAlertaAvalProyecto').val(cumplimientoCompromisoProyecto.idCumplimientoAlertaAvalProyecto());
-                    $('#compromisoProyecto').val(cumplimientoCompromisoProyecto.idCompromisoProyecto());
-                    $('#fechaActaCumplimientoAlertaAvalProyecto').val(cumplimientoCompromisoProyecto.fechaActaFormateada());
-                    $('#numeroActaCumplimientoAlertaAvalProyecto').val(cumplimientoCompromisoProyecto.numeroActaFormateada());
-                    $('#cumplimientoCompromisoModal').modal('show');
+                self.editarCumplimientoAlertaAvalProyecto = function (cumplimientoAlertaAvalProyecto) {
+                    $('#idCumplimientoAlertaAvalProyecto').val(cumplimientoAlertaAvalProyecto.idCumplimientoAlertaAvalProyecto());
+                    $('#alertaAvalProyecto').val(cumplimientoAlertaAvalProyecto.idAlertaAvalProyecto());
+                    $('#fechaActaCumplimientoAlertaAvalProyecto').val(cumplimientoAlertaAvalProyecto.fechaActaFormateada());
+                    $('#numeroActaCumplimientoAlertaAvalProyecto').val(cumplimientoAlertaAvalProyecto.numeroActa());
+                    $('#cumplimientoAlertaAvalProyectoModal').modal('show');
                 };                  
             };
 
@@ -2782,7 +2985,7 @@
             var plazoEliminar = null; 
             var cumplimientoCompromisosProyecto = new Array();
             var cumplimientoCompromisoEliminarProyecto = null; 
-            var cumplimientosAlertasAvalProyecto = new Array();
+            var cumplimientoAlertasAvalProyecto = new Array();
             var cumplimientoAlertaAvalEliminarProyecto = null; 
             <c:if test = "${actasProyectoJSON != null}">
             actas = ${actasProyectoJSON};
@@ -2808,10 +3011,10 @@
             <c:if test = "${cumplimientoCompromisosProyectoJSON != null}">
             cumplimientoCompromisosProyecto = ${cumplimientoCompromisosProyectoJSON};
             </c:if>
-            <c:if test = "${cumplimientoAlertaAvalProyectoJSON != null}">
-            cumplimientosAlertasAvalProyecto = ${cumplimientoAlertaAvalProyectoJSON};
+            <c:if test = "${cumplimientoAlertasAvalProyectoJSON != null}">
+            cumplimientoAlertasAvalProyecto = ${cumplimientoAlertasAvalProyectoJSON};
             </c:if>
-            var proyectoModel = new ProyectoModel(actas, adendasCambio, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto, cumplimientosAlertasAvalProyecto);
+            var proyectoModel = new ProyectoModel(actas, adendasCambio, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto, cumplimientoAlertasAvalProyecto);
             ko.applyBindings(proyectoModel);
 
             bootstrap_alert_actas = function () { };
@@ -2867,7 +3070,7 @@
                 $('#adendaCambioModal').modal('show');
             }
             function limpiarDatosVentanaAdendaCambio() {
-                $('#idAdenda').val(0);
+                $('#idAdendaCambio').val(0);
                 $('#fechaAdendaCambio').val("");
                 $('#tipoPersonaAdendaCambio').val("");
                 $('#rolAdendaCambio').val("");
@@ -2875,7 +3078,7 @@
                 $('#numeroIdentificacionPersonaAdendaCambio').val("");
                 $('#fechaActaAdendaCambio').val("");
                 $('#nombresPersonaAdendaCambio').val("");
-                $('#apellidoPersonaAdendaCambio').val("");
+                $('#apellidosPersonaAdendaCambio').val("");
                 $('#numeroActaAdendaCambio').val("");
                 $('#observacionesAdendaCambio').val("");
                 $('#documentoAdendaCambio').val("");
@@ -2900,17 +3103,17 @@
             };
             function mostrarVentanaNuevaAdendaIngreso() {
                 limpiarDatosVentanaAdendaIngreso();
-                $('#adendaModal').modal('show');
+                $('#adendaIngresoModal').modal('show');
             }
             function limpiarDatosVentanaAdendaIngreso() {
-                $('#idAdenda').val(0);
+                $('#idAdendaIngreso').val(0);
                 $('#fechaAdendaIngreso').val("");
                 $('#tipoPersonaAdendaIngreso').val("");
                 $('#tipoIdentificacionPersonaAdendaIngreso').val("");
                 $('#numeroIdentificacionPersonaAdendaIngreso').val("");
                 $('#fechaActaAdendaIngreso').val("");
                 $('#nombresPersonaAdendaIngreso').val("");
-                $('#apellidoPersonaAdendaIngreso').val("");
+                $('#apellidosPersonaAdendaIngreso').val("");
                 $('#numeroActaAdendaIngreso').val("");
                 $('#observacionesAdendaIngreso').val("");
                 $('#documentoAdendaIngreso').val("");
@@ -2938,14 +3141,14 @@
                 $('#adendaRetiroModal').modal('show');
             }
             function limpiarDatosVentanaAdendaRetiro() {
-                $('#idAdenda').val(0);
+                $('#idAdendaRetiro').val(0);
                 $('#fechaAdendaRetiro').val("");
                 $('#tipoPersonaAdendaRetiro').val("");
                 $('#tipoIdentificacionPersonaAdendaRetiro').val("");
                 $('#numeroIdentificacionPersonaAdendaRetiro').val("");
                 $('#fechaActaAdendaRetiro').val("");
                 $('#nombresPersonaAdendaRetiro').val("");
-                $('#apellidoPersonaAdendaRetiro').val("");
+                $('#apellidosPersonaAdendaRetiro').val("");
                 $('#numeroActaAdendaRetiro').val("");
                 $('#motivoAdendaRetiro').val("");
                 $('#documentoAdendaRetiro').val("");
@@ -2973,7 +3176,8 @@
                 $('#adicionModal').modal('show');
             }
             function limpiarDatosVentanaAdicion() {
-                $('#idActa').val(0);
+                $('#idAdicion').val(0);
+                $('#descripcionAdicion').val("");
                 $('#montoAdicion').val("");
                 $('#fechaActaAdicion').val("");
                 $('#numeroActaAdicion').val("");

@@ -15,6 +15,7 @@ public class AdicionProyecto {
 
      private long idAdicion;
      private long monto;
+     private String montoFormateado;
      private String descripcion;
      private Date fechaActa; 
      private String fechaActaFormateada;
@@ -49,6 +50,20 @@ public class AdicionProyecto {
      */
     public void setMonto(long monto) {
         this.monto = monto;
+    }
+
+    /**
+     * @return the montoFormateado
+     */
+    public String getMontoFormateado() {
+        return montoFormateado;
+    }
+
+    /**
+     * @param montoFormateado the montoFormateado to set
+     */
+    public void setMontoFormateado(String montoFormateado) {
+        this.montoFormateado = montoFormateado;
     }
     
     /**

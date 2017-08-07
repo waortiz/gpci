@@ -419,7 +419,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionProfesor" name="numeroIdentificacionProfesor" />
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionProfesor" name="numeroIdentificacionProfesor" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -437,10 +437,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="text" id="nombresProfesor" name="nombresProfesor" class="form-control" />
+                                                            <input type="text" id="nombresProfesor" name="nombresProfesor" class="form-control" maxlength="250" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="apellidosProfesor" name="nombresProfesor" class="form-control" />
+                                                            <input type="text" id="apellidosProfesor" name="nombresProfesor" class="form-control" maxlength="250"/>
                                                         </td>                                    
                                                     </tr>
                                                     <tr>
@@ -449,10 +449,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="email" id="correoElectronicoProfesor" name="correoElectronicoProfesor" class="form-control" />
+                                                            <input type="email" id="correoElectronicoProfesor" name="correoElectronicoProfesor" class="form-control" maxlength="250"/>
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="contactoProfesor" name="contactoProfesor" class="form-control" />
+                                                            <input type="text" id="contactoProfesor" name="contactoProfesor" class="form-control" maxlength="100"/>
                                                         </td>                                    
                                                     </tr>
                                                     <tr>
@@ -483,7 +483,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <select name="tipoViculacionProfesor" id="tipoViculacionProfesor" class="form-control">
+                                                            <select name="tipoVinculacionProfesor" id="tipoVinculacionProfesor" class="form-control">
                                                                 <option value=""></option>
                                                                 <c:forEach var="tipoVinculacion" items="${tiposVinculacion}">
                                                                     <option value="${tipoVinculacion.getIdTipoVinculacion()}">${tipoVinculacion.getNombre()}</option>
@@ -658,7 +658,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionEstudiante" name="numeroIdentificacionEstudiante" />
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionEstudiante" name="numeroIdentificacionEstudiante" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -676,10 +676,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="text" id="nombresEstudiante" name="nombresEstudiante" class="form-control" />
+                                                            <input type="text" id="nombresEstudiante" name="nombresEstudiante" class="form-control" maxlength="250"/>
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="apellidosEstudiante" name="nombresEstudiante" class="form-control" />
+                                                            <input type="text" id="apellidosEstudiante" name="nombresEstudiante" class="form-control" maxlength="250"/>
                                                         </td>                                    
                                                     </tr>
                                                     <tr>
@@ -688,10 +688,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="email" id="correoElectronicoEstudiante" name="correoElectronicoEstudiante" class="form-control" />
+                                                            <input type="email" id="correoElectronicoEstudiante" name="correoElectronicoEstudiante" class="form-control" maxlength="250"/>
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="contactoEstudiante" name="contactoEstudiante" class="form-control" />
+                                                            <input type="text" id="contactoEstudiante" name="contactoEstudiante" class="form-control" maxlength="100"/>
                                                         </td>                                    
                                                     </tr>
                                                     <tr>
@@ -885,7 +885,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonalExterno" name="numeroIdentificacionPersonalExterno" />
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonalExterno" name="numeroIdentificacionPersonalExterno" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -903,10 +903,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="text" id="nombresPersonalExterno" name="nombresPersonalExterno" class="form-control" />
+                                                            <input type="text" id="nombresPersonalExterno" name="nombresPersonalExterno" class="form-control" maxlength="250"/>
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="apellidosPersonalExterno" name="nombresPersonalExterno" class="form-control" />
+                                                            <input type="text" id="apellidosPersonalExterno" name="nombresPersonalExterno" class="form-control" maxlength="250"/>
                                                         </td>                                    
                                                     </tr>
                                                     <tr>
@@ -915,10 +915,10 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="email" id="correoElectronicoPersonalExterno" name="correoElectronicoPersonalExterno" class="form-control" />
+                                                            <input type="email" id="correoElectronicoPersonalExterno" name="correoElectronicoPersonalExterno" class="form-control" maxlength="250"/>
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="entidadPersonalExterno" name="entidadPersonalExterno" class="form-control" />
+                                                            <input type="text" id="entidadPersonalExterno" name="entidadPersonalExterno" class="form-control" maxlength="100"/>
                                                         </td>                                    
                                                     </tr>
                                                     <tr>
@@ -1342,7 +1342,7 @@
                                                 <table class="tablaForm">
                                                     <tr>
                                                         <td>
-                                                            <input id="entidadInternacionalProyecto" name="entidadInternacionalProyecto" class="form-control" maxlength="200" />
+                                                            <input type="text" id="entidadInternacionalProyecto" name="entidadInternacionalProyecto" class="form-control" maxlength="200" />
                                                             <input type="hidden" id="consecutivo" name="consecutivo" />
                                                         </td>
                                                     </tr>

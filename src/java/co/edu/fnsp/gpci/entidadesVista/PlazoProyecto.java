@@ -5,8 +5,6 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
-import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -18,11 +16,9 @@ public class PlazoProyecto {
     private long idProyecto;
     private long idPlazo;
     private String descripcionPlazo;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaActaPlazo;
+    private String fechaActaPlazo;
     private String numeroActaPlazo;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaActaCODIPlazo;
+    private String fechaActaCODIPlazo;
     private String numeroActaCODIPlazo;
     private int mesesAprobadosPlazo;
     private MultipartFile documentoPlazo;
@@ -128,28 +124,28 @@ public class PlazoProyecto {
     /**
      * @return the fechaActaPlazo
      */
-    public Date getFechaActaPlazo() {
+    public String getFechaActaPlazo() {
         return fechaActaPlazo;
     }
 
     /**
      * @param fechaActaPlazo the fechaActaPlazo to set
      */
-    public void setFechaActaPlazo(Date fechaActaPlazo) {
+    public void setFechaActaPlazo(String fechaActaPlazo) {
         this.fechaActaPlazo = fechaActaPlazo;
     }
 
     /**
      * @return the fechaActaCODIPlazo
      */
-    public Date getFechaActaCODIPlazo() {
+    public String getFechaActaCODIPlazo() {
         return fechaActaCODIPlazo;
     }
 
     /**
      * @param fechaActaCODIPlazo the fechaActaCODIPlazo to set
      */
-    public void setFechaActaCODIPlazo(Date fechaActaCODIPlazo) {
+    public void setFechaActaCODIPlazo(String fechaActaCODIPlazo) {
         this.fechaActaCODIPlazo = fechaActaCODIPlazo;
     }
 }

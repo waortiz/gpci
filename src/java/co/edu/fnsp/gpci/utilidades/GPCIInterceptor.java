@@ -27,11 +27,6 @@ public class GPCIInterceptor extends HandlerInterceptorAdapter {
     public boolean preHandle(HttpServletRequest request,
             HttpServletResponse response, Object handler) throws Exception {
 
-        if (request.getRequestURI().toLowerCase().contains(request.getContextPath() + "/proyectos/estudiantes")
-                || request.getRequestURI().toLowerCase().contains(request.getContextPath() + "/proyectos/profesores")
-                || request.getRequestURI().toLowerCase().contains(request.getContextPath() + "/proyectos/personalExterno")) {
-            return true;
-        }
         if (SecurityContextHolder.getContext().getAuthentication() != null && SecurityContextHolder.getContext().getAuthentication().getPrincipal() instanceof Usuario) {
             boolean existe = false;
             Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();

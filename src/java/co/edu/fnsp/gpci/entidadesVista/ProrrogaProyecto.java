@@ -5,8 +5,6 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
-import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -20,11 +18,9 @@ public class ProrrogaProyecto {
     private String descripcionProrroga;
     private int mesesAprobadosProrroga;
     private String montoAprobadoProrroga;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaActaProrroga;
+    private String fechaActaProrroga;
     private String numeroActaProrroga;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaActaCODIProrroga;
+    private String fechaActaCODIProrroga;
     private String numeroActaCODIProrroga;    
     private MultipartFile documentoProrroga;
     
@@ -101,14 +97,14 @@ public class ProrrogaProyecto {
     /**
      * @return the fechaActaProrroga
      */
-    public Date getFechaActaProrroga() {
+    public String getFechaActaProrroga() {
         return fechaActaProrroga;
     }
 
     /**
      * @param fechaActaProrroga the fechaActaProrroga to set
      */
-    public void setFechaActaProrroga(Date fechaActaProrroga) {
+    public void setFechaActaProrroga(String fechaActaProrroga) {
         this.fechaActaProrroga = fechaActaProrroga;
     }
 
@@ -129,14 +125,14 @@ public class ProrrogaProyecto {
     /**
      * @return the fechaActaCODIProrroga
      */
-    public Date getFechaActaCODIProrroga() {
+    public String getFechaActaCODIProrroga() {
         return fechaActaCODIProrroga;
     }
 
     /**
      * @param fechaActaCODIProrroga the fechaActaCODIProrroga to set
      */
-    public void setFechaActaCODIProrroga(Date fechaActaCODIProrroga) {
+    public void setFechaActaCODIProrroga(String fechaActaCODIProrroga) {
         this.fechaActaCODIProrroga = fechaActaCODIProrroga;
     }
 

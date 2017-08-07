@@ -6,7 +6,6 @@
 package co.edu.fnsp.gpci.entidades;
 
 import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -17,7 +16,6 @@ public class CumplimientoAlertaAvalProyecto {
     private long idCumplimientoAlertaAvalProyecto;
     private long idAlertaAvalProyecto;
     private String descripcionAlertaAvalProyecto;   
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date fechaActa;
     private String fechaActaFormateada;
     private String numeroActa;

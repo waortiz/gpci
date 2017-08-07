@@ -124,74 +124,74 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         this.ingresarAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarAdendaCambioProyecto");
         this.eliminarAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarAdendaCambioProyecto");
         this.actualizarAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarAdendaCambioProyecto");
-        this.obtenerAdendasCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerAdendasCambioProyecto").returningResultSet("adendasCambioProyecto", BeanPropertyRowMapper.newInstance(AdendaCambioProyecto.class));
-        this.ingresarDocumentoAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoAdendaCambioProyecto");
-        this.obtenerDocumentoAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoAdendaCambioProyecto");
-        this.actualizarDocumentoAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoAdendaCambioProyecto");
+        this.obtenerAdendasCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasCambioProyecto").returningResultSet("adendasCambioProyecto", BeanPropertyRowMapper.newInstance(AdendaCambioProyecto.class));
+        this.ingresarDocumentoAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarDocumentoAdendaCambioProyecto");
+        this.obtenerDocumentoAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerDocumentoAdendaCambioProyecto");
+        this.actualizarDocumentoAdendaCambioProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarDocumentoAdendaCambioProyecto");
 
         this.ingresarAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarAdendaIngresoProyecto");
         this.eliminarAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarAdendaIngresoProyecto");
         this.actualizarAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarAdendaIngresoProyecto");
-        this.obtenerAdendasIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerAdendasIngresoProyecto").returningResultSet("adendasIngresoProyecto", BeanPropertyRowMapper.newInstance(AdendaIngresoProyecto.class));
-        this.ingresarDocumentoAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoAdendaIngresoProyecto");
-        this.obtenerDocumentoAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoAdendaIngresoProyecto");
-        this.actualizarDocumentoAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoAdendaIngresoProyecto");
+        this.obtenerAdendasIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasIngresoProyecto").returningResultSet("adendasIngresoProyecto", BeanPropertyRowMapper.newInstance(AdendaIngresoProyecto.class));
+        this.ingresarDocumentoAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarDocumentoAdendaIngresoProyecto");
+        this.obtenerDocumentoAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerDocumentoAdendaIngresoProyecto");
+        this.actualizarDocumentoAdendaIngresoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarDocumentoAdendaIngresoProyecto");
 
         this.ingresarAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarAdendaRetiroProyecto");
         this.eliminarAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarAdendaRetiroProyecto");
         this.actualizarAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarAdendaRetiroProyecto");
-        this.obtenerAdendasRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerAdendasRetiroProyecto").returningResultSet("adendasRetiroProyecto", BeanPropertyRowMapper.newInstance(AdendaRetiroProyecto.class));
-        this.ingresarDocumentoAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoAdendaRetiroProyecto");
-        this.obtenerDocumentoAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoAdendaRetiroProyecto");
-        this.actualizarDocumentoAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoAdendaRetiroProyecto");
+        this.obtenerAdendasRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasRetiroProyecto").returningResultSet("adendasRetiroProyecto", BeanPropertyRowMapper.newInstance(AdendaRetiroProyecto.class));
+        this.ingresarDocumentoAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarDocumentoAdendaRetiroProyecto");
+        this.obtenerDocumentoAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerDocumentoAdendaRetiroProyecto");
+        this.actualizarDocumentoAdendaRetiroProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarDocumentoAdendaRetiroProyecto");
 
         this.ingresarActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarActaProyecto");
         this.eliminarActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarActaProyecto");
         this.actualizarActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarActaProyecto");
-        this.obtenerActasProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerActasProyecto").returningResultSet("actasProyecto", BeanPropertyRowMapper.newInstance(ActaProyecto.class));
-        this.ingresarDocumentoActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoActaProyecto");
-        this.obtenerDocumentoActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoActaProyecto");
-        this.actualizarDocumentoActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoActaProyecto");
+        this.obtenerActasProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerActasProyecto").returningResultSet("actasProyecto", BeanPropertyRowMapper.newInstance(ActaProyecto.class));
+        this.ingresarDocumentoActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarDocumentoActaProyecto");
+        this.obtenerDocumentoActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerDocumentoActaProyecto");
+        this.actualizarDocumentoActaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarDocumentoActaProyecto");
 
         this.ingresarAdicionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarAdicionProyecto");
         this.eliminarAdicionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarAdicionProyecto");
         this.actualizarAdicionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarAdicionProyecto");
-        this.obtenerAdicionesProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerAdicionesProyecto").returningResultSet("adicionesProyecto", BeanPropertyRowMapper.newInstance(AdicionProyecto.class));
-        this.ingresarDocumentoAdicionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoAdicionProyecto");
-        this.obtenerDocumentoAdicionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoAdicionProyecto");
-        this.actualizarDocumentoAdicionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoAdicionProyecto");
+        this.obtenerAdicionesProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdicionesProyecto").returningResultSet("adicionesProyecto", BeanPropertyRowMapper.newInstance(AdicionProyecto.class));
+        this.ingresarDocumentoAdicionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarDocumentoAdicionProyecto");
+        this.obtenerDocumentoAdicionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerDocumentoAdicionProyecto");
+        this.actualizarDocumentoAdicionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarDocumentoAdicionProyecto");
 
         this.ingresarProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarProrrogaProyecto");
         this.eliminarProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarProrrogaProyecto");
         this.actualizarProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarProrrogaProyecto");
-        this.obtenerProrrogasProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerProrrogasProyecto").returningResultSet("prorrogasProyecto", BeanPropertyRowMapper.newInstance(ProrrogaProyecto.class));
-        this.ingresarDocumentoProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoProrrogaProyecto");
-        this.obtenerDocumentoProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoProrrogaProyecto");
-        this.actualizarDocumentoProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoProrrogaProyecto");
+        this.obtenerProrrogasProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProrrogasProyecto").returningResultSet("prorrogasProyecto", BeanPropertyRowMapper.newInstance(ProrrogaProyecto.class));
+        this.ingresarDocumentoProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarDocumentoProrrogaProyecto");
+        this.obtenerDocumentoProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerDocumentoProrrogaProyecto");
+        this.actualizarDocumentoProrrogaProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarDocumentoProrrogaProyecto");
 
         this.ingresarPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarPlazoProyecto");
         this.eliminarPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarPlazoProyecto");
         this.actualizarPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarPlazoProyecto");
-        this.obtenerPlazosProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerPlazosProyecto").returningResultSet("plazosProyecto", BeanPropertyRowMapper.newInstance(PlazoProyecto.class));
-        this.ingresarDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoPlazoProyecto");
-        this.obtenerDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoPlazoProyecto");
-        this.actualizarDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoPlazoProyecto");
+        this.obtenerPlazosProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerPlazosProyecto").returningResultSet("plazosProyecto", BeanPropertyRowMapper.newInstance(PlazoProyecto.class));
+        this.ingresarDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarDocumentoPlazoProyecto");
+        this.obtenerDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerDocumentoPlazoProyecto");
+        this.actualizarDocumentoPlazoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarDocumentoPlazoProyecto");
 
         this.ingresarCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarCumplimientoCompromisoProyecto");
         this.eliminarCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarCumplimientoCompromisoProyecto");
         this.actualizarCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarCumplimientoCompromisoProyecto");
-        this.obtenerCumplimientoCompromisosProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerCumplimientoCompromisosProyecto").returningResultSet("cumplimientoCompromisosProyecto", BeanPropertyRowMapper.newInstance(CumplimientoCompromisoProyecto.class));
-        this.ingresarDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoCumplimientoCompromisoProyecto");
-        this.obtenerDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoCumplimientoCompromisoProyecto");
-        this.actualizarDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoCumplimientoCompromisoProyecto");
+        this.obtenerCumplimientoCompromisosProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCumplimientoCompromisosProyecto").returningResultSet("cumplimientoCompromisosProyecto", BeanPropertyRowMapper.newInstance(CumplimientoCompromisoProyecto.class));
+        this.ingresarDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarDocumentoCumplimientoCompromisoProyecto");
+        this.obtenerDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerDocumentoCumplimientoCompromisoProyecto");
+        this.actualizarDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarDocumentoCumplimientoCompromisoProyecto");
 
         this.ingresarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarCumplimientoAlertaAvalProyecto");
         this.eliminarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarCumplimientoAlertaAvalProyecto");
         this.actualizarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarCumplimientoAlertaAvalProyecto");
-        this.obtenerCumplimientosAlertasAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerCumplimientosAlertasAvalProyecto").returningResultSet("cumplimientosAlertasAvalProyecto", BeanPropertyRowMapper.newInstance(CumplimientoAlertaAvalProyecto.class));
-        this.ingresarDocumentoCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoCumplimientoAlertaAvalProyecto");
-        this.obtenerDocumentoCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoCumplimientoAlertaAvalProyecto");
-        this.actualizarDocumentoCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoCumplimientoAlertaAvalProyecto");
+        this.obtenerCumplimientosAlertasAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCumplimientoAlertasAvalProyecto").returningResultSet("cumplimientosAlertasAvalProyecto", BeanPropertyRowMapper.newInstance(CumplimientoAlertaAvalProyecto.class));
+        this.ingresarDocumentoCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarDocumentoCumplimientoAlertaAvalProyecto");
+        this.obtenerDocumentoCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerDocumentoCumplimientoAlertaAvalProyecto");
+        this.actualizarDocumentoCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarDocumentoCumplimientoAlertaAvalProyecto");
     }
 
     @Override
@@ -690,6 +690,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         for (AdicionProyecto adicionProyecto : adicionesProyecto) {
             adicionProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(adicionProyecto.getFechaActa()));
             adicionProyecto.setFechaActaCODIFormateada(Util.obtenerFechaFormateada(adicionProyecto.getFechaActaCODI()));
+            adicionProyecto.setMontoFormateado(Util.obtenerNumeroFormatoMoneda(adicionProyecto.getMonto()));
         }
 
         return adicionesProyecto;
@@ -729,7 +730,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosIngresoProrrogaProyecto.addValue("varNumeroActa", prorrogaProyecto.getNumeroActa());
             parametrosIngresoProrrogaProyecto.addValue("varFechaActaCODI", prorrogaProyecto.getFechaActaCODI());
             parametrosIngresoProrrogaProyecto.addValue("varNumeroActaCODI", prorrogaProyecto.getNumeroActaCODI());
-            parametrosIngresoProrrogaProyecto.addValue("varMontoAprobado()", prorrogaProyecto.getMontoAprobado());
+            parametrosIngresoProrrogaProyecto.addValue("varMontoAprobado", prorrogaProyecto.getMontoAprobado());
             Map resultado = ingresarProrrogaProyecto.execute(parametrosIngresoProrrogaProyecto);
             long idProrroga = (long) resultado.get("varIdProrroga");
 

@@ -7,6 +7,7 @@ package co.edu.fnsp.gpci.entidades;
 
 import java.util.ArrayList;
 import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 
 /**
  *
@@ -17,7 +18,9 @@ public class Proyecto {
     private long idProyecto;
     private String nombreCompletoProyecto;
     private String nombreCortoProyecto;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date fechaInicio;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date fechaFinalizacion;
     private AreaTematica areaTematica;
     private boolean ingresadoSIGEP;

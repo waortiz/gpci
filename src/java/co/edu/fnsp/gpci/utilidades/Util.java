@@ -85,6 +85,7 @@ public class Util {
                         + "apellidosPersona:ko.observable('" + adendaProyecto.getApellidosPersona() + "'),"
                         + "fechaCambioFormateada:ko.observable('" + simpleDateFormat.format(adendaProyecto.getFechaCambio()) + "'),"
                         + "numeroActa:ko.observable('" + adendaProyecto.getNumeroActa() + "'),"
+                        + "observaciones:ko.observable('" + adendaProyecto.getObservaciones()+ "'),"
                         + "fechaActaFormateada:ko.observable('" + simpleDateFormat.format(adendaProyecto.getFechaActa()) + "')"
                         + "}";
                 if (i < adendasProyecto.size() - 1) {
@@ -179,7 +180,7 @@ public class Util {
                         + "numeroActaCODI:ko.observable('" + adicionProyecto.getNumeroActaCODI() + "'),"
                         + "fechaActaCODIFormateada:ko.observable('" + simpleDateFormat.format(adicionProyecto.getFechaActaCODI()) + "'),"
                         + "monto:ko.observable(" + adicionProyecto.getMonto() + "),"
-                        + "montoFormateado:ko.observable(" + decimalFormat.format(adicionProyecto.getMonto()) + ")"
+                        + "montoFormateado:ko.observable('" + decimalFormat.format(adicionProyecto.getMonto()) + "')"
                         + "}";
                 if (i < adicionesProyecto.size() - 1) {
                     jscriptArray = jscriptArray + ",";
@@ -204,7 +205,7 @@ public class Util {
                         + "{idProrroga: ko.observable(" + prorrogaProyecto.getIdProrroga() + "),"
                         + "mesesAprobados:ko.observable(" + prorrogaProyecto.getMesesAprobados() + "),"
                         + "montoAprobado:ko.observable(" + prorrogaProyecto.getMontoAprobado() + "),"
-                        + "montoAprobadoFormateado:ko.observable(" + decimalFormat.format(prorrogaProyecto.getMontoAprobado()) + ")"
+                        + "montoAprobadoFormateado:ko.observable('" + decimalFormat.format(prorrogaProyecto.getMontoAprobado()) + "'),"
                         + "numeroActa:ko.observable('" + prorrogaProyecto.getNumeroActa() + "'),"
                         + "fechaActaFormateada:ko.observable('" + simpleDateFormat.format(prorrogaProyecto.getFechaActa()) + "'),"
                         + "numeroActaCODI:ko.observable('" + prorrogaProyecto.getNumeroActaCODI() + "'),"

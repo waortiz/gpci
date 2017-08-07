@@ -5,8 +5,6 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
-import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -16,16 +14,28 @@ import org.springframework.web.multipart.MultipartFile;
 public class AdendaIngresoProyecto {
 
     private long idProyecto;
-    private long idAdenda;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaAdendaIngreso;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaActaAdendaIngreso;
+    private long idAdendaIngreso;
+    private String fechaAdendaIngreso;
+    private String fechaActaAdendaIngreso;
     private String numeroActaAdendaIngreso;
     private int tipoPersonaAdendaIngreso;
     private int tipoIdentificacionPersonaAdendaIngreso;
     private long numeroIdentificacionPersonaAdendaIngreso;
     private MultipartFile documentoAdendaIngreso;
+
+    /**
+     * @return the idAdendaIngreso
+     */
+    public long getIdAdendaIngreso() {
+        return idAdendaIngreso;
+    }
+
+    /**
+     * @param idAdendaIngreso the idAdendaIngreso to set
+     */
+    public void setIdAdendaIngreso(long idAdendaIngreso) {
+        this.idAdendaIngreso = idAdendaIngreso;
+    }
 
     /**
      * @return the idProyecto
@@ -42,44 +52,30 @@ public class AdendaIngresoProyecto {
     }
 
     /**
-     * @return the idAdenda
-     */
-    public long getIdAdenda() {
-        return idAdenda;
-    }
-
-    /**
-     * @param idAdenda the idAdenda to set
-     */
-    public void setIdAdenda(long idAdenda) {
-        this.idAdenda = idAdenda;
-    }
-
-    /**
      * @return the fechaAdendaIngreso
      */
-    public Date getFechaAdendaIngreso() {
+    public String getFechaAdendaIngreso() {
         return fechaAdendaIngreso;
     }
 
     /**
      * @param fechaAdendaIngreso the fechaAdendaIngreso to set
      */
-    public void setFechaAdendaIngreso(Date fechaAdendaIngreso) {
+    public void setFechaAdendaIngreso(String fechaAdendaIngreso) {
         this.fechaAdendaIngreso = fechaAdendaIngreso;
     }
 
     /**
      * @return the fechaActaAdendaIngreso
      */
-    public Date getFechaActaAdendaIngreso() {
+    public String getFechaActaAdendaIngreso() {
         return fechaActaAdendaIngreso;
     }
 
     /**
      * @param fechaActaAdendaIngreso the fechaActaAdendaIngreso to set
      */
-    public void setFechaActaAdendaIngreso(Date fechaActaAdendaIngreso) {
+    public void setFechaActaAdendaIngreso(String fechaActaAdendaIngreso) {
         this.fechaActaAdendaIngreso = fechaActaAdendaIngreso;
     }
 

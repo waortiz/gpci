@@ -5,8 +5,6 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
-import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -17,13 +15,11 @@ public class AdicionProyecto {
 
     private long idProyecto;
     private long idAdicion;
-    private long montoAdicion;
+    private String montoAdicion;
     private String descripcionAdicion;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaActaAdicion;
+    private String fechaActaAdicion;
     private String numeroActaAdicion;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaActaCODIAdicion;
+    private String fechaActaCODIAdicion;
     private String numeroActaCODIAdicion;
     
     private MultipartFile documentoAdicion;
@@ -73,14 +69,14 @@ public class AdicionProyecto {
     /**
      * @return the montoAdicion
      */
-    public long getMontoAdicion() {
+    public String getMontoAdicion() {
         return montoAdicion;
     }
 
     /**
      * @param montoAdicion the montoAdicion to set
      */
-    public void setMontoAdicion(long montoAdicion) {
+    public void setMontoAdicion(String montoAdicion) {
         this.montoAdicion = montoAdicion;
     }
 
@@ -101,14 +97,14 @@ public class AdicionProyecto {
     /**
      * @return the fechaActaAdicion
      */
-    public Date getFechaActaAdicion() {
+    public String getFechaActaAdicion() {
         return fechaActaAdicion;
     }
 
     /**
      * @param fechaActaAdicion the fechaActaAdicion to set
      */
-    public void setFechaActaAdicion(Date fechaActaAdicion) {
+    public void setFechaActaAdicion(String fechaActaAdicion) {
         this.fechaActaAdicion = fechaActaAdicion;
     }
 
@@ -129,14 +125,14 @@ public class AdicionProyecto {
     /**
      * @return the fechaActaCODIAdicion
      */
-    public Date getFechaActaCODIAdicion() {
+    public String getFechaActaCODIAdicion() {
         return fechaActaCODIAdicion;
     }
 
     /**
      * @param fechaActaCODIAdicion the fechaActaCODIAdicion to set
      */
-    public void setFechaActaCODIAdicion(Date fechaActaCODIAdicion) {
+    public void setFechaActaCODIAdicion(String fechaActaCODIAdicion) {
         this.fechaActaCODIAdicion = fechaActaCODIAdicion;
     }
 

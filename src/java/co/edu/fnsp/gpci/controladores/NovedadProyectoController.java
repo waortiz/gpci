@@ -142,6 +142,8 @@ public class NovedadProyectoController {
         proyectoEdicion.setAdicionesProyecto(proyecto.getAdicionesProyecto());
         proyectoEdicion.setProrrogasProyecto(proyecto.getProrrogasProyecto());
         proyectoEdicion.setPlazosProyecto(proyecto.getPlazosProyecto());
+        proyectoEdicion.setCumplimientoCompromisosProyecto(proyecto.getCumplimientoCompromisosProyecto());
+        proyectoEdicion.setCumplimientoAlertasAvalProyecto(proyecto.getCumplimientosAlertasAvalProyecto());
 
         List<Rol> roles = servicioMaestro.obtenerRoles();
         List<TipoIdentificacion> tiposIdentificacion = servicioMaestro.obtenerTiposIdentificacion();
@@ -182,7 +184,7 @@ public class NovedadProyectoController {
             model.addAttribute("cumplimientoCompromisosProyectoJSON", proyectoEdicion.getCumplimientoCompromisosProyectoJSON());
         }
         if (proyecto.getCumplimientosAlertasAvalProyecto().size() > 0) {
-            model.addAttribute("cumplimientosAlertasAvalProyectoJSON", proyectoEdicion.getCumplimientosAlertasAvalProyectoJSON());
+            model.addAttribute("cumplimientoAlertasAvalProyectoJSON", proyectoEdicion.getCumplimientoAlertasAvalProyectoJSON());
         }
         
         model.addAttribute("proyecto", proyectoEdicion);
@@ -190,7 +192,7 @@ public class NovedadProyectoController {
         return "novedades/editar";
     }
 
-    @RequestMapping(value = {"/actaProyecto"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/acta"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarActaProyecto(@ModelAttribute(value = "actaProyecto") co.edu.fnsp.gpci.entidadesVista.ActaProyecto actaProyecto, Model model) throws Exception {
         String json = "";
@@ -203,7 +205,7 @@ public class NovedadProyectoController {
             actaProyectoGuardar.setObservaciones(actaProyecto.getObservacionesActa());
 
             Documento documento = null;
-            if (actaProyecto.getDocumentoActa() != null) {
+            if (actaProyecto.getDocumentoActa() != null && actaProyecto.getDocumentoActa().getBytes().length > 0) {
                 documento = new Documento();
                 documento.setContenido(actaProyecto.getDocumentoActa().getBytes());
                 documento.setNombre(actaProyecto.getDocumentoActa().getOriginalFilename());
@@ -248,7 +250,7 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = {"/adendaCambioProyecto"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/adendaCambio"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarAdendaCambioProyecto(@ModelAttribute(value = "adendaCambioProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaCambioProyecto adendaCambioProyecto, Model model) throws Exception {
         String json = "";
@@ -277,9 +279,9 @@ public class NovedadProyectoController {
                 }
             }
 
-            adendaProyectoGuardar.setIdAdenda(adendaCambioProyecto.getIdAdenda());
-            adendaProyectoGuardar.setFechaCambio(adendaCambioProyecto.getFechaAdendaCambio());
-            adendaProyectoGuardar.setFechaActa(adendaCambioProyecto.getFechaActaAdendaCambio());
+            adendaProyectoGuardar.setIdAdenda(adendaCambioProyecto.getIdAdendaCambio());
+            adendaProyectoGuardar.setFechaCambio(Util.obtenerFecha(adendaCambioProyecto.getFechaAdendaCambio()));
+            adendaProyectoGuardar.setFechaActa(Util.obtenerFecha(adendaCambioProyecto.getFechaActaAdendaCambio()));
             adendaProyectoGuardar.setNumeroActa(adendaCambioProyecto.getNumeroActaAdendaCambio());
             adendaProyectoGuardar.setIdRol(adendaCambioProyecto.getRolAdendaCambio());
             adendaProyectoGuardar.setIdTipoPersona(adendaCambioProyecto.getTipoPersonaAdendaCambio());
@@ -287,7 +289,7 @@ public class NovedadProyectoController {
             adendaProyectoGuardar.setNumeroIdentificacionPersona(adendaCambioProyecto.getNumeroIdentificacionPersonaAdendaCambio());
             adendaProyectoGuardar.setObservaciones(adendaCambioProyecto.getObservacionesAdendaCambio());
             Documento documento = null;
-            if (adendaCambioProyecto.getDocumentoAdendaCambio() != null) {
+            if (adendaCambioProyecto.getDocumentoAdendaCambio() != null && adendaCambioProyecto.getDocumentoAdendaCambio().getBytes().length > 0) {
                 documento = new Documento();
                 documento.setContenido(adendaCambioProyecto.getDocumentoAdendaCambio().getBytes());
                 documento.setNombre(adendaCambioProyecto.getDocumentoAdendaCambio().getOriginalFilename());
@@ -307,7 +309,7 @@ public class NovedadProyectoController {
     }
 
     @RequestMapping(value = "/documentoAdendaCambio/{idAdenda}", method = RequestMethod.GET)
-    public void obtenerDocumentoAdenda(@PathVariable("idAdenda") long idAdenda, HttpServletResponse response) throws IOException {
+    public void obtenerDocumentoAdendaCambio(@PathVariable("idAdenda") long idAdenda, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoAdendaCambioProyecto(idAdenda);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
@@ -317,7 +319,7 @@ public class NovedadProyectoController {
 
     @RequestMapping(value = "/eliminarAdendaCambio/{idProyecto}/{idAdenda}", method = RequestMethod.GET)
     public @ResponseBody
-    String eliminarAdenda(@PathVariable("idProyecto") long idProyecto, @PathVariable("idAdenda") long idAdenda, Model model) {
+    String eliminarAdendaCambio(@PathVariable("idProyecto") long idProyecto, @PathVariable("idAdenda") long idAdenda, Model model) {
         String json = "";
         try {
             servicioNovedadProyecto.eliminarAdendaCambioProyecto(idAdenda);
@@ -332,7 +334,7 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = {"/adendaIngresoProyecto"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/adendaIngreso"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarAdendaIngresoProyecto(@ModelAttribute(value = "adendaIngresoProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaIngresoProyecto adendaIngresoProyecto, Model model) throws Exception {
         String json = "";
@@ -361,15 +363,15 @@ public class NovedadProyectoController {
                 }
             }
 
-            adendaProyectoGuardar.setIdAdenda(adendaIngresoProyecto.getIdAdenda());
-            adendaProyectoGuardar.setFechaIngreso(adendaIngresoProyecto.getFechaAdendaIngreso());
-            adendaProyectoGuardar.setFechaActa(adendaIngresoProyecto.getFechaActaAdendaIngreso());
+            adendaProyectoGuardar.setIdAdenda(adendaIngresoProyecto.getIdAdendaIngreso());
+            adendaProyectoGuardar.setFechaIngreso(Util.obtenerFecha(adendaIngresoProyecto.getFechaAdendaIngreso()));
+            adendaProyectoGuardar.setFechaActa(Util.obtenerFecha(adendaIngresoProyecto.getFechaActaAdendaIngreso()));
             adendaProyectoGuardar.setNumeroActa(adendaIngresoProyecto.getNumeroActaAdendaIngreso());
             adendaProyectoGuardar.setIdTipoPersona(adendaIngresoProyecto.getTipoPersonaAdendaIngreso());
             adendaProyectoGuardar.setIdTipoIdentificacionPersona(adendaIngresoProyecto.getTipoIdentificacionPersonaAdendaIngreso());
             adendaProyectoGuardar.setNumeroIdentificacionPersona(adendaIngresoProyecto.getNumeroIdentificacionPersonaAdendaIngreso());
             Documento documento = null;
-            if (adendaIngresoProyecto.getDocumentoAdendaIngreso() != null) {
+            if (adendaIngresoProyecto.getDocumentoAdendaIngreso() != null && adendaIngresoProyecto.getDocumentoAdendaIngreso().getBytes().length > 0) {
                 documento = new Documento();
                 documento.setContenido(adendaIngresoProyecto.getDocumentoAdendaIngreso().getBytes());
                 documento.setNombre(adendaIngresoProyecto.getDocumentoAdendaIngreso().getOriginalFilename());
@@ -414,7 +416,7 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = {"/adendaRetiroProyecto"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/adendaRetiro"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarAdendaRetiroProyecto(@ModelAttribute(value = "adendaRetiroProyecto") co.edu.fnsp.gpci.entidadesVista.AdendaRetiroProyecto adendaRetiroProyecto, Model model) throws Exception {
         String json = "";
@@ -443,16 +445,16 @@ public class NovedadProyectoController {
                 }
             }
 
-            adendaProyectoGuardar.setIdAdenda(adendaRetiroProyecto.getIdAdenda());
-            adendaProyectoGuardar.setFechaRetiro(adendaRetiroProyecto.getFechaAdendaRetiro());
-            adendaProyectoGuardar.setFechaActa(adendaRetiroProyecto.getFechaActaAdendaRetiro());
+            adendaProyectoGuardar.setIdAdenda(adendaRetiroProyecto.getIdAdendaRetiro());
+            adendaProyectoGuardar.setFechaRetiro(Util.obtenerFecha(adendaRetiroProyecto.getFechaAdendaRetiro()));
+            adendaProyectoGuardar.setFechaActa(Util.obtenerFecha(adendaRetiroProyecto.getFechaActaAdendaRetiro()));
             adendaProyectoGuardar.setNumeroActa(adendaRetiroProyecto.getNumeroActaAdendaRetiro());
             adendaProyectoGuardar.setIdTipoPersona(adendaRetiroProyecto.getTipoPersonaAdendaRetiro());
             adendaProyectoGuardar.setIdTipoIdentificacionPersona(adendaRetiroProyecto.getTipoIdentificacionPersonaAdendaRetiro());
             adendaProyectoGuardar.setNumeroIdentificacionPersona(adendaRetiroProyecto.getNumeroIdentificacionPersonaAdendaRetiro());
             adendaProyectoGuardar.setMotivo(adendaRetiroProyecto.getMotivoAdendaRetiro());
             Documento documento = null;
-            if (adendaRetiroProyecto.getDocumentoAdendaRetiro() != null) {
+            if (adendaRetiroProyecto.getDocumentoAdendaRetiro() != null && adendaRetiroProyecto.getDocumentoAdendaRetiro().getBytes().length > 0) {
                 documento = new Documento();
                 documento.setContenido(adendaRetiroProyecto.getDocumentoAdendaRetiro().getBytes());
                 documento.setNombre(adendaRetiroProyecto.getDocumentoAdendaRetiro().getOriginalFilename());
@@ -497,21 +499,21 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = {"/adicionProyecto"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/adicion"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarAdicionProyecto(@ModelAttribute(value = "adicionProyecto") co.edu.fnsp.gpci.entidadesVista.AdicionProyecto adicionProyecto, Model model) throws Exception {
         String json = "";
         try {
             AdicionProyecto adicionProyectoGuardar = new AdicionProyecto();
             adicionProyectoGuardar.setIdAdicion(adicionProyecto.getIdAdicion());
-            adicionProyectoGuardar.setMonto(adicionProyecto.getMontoAdicion());
+            adicionProyectoGuardar.setMonto(Util.obtenerNumero(adicionProyecto.getMontoAdicion()));
             adicionProyectoGuardar.setDescripcion(adicionProyecto.getDescripcionAdicion());
             adicionProyectoGuardar.setNumeroActa(adicionProyecto.getNumeroActaAdicion());
-            adicionProyectoGuardar.setFechaActa(adicionProyecto.getFechaActaAdicion());
+            adicionProyectoGuardar.setFechaActa(Util.obtenerFecha(adicionProyecto.getFechaActaAdicion()));
             adicionProyectoGuardar.setNumeroActaCODI(adicionProyecto.getNumeroActaCODIAdicion());
-            adicionProyectoGuardar.setFechaActaCODI(adicionProyecto.getFechaActaCODIAdicion());
+            adicionProyectoGuardar.setFechaActaCODI(Util.obtenerFecha(adicionProyecto.getFechaActaCODIAdicion()));
             Documento documento = null;
-            if (adicionProyecto.getDocumentoAdicion() != null) {
+            if (adicionProyecto.getDocumentoAdicion() != null && adicionProyecto.getDocumentoAdicion().getBytes().length > 0) {
                 documento = new Documento();
                 documento.setContenido(adicionProyecto.getDocumentoAdicion().getBytes());
                 documento.setNombre(adicionProyecto.getDocumentoAdicion().getOriginalFilename());
@@ -556,7 +558,7 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = {"/prorrogaProyecto"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/prorroga"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarProrrogaProyecto(@ModelAttribute(value = "prorrogaProyecto") co.edu.fnsp.gpci.entidadesVista.ProrrogaProyecto prorrogaProyecto, Model model) throws Exception {
         String json = "";
@@ -565,12 +567,13 @@ public class NovedadProyectoController {
             prorrogaProyectoGuardar.setIdProrroga(prorrogaProyecto.getIdProrroga());
             prorrogaProyectoGuardar.setDescripcion(prorrogaProyecto.getDescripcionProrroga());
             prorrogaProyectoGuardar.setMesesAprobados(prorrogaProyecto.getMesesAprobadosProrroga());
-            prorrogaProyectoGuardar.setFechaActa(prorrogaProyecto.getFechaActaProrroga());
+            prorrogaProyectoGuardar.setNumeroActa(prorrogaProyecto.getNumeroActaProrroga());
+            prorrogaProyectoGuardar.setFechaActa(Util.obtenerFecha(prorrogaProyecto.getFechaActaProrroga()));
             prorrogaProyectoGuardar.setNumeroActaCODI(prorrogaProyecto.getNumeroActaCODIProrroga());
-            prorrogaProyectoGuardar.setFechaActaCODI(prorrogaProyecto.getFechaActaCODIProrroga());
+            prorrogaProyectoGuardar.setFechaActaCODI(Util.obtenerFecha(prorrogaProyecto.getFechaActaCODIProrroga()));
             prorrogaProyectoGuardar.setMontoAprobado(Util.obtenerNumero(prorrogaProyecto.getMontoAprobadoProrroga()));
             Documento documento = null;
-            if (prorrogaProyecto.getDocumentoProrroga() != null) {
+            if (prorrogaProyecto.getDocumentoProrroga() != null && prorrogaProyecto.getDocumentoProrroga().getBytes().length > 0) {
                 documento = new Documento();
                 documento.setContenido(prorrogaProyecto.getDocumentoProrroga().getBytes());
                 documento.setNombre(prorrogaProyecto.getDocumentoProrroga().getOriginalFilename());
@@ -615,7 +618,7 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = {"/plazoProyecto"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/plazo"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarPlazoProyecto(@ModelAttribute(value = "plazoProyecto") co.edu.fnsp.gpci.entidadesVista.PlazoProyecto plazoProyecto, Model model) throws Exception {
         String json = "";
@@ -624,12 +627,12 @@ public class NovedadProyectoController {
             plazoProyectoGuardar.setIdPlazo(plazoProyecto.getIdPlazo());
             plazoProyectoGuardar.setDescripcion(plazoProyecto.getDescripcionPlazo());
             plazoProyectoGuardar.setMesesAprobados(plazoProyecto.getMesesAprobadosPlazo());
-            plazoProyectoGuardar.setFechaActa(plazoProyecto.getFechaActaPlazo());
-            plazoProyectoGuardar.setFechaActaCODI(plazoProyecto.getFechaActaCODIPlazo());
+            plazoProyectoGuardar.setFechaActa(Util.obtenerFecha(plazoProyecto.getFechaActaPlazo()));
+            plazoProyectoGuardar.setFechaActaCODI(Util.obtenerFecha(plazoProyecto.getFechaActaCODIPlazo()));
             plazoProyectoGuardar.setNumeroActa(plazoProyecto.getNumeroActaPlazo());
             plazoProyectoGuardar.setNumeroActaCODI(plazoProyecto.getNumeroActaCODIPlazo());
             Documento documento = null;
-            if (plazoProyecto.getDocumentoPlazo() != null) {
+            if (plazoProyecto.getDocumentoPlazo() != null && plazoProyecto.getDocumentoPlazo().getBytes().length > 0) {
                 documento = new Documento();
                 documento.setContenido(plazoProyecto.getDocumentoPlazo().getBytes());
                 documento.setNombre(plazoProyecto.getDocumentoPlazo().getOriginalFilename());
@@ -674,7 +677,7 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = {"/cumplimientoCompromisoProyecto"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/cumplimientoCompromiso"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarCumplimientoCompromisoProyecto(@ModelAttribute(value = "cumplimientoCompromisoProyecto") co.edu.fnsp.gpci.entidadesVista.CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto, Model model) throws Exception {
         String json = "";
@@ -682,10 +685,10 @@ public class NovedadProyectoController {
             CumplimientoCompromisoProyecto cumplimientoCompromisoProyectoGuardar = new CumplimientoCompromisoProyecto();
             cumplimientoCompromisoProyectoGuardar.setIdCumplimientoCompromisoProyecto(cumplimientoCompromisoProyecto.getIdCumplimientoCompromisoProyecto());
             cumplimientoCompromisoProyectoGuardar.setIdCompromisoProyecto(cumplimientoCompromisoProyecto.getCompromisoProyecto());
-            cumplimientoCompromisoProyectoGuardar.setFechaActa(cumplimientoCompromisoProyecto.getFechaActaCumplimientoCompromisoProyecto());
+            cumplimientoCompromisoProyectoGuardar.setFechaActa(Util.obtenerFecha(cumplimientoCompromisoProyecto.getFechaActaCumplimientoCompromisoProyecto()));
             cumplimientoCompromisoProyectoGuardar.setNumeroActa(cumplimientoCompromisoProyecto.getNumeroActaCumplimientoCompromisoProyecto());
             Documento documento = null;
-            if (cumplimientoCompromisoProyecto.getDocumentoCumplimientoCompromisoProyecto() != null) {
+            if (cumplimientoCompromisoProyecto.getDocumentoCumplimientoCompromisoProyecto() != null && cumplimientoCompromisoProyecto.getDocumentoCumplimientoCompromisoProyecto().getBytes().length > 0) {
                 documento = new Documento();
                 documento.setContenido(cumplimientoCompromisoProyecto.getDocumentoCumplimientoCompromisoProyecto().getBytes());
                 documento.setNombre(cumplimientoCompromisoProyecto.getDocumentoCumplimientoCompromisoProyecto().getOriginalFilename());
@@ -704,7 +707,7 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = "/documentoCumplimientoCompromisoProyecto/{idCumplimientoCompromisoProyecto}", method = RequestMethod.GET)
+    @RequestMapping(value = "/documentoCumplimientoCompromiso/{idCumplimientoCompromisoProyecto}", method = RequestMethod.GET)
     public void obtenerDocumentoCumplimientoCompromisoProyecto(@PathVariable("idCumplimientoCompromisoProyecto") long idCumplimientoCompromisoProyecto, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoCumplimientoCompromisoProyecto(idCumplimientoCompromisoProyecto);
         response.setContentType(documento.getTipoContenido());
@@ -713,7 +716,7 @@ public class NovedadProyectoController {
         FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
     }
 
-    @RequestMapping(value = "/eliminarCumplimientoCompromisoProyecto/{idProyecto}/{idCumplimientoCompromisoProyecto}", method = RequestMethod.GET)
+    @RequestMapping(value = "/eliminarCumplimientoCompromiso/{idProyecto}/{idCumplimientoCompromisoProyecto}", method = RequestMethod.GET)
     public @ResponseBody
     String eliminarCumplimientoCompromisoProyecto(@PathVariable("idProyecto") long idProyecto, @PathVariable("idCumplimientoCompromisoProyecto") long idCumplimientoCompromisoProyecto, Model model) {
         String json = "";
@@ -730,7 +733,7 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = {"/cumplimientoAlertaAvalProyecto"}, method = RequestMethod.POST)
+    @RequestMapping(value = {"/cumplimientoAlertaAval"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarCumplimientoAlertaAvalProyecto(@ModelAttribute(value = "cumplimientoAlertaAvalProyecto") co.edu.fnsp.gpci.entidadesVista.CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto, Model model) throws Exception {
         String json = "";
@@ -738,10 +741,10 @@ public class NovedadProyectoController {
             CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyectoGuardar = new CumplimientoAlertaAvalProyecto();
             cumplimientoAlertaAvalProyectoGuardar.setIdCumplimientoAlertaAvalProyecto(cumplimientoAlertaAvalProyecto.getIdCumplimientoAlertaAvalProyecto());
             cumplimientoAlertaAvalProyectoGuardar.setIdAlertaAvalProyecto(cumplimientoAlertaAvalProyecto.getAlertaAvalProyecto());
-            cumplimientoAlertaAvalProyectoGuardar.setFechaActa(cumplimientoAlertaAvalProyecto.getFechaActaCumplimientoAlertaAvalProyecto());
+            cumplimientoAlertaAvalProyectoGuardar.setFechaActa(Util.obtenerFecha(cumplimientoAlertaAvalProyecto.getFechaActaCumplimientoAlertaAvalProyecto()));
             cumplimientoAlertaAvalProyectoGuardar.setNumeroActa(cumplimientoAlertaAvalProyecto.getNumeroActaCumplimientoAlertaAvalProyecto());
             Documento documento = null;
-            if (cumplimientoAlertaAvalProyecto.getDocumentoCumplimientoAlertaAvalProyecto() != null) {
+            if (cumplimientoAlertaAvalProyecto.getDocumentoCumplimientoAlertaAvalProyecto() != null && cumplimientoAlertaAvalProyecto.getDocumentoCumplimientoAlertaAvalProyecto().getBytes().length > 0) {
                 documento = new Documento();
                 documento.setContenido(cumplimientoAlertaAvalProyecto.getDocumentoCumplimientoAlertaAvalProyecto().getBytes());
                 documento.setNombre(cumplimientoAlertaAvalProyecto.getDocumentoCumplimientoAlertaAvalProyecto().getOriginalFilename());
@@ -760,7 +763,7 @@ public class NovedadProyectoController {
         return json;
     }
 
-    @RequestMapping(value = "/documentoCumplimientoAlertaAvalProyecto/{idCumplimientoAlertaAvalProyecto}", method = RequestMethod.GET)
+    @RequestMapping(value = "/documentoCumplimientoAlertaAval/{idCumplimientoAlertaAvalProyecto}", method = RequestMethod.GET)
     public void obtenerDocumentoCumplimientoAlertaAvalProyecto(@PathVariable("idCumplimientoAlertaAvalProyecto") long idCumplimientoAlertaAvalProyecto, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoCumplimientoAlertaAvalProyecto(idCumplimientoAlertaAvalProyecto);
         response.setContentType(documento.getTipoContenido());
@@ -769,7 +772,7 @@ public class NovedadProyectoController {
         FileCopyUtils.copy(documento.getContenido(), response.getOutputStream());
     }
 
-    @RequestMapping(value = "/eliminarCumplimientoAlertaAvalProyecto/{idProyecto}/{idCumplimientoAlertaAvalProyecto}", method = RequestMethod.GET)
+    @RequestMapping(value = "/eliminarCumplimientoAlertaAval/{idProyecto}/{idCumplimientoAlertaAvalProyecto}", method = RequestMethod.GET)
     public @ResponseBody
     String eliminarCumplimientoAlertaAvalProyecto(@PathVariable("idProyecto") long idProyecto, @PathVariable("idCumplimientoAlertaAvalProyecto") long idCumplimientoAlertaAvalProyecto, Model model) {
         String json = "";

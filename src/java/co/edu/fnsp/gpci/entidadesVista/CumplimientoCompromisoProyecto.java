@@ -5,8 +5,6 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
-import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -18,10 +16,8 @@ public class CumplimientoCompromisoProyecto {
     private long idProyecto;
     private long idCumplimientoCompromisoProyecto;
     private long compromisoProyecto;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaActaCumplimientoCompromisoProyecto;
+    private String fechaActaCumplimientoCompromisoProyecto;
     private String numeroActaCumplimientoCompromisoProyecto;
-    private String fechaActaCumplimientoCompromisoProyectoFormateada;
     private MultipartFile documentoCumplimientoCompromisoProyecto;
 
     /**
@@ -69,14 +65,14 @@ public class CumplimientoCompromisoProyecto {
     /**
      * @return the fechaActaCumplimientoCompromisoProyecto
      */
-    public Date getFechaActaCumplimientoCompromisoProyecto() {
+    public String getFechaActaCumplimientoCompromisoProyecto() {
         return fechaActaCumplimientoCompromisoProyecto;
     }
 
     /**
      * @param fechaActaCumplimientoCompromisoProyecto the fechaActaCumplimientoCompromisoProyecto to set
      */
-    public void setFechaActaCumplimientoCompromisoProyecto(Date fechaActaCumplimientoCompromisoProyecto) {
+    public void setFechaActaCumplimientoCompromisoProyecto(String fechaActaCumplimientoCompromisoProyecto) {
         this.fechaActaCumplimientoCompromisoProyecto = fechaActaCumplimientoCompromisoProyecto;
     }
 
@@ -92,20 +88,6 @@ public class CumplimientoCompromisoProyecto {
      */
     public void setNumeroActaCumplimientoCompromisoProyecto(String numeroActaCumplimientoCompromisoProyecto) {
         this.numeroActaCumplimientoCompromisoProyecto = numeroActaCumplimientoCompromisoProyecto;
-    }
-
-    /**
-     * @return the fechaActaCumplimientoCompromisoProyectoFormateada
-     */
-    public String getFechaActaCumplimientoCompromisoProyectoFormateada() {
-        return fechaActaCumplimientoCompromisoProyectoFormateada;
-    }
-
-    /**
-     * @param fechaActaCumplimientoCompromisoProyectoFormateada the fechaActaCumplimientoCompromisoProyectoFormateada to set
-     */
-    public void setFechaActaCumplimientoCompromisoProyectoFormateada(String fechaActaCumplimientoCompromisoProyectoFormateada) {
-        this.fechaActaCumplimientoCompromisoProyectoFormateada = fechaActaCumplimientoCompromisoProyectoFormateada;
     }
 
     /**

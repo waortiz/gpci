@@ -5,8 +5,6 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
-import java.util.Date;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -18,8 +16,7 @@ public class CumplimientoAlertaAvalProyecto {
     private long idProyecto;
     private long idCumplimientoAlertaAvalProyecto;
     private long alertaAvalProyecto;
-    @DateTimeFormat(pattern = "dd/MM/yyyy")
-    private Date fechaActaCumplimientoAlertaAvalProyecto;
+    private String fechaActaCumplimientoAlertaAvalProyecto;
     private String fechaActaCumplimientoAlertaAvalProyectoFormateada;
     private String numeroActaCumplimientoAlertaAvalProyecto;
     private MultipartFile documentoCumplimientoAlertaAvalProyecto;
@@ -69,14 +66,14 @@ public class CumplimientoAlertaAvalProyecto {
     /**
      * @return the fechaActaCumplimientoAlertaAvalProyecto
      */
-    public Date getFechaActaCumplimientoAlertaAvalProyecto() {
+    public String getFechaActaCumplimientoAlertaAvalProyecto() {
         return fechaActaCumplimientoAlertaAvalProyecto;
     }
 
     /**
      * @param fechaActaCumplimientoAlertaAvalProyecto the fechaActaCumplimientoAlertaAvalProyecto to set
      */
-    public void setFechaActaCumplimientoAlertaAvalProyecto(Date fechaActaCumplimientoAlertaAvalProyecto) {
+    public void setFechaActaCumplimientoAlertaAvalProyecto(String fechaActaCumplimientoAlertaAvalProyecto) {
         this.fechaActaCumplimientoAlertaAvalProyecto = fechaActaCumplimientoAlertaAvalProyecto;
     }
 
