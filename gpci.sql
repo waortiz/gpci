@@ -34,7 +34,7 @@ CREATE TABLE `actasproyectos` (
   KEY `actasproyectos_tiposacta_idtipoacta_idx` (`idTipoActa`),
   CONSTRAINT `actasproyectos_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `actasproyectos_tiposacta_idtipoacta` FOREIGN KEY (`idTipoActa`) REFERENCES `tiposacta` (`idTipoActa`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -46,7 +46,7 @@ DROP TABLE IF EXISTS `adendascambioproyectos`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `adendascambioproyectos` (
   `idAdenda` bigint(20) NOT NULL AUTO_INCREMENT,
-  `idproyecto` bigint(20) DEFAULT NULL,
+  `idProyecto` bigint(20) DEFAULT NULL,
   `idTipoPersona` int(11) NOT NULL,
   `idPersona` bigint(20) NOT NULL,
   `fecha` datetime NOT NULL,
@@ -58,11 +58,11 @@ CREATE TABLE `adendascambioproyectos` (
   PRIMARY KEY (`idAdenda`),
   KEY `adendasproyectocambio_tipospersona_idtipopersona_idx` (`idTipoPersona`),
   KEY `adendasproyectocambio_roles_idrol_idx` (`idRol`),
-  KEY `adendascambioproyectos_proyectos_idproyecto_idx` (`idproyecto`),
-  CONSTRAINT `adendascambioproyectos_proyectos_idproyecto` FOREIGN KEY (`idproyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
+  KEY `adendascambioproyectos_proyectos_idproyecto_idx` (`idProyecto`),
+  CONSTRAINT `adendascambioproyectos_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `adendascambioproyectos_roles_idrol` FOREIGN KEY (`idRol`) REFERENCES `roles` (`idRol`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `adendascambioproyectos_tipospersona_idtipopersona` FOREIGN KEY (`idTipoPersona`) REFERENCES `tipospersona` (`idTipoPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,6 +74,7 @@ DROP TABLE IF EXISTS `adendasingresoproyectos`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `adendasingresoproyectos` (
   `idAdenda` bigint(20) NOT NULL AUTO_INCREMENT,
+  `idProyecto` bigint(20) NOT NULL,
   `idTipoPersona` int(11) NOT NULL,
   `idPersona` bigint(20) NOT NULL,
   `fecha` datetime NOT NULL,
@@ -82,8 +83,10 @@ CREATE TABLE `adendasingresoproyectos` (
   `numeroActa` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`idAdenda`),
   KEY `adendasingresoproyectos_tipospersona_idtipopersona_idx` (`idTipoPersona`),
+  KEY `adendasingresoproyectos_proyectos_idproyecto_idx` (`idProyecto`),
+  CONSTRAINT `adendasingresoproyectos_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `adendasingresoproyectos_tipospersona_idtipopersona` FOREIGN KEY (`idTipoPersona`) REFERENCES `tipospersona` (`idTipoPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -95,6 +98,7 @@ DROP TABLE IF EXISTS `adendasretiroproyectos`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `adendasretiroproyectos` (
   `idAdenda` bigint(20) NOT NULL AUTO_INCREMENT,
+  `idProyecto` bigint(20) NOT NULL,
   `idTipoPersona` int(11) NOT NULL,
   `idPersona` bigint(20) NOT NULL,
   `fecha` datetime NOT NULL,
@@ -104,8 +108,10 @@ CREATE TABLE `adendasretiroproyectos` (
   `motivo` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
   PRIMARY KEY (`idAdenda`),
   KEY `adendasretiroproyectos_tipospersona_idtipopersona_idx` (`idTipoPersona`),
+  KEY `adendasretiroproyectos_proyectos_idproyecto_idx` (`idProyecto`),
+  CONSTRAINT `adendasretiroproyectos_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `adendasretiroproyectos_tipospersona_idtipopersona` FOREIGN KEY (`idTipoPersona`) REFERENCES `tipospersona` (`idTipoPersona`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -128,7 +134,7 @@ CREATE TABLE `adicionesproyectos` (
   PRIMARY KEY (`idAdicion`),
   KEY `adiciones_proyectos_idproyecto_idx` (`idProyecto`),
   CONSTRAINT `adiciones_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -151,7 +157,7 @@ CREATE TABLE `alertasavalproyectos` (
   KEY `alertasaval_tiposaval_idtipoaval_idx` (`idTipoAval`),
   CONSTRAINT `alertasaval_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `alertasaval_tiposaval_idtipoaval` FOREIGN KEY (`idTipoAval`) REFERENCES `tiposaval` (`idTipoAval`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -207,7 +213,7 @@ CREATE TABLE `compromisosproyectos` (
   KEY `compromisosproyectos_tiposcompromiso_idtipocompromiso_idx` (`idTipoCompromiso`),
   CONSTRAINT `compromisosproyectos_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `compromisosproyectos_tiposcompromiso_idtipocompromiso` FOREIGN KEY (`idTipoCompromiso`) REFERENCES `tiposcompromiso` (`idTipoCompromiso`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -241,7 +247,7 @@ CREATE TABLE `cumplimientoalertasavalproyectos` (
   PRIMARY KEY (`idcumplimientoalertaavalproyecto`),
   KEY `cumpliemientoalertasaval_alertasaval_idalertaaval_idx` (`idAlertaAvalProyecto`),
   CONSTRAINT `cumplimientoalertasaval_alertasaval_idalertaaval` FOREIGN KEY (`idAlertaAvalProyecto`) REFERENCES `alertasavalproyectos` (`idAlertaAvalProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,7 +266,7 @@ CREATE TABLE `cumplimientocompromisosproyectos` (
   PRIMARY KEY (`idcumplimientocompromisoproyecto`),
   KEY `cumplimientocompromisos_compromisosproyectos_idcompromiso_idx` (`idCompromisoProyecto`),
   CONSTRAINT `cumplimientocompromisos_compromisosproyectos_idcompromiso` FOREIGN KEY (`idCompromisoProyecto`) REFERENCES `compromisosproyectos` (`idCompromisoProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -447,7 +453,7 @@ CREATE TABLE `entidadesinternacionalesproyectos` (
   PRIMARY KEY (`idEntidadInternacionalProyecto`),
   KEY `entidadesinternacionalesproyectos_idproyecto_proyectos_idx` (`idProyecto`),
   CONSTRAINT `entidadesinternacionalesproyectos_idproyecto_proyectos` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -579,7 +585,7 @@ CREATE TABLE `fuentesfinanciacionproyectos` (
   CONSTRAINT `fuentesfinanciacionproyectos_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fuentesfinproy_fuentesfinanciaron_idfuentefinanciacion` FOREIGN KEY (`idFuenteFinanciacion`) REFERENCES `fuentesfinanciacion` (`idFuenteFinanciacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fuentesfinproy_tiposfuentefinpro_idtipofuentefinproy` FOREIGN KEY (`idTipoFuenteFinanciacionProyecto`) REFERENCES `tiposfuentefinanciacionproyecto` (`idTipoFuenteFinanciacionProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -658,6 +664,7 @@ CREATE TABLE `opcionesmenu` (
   `orden` int(4) unsigned DEFAULT NULL,
   `css` varchar(100) COLLATE utf8_spanish_ci DEFAULT '',
   `url` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `visible` tinyint(4) DEFAULT NULL,
   PRIMARY KEY (`idopcionmenu`),
   KEY `opcionesmenu_opcionesmenu_idpadre_idx` (`idpadre`),
   CONSTRAINT `opcionesmenu_opcionesmenu_idpadre` FOREIGN KEY (`idpadre`) REFERENCES `opcionesmenu` (`idopcionmenu`) ON DELETE NO ACTION ON UPDATE NO ACTION
@@ -708,7 +715,7 @@ CREATE TABLE `personalexterno` (
   `idTipoIdentificacion` int(11) NOT NULL,
   `nombres` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
   `apellidos` varchar(250) COLLATE utf8_spanish_ci NOT NULL,
-  `correoElectronico` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `correoElectronico` varchar(250) COLLATE utf8_spanish_ci DEFAULT NULL,
   `entidad` varchar(100) COLLATE utf8_spanish_ci DEFAULT NULL,
   PRIMARY KEY (`idPersonalExterno`),
   UNIQUE KEY `numeroIdentificacion_UNIQUE` (`numeroIdentificacion`,`idTipoIdentificacion`),
@@ -761,7 +768,7 @@ CREATE TABLE `plazosproyectos` (
   PRIMARY KEY (`idPlazo`),
   KEY `plazos_proyectos_idproyecto_idx` (`idProyecto`),
   CONSTRAINT `plazos_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -837,17 +844,17 @@ CREATE TABLE `profesoresproyectos` (
   `mesesDedicados` int(11) NOT NULL,
   `horasSemanaFueraPlan` int(11) DEFAULT NULL,
   `mesesFueraPlan` int(11) DEFAULT NULL,
-  `idTipoViculacion` int(11) NOT NULL,
+  `idTipoVinculacion` int(11) NOT NULL,
   PRIMARY KEY (`idProfesor`,`idProyecto`),
   KEY `profesoresproyectos_proyectos_idproyecto_idx` (`idProyecto`),
   KEY `profesoresproyectos_roles_idrol_idx` (`idRol`),
   KEY `profesoresproyectos_facultades_idfacultad_idx` (`idFacultad`),
-  KEY `profesoresproyectos_tiposvinculacion_idtipovinculacion_idx` (`idTipoViculacion`),
+  KEY `profesoresproyectos_tiposvinculacion_idtipovinculacion_idx` (`idTipoVinculacion`),
   CONSTRAINT `profesoresproyectos_facultades_idfacultad` FOREIGN KEY (`idFacultad`) REFERENCES `facultades` (`idfacultad`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `profesoresproyectos_profesores_idprofesor` FOREIGN KEY (`idProfesor`) REFERENCES `profesores` (`idProfesor`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `profesoresproyectos_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `profesoresproyectos_roles_idrol` FOREIGN KEY (`idRol`) REFERENCES `roles` (`idRol`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `profesoresproyectos_tiposvinculacion_idtipovinculacion` FOREIGN KEY (`idTipoViculacion`) REFERENCES `tiposvinculacion` (`idTipoVinculacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
+  CONSTRAINT `profesoresproyectos_tiposvinculacion_idtipovinculacion` FOREIGN KEY (`idTipoVinculacion`) REFERENCES `tiposvinculacion` (`idTipoVinculacion`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -886,7 +893,7 @@ CREATE TABLE `prorrogasproyectos` (
   PRIMARY KEY (`idProrroga`),
   KEY `prorrogas_proyectos_idproyecto_idx` (`idProyecto`),
   CONSTRAINT `prorrogas_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -2311,7 +2318,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarAdendaIngresoProyecto`(
 )
 BEGIN
 
-DELETE FROM documentoadendaingresosproyectos
+DELETE FROM documentoadendasingresoproyectos
 WHERE idAdenda = varIdAdenda;
 
 DELETE FROM adendasingresoproyectos
@@ -2338,7 +2345,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `EliminarAdendaRetiroProyecto`(
 )
 BEGIN
 
-DELETE FROM documentoadendaretirosproyectos
+DELETE FROM documentoadendasretiroproyectos
 WHERE idAdenda = varIdAdenda;
 
 DELETE FROM adendasretiroproyectos
@@ -3296,7 +3303,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `IngresarDocumentoAdendaProyecto` */;
+/*!50003 DROP PROCEDURE IF EXISTS `IngresarDocumentoAdendaCambioProyecto` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -3306,7 +3313,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `IngresarDocumentoAdendaProyecto`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `IngresarDocumentoAdendaCambioProyecto`(
  varIdAdenda bigint(20), 
  varNombre varchar(200),
  varTipoContenido varchar(200),
@@ -3314,7 +3321,81 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `IngresarDocumentoAdendaProyecto`(
 )
 BEGIN
 
-INSERT INTO DocumentoAdendasproyectos
+INSERT INTO documentoadendascambioproyectos
+(
+idAdenda,
+nombre,
+tipocontenido,
+contenido)
+VALUES
+(varIdAdenda,
+ varNombre,
+ varTipoContenido,
+ varContenido);
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `IngresarDocumentoAdendaIngresoProyecto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `IngresarDocumentoAdendaIngresoProyecto`(
+ varIdAdenda bigint(20), 
+ varNombre varchar(200),
+ varTipoContenido varchar(200),
+ varContenido longblob
+)
+BEGIN
+
+INSERT INTO documentoadendasingresoproyectos
+(
+idAdenda,
+nombre,
+tipocontenido,
+contenido)
+VALUES
+(varIdAdenda,
+ varNombre,
+ varTipoContenido,
+ varContenido);
+
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `IngresarDocumentoAdendaRetiroProyecto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `IngresarDocumentoAdendaRetiroProyecto`(
+ varIdAdenda bigint(20), 
+ varNombre varchar(200),
+ varTipoContenido varchar(200),
+ varContenido longblob
+)
+BEGIN
+
+INSERT INTO documentoadendasretiroproyectos
 (
 idAdenda,
 nombre,
@@ -4304,11 +4385,11 @@ SELECT ad.idAdenda,
        r.nombre nombrerol,
        tp.idtipopersona,
        tp.nombre nombretipopersona,
-       ti.idTipoIdentificacion,
-       ti.nombre nombreTipoIdentificacion,
-       pro.nombres,
-       pro.apellidos,
-       pro.numeroIdentificacion
+       ti.idTipoIdentificacion idTipoIdentificacionPersona,
+       ti.nombre nombreTipoIdentificacionPersona,
+       pro.nombres nombresPersona,
+       pro.apellidos apellidosPersona,
+       pro.numeroIdentificacion numeroIdentificacionpersona
 FROM adendascambioproyectos ad
  inner join roles r on ad.idrol = r.idrol
  inner join tipospersona tp on tp.idtipopersona = ad.idtipopersona
@@ -4329,11 +4410,11 @@ SELECT ad.idAdenda,
        r.nombre nombrerol,
        tp.idtipopersona,
        tp.nombre nombretipopersona,
-       ti.idTipoIdentificacion,
-       ti.nombre nombreTipoIdentificacion,
-       est.nombres,
-       est.apellidos,
-       est.numeroIdentificacion
+       ti.idTipoIdentificacion idTipoIdentificacionpersona,
+       ti.nombre nombreTipoIdentificacionpersona,
+       est.nombres nombresPersona,
+       est.apellidos apellidospersona,
+       est.numeroIdentificacion numeroIdentificacionpersona
 FROM adendascambioproyectos ad
  inner join roles r on ad.idrol = r.idrol
  inner join tipospersona tp on tp.idtipopersona = ad.idtipopersona
@@ -4354,11 +4435,11 @@ SELECT ad.idAdenda,
        r.nombre nombrerol,
        tp.idtipopersona,
        tp.nombre nombretipopersona,
-       ti.idTipoIdentificacion,
-       ti.nombre nombreTipoIdentificacion,
-       pe.nombres,
-       pe.apellidos,
-       pe.numeroIdentificacion
+       ti.idTipoIdentificacion idTipoIdentificacionpersona,
+       ti.nombre nombreTipoIdentificacionpersona,
+       pe.nombres nombrespersona,
+       pe.apellidos apellidospersona,
+       pe.numeroIdentificacion numeroIdentificacionpersona
 FROM adendascambioproyectos ad
  inner join roles r on ad.idrol = r.idrol
  inner join tipospersona tp on tp.idtipopersona = ad.idtipopersona
@@ -4395,11 +4476,11 @@ SELECT ad.idAdenda,
        ad.numeroacta,
        tp.idtipopersona,
        tp.nombre nombretipopersona,
-       ti.idTipoIdentificacion,
-       ti.nombre nombreTipoIdentificacion,
-       pro.nombres,
-       pro.apellidos,
-       pro.numeroIdentificacion
+       ti.idTipoIdentificacion idTipoIdentificacionpersona,
+       ti.nombre nombreTipoIdentificacionpersona,
+       pro.nombres nombrespersona,
+       pro.apellidos apellidospersona,
+       pro.numeroIdentificacion numeroIdentificacionpersona
 FROM adendasingresoproyectos ad
  inner join tipospersona tp on tp.idtipopersona = ad.idtipopersona
  INNER JOIN profesores pro on ad.idpersona = pro.idprofesor
@@ -4415,11 +4496,11 @@ SELECT ad.idAdenda,
        ad.numeroacta,
        tp.idtipopersona,
        tp.nombre nombretipopersona,
-       ti.idTipoIdentificacion,
-       ti.nombre nombreTipoIdentificacion,
-       est.nombres,
-       est.apellidos,
-       est.numeroIdentificacion
+       ti.idTipoIdentificacion idTipoIdentificacionpersona,
+       ti.nombre nombreTipoIdentificacionpersona,
+       est.nombres nombrespersona,
+       est.apellidos apellidospersona,
+       est.numeroIdentificacion numeroIdentificacionpersona
 FROM adendasingresoproyectos ad
  inner join tipospersona tp on tp.idtipopersona = ad.idtipopersona
  INNER JOIN Estudiantes est on ad.idPersona = est.idEstudiante
@@ -4435,11 +4516,11 @@ SELECT ad.idAdenda,
        ad.numeroacta,
        tp.idtipopersona,
        tp.nombre nombretipopersona,
-       ti.idTipoIdentificacion,
-       ti.nombre nombreTipoIdentificacion,
-       pe.nombres,
-       pe.apellidos,
-       pe.numeroIdentificacion
+       ti.idTipoIdentificacion idTipoIdentificacionpersona,
+       ti.nombre nombreTipoIdentificacionpersona,
+       pe.nombres nombrespersona,
+       pe.apellidos apellidospersona,
+       pe.numeroIdentificacion numeroIdentificacionpersona
 FROM adendasingresoproyectos ad
  inner join tipospersona tp on tp.idtipopersona = ad.idtipopersona
  INNER JOIN PersonalExterno pe on pe.idPersonalExterno = ad.idPersona
@@ -4476,11 +4557,11 @@ SELECT ad.idAdenda,
        ad.motivo,
        tp.idtipopersona,
        tp.nombre nombretipopersona,
-       ti.idTipoIdentificacion,
-       ti.nombre nombreTipoIdentificacion,
-       pro.nombres,
-       pro.apellidos,
-       pro.numeroIdentificacion
+       ti.idTipoIdentificacion idTipoIdentificacionpersona,
+       ti.nombre nombreTipoIdentificacionpersona,
+       pro.nombres nombrespersona,
+       pro.apellidos apellidospersona,
+       pro.numeroIdentificacion numeroIdentificacionpersona
 FROM adendasretiroproyectos ad
  inner join tipospersona tp on tp.idtipopersona = ad.idtipopersona
  INNER JOIN profesores pro on ad.idpersona = pro.idprofesor
@@ -4497,11 +4578,11 @@ SELECT ad.idAdenda,
        ad.motivo,
        tp.idtipopersona,
        tp.nombre nombretipopersona,
-       ti.idTipoIdentificacion,
-       ti.nombre nombreTipoIdentificacion,
-       est.nombres,
-       est.apellidos,
-       est.numeroIdentificacion
+       ti.idTipoIdentificacion idTipoIdentificacionpersona,
+       ti.nombre nombreTipoIdentificacionpersona,
+       est.nombres nombrespersona,
+       est.apellidos apellidospersona,
+       est.numeroIdentificacion numeroIdentificacionpersona
 FROM adendasretiroproyectos ad
  inner join tipospersona tp on tp.idtipopersona = ad.idtipopersona
  INNER JOIN Estudiantes est on ad.idPersona = est.idEstudiante
@@ -4518,11 +4599,11 @@ SELECT ad.idAdenda,
        ad.motivo,
        tp.idtipopersona,
        tp.nombre nombretipopersona,
-       ti.idTipoIdentificacion,
-       ti.nombre nombreTipoIdentificacion,
-       pe.nombres,
-       pe.apellidos,
-       pe.numeroIdentificacion
+       ti.idTipoIdentificacion idTipoIdentificacionpersona,
+       ti.nombre nombreTipoIdentificacionpersona,
+       pe.nombres nombrespersona,
+       pe.apellidos apellidospersona,
+       pe.numeroIdentificacion numeroIdentificacionpersona
 FROM adendasretiroproyectos ad
  inner join tipospersona tp on tp.idtipopersona = ad.idtipopersona
  INNER JOIN PersonalExterno pe on pe.idPersonalExterno = ad.idPersona
@@ -4740,7 +4821,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `ObtenerCumplimientosAlertasAvalProyecto` */;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerCumplimientoAlertasAvalProyecto` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -4750,14 +4831,15 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerCumplimientosAlertasAvalProyecto`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerCumplimientoAlertasAvalProyecto`(
  varIdProyecto bigint(20)
 )
 BEGIN
 
 
 SELECT caa.idcumplimientoalertaavalproyecto,
-       aa.descripcion descripcionalertaaval, 
+	   caa.idAlertaAvalProyecto,
+       aa.descripcion descripcionAlertaAvalProyecto, 
        caa.fechaacta,
        caa.numeroacta,
        ta.nombre nombretipoaval
@@ -4772,7 +4854,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `ObtenerCumplimientosCompromisosProyecto` */;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerCumplimientoCompromisosProyecto` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -4782,7 +4864,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerCumplimientosCompromisosProyecto`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerCumplimientoCompromisosProyecto`(
  varIdProyecto bigint(20)
 )
 BEGIN
@@ -4832,7 +4914,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `ObtenerDocumentoAdendaProyecto` */;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerDocumentoAdendaCambioProyecto` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -4842,7 +4924,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerDocumentoAdendaProyecto`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerDocumentoAdendaCambioProyecto`(
  varIdAdenda bigint(20),
  out varNombre varchar(200),
  out varTipoContenido varchar(200),
@@ -4852,7 +4934,65 @@ BEGIN
 
 SELECT nombre, tipocontenido, contenido
 INTO varnombre, vartipocontenido, varcontenido
-FROM documentoadendasproyectos
+FROM documentoadendascambioproyectos
+WHERE idAdenda = varIdAdenda;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerDocumentoAdendaIngresoProyecto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerDocumentoAdendaIngresoProyecto`(
+ varIdAdenda bigint(20),
+ out varNombre varchar(200),
+ out varTipoContenido varchar(200),
+ out varContenido longblob
+)
+BEGIN
+
+SELECT nombre, tipocontenido, contenido
+INTO varnombre, vartipocontenido, varcontenido
+FROM documentoadendasingresoproyectos
+WHERE idAdenda = varIdAdenda;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerDocumentoAdendaRetiroProyecto` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerDocumentoAdendaRetiroProyecto`(
+ varIdAdenda bigint(20),
+ out varNombre varchar(200),
+ out varTipoContenido varchar(200),
+ out varContenido longblob
+)
+BEGIN
+
+SELECT nombre, tipocontenido, contenido
+INTO varnombre, vartipocontenido, varcontenido
+FROM documentoadendasretiroproyectos
 WHERE idAdenda = varIdAdenda;
 
 END ;;
@@ -4919,7 +5059,7 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `ObtenerDocumentoCumplimientoProyecto` */;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerDocumentoCumplimientoCompromisoProyecto` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
 /*!50003 SET @saved_col_connection = @@collation_connection */ ;
@@ -4929,7 +5069,7 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerDocumentoCumplimientoProyecto`(
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerDocumentoCumplimientoCompromisoProyecto`(
  varidcumplimientocompromisoproyecto bigint(20),
  out varNombre varchar(200),
  out varTipoContenido varchar(200),
@@ -5306,7 +5446,7 @@ BEGIN
 SELECT gi.idGrupoInvestigacion,
        gi.nombre
 FROM GruposInvestigacion gi
- inner join GruposInvestigacionProyecto gip on gip.idGrupoInvestigacion = gp.idGrupoInvestigacion
+ inner join gruposinvestigacionproyectos gip on gip.idGrupoInvestigacion = gi.idGrupoInvestigacion
 WHERE gip.idProyecto = varIdProyecto
 ORDER BY gi.nombre;
 
@@ -5410,7 +5550,8 @@ begin
                 else om.idpadre 
 		   end as idpadre, 
            om.css, 
-           om.url 
+           om.url,
+           om.visible
     from opcionesmenu om
 	where om.idopcionmenu in (
 							Select distinct om.idopcionmenu
@@ -5923,8 +6064,6 @@ SELECT
    atem.nombre areaTematica,
    pro.idTipoProyecto,
    tipProy.nombre tipoProyecto,
-   pro.idGrupoInvestigacion,
-   gi.nombre grupoInvestigacion,
    pro.idTipoContrato,
    tc.nombre tipoContrato,
    pro.idEnfoqueMetodologico,
@@ -5936,7 +6075,6 @@ SELECT
 FROM proyectos pro
   inner join areasTematicas atem on pro.idAreatematica = atem.idAreatematica
   inner join tiposProyecto tipProy on pro.idTipoProyecto = tipProy.idTipoProyecto
-  inner join gruposInvestigacion gi on pro.idGrupoInvestigacion = gi.idGrupoInvestigacion
   inner join tiposContrato tc on pro.idTipoContrato = tc.idTipoContrato
   inner join enfoquesMetodologicos em on pro.idEnfoqueMetodologico = em.idEnfoqueMetodologico
   inner join convocatorias con on pro.idConvocatoria = con.idConvocatoria
@@ -6225,6 +6363,31 @@ DELIMITER ;
 /*!50003 SET character_set_client  = @saved_cs_client */ ;
 /*!50003 SET character_set_results = @saved_cs_results */ ;
 /*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerTiposVinculacion` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerTiposVinculacion`(
+
+)
+BEGIN
+SELECT idTipoVinculacion,
+   nombre
+FROM TiposVinculacion
+ORDER BY nombre;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
 /*!50003 DROP PROCEDURE IF EXISTS `ObtenerUsuario` */;
 /*!50003 SET @saved_cs_client      = @@character_set_client */ ;
 /*!50003 SET @saved_cs_results     = @@character_set_results */ ;
@@ -6343,4 +6506,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-03 20:56:48
+-- Dump completed on 2017-08-07 15:19:55
