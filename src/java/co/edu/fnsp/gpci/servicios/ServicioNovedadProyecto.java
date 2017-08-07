@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
+import co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
@@ -156,8 +157,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
             throw exc;
         }
     }
-    
-        @Override
+
+    @Override
     public void guardarPlazoProyecto(long idProyecto, PlazoProyecto plazoProyecto, Documento documento) {
         TransactionDefinition txDef = new DefaultTransactionDefinition();
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
@@ -203,13 +204,14 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
         } catch (Exception exc) {
             transactionManager.rollback(txStatus);
             throw exc;
-        }    }
+        }
+    }
 
     @Override
     public ArrayList<AdendaCambioProyecto> obtenerAdendasCambioProyecto(long idProyecto) {
         return repositorioNovedadProyecto.obtenerAdendasCambioProyecto(idProyecto);
     }
-    
+
     @Override
     public Documento obtenerDocumentoAdendaCambioProyecto(long idAdenda) {
         return repositorioNovedadProyecto.obtenerDocumentoAdendaCambioProyecto(idAdenda);
@@ -238,13 +240,14 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
         } catch (Exception exc) {
             transactionManager.rollback(txStatus);
             throw exc;
-        }    }
+        }
+    }
 
     @Override
     public ArrayList<AdendaIngresoProyecto> obtenerAdendasIngresoProyecto(long idProyecto) {
         return repositorioNovedadProyecto.obtenerAdendasIngresoProyecto(idProyecto);
     }
-    
+
     @Override
     public Documento obtenerDocumentoAdendaIngresoProyecto(long idAdenda) {
         return repositorioNovedadProyecto.obtenerDocumentoAdendaIngresoProyecto(idAdenda);
@@ -280,7 +283,7 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
     public ArrayList<AdendaRetiroProyecto> obtenerAdendasRetiroProyecto(long idProyecto) {
         return repositorioNovedadProyecto.obtenerAdendasRetiroProyecto(idProyecto);
     }
-    
+
     @Override
     public Documento obtenerDocumentoAdendaRetiroProyecto(long idAdenda) {
         return repositorioNovedadProyecto.obtenerDocumentoAdendaRetiroProyecto(idAdenda);
@@ -297,7 +300,7 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
             transactionManager.rollback(txStatus);
             throw exc;
         }
-    }    
+    }
 
     @Override
     public void guardarCumplimientoCompromisoProyecto(long idProyecto, CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto, Documento documento) {
@@ -332,5 +335,42 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
         } catch (Exception exc) {
             transactionManager.rollback(txStatus);
             throw exc;
-        }    }
+        }
+    }
+
+    @Override
+    public void guardarCumplimientoAlertaAvalProyecto(long idProyecto, CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto, Documento documento) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.guardarCumplimientoAlertaAvalProyecto(idProyecto, cumplimientoAlertaAvalProyecto, documento);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }
+    }
+
+    @Override
+    public ArrayList<CumplimientoAlertaAvalProyecto> obtenerCumplimientosAlertasAvalProyecto(long idProyecto) {
+        return repositorioNovedadProyecto.obtenerCumplimientosAlertasAvalProyecto(idProyecto);
+    }
+
+    @Override
+    public Documento obtenerDocumentoCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto) {
+        return repositorioNovedadProyecto.obtenerDocumentoCumplimientoAlertaAvalProyecto(idCumplimientoAlertaAvalProyecto);
+    }
+
+    @Override
+    public void eliminarCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto) {
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        TransactionStatus txStatus = transactionManager.getTransaction(txDef);
+        try {
+            repositorioNovedadProyecto.eliminarCumplimientoAlertaAvalProyecto(idCumplimientoAlertaAvalProyecto);
+            transactionManager.commit(txStatus);
+        } catch (Exception exc) {
+            transactionManager.rollback(txStatus);
+            throw exc;
+        }
+    }
 }

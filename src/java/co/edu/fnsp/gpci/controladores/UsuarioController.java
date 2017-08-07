@@ -7,7 +7,7 @@ package co.edu.fnsp.gpci.controladores;
 
 import co.edu.fnsp.gpci.entidades.Privilegio;
 import co.edu.fnsp.gpci.entidades.Usuario;
-import co.edu.fnsp.gpci.entidadesVista.PrivilegiosUsuario;
+import co.edu.fnsp.gpci.entidades.PrivilegiosUsuario;
 import co.edu.fnsp.gpci.servicios.IServicioSeguridad;
 import java.util.ArrayList;
 import org.apache.logging.log4j.Logger;

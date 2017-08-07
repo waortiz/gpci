@@ -10,55 +10,159 @@ package co.edu.fnsp.gpci.entidades;
  * @author William
  */
 public class PersonalExternoProyecto {
-
-    private PersonalExterno personalExterno;
-    private long idProyecto;
-    private Rol rol;
+    private long idPersonalExterno;
+    private String descripcionTipoIdentificacion;
+    private int idTipoIdentificacion;
+    private String nombres;
+    private String apellidos;
+    private long numeroIdentificacion;
+    private String correoElectronico;
+    private String entidad;
+    private String descripcionRol;
+    private int idRol;
     private double porcentajePropiedadIntelectual;
     private int horasSemana;
     private int mesesDedicados;
     private boolean cartaCesionDerechosPatrimonio;
+
+    /**
+     * @return the entidad
+     */
+    public String getEntidad() {
+        return entidad;
+    }
+
+    /**
+     * @param entidad the entidad to set
+     */
+    public void setEntidad(String entidad) {
+        this.entidad = entidad;
+    }    
     
     /**
-     * @return the personalExterno
+     * @return the idPersonalExterno
      */
-    public PersonalExterno getPersonalExterno() {
-        return personalExterno;
+    public long getIdPersonalExterno() {
+        return idPersonalExterno;
     }
 
     /**
-     * @param personalExterno the personalExterno to set
+     * @param idPersonalExterno the idPersonalExterno to set
      */
-    public void setPersonalExterno(PersonalExterno personalExterno) {
-        this.personalExterno = personalExterno;
-    }
+    public void setIdPersonalExterno(long idPersonalExterno) {
+        this.idPersonalExterno = idPersonalExterno;
+    }    
     
     /**
-     * @return the idProyecto
+     * @return the descripcionTipoIdentificacion
      */
-    public long getIdProyecto() {
-        return idProyecto;
+    public String getDescripcionTipoIdentificacion() {
+        return descripcionTipoIdentificacion;
     }
 
     /**
-     * @param idProyecto the idProyecto to set
+     * @param descripcionTipoIdentificacion the descripcionTipoIdentificacion to set
      */
-    public void setIdProyecto(long idProyecto) {
-        this.idProyecto = idProyecto;
+    public void setDescripcionTipoIdentificacion(String descripcionTipoIdentificacion) {
+        this.descripcionTipoIdentificacion = descripcionTipoIdentificacion;
     }
 
     /**
-     * @return the rol
+     * @return the idTipoIdentificacion
      */
-    public Rol getRol() {
-        return rol;
+    public int getIdTipoIdentificacion() {
+        return idTipoIdentificacion;
     }
 
     /**
-     * @param rol the rol to set
+     * @param idTipoIdentificacion the idTipoIdentificacion to set
      */
-    public void setRol(Rol rol) {
-        this.rol = rol;
+    public void setIdTipoIdentificacion(int idTipoIdentificacion) {
+        this.idTipoIdentificacion = idTipoIdentificacion;
+    }
+
+    /**
+     * @return the nombres
+     */
+    public String getNombres() {
+        return nombres;
+    }
+
+    /**
+     * @param nombres the nombres to set
+     */
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    /**
+     * @return the apellidos
+     */
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    /**
+     * @param apellidos the apellidos to set
+     */
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    /**
+     * @return the numeroIdentificacion
+     */
+    public long getNumeroIdentificacion() {
+        return numeroIdentificacion;
+    }
+
+    /**
+     * @param numeroIdentificacion the numeroIdentificacion to set
+     */
+    public void setNumeroIdentificacion(long numeroIdentificacion) {
+        this.numeroIdentificacion = numeroIdentificacion;
+    }
+
+    /**
+     * @return the correoElectronico
+     */
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    /**
+     * @param correoElectronico the correoElectronico to set
+     */
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    /**
+     * @return the descripcionRol
+     */
+    public String getDescripcionRol() {
+        return descripcionRol;
+    }
+
+    /**
+     * @param descripcionRol the descripcionRol to set
+     */
+    public void setDescripcionRol(String descripcionRol) {
+        this.descripcionRol = descripcionRol;
+    }
+
+    /**
+     * @return the idRol
+     */
+    public int getIdRol() {
+        return idRol;
+    }
+
+    /**
+     * @param idRol the idRol to set
+     */
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
     }
 
     /**

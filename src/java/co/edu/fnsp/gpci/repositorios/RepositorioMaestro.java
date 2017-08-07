@@ -24,6 +24,7 @@ import co.edu.fnsp.gpci.entidades.TipoFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
+import co.edu.fnsp.gpci.entidades.TipoVinculacion;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
@@ -60,6 +61,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
     private SimpleJdbcCall obtenerTiposPersona;
     private SimpleJdbcCall obtenerTiposCompromiso;
     private SimpleJdbcCall obtenerTiposAval;
+    private SimpleJdbcCall obtenerTiposVinculacion;
 
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -97,13 +99,15 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         this.obtenerFuentesFinanciacion = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerFuentesFinanciacion").
                 returningResultSet("fuentesFinanciacion", BeanPropertyRowMapper.newInstance(FuenteFinanciacion.class));
         this.obtenerTiposFuentesFinanciacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerTiposFuentesFinanciacionProyecto").
-                returningResultSet("tiposFuentesFinanciacionProyecto", BeanPropertyRowMapper.newInstance(TipoFuenteFinanciacionProyecto.class));
-        this.obtenerTiposPersona = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerTiposPersona").
+                returningResultSet("tiposFuenteFinanciacionProyecto", BeanPropertyRowMapper.newInstance(TipoFuenteFinanciacionProyecto.class));
+        this.obtenerTiposPersona = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerTiposPersona").
                 returningResultSet("tiposPersona", BeanPropertyRowMapper.newInstance(TipoPersona.class));
-        this.obtenerTiposCompromiso = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerTiposCompromiso").
+        this.obtenerTiposCompromiso = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerTiposCompromiso").
                 returningResultSet("tiposCompromiso", BeanPropertyRowMapper.newInstance(TipoCompromiso.class));
-        this.obtenerTiposAval = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerTiposAval").
+        this.obtenerTiposAval = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerTiposAval").
                 returningResultSet("tiposAval", BeanPropertyRowMapper.newInstance(TipoAval.class));
+        this.obtenerTiposVinculacion = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerTiposVinculacion").
+                returningResultSet("tiposVinculacion", BeanPropertyRowMapper.newInstance(TipoVinculacion.class));
     }
 
     @Override
@@ -256,5 +260,13 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         ArrayList<TipoAval> tiposAval = (ArrayList<TipoAval>) resultado.get("tiposAval");
 
         return tiposAval;
+    }
+
+    @Override
+    public ArrayList<TipoVinculacion> obtenerTiposVinculacion() {
+        Map resultado = obtenerTiposVinculacion.execute(new HashMap<>());
+        ArrayList<TipoVinculacion> tiposVinculacion = (ArrayList<TipoVinculacion>) resultado.get("tiposVinculacion");
+
+        return tiposVinculacion;
     }
 }

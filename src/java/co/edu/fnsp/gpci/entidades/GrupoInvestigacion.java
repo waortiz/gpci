@@ -11,6 +11,9 @@ package co.edu.fnsp.gpci.entidades;
  */
 public class GrupoInvestigacion {
 
+    private int idGrupoInvestigacion;
+    private String nombre;
+
     /**
      * @return the idGrupoInvestigacion
      */
@@ -37,12 +40,5 @@ public class GrupoInvestigacion {
      */
     public void setNombre(String nombre) {
         this.nombre = nombre;
-    }
-    private int idGrupoInvestigacion;
-    private String nombre;
-
-    @Override
-    public String toString() {
-        return "GrupoInvestigacion [id=" + idGrupoInvestigacion + ", name=" + nombre + "]";
     }
 }

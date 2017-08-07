@@ -17,6 +17,7 @@ public class OpcionMenu {
     private int idPadre;
     private String url;
     private String css;
+    private boolean visible;
 
     /**
      * @return the idOpcionMenu
@@ -100,5 +101,19 @@ public class OpcionMenu {
      */
     public void setCss(String css) {
         this.css = css;
+    }
+
+    /**
+     * @return the visible
+     */
+    public boolean isVisible() {
+        return visible;
+    }
+
+    /**
+     * @param visible the visible to set
+     */
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 }

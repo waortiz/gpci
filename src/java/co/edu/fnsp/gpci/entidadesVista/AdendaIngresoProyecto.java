@@ -5,6 +5,8 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -15,8 +17,10 @@ public class AdendaIngresoProyecto {
 
     private long idProyecto;
     private long idAdenda;
-    private String fechaAdendaIngreso;
-    private String fechaActaAdendaIngreso;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaAdendaIngreso;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaActaAdendaIngreso;
     private String numeroActaAdendaIngreso;
     private int tipoPersonaAdendaIngreso;
     private int tipoIdentificacionPersonaAdendaIngreso;
@@ -54,28 +58,28 @@ public class AdendaIngresoProyecto {
     /**
      * @return the fechaAdendaIngreso
      */
-    public String getFechaAdendaIngreso() {
+    public Date getFechaAdendaIngreso() {
         return fechaAdendaIngreso;
     }
 
     /**
      * @param fechaAdendaIngreso the fechaAdendaIngreso to set
      */
-    public void setFechaAdendaIngreso(String fechaAdendaIngreso) {
+    public void setFechaAdendaIngreso(Date fechaAdendaIngreso) {
         this.fechaAdendaIngreso = fechaAdendaIngreso;
     }
 
     /**
      * @return the fechaActaAdendaIngreso
      */
-    public String getFechaActaAdendaIngreso() {
+    public Date getFechaActaAdendaIngreso() {
         return fechaActaAdendaIngreso;
     }
 
     /**
      * @param fechaActaAdendaIngreso the fechaActaAdendaIngreso to set
      */
-    public void setFechaActaAdendaIngreso(String fechaActaAdendaIngreso) {
+    public void setFechaActaAdendaIngreso(Date fechaActaAdendaIngreso) {
         this.fechaActaAdendaIngreso = fechaActaAdendaIngreso;
     }
 

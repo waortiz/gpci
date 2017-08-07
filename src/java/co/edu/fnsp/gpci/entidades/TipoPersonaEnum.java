@@ -1,7 +1,7 @@
-package com.leonisa.salesforce.entities;
+package co.edu.fnsp.gpci.entidades;
 
 public enum TipoPersonaEnum {
-    PROFESOR(1), ESTUDIANTE(2), PERSONAL_EXTERNO(2);
+    PROFESOR(1), ESTUDIANTE(2), PERSONAL_EXTERNO(3);
 
     private final int idTipoPersona;
 

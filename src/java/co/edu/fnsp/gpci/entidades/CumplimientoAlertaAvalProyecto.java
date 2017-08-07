@@ -12,17 +12,29 @@ import org.springframework.format.annotation.DateTimeFormat;
  *
  * @author William
  */
-public class AlertaAvalProyecto {
+public class CumplimientoAlertaAvalProyecto {
 
+    private long idCumplimientoAlertaAvalProyecto;
     private long idAlertaAvalProyecto;
-    private String descripcion;
-    private String nombreTipoAval;
-    private int idTipoAval;
-    
+    private String descripcionAlertaAvalProyecto;   
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date fechaActa;
     private String fechaActaFormateada;
     private String numeroActa;
+
+    /**
+     * @return the idCumplimientoAlertaAvalProyecto
+     */
+    public long getIdCumplimientoAlertaAvalProyecto() {
+        return idCumplimientoAlertaAvalProyecto;
+    }
+
+    /**
+     * @param idCumplimientoAlertaAvalProyecto the idCumplimientoAlertaAvalProyecto to set
+     */
+    public void setIdCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto) {
+        this.idCumplimientoAlertaAvalProyecto = idCumplimientoAlertaAvalProyecto;
+    }
     
     /**
      * @return the idAlertaAvalProyecto
@@ -38,47 +50,6 @@ public class AlertaAvalProyecto {
         this.idAlertaAvalProyecto = idAlertaAvalProyecto;
     }
 
-    /**
-     * @return the descripcion
-     */
-    public String getDescripcion() {
-        return descripcion;
-    }
-
-    /**
-     * @param descripcion the descripcion to set
-     */
-    public void setDescripcion(String descripcion) {
-        this.descripcion = descripcion;
-    }
-
-    /**
-     * @return the nombreTipoAval
-     */
-    public String getNombreTipoAval() {
-        return nombreTipoAval;
-    }
-
-    /**
-     * @param nombreTipoAval the nombreTipoAval to set
-     */
-    public void setNombreTipoAval(String nombreTipoAval) {
-        this.nombreTipoAval = nombreTipoAval;
-    }
-
-    /**
-     * @return the idTipoAval
-     */
-    public int getIdTipoAval() {
-        return idTipoAval;
-    }
-
-    /**
-     * @param idTipoAval the idTipoAval to set
-     */
-    public void setIdTipoAval(int idTipoAval) {
-        this.idTipoAval = idTipoAval;
-    }
 
     /**
      * @return the fechaActa
@@ -120,6 +91,20 @@ public class AlertaAvalProyecto {
      */
     public void setNumeroActa(String numeroActa) {
         this.numeroActa = numeroActa;
+    }
+
+    /**
+     * @return the descripcionAlertaAvalProyecto
+     */
+    public String getDescripcionAlertaAvalProyecto() {
+        return descripcionAlertaAvalProyecto;
+    }
+
+    /**
+     * @param descripcionAlertaAvalProyecto the descripcionAlertaAvalProyecto to set
+     */
+    public void setDescripcionAlertaAvalProyecto(String descripcionAlertaAvalProyecto) {
+        this.descripcionAlertaAvalProyecto = descripcionAlertaAvalProyecto;
     }
    
 }

@@ -11,86 +11,81 @@ package co.edu.fnsp.gpci.entidades;
  */
 public class ProfesorProyecto {
 
-    private Profesor profesor = new Profesor();
-    private long idProyecto;
-    private Rol rol = new Rol();
-    private Facultad facultad = new Facultad();
-    private String codigoVinculacionUdeA;
+    private long idProfesor;
+    private String descripcionTipoIdentificacion;
+    private int idTipoIdentificacion;
+    private String nombres;
+    private String apellidos;
+    private long numeroIdentificacion;
+    private String correoElectronico;
+    private String contacto;
+    private String descripcionRol;
+    private int idRol;
+    private String descripcionFacultad;
+    private int idFacultad;
+    private String nombreTipoVinculacion;
+    private int idTipoVinculacion;
     private boolean cartaCesionDerechosPatrimonio;
     private double porcentajePI;
     private int horasSemana;
     private int mesesDedicados;
-    private int horasSemanaFueraPlan;
-    private int mesesFueraPlan;
-
+    private String horasSemanaFueraPlan;
+    private String mesesFueraPlan;
+    
     /**
-     * @return the facultad
+     * @return the idTipoIdentificacion
      */
-    public Facultad getFacultad() {
-        return facultad;
+    public int getIdTipoIdentificacion() {
+        return idTipoIdentificacion;
     }
 
     /**
-     * @param facultad the facultad to set
+     * @param idTipoIdentificacion the idTipoIdentificacion to set
      */
-    public void setFacultad(Facultad facultad) {
-        this.facultad = facultad;
+    public void setIdTipoIdentificacion(int idTipoIdentificacion) {
+        this.idTipoIdentificacion = idTipoIdentificacion;
     }
 
     /**
-     * @return the profesor
+     * @return the idRol
      */
-    public Profesor getProfesor() {
-        return profesor;
+    public int getIdRol() {
+        return idRol;
     }
 
     /**
-     * @param profesor the profesor to set
+     * @param idRol the idRol to set
      */
-    public void setProfesor(Profesor profesor) {
-        this.profesor = profesor;
+    public void setIdRol(int idRol) {
+        this.idRol = idRol;
     }
 
     /**
-     * @return the rol
+     * @return the idFacultad
      */
-    public Rol getRol() {
-        return rol;
+    public int getIdFacultad() {
+        return idFacultad;
     }
 
     /**
-     * @param rol the rol to set
+     * @param idFacultad the idFacultad to set
      */
-    public void setRol(Rol rol) {
-        this.rol = rol;
+    public void setIdFacultad(int idFacultad) {
+        this.idFacultad = idFacultad;
     }
     
     /**
-     * @return the idProyecto
+     * @return the descripcionRol
      */
-    public long getIdProyecto() {
-        return idProyecto;
+    public String getDescripcionRol() {
+        return descripcionRol;
     }
 
     /**
-     * @param idProyecto the idProyecto to set
+     * @param descripcionRol the descripcionRol to set
      */
-    public void setIdProyecto(long idProyecto) {
-        this.idProyecto = idProyecto;
-    }
-
-    /**
-     * @return the codigoVinculacionUdeA
-     */
-    public String getCodigoVinculacionUdeA() {
-        return codigoVinculacionUdeA;
-    }
-
-    /**
-     * @param codigoVinculacionUdeA the codigoVinculacionUdeA to set
-     */
-    public void setCodigoVinculacionUdeA(String codigoVinculacionUdeA) {
-        this.codigoVinculacionUdeA = codigoVinculacionUdeA;
+    public void setDescripcionRol(String descripcionRol) {
+        this.descripcionRol = descripcionRol;
     }
 
     /**
@@ -101,8 +96,7 @@ public class ProfesorProyecto {
     }
 
     /**
-     * @param cartaCesionDerechosPatrimonio the cartaCesionDerechosPatrimonio to
-     * set
+     * @param cartaCesionDerechosPatrimonio the cartaCesionDerechosPatrimonio to set
      */
     public void setCartaCesionDerechosPatrimonio(boolean cartaCesionDerechosPatrimonio) {
         this.cartaCesionDerechosPatrimonio = cartaCesionDerechosPatrimonio;
@@ -151,30 +145,176 @@ public class ProfesorProyecto {
     }
 
     /**
+     * @return the idProfesor
+     */
+    public long getIdProfesor() {
+        return idProfesor;
+    }
+
+    /**
+     * @param idProfesor the idProfesor to set
+     */
+    public void setIdProfesor(long idProfesor) {
+        this.idProfesor = idProfesor;
+    }
+
+    /**
+     * @return the nombres
+     */
+    public String getNombres() {
+        return nombres;
+    }
+
+    /**
+     * @param nombres the nombres to set
+     */
+    public void setNombres(String nombres) {
+        this.nombres = nombres;
+    }
+
+    /**
+     * @return the apellidos
+     */
+    public String getApellidos() {
+        return apellidos;
+    }
+
+    /**
+     * @param apellidos the apellidos to set
+     */
+    public void setApellidos(String apellidos) {
+        this.apellidos = apellidos;
+    }
+
+    /**
+     * @return the numeroIdentificacion
+     */
+    public long getNumeroIdentificacion() {
+        return numeroIdentificacion;
+    }
+
+    /**
+     * @param numeroIdentificacion the numeroIdentificacion to set
+     */
+    public void setNumeroIdentificacion(long numeroIdentificacion) {
+        this.numeroIdentificacion = numeroIdentificacion;
+    }
+
+    /**
+     * @return the correoElectronico
+     */
+    public String getCorreoElectronico() {
+        return correoElectronico;
+    }
+
+    /**
+     * @param correoElectronico the correoElectronico to set
+     */
+    public void setCorreoElectronico(String correoElectronico) {
+        this.correoElectronico = correoElectronico;
+    }
+
+    /**
+     * @return the contacto
+     */
+    public String getContacto() {
+        return contacto;
+    }
+
+    /**
+     * @param contacto the contacto to set
+     */
+    public void setContacto(String contacto) {
+        this.contacto = contacto;
+    }
+
+    /**
+     * @return the descripcionTipoIdentificacion
+     */
+    public String getDescripcionTipoIdentificacion() {
+        return descripcionTipoIdentificacion;
+    }
+
+    /**
+     * @param descripcionTipoIdentificacion the descripcionTipoIdentificacion to set
+     */
+    public void setDescripcionTipoIdentificacion(String descripcionTipoIdentificacion) {
+        this.descripcionTipoIdentificacion = descripcionTipoIdentificacion;
+    }
+
+    /**
+     * @return the descripcionFacultad
+     */
+    public String getDescripcionFacultad() {
+        return descripcionFacultad;
+    }
+
+    /**
+     * @param descripcionFacultad the descripcionFacultad to set
+     */
+    public void setDescripcionFacultad(String descripcionFacultad) {
+        this.descripcionFacultad = descripcionFacultad;
+    }
+    
+    /**
      * @return the horasSemanaFueraPlan
      */
-    public int getHorasSemanaFueraPlan() {
+    public String getHorasSemanaFueraPlan() {
+        if(horasSemanaFueraPlan == null) {
+            return "";
+        }
         return horasSemanaFueraPlan;
     }
 
     /**
      * @param horasSemanaFueraPlan the horasSemanaFueraPlan to set
      */
-    public void setHorasSemanaFueraPlan(int horasSemanaFueraPlan) {
+    public void setHorasSemanaFueraPlan(String horasSemanaFueraPlan) {
         this.horasSemanaFueraPlan = horasSemanaFueraPlan;
     }
 
     /**
      * @return the mesesFueraPlan
      */
-    public int getMesesFueraPlan() {
+    public String getMesesFueraPlan() {
+        if(mesesFueraPlan == null) {
+            return "";
+        }
         return mesesFueraPlan;
     }
 
     /**
      * @param mesesFueraPlan the mesesFueraPlan to set
      */
-    public void setMesesFueraPlan(int mesesFueraPlan) {
+    public void setMesesFueraPlan(String mesesFueraPlan) {
         this.mesesFueraPlan = mesesFueraPlan;
+    }
+
+    /**
+     * @return the nombreTipoVinculacion
+     */
+    public String getNombreTipoVinculacion() {
+        return nombreTipoVinculacion;
+    }
+
+    /**
+     * @param nombreTipoVinculacion the nombreTipoVinculacion to set
+     */
+    public void setNombreTipoVinculacion(String nombreTipoVinculacion) {
+        this.nombreTipoVinculacion = nombreTipoVinculacion;
+    }
+
+    /**
+     * @return the idTipoVinculacion
+     */
+    public int getIdTipoVinculacion() {
+        return idTipoVinculacion;
+    }
+
+    /**
+     * @param idTipoVinculacion the idTipoVinculacion to set
+     */
+    public void setIdTipoVinculacion(int idTipoVinculacion) {
+        this.idTipoVinculacion = idTipoVinculacion;
     }
 }

@@ -8,7 +8,7 @@ package co.edu.fnsp.gpci.repositorios;
 import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
-import co.edu.fnsp.gpci.entidades.EntidadInternacional;
+import co.edu.fnsp.gpci.entidades.EntidadInternacionalProyecto;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
 import co.edu.fnsp.gpci.entidades.PersonalExterno;
@@ -16,8 +16,11 @@ import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
-import co.edu.fnsp.gpci.entidadesVista.Estudiante;
-import co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto;
+import co.edu.fnsp.gpci.entidades.Estudiante;
+import co.edu.fnsp.gpci.entidades.EstudianteProyecto;
+import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
+import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
+import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -107,19 +110,19 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         this.eliminarProfesorProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarProfesorProyecto");
         this.actualizarProfesorProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarProfesorProyecto");
         this.obtenerProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProfesor");
-        this.obtenerProfesoresProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerProfesoresProyecto").returningResultSet("profesoresProyecto", BeanPropertyRowMapper.newInstance(co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto.class));
+        this.obtenerProfesoresProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerProfesoresProyecto").returningResultSet("profesoresProyecto", BeanPropertyRowMapper.newInstance(ProfesorProyecto.class));
 
         this.ingresarPersonalExternoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarPersonalExternoProyecto");
         this.eliminarPersonalExternoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarPersonalExternoProyecto");
         this.actualizarPersonalExternoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarPersonalExternoProyecto");
         this.obtenerPersonalExterno = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerPersonalExterno");
-        this.obtenerPersonalExternoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerPersonalExternoProyecto").returningResultSet("personalExternoProyecto", BeanPropertyRowMapper.newInstance(co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto.class));
+        this.obtenerPersonalExternoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerPersonalExternoProyecto").returningResultSet("personalExternoProyecto", BeanPropertyRowMapper.newInstance(PersonalExternoProyecto.class));
 
         this.ingresarEstudianteProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarEstudianteProyecto");
         this.eliminarEstudianteProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarEstudianteProyecto");
         this.actualizarEstudianteProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarEstudianteProyecto");
         this.obtenerEstudiante = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerEstudiante");
-        this.obtenerEstudiantesProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerEstudiantesProyecto").returningResultSet("estudiantesProyecto", BeanPropertyRowMapper.newInstance(co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto.class));
+        this.obtenerEstudiantesProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerEstudiantesProyecto").returningResultSet("estudiantesProyecto", BeanPropertyRowMapper.newInstance(EstudianteProyecto.class));
 
         this.ingresarCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarCompromisoProyecto");
         this.eliminarCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarCompromisoProyecto");
@@ -129,7 +132,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         this.ingresarEntidadInternacionalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarEntidadInternacionalProyecto");
         this.eliminarEntidadInternacionalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarEntidadInternacionalProyecto");
         this.actualizarEntidadInternacionalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarEntidadInternacionalProyecto");
-        this.obtenerEntidadesInternacionalesProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerEntidadesInternacionalesProyecto").returningResultSet("entidadesInternacionalesProyecto", BeanPropertyRowMapper.newInstance(EntidadInternacional.class));
+        this.obtenerEntidadesInternacionalesProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerEntidadesInternacionalesProyecto").returningResultSet("entidadesInternacionalesProyecto", BeanPropertyRowMapper.newInstance(EntidadInternacionalProyecto.class));
 
         this.ingresarGrupoInvestigacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarGrupoInvestigacionProyecto");
         this.eliminarGrupoInvestigacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarGrupoInvestigacionProyecto");
@@ -189,14 +192,14 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         MapSqlParameterSource parametrosIngresoEntidadInternacionalProyecto = new MapSqlParameterSource();
         parametrosIngresoEntidadInternacionalProyecto.addValue("varIdProyecto", idProyecto);
-        for (EntidadInternacional entidadInternacional : proyecto.getEntidadesInternacionales()) {
+        for (EntidadInternacionalProyecto entidadInternacional : proyecto.getEntidadesInternacionalesProyecto()) {
             parametrosIngresoEntidadInternacionalProyecto.addValue("varNombre", entidadInternacional.getNombre());
             ingresarEntidadInternacionalProyecto.execute(parametrosIngresoEntidadInternacionalProyecto);
         }
 
         MapSqlParameterSource parametrosIngresoProfesorProyecto = new MapSqlParameterSource();
         parametrosIngresoProfesorProyecto.addValue("varIdProyecto", idProyecto);
-        for (co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto profesorProyecto : proyecto.getProfesoresProyecto()) {
+        for (ProfesorProyecto profesorProyecto : proyecto.getProfesoresProyecto()) {
             parametrosIngresoProfesorProyecto.addValue("varIdTipoVinculacion", profesorProyecto.getIdTipoVinculacion());
             parametrosIngresoProfesorProyecto.addValue("varCartacesionderechospatrimonio", profesorProyecto.isCartaCesionDerechosPatrimonio());
             parametrosIngresoProfesorProyecto.addValue("varIdFacultad", profesorProyecto.getIdFacultad());
@@ -225,7 +228,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         MapSqlParameterSource parametrosIngresoEstudianteProyecto = new MapSqlParameterSource();
         parametrosIngresoEstudianteProyecto.addValue("varIdProyecto", idProyecto);
-        for (co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto estudianteProyecto : proyecto.getEstudiantesProyecto()) {
+        for (EstudianteProyecto estudianteProyecto : proyecto.getEstudiantesProyecto()) {
             parametrosIngresoEstudianteProyecto.addValue("varHorasSemana", estudianteProyecto.getHorasSemana());
             parametrosIngresoEstudianteProyecto.addValue("varMesesDedicados", estudianteProyecto.getMesesDedicados());
             parametrosIngresoEstudianteProyecto.addValue("varIdTipoEstudiante", estudianteProyecto.getIdTipoEstudiante());
@@ -250,7 +253,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         MapSqlParameterSource parametrosIngresoPersonalExternoProyecto = new MapSqlParameterSource();
         parametrosIngresoPersonalExternoProyecto.addValue("varIdProyecto", idProyecto);
-        for (co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto profesorProyecto : proyecto.getPersonalExternoProyecto()) {
+        for (PersonalExternoProyecto profesorProyecto : proyecto.getPersonalExternoProyecto()) {
             parametrosIngresoPersonalExternoProyecto.addValue("varCartacesionderechospatrimonio", profesorProyecto.isCartaCesionDerechosPatrimonio());
             parametrosIngresoPersonalExternoProyecto.addValue("varHorasSemana", profesorProyecto.getHorasSemana());
             parametrosIngresoPersonalExternoProyecto.addValue("varMesesDedicados", profesorProyecto.getMesesDedicados());
@@ -378,15 +381,15 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         proyecto.setObjetivosEspecificos(objetivosEspecificos);
 
         Map resultadoProfesores = obtenerProfesoresProyecto.execute(parametros);
-        ArrayList<co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto> profesoresProyectoActuales = (ArrayList<co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto>) resultadoProfesores.get("profesoresProyecto");
+        ArrayList<ProfesorProyecto> profesoresProyectoActuales = (ArrayList<ProfesorProyecto>) resultadoProfesores.get("profesoresProyecto");
         proyecto.setProfesoresProyecto(profesoresProyectoActuales);
 
         Map resultadoEstudiantes = obtenerEstudiantesProyecto.execute(parametros);
-        ArrayList<co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto> estudiantesProyectoActuales = (ArrayList<co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto>) resultadoEstudiantes.get("estudiantesProyecto");
+        ArrayList<EstudianteProyecto> estudiantesProyectoActuales = (ArrayList<EstudianteProyecto>) resultadoEstudiantes.get("estudiantesProyecto");
         proyecto.setEstudiantesProyecto(estudiantesProyectoActuales);
 
         Map resultadoPersonalExterno = obtenerPersonalExternoProyecto.execute(parametros);
-        ArrayList<co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto> personalExternoProyectoActuales = (ArrayList<co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto>) resultadoPersonalExterno.get("personalExternoProyecto");
+        ArrayList<PersonalExternoProyecto> personalExternoProyectoActuales = (ArrayList<PersonalExternoProyecto>) resultadoPersonalExterno.get("personalExternoProyecto");
         proyecto.setPersonalExternoProyecto(personalExternoProyectoActuales);
 
         Map resultadoCompromisos = obtenerCompromisosProyecto.execute(parametros);
@@ -398,12 +401,16 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         proyecto.setGruposInvestigacion(gruposInvestigacion);
 
         Map resultadoEntidadesInternacionales = obtenerEntidadesInternacionalesProyecto.execute(parametros);
-        ArrayList<EntidadInternacional> entidadesInternacionales = (ArrayList<EntidadInternacional>) resultadoEntidadesInternacionales.get("entidadesInternacionalesProyecto");
-        proyecto.setEntidadesInternacionales(entidadesInternacionales);
+        ArrayList<EntidadInternacionalProyecto> entidadesInternacionales = (ArrayList<EntidadInternacionalProyecto>) resultadoEntidadesInternacionales.get("entidadesInternacionalesProyecto");
+        proyecto.setEntidadesInternacionalesProyecto(entidadesInternacionales);
 
         Map resultadoFuentesFinanciacion = obtenerFuentesFinanciacionProyecto.execute(parametros);
-        ArrayList<co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = (ArrayList<co.edu.fnsp.gpci.entidadesVista.FuenteFinanciacionProyecto>) resultadoFuentesFinanciacion.get("fuentesFinanciacionProyecto");
+        ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = (ArrayList<FuenteFinanciacionProyecto>) resultadoFuentesFinanciacion.get("fuentesFinanciacionProyecto");
         proyecto.setFuentesFinanciacionProyecto(fuentesFinanciacionProyecto);
+
+        Map resultadoAlertasAvalProyecto = obtenerAlertasAvalProyecto.execute(parametros);
+        ArrayList<AlertaAvalProyecto> alertasAvalProyecto = (ArrayList<AlertaAvalProyecto>) resultadoAlertasAvalProyecto.get("alertasAvalProyecto");
+        proyecto.setAlertasAvalProyecto(alertasAvalProyecto);
 
         return proyecto;
     }
@@ -507,13 +514,13 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         MapSqlParameterSource parametrosConsultaProfesoresProyecto = new MapSqlParameterSource();
         parametrosConsultaProfesoresProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
         Map resultadoProfesores = obtenerProfesoresProyecto.execute(parametrosConsultaProfesoresProyecto);
-        ArrayList<co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto> profesoresActuales = (ArrayList<co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto>) resultadoProfesores.get("profesoresProyecto");
+        ArrayList<ProfesorProyecto> profesoresActuales = (ArrayList<ProfesorProyecto>) resultadoProfesores.get("profesoresProyecto");
 
         MapSqlParameterSource parametrosEliminacionProfesorProyecto = new MapSqlParameterSource();
         MapSqlParameterSource parametrosActualizacionProfesorProyecto = new MapSqlParameterSource();
-        for (co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto profesorProyectoActual : profesoresActuales) {
-            co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto profesorProyectoModificado = null;
-            for (co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto profesorProyecto : proyecto.getProfesoresProyecto()) {
+        for (ProfesorProyecto profesorProyectoActual : profesoresActuales) {
+            ProfesorProyecto profesorProyectoModificado = null;
+            for (ProfesorProyecto profesorProyecto : proyecto.getProfesoresProyecto()) {
                 if (profesorProyecto.getIdProfesor() == profesorProyectoActual.getIdProfesor()) {
                     profesorProyectoModificado = profesorProyecto;
                     break;
@@ -555,7 +562,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         MapSqlParameterSource parametrosIngresoProfesorProyecto = new MapSqlParameterSource();
         parametrosIngresoProfesorProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
-        for (co.edu.fnsp.gpci.entidadesVista.ProfesorProyecto profesorProyecto : proyecto.getProfesoresProyecto()) {
+        for (ProfesorProyecto profesorProyecto : proyecto.getProfesoresProyecto()) {
             if (profesorProyecto.getIdProfesor() == 0) {
                 parametrosIngresoProfesorProyecto.addValue("varIdTipoVinculacion", profesorProyecto.getIdTipoVinculacion());
                 parametrosIngresoProfesorProyecto.addValue("varCartacesionderechospatrimonio", profesorProyecto.isCartaCesionDerechosPatrimonio());
@@ -608,13 +615,13 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         MapSqlParameterSource parametrosConsultaEstudiantesProyecto = new MapSqlParameterSource();
         parametrosConsultaEstudiantesProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
         Map resultadoEstudiantes = obtenerEstudiantesProyecto.execute(parametrosConsultaEstudiantesProyecto);
-        ArrayList<co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto> estudiantesActuales = (ArrayList<co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto>) resultadoEstudiantes.get("estudiantesProyecto");
+        ArrayList<EstudianteProyecto> estudiantesActuales = (ArrayList<EstudianteProyecto>) resultadoEstudiantes.get("estudiantesProyecto");
 
         MapSqlParameterSource parametrosEliminacionEstudianteProyecto = new MapSqlParameterSource();
         MapSqlParameterSource parametrosActualizacionEstudianteProyecto = new MapSqlParameterSource();
-        for (co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto estudianteProyectoActual : estudiantesActuales) {
-            co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto estudianteProyectoModificado = null;
-            for (co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto estudianteProyecto : proyecto.getEstudiantesProyecto()) {
+        for (EstudianteProyecto estudianteProyectoActual : estudiantesActuales) {
+            EstudianteProyecto estudianteProyectoModificado = null;
+            for (EstudianteProyecto estudianteProyecto : proyecto.getEstudiantesProyecto()) {
                 if (estudianteProyecto.getIdEstudiante() == estudianteProyectoActual.getIdEstudiante()) {
                     estudianteProyectoModificado = estudianteProyecto;
                     break;
@@ -650,7 +657,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         MapSqlParameterSource parametrosIngresoEstudianteProyecto = new MapSqlParameterSource();
         parametrosIngresoEstudianteProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
-        for (co.edu.fnsp.gpci.entidadesVista.EstudianteProyecto estudianteProyecto : proyecto.getEstudiantesProyecto()) {
+        for (EstudianteProyecto estudianteProyecto : proyecto.getEstudiantesProyecto()) {
             if (estudianteProyecto.getIdEstudiante() == 0) {
                 parametrosIngresoEstudianteProyecto.addValue("varHorasSemana", estudianteProyecto.getHorasSemana());
                 parametrosIngresoEstudianteProyecto.addValue("varMesesDedicados", estudianteProyecto.getMesesDedicados());
@@ -700,13 +707,13 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         MapSqlParameterSource parametrosConsultaPersonalExternoProyecto = new MapSqlParameterSource();
         parametrosConsultaPersonalExternoProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
         Map resultadoPersonalExterno = obtenerPersonalExternoProyecto.execute(parametrosConsultaPersonalExternoProyecto);
-        ArrayList<co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto> personalExternoesActuales = (ArrayList<co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto>) resultadoPersonalExterno.get("personalExternoProyecto");
+        ArrayList<PersonalExternoProyecto> personalExternoesActuales = (ArrayList<PersonalExternoProyecto>) resultadoPersonalExterno.get("personalExternoProyecto");
 
         MapSqlParameterSource parametrosEliminacionPersonalExternoProyecto = new MapSqlParameterSource();
         MapSqlParameterSource parametrosActualizacionPersonalExternoProyecto = new MapSqlParameterSource();
-        for (co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto personalExternoProyectoActual : personalExternoesActuales) {
-            co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto personalExternoProyectoModificado = null;
-            for (co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto personalExternoProyecto : proyecto.getPersonalExternoProyecto()) {
+        for (PersonalExternoProyecto personalExternoProyectoActual : personalExternoesActuales) {
+            PersonalExternoProyecto personalExternoProyectoModificado = null;
+            for (PersonalExternoProyecto personalExternoProyecto : proyecto.getPersonalExternoProyecto()) {
                 if (personalExternoProyecto.getIdPersonalExterno() == personalExternoProyectoActual.getIdPersonalExterno()) {
                     personalExternoProyectoModificado = personalExternoProyecto;
                     break;
@@ -736,7 +743,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         MapSqlParameterSource parametrosIngresoPersonalExternoProyecto = new MapSqlParameterSource();
         parametrosIngresoPersonalExternoProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
-        for (co.edu.fnsp.gpci.entidadesVista.PersonalExternoProyecto personalExternoProyecto : proyecto.getPersonalExternoProyecto()) {
+        for (PersonalExternoProyecto personalExternoProyecto : proyecto.getPersonalExternoProyecto()) {
             if (personalExternoProyecto.getIdPersonalExterno() == 0) {
                 parametrosIngresoPersonalExternoProyecto.addValue("varCartacesionderechospatrimonio", personalExternoProyecto.isCartaCesionDerechosPatrimonio());
                 parametrosIngresoPersonalExternoProyecto.addValue("varHorasSemana", personalExternoProyecto.getHorasSemana());
@@ -781,14 +788,14 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         MapSqlParameterSource parametrosEliminacionGrupoInvestigacion = new MapSqlParameterSource();
         for (GrupoInvestigacion grupoInvestigacionActual : gruposInvestigacionActuales) {
-            GrupoInvestigacion grupoInvestigacionModificado = null;
+            boolean grupoInvestigacionExiste = false;
             for (GrupoInvestigacion grupoInvestigacion : proyecto.getGruposInvestigacion()) {
                 if (grupoInvestigacion.getIdGrupoInvestigacion() == grupoInvestigacionActual.getIdGrupoInvestigacion()) {
-                    grupoInvestigacionModificado = grupoInvestigacion;
+                    grupoInvestigacionExiste = true;
                     break;
                 }
             }
-            if (grupoInvestigacionModificado == null) {
+            if (!grupoInvestigacionExiste) {
                 parametrosEliminacionGrupoInvestigacion.addValue("varIdGrupoInvestigacion", grupoInvestigacionActual.getIdGrupoInvestigacion());
                 eliminarGrupoInvestigacionProyecto.execute(parametrosEliminacionGrupoInvestigacion);
             }
@@ -797,7 +804,14 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         MapSqlParameterSource parametrosIngresoGrupoInvestigacion = new MapSqlParameterSource();
         parametrosIngresoGrupoInvestigacion.addValue("varIdProyecto", proyecto.getIdProyecto());
         for (GrupoInvestigacion grupoInvestigacion : proyecto.getGruposInvestigacion()) {
-            if (grupoInvestigacion.getIdGrupoInvestigacion() == 0) {
+            boolean grupoInvestigacionExiste = false;
+            for (GrupoInvestigacion grupoInvestigacionActual : gruposInvestigacionActuales) {
+                if (grupoInvestigacion.getIdGrupoInvestigacion() == grupoInvestigacionActual.getIdGrupoInvestigacion()) {
+                    grupoInvestigacionExiste = true;
+                    break;
+                }
+            }
+            if (!grupoInvestigacionExiste) {
                 parametrosIngresoGrupoInvestigacion.addValue("varIdGrupoInvestigacion", grupoInvestigacion.getIdGrupoInvestigacion());
                 ingresarGrupoInvestigacionProyecto.execute(parametrosIngresoGrupoInvestigacion);
             }
@@ -808,23 +822,23 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         MapSqlParameterSource parametrosConsultaEntidadesInternacionales = new MapSqlParameterSource();
         parametrosConsultaEntidadesInternacionales.addValue("varIdProyecto", proyecto.getIdProyecto());
         Map resultadoEntidadesInternacionales = obtenerEntidadesInternacionalesProyecto.execute(parametrosConsultaEntidadesInternacionales);
-        ArrayList<EntidadInternacional> entidadesInternacionalesActuales = (ArrayList<EntidadInternacional>) resultadoEntidadesInternacionales.get("entidadesInternacionalesProyecto");
+        ArrayList<EntidadInternacionalProyecto> entidadesInternacionalesActuales = (ArrayList<EntidadInternacionalProyecto>) resultadoEntidadesInternacionales.get("entidadesInternacionalesProyecto");
 
         MapSqlParameterSource parametrosEliminacionEntidadInternacional = new MapSqlParameterSource();
         MapSqlParameterSource parametrosActualizacionEntidadInternacional = new MapSqlParameterSource();
-        for (EntidadInternacional entidadInternacionalActual : entidadesInternacionalesActuales) {
-            EntidadInternacional entidadInternacionalModificado = null;
-            for (EntidadInternacional entidadInternacional : proyecto.getEntidadesInternacionales()) {
-                if (entidadInternacional.getIdEntidadInternacional() == entidadInternacionalActual.getIdEntidadInternacional()) {
+        for (EntidadInternacionalProyecto entidadInternacionalActual : entidadesInternacionalesActuales) {
+            EntidadInternacionalProyecto entidadInternacionalModificado = null;
+            for (EntidadInternacionalProyecto entidadInternacional : proyecto.getEntidadesInternacionalesProyecto()) {
+                if (entidadInternacional.getIdEntidadInternacionalProyecto() == entidadInternacionalActual.getIdEntidadInternacionalProyecto()) {
                     entidadInternacionalModificado = entidadInternacional;
                     break;
                 }
             }
             if (entidadInternacionalModificado == null) {
-                parametrosEliminacionEntidadInternacional.addValue("varIdEntidadInternacionalProyecto", entidadInternacionalActual.getIdEntidadInternacional());
+                parametrosEliminacionEntidadInternacional.addValue("varIdEntidadInternacionalProyecto", entidadInternacionalActual.getIdEntidadInternacionalProyecto());
                 eliminarEntidadInternacionalProyecto.execute(parametrosEliminacionEntidadInternacional);
             } else {
-                parametrosActualizacionEntidadInternacional.addValue("varIdEntidadInternacionalProyecto", entidadInternacionalModificado.getIdEntidadInternacional());
+                parametrosActualizacionEntidadInternacional.addValue("varIdEntidadInternacionalProyecto", entidadInternacionalModificado.getIdEntidadInternacionalProyecto());
                 parametrosActualizacionEntidadInternacional.addValue("varNombre", entidadInternacionalModificado.getNombre());
                 actualizarEntidadInternacionalProyecto.execute(parametrosActualizacionEntidadInternacional);
             }
@@ -832,8 +846,8 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         MapSqlParameterSource parametrosIngresoEntidadInternacional = new MapSqlParameterSource();
         parametrosIngresoEntidadInternacional.addValue("varIdProyecto", proyecto.getIdProyecto());
-        for (EntidadInternacional entidadInternacional : proyecto.getEntidadesInternacionales()) {
-            if (entidadInternacional.getIdEntidadInternacional() == 0) {
+        for (EntidadInternacionalProyecto entidadInternacional : proyecto.getEntidadesInternacionalesProyecto()) {
+            if (entidadInternacional.getIdEntidadInternacionalProyecto() == 0) {
                 parametrosIngresoEntidadInternacional.addValue("varNombre", entidadInternacional.getNombre());
                 ingresarEntidadInternacionalProyecto.execute(parametrosIngresoEntidadInternacional);
             }

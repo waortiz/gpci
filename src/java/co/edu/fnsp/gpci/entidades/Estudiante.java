@@ -12,10 +12,12 @@ package co.edu.fnsp.gpci.entidades;
 public class Estudiante {
 
     private long idEstudiante;
-    private TipoIdentificacion tipoIdentificacion = new TipoIdentificacion();
+    private int idTipoIdentificacion;
+    private String descripcionTipoIdentificacion;
     private String nombres;
     private String apellidos;
-    private TipoEstudiante tipoEstudiante = new TipoEstudiante();
+    private int idTipoEstudiante;
+    private String descripcionTipoEstudiante;
     private long numeroIdentificacion;
     private String correoElectronico;
     private String contacto;
@@ -32,20 +34,6 @@ public class Estudiante {
      */
     public void setIdEstudiante(long idEstudiante) {
         this.idEstudiante = idEstudiante;
-    }
-
-    /**
-     * @return the tipoIdentificacion
-     */
-    public TipoIdentificacion getTipoIdentificacion() {
-        return tipoIdentificacion;
-    }
-
-    /**
-     * @param tipoIdentificacion the tipoIdentificacion to set
-     */
-    public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
-        this.tipoIdentificacion = tipoIdentificacion;
     }
 
     /**
@@ -74,20 +62,6 @@ public class Estudiante {
      */
     public void setApellidos(String apellidos) {
         this.apellidos = apellidos;
-    }
-
-    /**
-     * @return the tipoEstudiante
-     */
-    public TipoEstudiante getTipoEstudiante() {
-        return tipoEstudiante;
-    }
-
-    /**
-     * @param tipoEstudiante the tipoEstudiante to set
-     */
-    public void setTipoEstudiante(TipoEstudiante tipoEstudiante) {
-        this.tipoEstudiante = tipoEstudiante;
     }
 
     /**
@@ -130,5 +104,47 @@ public class Estudiante {
      */
     public void setContacto(String contacto) {
         this.contacto = contacto;
+    }
+    
+        /**
+     * @return the idTipoIdentificacion
+     */
+    public int getIdTipoIdentificacion() {
+        return idTipoIdentificacion;
+    }
+
+    /**
+     * @return the descripcionTipoIdentificacion
+     */
+    public String getDescripcionTipoIdentificacion() {
+        return descripcionTipoIdentificacion;
+    }
+
+    /**
+     * @return the idTipoEstudiante
+     */
+    public int getIdTipoEstudiante() {
+        return idTipoEstudiante;
+    }
+
+    /**
+     * @param idTipoEstudiante the idTipoEstudiante to set
+     */
+    public void setIdTipoEstudiante(int idTipoEstudiante) {
+        this.idTipoEstudiante = idTipoEstudiante;
+    }
+
+    /**
+     * @return the descripcionTipoEstudiante
+     */
+    public String getDescripcionTipoEstudiante() {
+        return descripcionTipoEstudiante;
+    }
+
+    /**
+     * @param descripcionTipoEstudiante the descripcionTipoEstudiante to set
+     */
+    public void setDescripcionTipoEstudiante(String descripcionTipoEstudiante) {
+        this.descripcionTipoEstudiante = descripcionTipoEstudiante;
     }
 }

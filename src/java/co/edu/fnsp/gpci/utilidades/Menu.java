@@ -46,7 +46,7 @@ public class Menu {
         StringBuilder r = new StringBuilder();
         for (int i = 0; i < opcionesMenu.size(); i++) {
             opcionMenu = opcionesMenu.get(i);
-            if (opcionMenu.getNivel() == nivel && opcionMenu.getIdPadre() == padre) {
+            if (opcionMenu.isVisible() && opcionMenu.getNivel() == nivel && opcionMenu.getIdPadre() == padre) {
                 r.append("<li><a href='#'").append(opcionMenu.getUrl() != null ? " onclick=\"abrirOpcion('" + opcionMenu.getUrl() + "'); return false;\"" : "").append(">").append(opcionMenu.getNombre()).append("</a></li>");
             }
         }

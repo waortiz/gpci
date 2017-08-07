@@ -16,6 +16,7 @@ import co.edu.fnsp.gpci.entidades.AreaTematica;
 import co.edu.fnsp.gpci.entidades.Convocatoria;
 import co.edu.fnsp.gpci.entidades.EnfoqueMetodologico;
 import co.edu.fnsp.gpci.entidades.EstadoProyecto;
+import co.edu.fnsp.gpci.entidades.Estudiante;
 import co.edu.fnsp.gpci.entidades.Facultad;
 import co.edu.fnsp.gpci.entidades.FuenteFinanciacion;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
@@ -33,6 +34,7 @@ import co.edu.fnsp.gpci.entidades.TipoEstudiante;
 import co.edu.fnsp.gpci.entidades.TipoFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
+import co.edu.fnsp.gpci.entidades.TipoVinculacion;
 import co.edu.fnsp.gpci.entidades.Usuario;
 import co.edu.fnsp.gpci.entidadesVista.BusquedaPersona;
 import co.edu.fnsp.gpci.entidadesVista.BusquedaProyectos;
@@ -47,6 +49,7 @@ import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -132,7 +135,10 @@ public class ProyectoController {
         List<FuenteFinanciacion> fuentesFinanciacion = servicioMaestro.obtenerFuentesFinanciacion();
         List<TipoCompromiso> tiposCompromiso = servicioMaestro.obtenerTiposCompromiso();
         List<TipoAval> tiposAval = servicioMaestro.obtenerTiposAval();
+        List<TipoVinculacion> tiposVinculacion = servicioMaestro.obtenerTiposVinculacion();
 
+        model.addAttribute("gruposInvestigacionPorAsignar", gruposInvestigacion);
+        model.addAttribute("gruposInvestigacionAsignados", new ArrayList<>());
         model.addAttribute("areasTematicas", areasTematicas);
         model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("gruposInvestigacion", gruposInvestigacion);
@@ -150,7 +156,8 @@ public class ProyectoController {
         model.addAttribute("tiposFuenteFinanciacionProyecto", tiposFuenteFinanciacionProyecto);
         model.addAttribute("tiposCompromiso", tiposCompromiso);
         model.addAttribute("tiposAval", tiposAval);
-
+        model.addAttribute("tiposVinculacion", tiposVinculacion);
+        
         model.addAttribute("proyecto", new co.edu.fnsp.gpci.entidadesVista.Proyecto());
 
         return "proyectos/crear";
@@ -195,14 +202,18 @@ public class ProyectoController {
             nuevoProyecto.setRiesgoEtico(proyecto.getRiesgoEtico());
             nuevoProyecto.setTipoContrato(proyecto.getTipoContrato());
             nuevoProyecto.setTipoProyecto(proyecto.getTipoProyecto());
+
+            nuevoProyecto.setGruposInvestigacion(proyecto.getGruposInvestigacion());
             nuevoProyecto.setObjetivosEspecificos(proyecto.getObjetivosEspecificos());
+            nuevoProyecto.setCompromisosProyecto(proyecto.getCompromisosProyecto());
             nuevoProyecto.setProfesoresProyecto(proyecto.getProfesoresProyecto());
             nuevoProyecto.setEstudiantesProyecto(proyecto.getEstudiantesProyecto());
             nuevoProyecto.setPersonalExternoProyecto(proyecto.getPersonalExternoProyecto());
-            nuevoProyecto.setCompromisosProyecto(proyecto.getCompromisosProyecto());
-            nuevoProyecto.setGruposInvestigacion(proyecto.getGruposInvestigacion());
-            nuevoProyecto.setEntidadesInternacionales(proyecto.getEntidadesInternacionales());
-
+            nuevoProyecto.setAlertasAvalProyecto(proyecto.getAlertasAvalProyecto());
+            nuevoProyecto.setFuentesFinanciacionProyecto(proyecto.getFuentesFinanciacionProyecto());
+            if (proyecto.isParticipacionInternacional()) {
+                nuevoProyecto.setEntidadesInternacionalesProyecto(proyecto.getEntidadesInternacionalesProyecto());
+            }
             if (proyecto.getIdProyecto() == 0) {
                 servicioProyecto.ingresarProyecto(nuevoProyecto);
             } else {
@@ -245,10 +256,10 @@ public class ProyectoController {
             List<FuenteFinanciacion> fuentesFinanciacion = servicioMaestro.obtenerFuentesFinanciacion();
             List<TipoCompromiso> tiposCompromiso = servicioMaestro.obtenerTiposCompromiso();
             List<TipoAval> tiposAval = servicioMaestro.obtenerTiposAval();
-            
+            List<TipoVinculacion> tiposVinculacion = servicioMaestro.obtenerTiposVinculacion();
+
             model.addAttribute("areasTematicas", areasTematicas);
             model.addAttribute("tiposProyecto", tiposProyecto);
-            model.addAttribute("gruposInvestigacion", gruposInvestigacion);
             model.addAttribute("riesgosEticos", riesgosEticos);
             model.addAttribute("tiposContrato", tiposContrato);
             model.addAttribute("enfoquesMetodologicos", enfoquesMetodologicos);
@@ -263,7 +274,8 @@ public class ProyectoController {
             model.addAttribute("tiposFuenteFinanciacionProyecto", tiposFuenteFinanciacionProyecto);
             model.addAttribute("tiposCompromiso", tiposCompromiso);
             model.addAttribute("tiposAval", tiposAval);
-            
+            model.addAttribute("tiposVinculacion", tiposVinculacion);
+
             ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
             proyectoEdicion.setIdProyecto(proyecto.getIdProyecto());
             proyectoEdicion.setAreaTematica(Integer.toString(proyecto.getAreaTematica().getIdAreaTematica()));
@@ -307,12 +319,9 @@ public class ProyectoController {
                 model.addAttribute("compromisosProyectoJSON", proyectoEdicion.getCompromisosProyectoJSON());
             }
             proyectoEdicion.setGruposInvestigacion(proyecto.getGruposInvestigacion());
-            if (proyectoEdicion.getGruposInvestigacion().size() > 0) {
-                model.addAttribute("gruposInvestigacionJSON", proyectoEdicion.getGruposInvestigacionJSON());
-            }
-            proyectoEdicion.setEntidadesInternacionales(proyecto.getEntidadesInternacionales());
-            if (proyectoEdicion.getEntidadesInternacionales().size() > 0) {
-                model.addAttribute("entidadesInternacionalesJSON", proyectoEdicion.getEntidadesInternacionalesJSON());
+            proyectoEdicion.setEntidadesInternacionalesProyecto(proyecto.getEntidadesInternacionalesProyecto());
+            if (proyectoEdicion.getEntidadesInternacionalesProyecto().size() > 0) {
+                model.addAttribute("entidadesInternacionalesProyectoJSON", proyectoEdicion.getEntidadesInternacionalesProyectoJSON());
             }
             proyectoEdicion.setFuentesFinanciacionProyecto(proyecto.getFuentesFinanciacionProyecto());
             if (proyectoEdicion.getFuentesFinanciacionProyecto().size() > 0) {
@@ -322,6 +331,23 @@ public class ProyectoController {
             if (proyectoEdicion.getAlertasAvalProyecto().size() > 0) {
                 model.addAttribute("alertasAvalProyectoJSON", proyectoEdicion.getAlertasAvalProyectoJSON());
             }
+
+            ArrayList<GrupoInvestigacion> gruposInvestigacionPorAsignar = new ArrayList<>();
+            for (GrupoInvestigacion grupoInvestigacion : gruposInvestigacion) {
+                boolean existe = false;
+                for (GrupoInvestigacion grupoInvestigacionAsignado : proyecto.getGruposInvestigacion()) {
+                    if (grupoInvestigacion.getIdGrupoInvestigacion() == grupoInvestigacionAsignado.getIdGrupoInvestigacion()) {
+                        existe = true;
+                        break;
+                    }
+                }
+                if (!existe) {
+                    gruposInvestigacionPorAsignar.add(grupoInvestigacion);
+                }
+            }
+
+            model.addAttribute("gruposInvestigacionPorAsignar", gruposInvestigacionPorAsignar);
+            model.addAttribute("gruposInvestigacionAsignados", proyecto.getGruposInvestigacion());
 
             model.addAttribute("proyecto", proyectoEdicion);
         }
@@ -350,10 +376,14 @@ public class ProyectoController {
         List<Facultad> facultades = servicioMaestro.obtenerFacultades();
         List<TipoEstudiante> tiposEstudiante = servicioMaestro.obtenerTiposEstudiante();
         List<Programa> programas = servicioMaestro.obtenerProgramas();
-
+        List<TipoAval> tiposAval = servicioMaestro.obtenerTiposAval();
+        List<TipoFuenteFinanciacionProyecto> tiposFuenteFinanciacionProyecto = servicioMaestro.obtenerTiposFuenteFinanciacionProyecto();
+        List<FuenteFinanciacion> fuentesFinanciacion = servicioMaestro.obtenerFuentesFinanciacion();
+        List<TipoCompromiso> tiposCompromiso = servicioMaestro.obtenerTiposCompromiso();
+        List<TipoVinculacion> tiposVinculacion = servicioMaestro.obtenerTiposVinculacion();
+        
         model.addAttribute("areasTematicas", areasTematicas);
         model.addAttribute("tiposProyecto", tiposProyecto);
-        model.addAttribute("gruposInvestigacion", gruposInvestigacion);
         model.addAttribute("riesgosEticos", riesgosEticos);
         model.addAttribute("tiposContrato", tiposContrato);
         model.addAttribute("enfoquesMetodologicos", enfoquesMetodologicos);
@@ -364,7 +394,12 @@ public class ProyectoController {
         model.addAttribute("facultades", facultades);
         model.addAttribute("tiposEstudiante", tiposEstudiante);
         model.addAttribute("programas", programas);
-
+        model.addAttribute("tiposCompromiso", tiposCompromiso);
+        model.addAttribute("tiposAval", tiposAval);
+        model.addAttribute("fuentesFinanciacion", fuentesFinanciacion);
+        model.addAttribute("tiposFuenteFinanciacionProyecto", tiposFuenteFinanciacionProyecto);
+        model.addAttribute("tiposVinculacion", tiposVinculacion);
+        
         ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
         Proyecto proyecto = servicioProyecto.obtenerProyecto(idProyecto);
         proyectoEdicion.setIdProyecto(idProyecto);
@@ -388,6 +423,7 @@ public class ProyectoController {
         proyectoEdicion.setRiesgoEtico(Integer.toString(proyecto.getRiesgoEtico().getIdRiesgoEtico()));
         proyectoEdicion.setTipoContrato(Integer.toString(proyecto.getTipoContrato().getIdTipoContrato()));
         proyectoEdicion.setTipoProyecto(Integer.toString(proyecto.getTipoProyecto().getIdTipoProyecto()));
+        proyectoEdicion.setGruposInvestigacion(proyecto.getGruposInvestigacion());
         proyectoEdicion.setObjetivosEspecificos(proyecto.getObjetivosEspecificos());
         if (proyecto.getObjetivosEspecificos().size() > 0) {
             model.addAttribute("objetivosEspecificosJSON", proyectoEdicion.getObjetivosEspecificosJSON());
@@ -408,13 +444,9 @@ public class ProyectoController {
         if (proyectoEdicion.getCompromisosProyecto().size() > 0) {
             model.addAttribute("compromisosProyectoJSON", proyectoEdicion.getCompromisosProyectoJSON());
         }
-        proyectoEdicion.setGruposInvestigacion(proyecto.getGruposInvestigacion());
-        if (proyecto.getGruposInvestigacion().size() > 0) {
-            model.addAttribute("gruposInvestigacionJSON", proyectoEdicion.getGruposInvestigacionJSON());
-        }
-        proyectoEdicion.setEntidadesInternacionales(proyecto.getEntidadesInternacionales());
-        if (proyecto.getEntidadesInternacionales().size() > 0) {
-            model.addAttribute("entidadesInternacionalesJSON", proyectoEdicion.getEntidadesInternacionalesJSON());
+        proyectoEdicion.setEntidadesInternacionalesProyecto(proyecto.getEntidadesInternacionalesProyecto());
+        if (proyecto.getEntidadesInternacionalesProyecto().size() > 0) {
+            model.addAttribute("entidadesInternacionalesProyectoJSON", proyectoEdicion.getEntidadesInternacionalesProyectoJSON());
         }
         proyectoEdicion.setFuentesFinanciacionProyecto(proyecto.getFuentesFinanciacionProyecto());
         if (proyectoEdicion.getFuentesFinanciacionProyecto().size() > 0) {
@@ -424,7 +456,24 @@ public class ProyectoController {
         if (proyectoEdicion.getAlertasAvalProyecto().size() > 0) {
             model.addAttribute("alertasAvalProyectoJSON", proyectoEdicion.getAlertasAvalProyectoJSON());
         }
-            
+
+        ArrayList<GrupoInvestigacion> gruposInvestigacionPorAsignar = new ArrayList<>();
+        for (GrupoInvestigacion grupoInvestigacion : gruposInvestigacion) {
+            boolean existe = false;
+            for (GrupoInvestigacion grupoInvestigacionAsignado : proyecto.getGruposInvestigacion()) {
+                if (grupoInvestigacion.getIdGrupoInvestigacion() == grupoInvestigacionAsignado.getIdGrupoInvestigacion()) {
+                    existe = true;
+                    break;
+                }
+            }
+            if (!existe) {
+                gruposInvestigacionPorAsignar.add(grupoInvestigacion);
+            }
+        }
+
+        model.addAttribute("gruposInvestigacionPorAsignar", gruposInvestigacionPorAsignar);
+        model.addAttribute("gruposInvestigacionAsignados", proyecto.getGruposInvestigacion());
+
         model.addAttribute("proyecto", proyectoEdicion);
 
         return "proyectos/crear";
@@ -448,7 +497,7 @@ public class ProyectoController {
     public @ResponseBody
     String buscarEstudiante(@ModelAttribute(value = "busquedaPersona") BusquedaPersona busquedaPersona, Model model) {
 
-        co.edu.fnsp.gpci.entidadesVista.Estudiante estudiante = servicioProyecto.obtenerEstudiante(busquedaPersona.getIdTipoIdentificacion(), busquedaPersona.getNumeroIdentificacion());
+        Estudiante estudiante = servicioProyecto.obtenerEstudiante(busquedaPersona.getIdTipoIdentificacion(), busquedaPersona.getNumeroIdentificacion());
         Gson gson = new Gson();
         String json = "";
         if (estudiante != null) {
@@ -481,5 +530,27 @@ public class ProyectoController {
         binder.registerCustomEditor(EnfoqueMetodologico.class, new EnfoqueMetodologicoEditor());
         binder.registerCustomEditor(Convocatoria.class, new ConvocatoriaEditor());
         binder.registerCustomEditor(EstadoProyecto.class, new EstadoProyectoEditor());
+        binder.registerCustomEditor(ArrayList.class, "gruposInvestigacion", new CustomCollectionEditor(ArrayList.class) {
+
+            @Override
+            protected Object convertElement(Object element) {
+                GrupoInvestigacion grupoInvestigacion = new GrupoInvestigacion();
+                if (element instanceof String && !((String) element).equals("")) {
+                    try {
+                        grupoInvestigacion.setIdGrupoInvestigacion(Integer.parseInt((String) element));
+                    } catch (NumberFormatException e) {
+
+                    }
+                } else if (element instanceof Integer) {
+                    try {
+                        grupoInvestigacion.setIdGrupoInvestigacion((int) element);
+                    } catch (Exception e) {
+
+                    }
+                }
+
+                return grupoInvestigacion;
+            }
+        });
     }
 }

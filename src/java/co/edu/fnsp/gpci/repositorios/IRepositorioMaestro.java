@@ -24,6 +24,7 @@ import co.edu.fnsp.gpci.entidades.TipoFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
+import co.edu.fnsp.gpci.entidades.TipoVinculacion;
 import java.util.ArrayList;
 
 /**
@@ -69,4 +70,6 @@ public interface IRepositorioMaestro {
     ArrayList<TipoCompromiso> obtenerTiposCompromiso();
 
     ArrayList<TipoAval> obtenerTiposAval();
+
+    ArrayList<TipoVinculacion> obtenerTiposVinculacion();
 }

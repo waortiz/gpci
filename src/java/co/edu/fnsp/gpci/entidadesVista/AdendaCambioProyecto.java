@@ -5,6 +5,8 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -15,8 +17,10 @@ public class AdendaCambioProyecto {
 
     private long idProyecto;
     private long idAdenda;
-    private String fechaAdendaCambio;
-    private String fechaActaAdendaCambio;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaAdendaCambio;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaActaAdendaCambio;
     private String numeroActaAdendaCambio;
     private int tipoPersonaAdendaCambio;
     private int tipoIdentificacionPersonaAdendaCambio;
@@ -56,14 +60,14 @@ public class AdendaCambioProyecto {
     /**
      * @return the fechaActaAdendaCambio
      */
-    public String getFechaActaAdendaCambio() {
+    public Date getFechaActaAdendaCambio() {
         return fechaActaAdendaCambio;
     }
 
     /**
      * @param fechaActaAdendaCambio the fechaActaAdendaCambio to set
      */
-    public void setFechaActaAdendaCambio(String fechaActaAdendaCambio) {
+    public void setFechaActaAdendaCambio(Date fechaActaAdendaCambio) {
         this.fechaActaAdendaCambio = fechaActaAdendaCambio;
     }
 
@@ -168,14 +172,14 @@ public class AdendaCambioProyecto {
     /**
      * @return the fechaAdendaCambio
      */
-    public String getFechaAdendaCambio() {
+    public Date getFechaAdendaCambio() {
         return fechaAdendaCambio;
     }
 
     /**
      * @param fechaAdendaCambio the fechaAdendaCambio to set
      */
-    public void setFechaAdendaCambio(String fechaAdendaCambio) {
+    public void setFechaAdendaCambio(Date fechaAdendaCambio) {
         this.fechaAdendaCambio = fechaAdendaCambio;
     }
 }

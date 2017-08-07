@@ -12,6 +12,7 @@ import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
+import co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
@@ -58,4 +59,8 @@ public interface IRepositorioNovedadProyecto {
     ArrayList<CumplimientoCompromisoProyecto> obtenerCumplimientoCompromisosProyecto(long idProyecto);
     Documento obtenerDocumentoCumplimientoCompromisoProyecto(long idCumplimientoCompromisoProyecto);
     void eliminarCumplimientoCompromisoProyecto(long idCumplimientoCompromisoProyecto);    
+    void guardarCumplimientoAlertaAvalProyecto(long idProyecto, CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto, Documento documento);
+    ArrayList<CumplimientoAlertaAvalProyecto> obtenerCumplimientosAlertasAvalProyecto(long idProyecto);
+    Documento obtenerDocumentoCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto);
+    void eliminarCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto);    
 }

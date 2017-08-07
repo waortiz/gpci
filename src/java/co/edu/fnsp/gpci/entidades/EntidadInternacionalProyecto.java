@@ -9,23 +9,23 @@ package co.edu.fnsp.gpci.entidades;
  *
  * @author William
  */
-public class EntidadInternacional {
+public class EntidadInternacionalProyecto {
 
-    private long idEntidadInternacional;
+    private long idEntidadInternacionalProyecto;
     private String nombre;
     
     /**
-     * @return the idEntidadInternacional
+     * @return the idEntidadInternacionalProyecto
      */
-    public long getIdEntidadInternacional() {
-        return idEntidadInternacional;
+    public long getIdEntidadInternacionalProyecto() {
+        return idEntidadInternacionalProyecto;
     }
 
     /**
-     * @param idEntidadInternacional the idEntidadInternacional to set
+     * @param idEntidadInternacionalProyecto the idEntidadInternacionalProyecto to set
      */
-    public void setIdEntidadInternacional(long idEntidadInternacional) {
-        this.idEntidadInternacional = idEntidadInternacional;
+    public void setIdEntidadInternacionalProyecto(long idEntidadInternacionalProyecto) {
+        this.idEntidadInternacionalProyecto = idEntidadInternacionalProyecto;
     }
 
     /**

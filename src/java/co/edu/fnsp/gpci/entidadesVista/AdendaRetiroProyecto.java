@@ -5,6 +5,8 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -14,8 +16,10 @@ import org.springframework.web.multipart.MultipartFile;
 public class AdendaRetiroProyecto {
     private long idProyecto;
     private long idAdenda;
-    private String fechaAdendaRetiro;
-    private String fechaActaAdendaRetiro;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaAdendaRetiro;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaActaAdendaRetiro;
     private String numeroActaAdendaRetiro;
     private int tipoPersonaAdendaRetiro;
     private int tipoIdentificacionPersonaAdendaRetiro;
@@ -54,28 +58,28 @@ public class AdendaRetiroProyecto {
     /**
      * @return the fechaAdendaRetiro
      */
-    public String getFechaAdendaRetiro() {
+    public Date getFechaAdendaRetiro() {
         return fechaAdendaRetiro;
     }
 
     /**
      * @param fechaAdendaRetiro the fechaAdendaRetiro to set
      */
-    public void setFechaAdendaRetiro(String fechaAdendaRetiro) {
+    public void setFechaAdendaRetiro(Date fechaAdendaRetiro) {
         this.fechaAdendaRetiro = fechaAdendaRetiro;
     }
 
     /**
      * @return the fechaActaAdendaRetiro
      */
-    public String getFechaActaAdendaRetiro() {
+    public Date getFechaActaAdendaRetiro() {
         return fechaActaAdendaRetiro;
     }
 
     /**
      * @param fechaActaAdendaRetiro the fechaActaAdendaRetiro to set
      */
-    public void setFechaActaAdendaRetiro(String fechaActaAdendaRetiro) {
+    public void setFechaActaAdendaRetiro(Date fechaActaAdendaRetiro) {
         this.fechaActaAdendaRetiro = fechaActaAdendaRetiro;
     }
 

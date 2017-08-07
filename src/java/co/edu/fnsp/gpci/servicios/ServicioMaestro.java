@@ -24,9 +24,9 @@ import co.edu.fnsp.gpci.entidades.TipoFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
+import co.edu.fnsp.gpci.entidades.TipoVinculacion;
 import co.edu.fnsp.gpci.repositorios.IRepositorioMaestro;
 import java.util.ArrayList;
-import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -133,5 +133,10 @@ public class ServicioMaestro implements IServicioMaestro {
     @Override
     public ArrayList<TipoAval> obtenerTiposAval() {
         return repositorioMaestro.obtenerTiposAval();
+    }
+
+    @Override
+    public ArrayList<TipoVinculacion> obtenerTiposVinculacion() {
+        return repositorioMaestro.obtenerTiposVinculacion();
     }
 }

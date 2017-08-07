@@ -145,6 +145,7 @@
                           <li><a data-toggle="tab" href="#prorrogasTab">Prórrogas</a></li>
                           <li><a data-toggle="tab" href="#plazosTab">Plazos</a></li>
                           <li><a data-toggle="tab" href="#cumplimientoCompromisosProyectoTab">Cumplimiento compromisos</a></li>
+                          <li><a data-toggle="tab" href="#cumplimientosAlertasAvalProyectoTab">Cumplimiento alertas aval</a></li>
                     </ul>
                     <div class="tab-content">
                         <div id="actasTab" class="tab-pane fade in active">                            
@@ -1005,7 +1006,7 @@
                                                             <input id="descripcionAdicion" name="descripcionAdicion" class="form-control" maxlength="100" />
                                                         </td>
                                                         <td>
-                                                            <input id="montoAdicion" name="montoAdicion" class="form-control numbersOnly currencyField" maxlength="20" />
+                                                            <input id="montoAdicion" name="montoAdicion" class="form-control currencyField" maxlength="20" />
                                                             <input type="hidden" id="idAdicion" name="idAdicion" value="0"/>
                                                             <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                                             <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
@@ -1173,7 +1174,7 @@
                                                             <input type="text" id="mesesAprobadosProrroga" name="mesesAprobadosProrroga" class="form-control numbersOnly" maxlength="4">
                                                         </td>
                                                         <td>
-                                                            <input id="montoAprobadoProrroga" name="montoAprobadoProrroga" class="form-control numbersOnly currencyField" maxlength="20" />
+                                                            <input id="montoAprobadoProrroga" name="montoAprobadoProrroga" class="form-control currencyField" maxlength="20" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -1438,7 +1439,7 @@
                                             </div>
                                         </div>
                                         <div class="modal-body">
-                                            ¿Está seguro de eliminar la cumplimiento compromiso?
+                                            ¿Está seguro de eliminar el cumplimiento del compromiso?
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
@@ -1511,14 +1512,170 @@
                                     </div>
                                 </div>  
                             </div>                               
-                        </div>                          
+                        </div>   
+                       <div id="cumplimientosAlertasAvalProyectoTab" class="tab-pane fade">
+                            <div class="alert alert-info" style="margin-top:20px;">
+                                <strong>Cumplimiento de las Alertas de Aval</strong>
+                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaCumplimientoAlertaAvalProyecto(); return false;">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>                            
+                            </div>
+                            <div id="alert_placeholder_cumplimientos_alertas_aval_proyecto"></div>
+                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                <thead>
+                                    <tr class="table-row">
+                                        <td style="width: 45%;text-align: center"><strong>Alerta aval</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Fecha acta</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Número del acta</strong></td>
+                                        <td style="width: 5%;text-align: center">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: { data: cumplimientosAlertasAvalProyecto }">
+                                    <tr class="table-row">
+                                    <td style="width: 45%">
+                                        <span data-bind="text: descripcionAlertaAvalProyecto" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: fechaActaFormateada" ></span>
+                                    </td>
+                                    <td style="width: 20%">
+                                        <span data-bind="text: numeroActa" ></span>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.verDocumentoCumplimientoAlertaAvalProyecto" title="Ver cumplimiento compromiso">
+                                            <i class="glyphicon glyphicon-download-alt"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.eliminarCumplimientoAlertaAvalProyecto" title="Eliminar cumplimiento compromiso">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.editarCumplimientoAlertaAvalProyecto" title="Editar cumplimiento compromiso">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="modal fade" id="confirmacionEliminacionCumplimientoAlertaAvalProyecto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="alert alert-info">
+                                                <strong>Eliminar Cumplimiento de la Alerta de Aval</strong>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro de eliminar el cumplimiento de la alerta de aval?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                            <a class="btn btn-danger btn-ok" onclick="eliminarCumplimientoAlertaAvalProyecto();">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="cumplimientoAlertaAvalProyectoModal" tabindex="-1" role="dialog" aria-labelledby="cumplimientoAlertaAvalProyectoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/cumplimientoAlertaAvalProyecto" modelAttribute="cumplimientoAlertaAvalProyecto" enctype="multipart/form-data">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Cumplimiento de Alerta Aval</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_cumplimiento_alerta_aval_proyecto"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td colspan="2">Alerta Aval</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="alertaAvalProyecto" id="alertaAvalProyecto" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="alertaAvalProyecto" items="${alertasAvalProyecto}">
+                                                                <option value="${alertaAvalProyecto.getIdAlertaAvalProyecto()}">${alertaAvalProyecto.getDescripcion()}</option>
+                                                            </c:forEach>
+                                                            </select>      
+                                                            <input type="hidden" id="idCumplimientoAlertaAvalProyecto" name="idCumplimientoAlertaAvalProyecto" value="0"/>
+                                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Fecha acta</td>                                                        
+                                                        <td>Número del acta</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaActaCumplimientoAlertaAvalProyecto" name="fechaActaCumplimientoAlertaAvalProyecto" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <input id="numeroActaCumplimientoAlertaAvalProyecto" name="numeroActaCumplimientoAlertaAvalProyecto" class="form-control datepicker" maxlength="45" />
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td colspan="2">Documento</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <input type="file" id="documentoCumplimientoAlertaAvalProyecto" name="documentoCumplimientoAlertaAvalProyecto" class="form-control" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary">Aceptar</button>
+                                            </div>   
+                                        </form:form>
+                                    </div>
+                                </div>  
+                            </div>                               
+                        </div>                           
                     </div>
                 </div>
         </div>
         <script>
-            var optsFC = { decimalSymbol: '.', digitGroupSymbol: ',' };
+            var optsFC = { decimalSymbol: ',', digitGroupSymbol: '.', roundToDecimalPlace: 0  };
             $(document).ready(function () {
-                $('.currencyField').css('text-align', 'right').formatCurrency(optsFC);
+                $('.currencyField').css('text-align', 'right');
+                $('.currencyField').blur(function() {
+                    $(this).formatCurrency(optsFC);
+		}).keyup(function(e) {
+                  var e = window.event || e;
+                  var keyUnicode = e.charCode || e.keyCode;
+                  if (e !== undefined) {
+                        switch (keyUnicode) {
+                                case 16: break; // Shift
+                                case 27: this.value = ''; break; // Esc: clear entry
+                                case 35: break; // End
+                                case 36: break; // Home
+                                case 37: break; // cursor left
+                                case 38: break; // cursor up
+                                case 39: break; // cursor right
+                                case 40: break; // cursor down
+                                case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                                case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                                case 190: break; // .
+                                default: $(this).formatCurrency(optsFC);
+                        }
+                  }
+                });                
             });
 
             jQuery('.numbersOnly').keyup(function () {
@@ -2359,7 +2516,92 @@
                     }});
             }
 
-            var ProyectoModel = function (actas, adendasIngreso, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto) {
+      $('#cumplimientoAlertaAvalProyecto').submit(function (evt) {
+                evt.preventDefault();
+                var formData = new FormData(this);
+                if ($('#alertaAvalProyecto').val() == "") {
+                    alert_placeholder_cumplimiento_alerta_aval_proyecto.warning('Debe seleccionar la alerta de aval');
+                    return false;
+                }
+                if ($('#fechaActaCumplimientoAlertaAvalProyecto').val() == "") {
+                    alert_placeholder_cumplimiento_alerta_aval_proyecto.warning('Debe ingresar la fecha del acta');
+                    return false;
+                }
+                if ($('#numeroActaCumplimientoAlertaAvalProyecto').val() == "") {
+                    alert_placeholder_cumplimiento_alerta_aval_proyecto.warning('Debe ingresar el número del acta');
+                    return false;
+                }
+                if ($('#idCumplimientoAlertaAvalProyecto').val() == 0 && $('#documentoCumplimientoAlertaAvalProyecto').prop('files').length == 0) {
+                    alert_placeholder_cumplimiento_alerta_aval_proyecto.warning('Debe seleccionar el archivo');
+                    return false;
+                }
+                $('#cumplimientoAlertaAvalProyectoModal').modal('toggle');
+                alert_placeholder_cumplimiento_alerta_aval_proyecto.removeWarning();
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/novedades/cumplimientoAlertaAvalProyecto",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        alert_placeholder_cumplimientos_alertas_aval_proyecto.success("Cumplimiento de la alerta de aval almacenado exitosamente");
+                        limpiarDatosVentanaCumplimientoAlertaAvalProyecto();
+                        if (response != "") {
+                            proyectoModel.cumplimientosAlertasAvalProyecto.removeAll();
+                            var cumplimientosAlertasAvalProyecto = JSON.parse(response);
+                            for (var i = 0; i < cumplimientosAlertasAvalProyecto.length; i++) {
+                                proyectoModel.cumplimientosAlertasAvalProyecto.push(
+                                        {
+                                            idCumplimientoAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].idCumplimientoAlertaAvalProyecto),
+                                            idAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].idAlertaAvalProyecto),
+                                            descripcionAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].descripcionAlertaAvalProyecto),
+                                            fechaActaFormateada: ko.observable(cumplimientosAlertasAvalProyecto[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(cumplimientosAlertasAvalProyecto[i].numeroActa)
+                                        }
+                                );
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert_placeholder_cumplimientos_alertas_aval_proyecto.warning("Error al almacenar el cumplimiento de la alerta de aval");
+                    }});
+            });
+
+            function eliminarCumplimientoAlertaAvalProyecto () {
+                $.ajax({
+                    type: 'GET',
+                    url: "${pageContext.request.contextPath}/novedades/eliminarCumplimientoAlertaAvalProyecto/" + $('#idProyecto').val() + "/" + cumplimientoAlertaAvalEliminarProyecto.idCumplimientoAlertaAvalProyecto(),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        alert_placeholder_cumplimientos_alertas_aval_proyecto.success("Cumplimiento de la alerta de aval eliminado exitosamente");
+                        $('#confirmacionEliminacionCumplimientoAlertaAvalProyecto').modal('toggle');
+                        if (response != "") {
+                            proyectoModel.cumplimientosAlertasAvalProyecto.removeAll();
+                            var cumplimientosAlertasAvalProyecto = JSON.parse(response);
+                            for (var i = 0; i < cumplimientosAlertasAvalProyecto.length; i++) {
+                                proyectoModel.cumplimientosAlertasAvalProyecto.push(
+                                        {
+                                            idCumplimientoAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].idCumplimientoAlertaAvalProyecto),
+                                            idAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].idAlertaAvalProyecto),
+                                            descripcionAlertaAvalProyecto: ko.observable(cumplimientosAlertasAvalProyecto[i].descripcionAlertaAvalProyecto),
+                                            fechaActaFormateada: ko.observable(cumplimientosAlertasAvalProyecto[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(cumplimientosAlertasAvalProyecto[i].numeroActa)
+                                        }
+                                );
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert_placeholder_cumplimientos_alertas_aval_proyecto.warning("Error al eliminar el cumplimiento de la alerta de aval");
+                    }});
+            }
+
+            var ProyectoModel = function (actas, adendasIngreso, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto, cumplimientosAlertasAvalProyecto) {
                 self = this;
                 self.actas = ko.observableArray(actas);
                 self.verDocumentoActa = function (acta) {
@@ -2505,6 +2747,22 @@
                     $('#fechaActaCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.fechaActaFormateada());
                     $('#numeroActaCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.numeroActaFormateada());
                     $('#cumplimientoCompromisoModal').modal('show');
+                };                 
+                
+                self.cumplimientosAlertasAvalProyecto = ko.observableArray(cumplimientosAlertasAvalProyecto);
+                self.verDocumentoCumplimientoAlertaAvalProyecto = function (cumplimientoAlertaAvalProyecto) {
+                    window.location.href = "${pageContext.request.contextPath}/novedades/documentoCumplimientoAlertaAvalProyecto/" + cumplimientoAlertaAvalProyecto.idCumplimientoAlertaAvalProyecto();
+                };
+                self.eliminarCumplimientoAlertaAvalProyecto = function (cumplimientoCompromisoProyecto) {
+                    cumplimientoAlertaAvalEliminarProyecto = cumplimientoAlertaAvalProyecto;
+                    $('#confirmacionEliminacionCumplimientoAlertaAvalProyecto').modal('show');
+                };
+                self.editarCumplimientoAlertaAvalProyecto = function (cumplimientoCompromisoProyecto) {
+                    $('#idCumplimientoAlertaAvalProyecto').val(cumplimientoCompromisoProyecto.idCumplimientoAlertaAvalProyecto());
+                    $('#compromisoProyecto').val(cumplimientoCompromisoProyecto.idCompromisoProyecto());
+                    $('#fechaActaCumplimientoAlertaAvalProyecto').val(cumplimientoCompromisoProyecto.fechaActaFormateada());
+                    $('#numeroActaCumplimientoAlertaAvalProyecto').val(cumplimientoCompromisoProyecto.numeroActaFormateada());
+                    $('#cumplimientoCompromisoModal').modal('show');
                 };                  
             };
 
@@ -2524,6 +2782,8 @@
             var plazoEliminar = null; 
             var cumplimientoCompromisosProyecto = new Array();
             var cumplimientoCompromisoEliminarProyecto = null; 
+            var cumplimientosAlertasAvalProyecto = new Array();
+            var cumplimientoAlertaAvalEliminarProyecto = null; 
             <c:if test = "${actasProyectoJSON != null}">
             actas = ${actasProyectoJSON};
             </c:if>
@@ -2545,10 +2805,13 @@
             <c:if test = "${plazosProyectoJSON != null}">
             plazos = ${plazosProyectoJSON};
             </c:if>
-            <c:if test = "${cumplimientoCompromisosProyectoProyectoJSON != null}">
+            <c:if test = "${cumplimientoCompromisosProyectoJSON != null}">
             cumplimientoCompromisosProyecto = ${cumplimientoCompromisosProyectoJSON};
             </c:if>
-            var proyectoModel = new ProyectoModel(actas, adendasCambio, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto);
+            <c:if test = "${cumplimientoAlertaAvalProyectoJSON != null}">
+            cumplimientosAlertasAvalProyecto = ${cumplimientoAlertaAvalProyectoJSON};
+            </c:if>
+            var proyectoModel = new ProyectoModel(actas, adendasCambio, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto, cumplimientosAlertasAvalProyecto);
             ko.applyBindings(proyectoModel);
 
             bootstrap_alert_actas = function () { };
@@ -2628,11 +2891,11 @@
             bootstrap_alert_adendas_ingreso.removeWarning = function () {
                 $('#alert_placeholder_adendas').html('');
             };
-            bootstrap_alert_adendaIngreso = function () { };
-            bootstrap_alert_adendaIngreso.warning = function (message) {
+            bootstrap_alert_adenda_ingreso = function () { };
+            bootstrap_alert_adenda_ingreso.warning = function (message) {
                 $('#alert_placeholder_adenda').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
-            bootstrap_alert_adendaIngreso.removeWarning = function () {
+            bootstrap_alert_adenda_ingreso.removeWarning = function () {
                 $('#alert_placeholder_adenda').html('');
             };
             function mostrarVentanaNuevaAdendaIngreso() {
@@ -2811,5 +3074,34 @@
                 $('#documentoCumplimientoCompromisoProyecto').val("");
                 $('#fechaActaCumplimientoCompromisoProyecto').val("");
                 $('#numeroActaCumplimientoCompromisoProyecto').val("");
-            }              
+            }
+            
+            alert_placeholder_cumplimientos_alertas_aval_proyecto = function () { };
+            alert_placeholder_cumplimientos_alertas_aval_proyecto.warning = function (message) {
+                $('#alert_placeholder_cumplimientos_alertas_aval_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            alert_placeholder_cumplimientos_alertas_aval_proyecto.success = function (message) {
+                $('#alert_placeholder_cumplimientos_alertas_aval_proyecto').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            alert_placeholder_cumplimientos_alertas_aval_proyecto.removeWarning = function () {
+                $('#alert_placeholder_cumplimientos_alertas_aval_proyecto').html('');
+            };
+            alert_placeholder_cumplimiento_alerta_aval_proyecto = function () { };
+            alert_placeholder_cumplimiento_alerta_aval_proyecto.warning = function (message) {
+                $('#alert_placeholder_cumplimiento_alerta_aval_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            alert_placeholder_cumplimiento_alerta_aval_proyecto.removeWarning = function () {
+                $('#alert_placeholder_cumplimiento_alerta_aval_proyecto').html('');
+            };
+            function mostrarVentanaNuevaCumplimientoAlertaAvalProyecto() {
+                limpiarDatosVentanaCumplimientoAlertaAvalProyecto();
+                $('#cumplimientoAlertaAvalProyectoModal').modal('show');
+            }
+            function limpiarDatosVentanaCumplimientoAlertaAvalProyecto() {
+                $('#idCumplimientoAlertaAvalProyecto').val(0);
+                $('#alertaAvalProyecto').val("");
+                $('#documentoCumplimientoAlertaAvalProyecto').val("");
+                $('#fechaActaCumplimientoAlertaAvalProyecto').val("");
+                $('#numeroActaCumplimientoAlertaAvalProyecto').val("");
+            }             
         </script>

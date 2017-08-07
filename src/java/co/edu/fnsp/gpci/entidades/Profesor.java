@@ -10,6 +10,28 @@ package co.edu.fnsp.gpci.entidades;
  * @author William
  */
 public class Profesor {
+    
+    private long idProfesor;
+    private TipoIdentificacion tipoIdentificacion = new TipoIdentificacion();
+    private String nombres;
+    private String apellidos;
+    private long numeroIdentificacion;
+    private String correoElectronico;
+    private String contacto;   
+    
+    /**
+     * @return the idProfesor
+     */
+    public long getIdProfesor() {
+        return idProfesor;
+    }
+
+    /**
+     * @param idProfesor the idProfesor to set
+     */
+    public void setIdProfesor(long idProfesor) {
+        this.idProfesor = idProfesor;
+    }
 
     /**
      * @return the tipoIdentificacion
@@ -23,20 +45,6 @@ public class Profesor {
      */
     public void setTipoIdentificacion(TipoIdentificacion tipoIdentificacion) {
         this.tipoIdentificacion = tipoIdentificacion;
-    }
-
-    /**
-     * @return the idProfesor
-     */
-    public long getIdProfesor() {
-        return idProfesor;
-    }
-
-    /**
-     * @param idProfesor the idProfesor to set
-     */
-    public void setIdProfesor(long idProfesor) {
-        this.idProfesor = idProfesor;
     }
 
     /**
@@ -108,12 +116,4 @@ public class Profesor {
     public void setContacto(String contacto) {
         this.contacto = contacto;
     }
-
-    private long idProfesor;
-    private TipoIdentificacion tipoIdentificacion = new TipoIdentificacion();
-    private String nombres;
-    private String apellidos;
-    private long numeroIdentificacion;
-    private String correoElectronico;
-    private String contacto;
 }

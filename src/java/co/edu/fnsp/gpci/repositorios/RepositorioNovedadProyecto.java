@@ -11,6 +11,7 @@ import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
+import co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
@@ -103,7 +104,15 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
     private SimpleJdbcCall ingresarDocumentoCumplimientoCompromisoProyecto;
     private SimpleJdbcCall obtenerDocumentoCumplimientoCompromisoProyecto;
     private SimpleJdbcCall actualizarDocumentoCumplimientoCompromisoProyecto;
-    
+
+    private SimpleJdbcCall ingresarCumplimientoAlertaAvalProyecto;
+    private SimpleJdbcCall actualizarCumplimientoAlertaAvalProyecto;
+    private SimpleJdbcCall eliminarCumplimientoAlertaAvalProyecto;
+    private SimpleJdbcCall obtenerCumplimientosAlertasAvalProyecto;
+    private SimpleJdbcCall ingresarDocumentoCumplimientoAlertaAvalProyecto;
+    private SimpleJdbcCall obtenerDocumentoCumplimientoAlertaAvalProyecto;
+    private SimpleJdbcCall actualizarDocumentoCumplimientoAlertaAvalProyecto;
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -175,6 +184,14 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         this.ingresarDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoCumplimientoCompromisoProyecto");
         this.obtenerDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoCumplimientoCompromisoProyecto");
         this.actualizarDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoCumplimientoCompromisoProyecto");
+
+        this.ingresarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarCumplimientoAlertaAvalProyecto");
+        this.eliminarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarCumplimientoAlertaAvalProyecto");
+        this.actualizarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarCumplimientoAlertaAvalProyecto");
+        this.obtenerCumplimientosAlertasAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerCumplimientosAlertasAvalProyecto").returningResultSet("cumplimientosAlertasAvalProyecto", BeanPropertyRowMapper.newInstance(CumplimientoAlertaAvalProyecto.class));
+        this.ingresarDocumentoCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarDocumentoCumplimientoAlertaAvalProyecto");
+        this.obtenerDocumentoCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("obtenerDocumentoCumplimientoAlertaAvalProyecto");
+        this.actualizarDocumentoCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("actualizarDocumentoCumplimientoAlertaAvalProyecto");
     }
 
     @Override
@@ -277,7 +294,13 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             cumplimientoCompromisoProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(cumplimientoCompromisoProyecto.getFechaActa()));
         }
         proyecto.setCumplimientoCompromisosProyecto(cumplimientoCompromisosProyecto);
-       
+
+        Map resultadoCumplimientosAlertasAvalProyecto = obtenerCumplimientosAlertasAvalProyecto.execute(parametros);
+        ArrayList<CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto = (ArrayList<CumplimientoAlertaAvalProyecto>) resultadoCumplimientosAlertasAvalProyecto.get("cumplimientosAlertasAvalProyecto");
+        for (CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto : cumplimientosAlertasAvalProyecto) {
+            cumplimientoAlertaAvalProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(cumplimientoAlertaAvalProyecto.getFechaActa()));
+        }
+        proyecto.setCumplimientosAlertasAvalProyecto(cumplimientosAlertasAvalProyecto);
         
         return proyecto;
     }
@@ -862,8 +885,8 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         parametros.addValue("varIdPlazo", idPlazo);
         eliminarPlazoProyecto.execute(parametros);
     }
-    
-     @Override
+
+    @Override
     public void guardarCumplimientoCompromisoProyecto(long idProyecto, CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto, Documento documento) {
 
         if (cumplimientoCompromisoProyecto.getIdCumplimientoCompromisoProyecto() == 0) {
@@ -907,7 +930,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         parametros.addValue("varIdProyecto", idProyecto);
 
         Map resultadoCumplimientoCompromisosProyecto = obtenerCumplimientoCompromisosProyecto.execute(parametros);
-        ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = (ArrayList<CumplimientoCompromisoProyecto>) resultadoCumplimientoCompromisosProyecto.get("plazosProyecto");
+        ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = (ArrayList<CumplimientoCompromisoProyecto>) resultadoCumplimientoCompromisosProyecto.get("cumplimientoCompromisosProyecto");
         for (CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto : cumplimientoCompromisosProyecto) {
             cumplimientoCompromisoProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(cumplimientoCompromisoProyecto.getFechaActa()));
         }
@@ -937,5 +960,81 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdCumplimientoCompromisoProyecto", idCumplimientoCompromisoProyecto);
         eliminarCumplimientoCompromisoProyecto.execute(parametros);
+    }
+    
+    @Override
+    public void guardarCumplimientoAlertaAvalProyecto(long idProyecto, CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto, Documento documento) {
+
+        if (cumplimientoAlertaAvalProyecto.getIdCumplimientoAlertaAvalProyecto() == 0) {
+            MapSqlParameterSource parametrosIngresoCumplimientoAlertaAvalProyecto = new MapSqlParameterSource();
+            parametrosIngresoCumplimientoAlertaAvalProyecto.addValue("varIdProyecto", idProyecto);
+            parametrosIngresoCumplimientoAlertaAvalProyecto.addValue("varIdAlertaAvalProyecto", cumplimientoAlertaAvalProyecto.getIdAlertaAvalProyecto());
+            parametrosIngresoCumplimientoAlertaAvalProyecto.addValue("varFechaActa", cumplimientoAlertaAvalProyecto.getFechaActa());
+            parametrosIngresoCumplimientoAlertaAvalProyecto.addValue("varNumeroActa", cumplimientoAlertaAvalProyecto.getNumeroActa());
+            Map resultado = ingresarCumplimientoAlertaAvalProyecto.execute(parametrosIngresoCumplimientoAlertaAvalProyecto);
+            long idCumplimientoAlertaAvalProyecto = (long) resultado.get("varIdCumplimientoAlertaAvalProyecto");
+
+            MapSqlParameterSource parametrosIngresoDocumentoCumplimientoAlertaAvalProyecto = new MapSqlParameterSource();
+            parametrosIngresoDocumentoCumplimientoAlertaAvalProyecto.addValue("varIdCumplimientoAlertaAvalProyecto", idCumplimientoAlertaAvalProyecto);
+            parametrosIngresoDocumentoCumplimientoAlertaAvalProyecto.addValue("varNombre", documento.getNombre());
+            parametrosIngresoDocumentoCumplimientoAlertaAvalProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+            parametrosIngresoDocumentoCumplimientoAlertaAvalProyecto.addValue("varContenido", documento.getContenido());
+            ingresarDocumentoCumplimientoAlertaAvalProyecto.execute(parametrosIngresoDocumentoCumplimientoAlertaAvalProyecto);
+
+        } else {
+            MapSqlParameterSource parametrosActualizacionCumplimientoAlertaAvalProyecto = new MapSqlParameterSource();
+            parametrosActualizacionCumplimientoAlertaAvalProyecto.addValue("varIdCumplimientoAlertaAvalProyecto", cumplimientoAlertaAvalProyecto.getIdCumplimientoAlertaAvalProyecto());
+            parametrosActualizacionCumplimientoAlertaAvalProyecto.addValue("varIdAlertaAvalProyecto", cumplimientoAlertaAvalProyecto.getIdAlertaAvalProyecto());
+            parametrosActualizacionCumplimientoAlertaAvalProyecto.addValue("varFechaActa", cumplimientoAlertaAvalProyecto.getFechaActa());
+            parametrosActualizacionCumplimientoAlertaAvalProyecto.addValue("varNumeroActa", cumplimientoAlertaAvalProyecto.getNumeroActa());
+            actualizarCumplimientoAlertaAvalProyecto.execute(parametrosActualizacionCumplimientoAlertaAvalProyecto);
+
+            if (documento != null) {
+                MapSqlParameterSource parametrosActualizacionDocumentoCumplimientoAlertaAvalProyecto = new MapSqlParameterSource();
+                parametrosActualizacionDocumentoCumplimientoAlertaAvalProyecto.addValue("varIdCumplimientoAlertaAvalProyecto", cumplimientoAlertaAvalProyecto.getIdCumplimientoAlertaAvalProyecto());
+                parametrosActualizacionDocumentoCumplimientoAlertaAvalProyecto.addValue("varNombre", documento.getNombre());
+                parametrosActualizacionDocumentoCumplimientoAlertaAvalProyecto.addValue("varTipoContenido", documento.getTipoContenido());
+                parametrosActualizacionDocumentoCumplimientoAlertaAvalProyecto.addValue("varContenido", documento.getContenido());
+                actualizarDocumentoCumplimientoAlertaAvalProyecto.execute(parametrosActualizacionDocumentoCumplimientoAlertaAvalProyecto);
+            }
+        }
+    }
+
+    @Override
+    public ArrayList<CumplimientoAlertaAvalProyecto> obtenerCumplimientosAlertasAvalProyecto(long idProyecto) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdProyecto", idProyecto);
+
+        Map resultadoCumplimientosAlertasAvalProyecto = obtenerCumplimientosAlertasAvalProyecto.execute(parametros);
+        ArrayList<CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto = (ArrayList<CumplimientoAlertaAvalProyecto>) resultadoCumplimientosAlertasAvalProyecto.get("cumplimientosAlertasAvalProyecto");
+        for (CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto : cumplimientosAlertasAvalProyecto) {
+            cumplimientoAlertaAvalProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(cumplimientoAlertaAvalProyecto.getFechaActa()));
+        }
+
+        return cumplimientosAlertasAvalProyecto;
+
+    }
+
+    @Override
+    public Documento obtenerDocumentoCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto) {
+        Documento documento = new Documento();
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdCumplimientoAlertaAvalProyecto", idCumplimientoAlertaAvalProyecto);
+
+        Map resultado = obtenerDocumentoCumplimientoAlertaAvalProyecto.execute(parametros);
+
+        documento.setNombre((String) resultado.get("varNombre"));
+        documento.setTipoContenido((String) resultado.get("varTipoContenido"));
+        documento.setContenido((byte[]) resultado.get("varContenido"));
+
+        return documento;
+
+    }
+
+    @Override
+    public void eliminarCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdCumplimientoAlertaAvalProyecto", idCumplimientoAlertaAvalProyecto);
+        eliminarCumplimientoAlertaAvalProyecto.execute(parametros);
     }
 }

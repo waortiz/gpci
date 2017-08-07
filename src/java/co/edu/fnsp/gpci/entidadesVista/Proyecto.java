@@ -41,7 +41,7 @@ public class Proyecto {
     private ArrayList<EstudianteProyecto> estudiantesProyecto = new ArrayList<>();
     private ArrayList<PersonalExternoProyecto> personalExternoProyecto = new ArrayList<>();
     private ArrayList<GrupoInvestigacion> gruposInvestigacion = new ArrayList<>();
-    private ArrayList<EntidadInternacional> entidadesInternacionales = new ArrayList<>();
+    private ArrayList<EntidadInternacionalProyecto> entidadesInternacionalesProyecto = new ArrayList<>();
     private ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = new ArrayList<>();
     private ArrayList<AlertaAvalProyecto> alertasAvalProyecto = new ArrayList<>();
      
@@ -357,7 +357,7 @@ public class Proyecto {
      * @return the profesoresProyecto
      */
     public ArrayList<ProfesorProyecto> getProfesoresProyecto() {
-        return profesoresProyecto;
+        return this.profesoresProyecto;
     }
 
     /**
@@ -424,17 +424,17 @@ public class Proyecto {
     }
 
     /**
-     * @return the entidadesInternacionales
+     * @return the entidadesInternacionalesProyecto
      */
-    public ArrayList<EntidadInternacional> getEntidadesInternacionales() {
-        return entidadesInternacionales;
+    public ArrayList<EntidadInternacionalProyecto> getEntidadesInternacionalesProyecto() {
+        return entidadesInternacionalesProyecto;
     }
 
     /**
-     * @param entidadesInternacionales the entidadesInternacionales to set
+     * @param entidadesInternacionalesProyecto the entidadesInternacionalesProyecto to set
      */
-    public void setEntidadesInternacionales(ArrayList<EntidadInternacional> entidadesInternacionales) {
-        this.entidadesInternacionales = entidadesInternacionales;
+    public void setEntidadesInternacionales(ArrayList<EntidadInternacionalProyecto> entidadesInternacionalesProyecto) {
+        this.entidadesInternacionalesProyecto = entidadesInternacionalesProyecto;
     }
 
     /**

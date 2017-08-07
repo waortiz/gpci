@@ -15,6 +15,7 @@
             <div class="panel panel-success">
                 <div class="panel-heading">Registro Proyecto</div>
                 <div class="panel-body">
+                    <div id="alert_placeholder_proyecto"></div>
                     <form:form method="POST" action="${pageContext.request.contextPath}/proyectos/crear" modelAttribute="proyecto">
                         <table class="tablaForm">
                             <tr>
@@ -116,7 +117,7 @@
                                 <td>Estado:</td>
                             </tr>
                             <tr>
-                                <td colspan="2">
+                                <td>
                                     <div class="selectContainer">  
                                         <form:select path="enfoqueMetodologico" data-validation="required" data-validation-error-msg="Debe seleccionar el enfoque metodológico" cssClass="form-control">
                                             <form:option value=""></form:option>
@@ -134,7 +135,7 @@
                                 </td>
                                 <td>
                                     <div class="selectContainer">  
-                                        <form:select path="estado" data-validation="required" data-validation-error-msg="Debe seleccionar el estado" cssClass="form-control" disabled="true">
+                                        <form:select path="estado" cssClass="form-control" disabled="true">
                                             <form:option value=""></form:option>
                                             <form:options items="${estadosProyecto}" itemLabel="nombre" itemValue="idEstadoProyecto" />
                                         </form:select>  
@@ -142,22 +143,49 @@
                                 </td>
                             </tr>
                             <tr>
+                                <td colspan="3">Grupos de investigación</td>
+                            </tr> 
+                            <tr>
+                                <td colspan="3">
+                                    <table align="center">
+                                        <tr>
+                                            <td rowspan="2">
+                                                <select name="gruposInvestigacionPorAsignar" id="gruposInvestigacionPorAsignar" class="form-control" multiple="true" style="width:450px; height: 200px">
+                                                    <c:forEach var="grupoInvestigacion" items="${gruposInvestigacionPorAsignar}">
+                                                        <option value="${grupoInvestigacion.getIdGrupoInvestigacion()}">${grupoInvestigacion.getNombre()}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <a href="JavaScript:void(0);" id="asignar"><span class="glyphicon glyphicon-arrow-right"></span></a><br><br>
+                                                <a href="JavaScript:void(0);" id="remover"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                                            </td>
+                                            <td rowspan="2">
+                                                <form:select path="gruposInvestigacion" id="gruposInvestigacion" cssClass="form-control" multiple="true" style="width:450px; height: 200px">
+                                                    <form:options items="${gruposInvestigacionAsignados}" itemLabel="nombre" itemValue="idGrupoInvestigacion"/>
+                                                </form:select>                                    
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>                            
+                            <tr>
                                 <td colspan="3">Objetivo general:</td>
                             </tr>
                             <tr>
                                 <td colspan="3"><form:input path="objetivoGeneral" class="form-control" maxlength="100" data-validation="required" data-validation-error-msg="Debe ingresar el objetivo general del proyecto" /></td>
                             </tr>                            
                         </table>
+                        <br />
                         <ul class="nav nav-tabs">
                           <li class="active"><a data-toggle="tab" href="#objetivosEspecificos">Objetivos Específicos</a></li>
                           <li><a data-toggle="tab" href="#compromisos">Compromisos</a></li>
                           <li><a data-toggle="tab" href="#profesores">Profesores</a></li>
                           <li><a data-toggle="tab" href="#estudiantes">Estudiantes</a></li>
                           <li><a data-toggle="tab" href="#personalExterno">Personal Externo</a></li>
-                          <li><a data-toggle="tab" href="#gruposInvestigacion">Grupos de Investigación</a></li>
-                          <li><a data-toggle="tab" href="#entidadesInternacionales">Entidades Internacionales</a></li>
-                          <li><a data-toggle="tab" href="#fuentesFinanciacion">Fuentes de Financiación</a></li>
-                          <li><a data-toggle="tab" href="#alertasAval">Alertas Aval Condicionado</a></li>
+                          <li><a data-toggle="tab" href="#fuentesFinanciacion">Fuentes Financiación</a></li>
+                          <li><a data-toggle="tab" href="#alertasAval">Alertas Aval</a></li>
+                          <li id="elementoEntidadesInternacionales"><a data-toggle="tab" href="#entidadesInternacionalesProyecto">Entidades</a></li>
                         </ul>
                         <div class="tab-content">
                             <div id="objetivosEspecificos" class="tab-pane fade in active">
@@ -183,7 +211,7 @@
                                                 <table class="tablaForm">
                                                     <tr>
                                                         <td>
-                                                            <textarea id="objetivoEspecifico" name="objetivoEspecifico" class="form-control" rows="5"></textarea>
+                                                            <input id="objetivoEspecifico" name="objetivoEspecifico" class="form-control" maxlength="300" />
                                                             <input type="hidden" id="consecutivo" name="consecutivo" />
                                                         </td>
                                                     </tr>
@@ -269,15 +297,6 @@
                                                 <div id="alert_placeholder_compromisos_proyecto"></div>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td>Compromiso</td>                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <textarea id="compromisoProyecto" name="compromisoProyecto" class="form-control"></textarea>
-                                                            <input type="hidden" id="consecutivo" name="consecutivo" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
                                                         <td>Tipo de compromiso</td>                                                        
                                                     </tr>
                                                     <tr>
@@ -288,6 +307,15 @@
                                                                 <option value="${tipoCompromiso.getIdTipoCompromiso()}">${tipoCompromiso.getNombre()}</option>
                                                             </c:forEach>
                                                             </select>                                                            </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Descripción</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input id="compromisoProyecto" name="compromisoProyecto" class="form-control" maxlength="100"></input>
+                                                            <input type="hidden" id="consecutivo" name="consecutivo" />
+                                                        </td>
                                                     </tr>
                                                 </table>
                                             </div>
@@ -322,22 +350,22 @@
                                 <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                                     <thead>
                                         <tr class="table-row">
-                                            <th style="width: 70%;text-align: center">Compromiso</th>
-                                            <th style="width: 20%;text-align: center">Tipo</th>
+                                            <th style="width: 50%;text-align: center">Tipo</th>
+                                            <th style="width: 40%;text-align: center">Compromiso</th>
                                             <th style="width: 5%">&nbsp;</th>
                                             <th style="width: 5%">&nbsp;</th>
                                         </tr>
                                     </thead>
                                     <tbody  data-bind="foreach: { data: compromisosProyecto }">
                                         <tr class="table-row">
-                                            <td style="width: 70%">
-                                                <span data-bind="text: descripcion" ></span>
-                                                <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'compromisosProyecto[' + $index() + '].descripcion'  }">
-                                            </td>
-                                            <td style="width: 20%">
+                                            <td style="width: 50%">
                                                 <span data-bind="text: nombreTipoCompromiso" ></span>
                                                 <input type="hidden" class="form-control" data-bind="value: nombreTipoCompromiso, attr: { 'name': 'compromisosProyecto[' + $index() + '].nombreTipoCompromiso'  }">
                                                 <input type="hidden" class="form-control" data-bind="value: idTipoCompromiso, attr: { 'name': 'compromisosProyecto[' + $index() + '].idTipoCompromiso'  }">
+                                            </td>
+                                            <td style="width: 40%">
+                                                <span data-bind="text: descripcion" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: descripcion, attr: { 'name': 'compromisosProyecto[' + $index() + '].descripcion'  }">
                                             </td>
                                             <td style="width: 5%">
                                                 <button class="btn btn-dark" data-bind="click: $root.eliminarCompromisoProyecto">
@@ -1014,185 +1042,6 @@
                                     </tbody>
                                 </table>
                             </div>
-                            <div id="gruposInvestigacion" class="tab-pane fade in active">
-                                <div class="alert alert-info" style="margin-top:20px;">
-                                    <strong>Grupos de Investigación</strong>
-                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevoGrupoInvestigacion(); return false;">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                    </button>                            
-                                </div>  
-                                <div class="modal fade" id="gruposInvestigacionModal" tabindex="-1" role="dialog" aria-labelledby="gruposInvestigacionModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <div class="alert alert-info">
-                                                    <strong>Grupo de Investigación</strong>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div id="alert_placeholder_grupoInvestigacion"></div>
-                                                <table class="tablaForm">
-                                                    <tr>
-                                                        <td>
-                                                            <select name="grupoInvestigacion" id="grupoInvestigacion" class="form-control">
-                                                                <option value=""></option>
-                                                            <c:forEach var="grupoInvestigacion" items="${gruposInvestigacion}">
-                                                                <option value="${grupoInvestigacion.getIdGrupoInvestigacion()}">${grupoInvestigacion.getNombre()}</option>
-                                                            </c:forEach>
-                                                            </select>   
-                                                            <input type="hidden" id="consecutivo" name="consecutivo" />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarGrupoInvestigacion">Aceptar</button>
-                                            </div>                                    
-                                        </div>
-                                    </div>  
-                                </div>
-                                <div class="modal fade" id="confirmacionEliminacionGrupoInvestigacion" tabindex="-1" role="dialog" aria-labelledby="grupoInvestigacionModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <div class="alert alert-info">
-                                                    <strong>Eliminar Grupo de Investigación</strong>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="modal-body">
-                                                ¿Está seguro de eliminar el grupo de investigación?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                                <a class="btn btn-danger btn-ok" onclick="eliminarGrupoInvestigacion();">Eliminar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                                
-                                <table class="table table-hover tablaForm" style="width: 90%" align="center" >
-                                    <thead>
-                                        <tr class="table-row">
-                                            <th style="width: 90%;text-align: center">Grupo de Investigación</th>
-                                            <th style="width: 5%">&nbsp;</th>
-                                            <th style="width: 5%">&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody data-bind="foreach: { data: gruposInvestigacion }">
-                                        <tr class="table-row">
-                                            <td style="width: 90%">
-                                                <span data-bind="text: nombre" ></span>
-                                                <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'gruposInvestigacion[' + $index() + '].nombre'  }">
-                                            </td>
-                                            <td style="width: 5%">
-                                                <button class="btn btn-dark" data-bind="click: $root.eliminarGrupoInvestigacion">
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                </button>
-                                                <input type="hidden" data-bind="value: idGrupoInvestigacion, attr: { 'name': 'gruposInvestigacion[' + $index() + '].idGrupoInvestigacion'  }" />
-                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'gruposInvestigacion[' + $index() + '].consecutivo'  }" />
-                                            </td>
-                                            <td style="width: 5%">
-                                                <button class="btn btn-dark" data-bind="click: $root.editarGrupoInvestigacion">
-                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>                 
-                            <div id="entidadesInternacionales" class="tab-pane fade in active">
-                                <div class="alert alert-info" style="margin-top:20px;">
-                                    <strong>Entidades Internacionales</strong>
-                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevaEntidadInternacional(); return false;">
-                                        <i class="glyphicon glyphicon-plus"></i>
-                                    </button>                            
-                                </div>  
-                                <div class="modal fade" id="entidadesInternacionalesModal" tabindex="-1" role="dialog" aria-labelledby="entidadesInternacionalesLabel" aria-hidden="true">
-                                    <div class="modal-dialog" role="document">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <div class="alert alert-info">
-                                                    <strong>Entidad Internacional</strong>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="modal-body">
-                                                <div id="alert_placeholder_entidadInternacional"></div>
-                                                <table class="tablaForm">
-                                                    <tr>
-                                                        <td>
-                                                            <input id="entidadInternacional" name="entidadInternacional" class="form-control" maxlength="200" />
-                                                            <input type="hidden" id="consecutivo" name="consecutivo" />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarEntidadInternacional">Aceptar</button>
-                                            </div>                                    
-                                        </div>
-                                    </div>  
-                                </div>
-                                <div class="modal fade" id="confirmacionEliminacionEntidadInternacional" tabindex="-1" role="dialog" aria-labelledby="EntidadInternacionalModalLabel" aria-hidden="true">
-                                    <div class="modal-dialog">
-                                        <div class="modal-content">
-                                            <div class="modal-header">
-                                                <div class="alert alert-info">
-                                                    <strong>Eliminar Entidad Internacional</strong>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
-                                                </div>
-                                            </div>
-                                            <div class="modal-body">
-                                                ¿Está seguro de eliminar la entidad internacional?
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                                <a class="btn btn-danger btn-ok" onclick="eliminarEntidadInternacional();">Eliminar</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>                                
-                                <table class="table table-hover tablaForm" style="width: 90%" align="center" >
-                                    <thead>
-                                        <tr class="table-row">
-                                            <th style="width: 90%;text-align: center">Entidad Internacional</th>
-                                            <th style="width: 5%">&nbsp;</th>
-                                            <th style="width: 5%">&nbsp;</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody data-bind="foreach: { data: entidadesInternacionales }">
-                                        <tr class="table-row">
-                                            <td style="width: 90%">
-                                                <span data-bind="text: nombre" ></span>
-                                                <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'entidadesInternacionales[' + $index() + '].nombre'  }">
-                                            </td>
-                                            <td style="width: 5%">
-                                                <button class="btn btn-dark" data-bind="click: $root.eliminarEntidadInternacional">
-                                                    <i class="glyphicon glyphicon-trash"></i>
-                                                </button>
-                                                <input type="hidden" data-bind="value: idEntidadInternacional, attr: { 'name': 'entidadesInternacionales[' + $index() + '].idEntidadInternacional'  }" />
-                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'entidadesInternacionales[' + $index() + '].consecutivo'  }" />
-                                            </td>
-                                            <td style="width: 5%">
-                                                <button class="btn btn-dark" data-bind="click: $root.editarEntidadInternacional">
-                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                </button>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>   
                             <div id="fuentesFinanciacion" class="tab-pane fade">
                                 <div class="alert alert-info" style="margin-top:20px;">
                                     <strong>Fuentes de Financiación</strong>
@@ -1215,8 +1064,7 @@
                                                 <div id="alert_placeholder_fuentesFinanciacion_proyecto"></div>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td width="50%">Fuente:</td>
-                                                        <td width="50%">Tipo de fuente:</td>
+                                                        <td>Fuente:</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -1227,10 +1075,15 @@
                                                             </c:forEach>
                                                             </select>    
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Tipo de fuente:</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>
                                                             <select name="tipoFuenteFinanciacionProyecto" id="tipoFuenteFinanciacionProyecto" class="form-control">
                                                                 <option value=""></option>
-                                                            <c:forEach var="tipoFuenteFinanciacion" items="${tiopsFuentesFinanciacionProyecto}">
+                                                            <c:forEach var="tipoFuenteFinanciacion" items="${tiposFuenteFinanciacionProyecto}">
                                                                 <option value="${tipoFuenteFinanciacion.getIdTipoFuenteFinanciacionProyecto()}">${tipoFuenteFinanciacion.getNombre()}</option>
                                                             </c:forEach>
                                                             </select>    
@@ -1238,14 +1091,18 @@
                                                     </tr>
                                                     <tr>
                                                         <td>Monto en recursos frescos:</td>
-                                                        <td>Monto en especies:</td>                                    
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                           <input type="text" class="numbersOnly form-control currencyField" id="montoFrescos" name="montoFrescos" />
+                                                           <input type="text" class="form-control currencyField" id="montoFrescos" name="montoFrescos" maxlength="20"/>
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                       <td>Monto en especies:</td>                                    
+                                                    </tr>        
+                                                    <tr>
                                                         <td>
-                                                           <input type="text" class="numbersOnly form-control currencyField" id="montoEspecies" name="montoEspecies" />
+                                                           <input type="text" class="form-control currencyField" id="montoEspecies" name="montoEspecies" maxlength="20" />
                                                         </td>                                    
                                                     </tr>
                                                 </table>
@@ -1289,7 +1146,7 @@
                                             <th style="width: 10%">&nbsp;</th>
                                         </tr>
                                     </thead>
-                                    <tbody data-bind="foreach: { data: fuentesFinanciacion }">
+                                    <tbody data-bind="foreach: { data: fuentesFinanciacionProyecto }">
                                         <tr class="table-row">
                                             <td style="width: 20%">
                                                 <span data-bind="text: nombreFuenteFinanciacion" ></span>
@@ -1299,7 +1156,7 @@
                                             <td style="width: 20%">
                                                 <span data-bind="text: nombreTipoFuenteFinanciacionProyecto" ></span>
                                                 <input type="hidden" class="form-control" data-bind="value: idTipoFuenteFinanciacionProyecto, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].idTipoFuenteFinanciacionProyecto'  }">
-                                                <input type="hidden" class="form-control" data-bind="value: nombreFuenteFinanciacionProyecto, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].nombreTipoFuenteFinanciacionProyecto'  }">
+                                                <input type="hidden" class="form-control" data-bind="value: nombreTipoFuenteFinanciacionProyecto, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].nombreTipoFuenteFinanciacionProyecto'  }">
                                             </td>
                                             <td style="width: 20%">
                                                 <span data-bind="text: montoFrescosFormateado" ></span>
@@ -1311,12 +1168,12 @@
                                                 <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'fuentesFinanciacionProyecto[' + $index() + '].consecutivo'  }" />
                                             </td>
                                             <td style="width: 5%" align="center">
-                                                <button class="btn btn-dark" data-bind="click: $root.eliminarFuenteFinanciacion">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarFuenteFinanciacionProyecto">
                                                     <i class="glyphicon glyphicon-trash"></i>
                                                 </button>
                                             </td>
                                             <td style="width: 5%" align="center">
-                                                <button class="btn btn-dark" data-bind="click: $root.editarFuenteFinanciacion">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarFuenteFinanciacionProyecto">
                                                     <i class="glyphicon glyphicon-edit"></i>
                                                 </button>
                                             </td>
@@ -1346,6 +1203,19 @@
                                                 <div id="alert_placeholder_alertas_aval_proyecto"></div>
                                                 <table class="tablaForm">
                                                     <tr>
+                                                        <td>Tipo de aval</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="tipoAvalProyecto" id="tipoAvalProyecto" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoAval" items="${tiposAval}">
+                                                                <option value="${tipoAval.getIdTipoAval()}">${tipoAval.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>                                                            
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>Descripción</td>                                                        
                                                     </tr>
                                                     <tr>
@@ -1353,18 +1223,6 @@
                                                             <input id="descripcionAlertaAvalProyecto" name="descripcionAlertaAvalProyecto" class="form-control" maxlength="200" />
                                                             <input type="hidden" id="consecutivo" name="consecutivo" />
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Tipo de aval</td>                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <select name="tipoAvalProyecto" id="tipoAval" class="form-control">
-                                                                <option value=""></option>
-                                                            <c:forEach var="tipoAval" items="${tiposAval}">
-                                                                <option value="${tipoAval.getIdTipoAval()}">${tipoAval.getNombre()}</option>
-                                                            </c:forEach>
-                                                            </select>                                                            </td>
                                                     </tr>
                                                     <tr>
                                                         <td>Fecha acta</td>                                                        
@@ -1378,7 +1236,7 @@
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
-                                                        <td>Número del acta</td>                                                        
+                                                        <td>Número de acta</td>                                                        
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -1461,6 +1319,93 @@
                                     </tbody>
                                 </table>
                             </div>
+                            <div id="entidadesInternacionalesProyecto" class="tab-pane fade">
+                                <div class="alert alert-info" style="margin-top:20px;">
+                                    <strong>Entidades Internacionales</strong>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevaEntidadInternacionalProyecto(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>                            
+                                </div>  
+                                <div class="modal fade" id="entidadesInternacionalesModal" tabindex="-1" role="dialog" aria-labelledby="entidadesInternacionalesLabel" aria-hidden="true">
+                                    <div class="modal-dialog" role="document">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Entidad Internacional</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_entidadInternacional_proyecto"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td>
+                                                            <input id="entidadInternacionalProyecto" name="entidadInternacionalProyecto" class="form-control" maxlength="200" />
+                                                            <input type="hidden" id="consecutivo" name="consecutivo" />
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="button" class="btn btn-primary" data-bind="click: adicionarEntidadInternacional">Aceptar</button>
+                                            </div>                                    
+                                        </div>
+                                    </div>  
+                                </div>
+                                <div class="modal fade" id="confirmacionEliminacionEntidadInternacionalProyecto" tabindex="-1" role="dialog" aria-labelledby="EntidadInternacionalModalLabel" aria-hidden="true">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Eliminar Entidad Internacional</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                ¿Está seguro de eliminar la entidad internacional?
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                <a class="btn btn-danger btn-ok" onclick="eliminarEntidadInternacionalProyecto();">Eliminar</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                                
+                                <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                    <thead>
+                                        <tr class="table-row">
+                                            <th style="width: 90%;text-align: center">Entidad Internacional</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                            <th style="width: 5%">&nbsp;</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody data-bind="foreach: { data: entidadesInternacionalesProyecto }">
+                                        <tr class="table-row">
+                                            <td style="width: 90%">
+                                                <span data-bind="text: nombre" ></span>
+                                                <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'entidadesInternacionalesProyecto[' + $index() + '].nombre'  }">
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarEntidadInternacionalProyecto">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                                <input type="hidden" data-bind="value: idEntidadInternacionalProyecto, attr: { 'name': 'entidadesInternacionalesProyecto[' + $index() + '].idEntidadInternacionalProyecto'  }" />
+                                                <input type="hidden" data-bind="value: consecutivo, attr: { 'name': 'entidadesInternacionalesProyecto[' + $index() + '].consecutivo'  }" />
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarEntidadInternacionalProyecto">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div> 
                         </div>
                         <table class='table table-hover' style='font-size:12px;'> 
                             <tr>
@@ -1483,9 +1428,60 @@
             </div>
         </div>
         <script>
-            var optsFC = { decimalSymbol: '.', digitGroupSymbol: ',' };
+            var optsFC = { decimalSymbol: ',', digitGroupSymbol: '.', roundToDecimalPlace: 0 };
             $(document).ready(function () {
-                $('.currencyField').css('text-align', 'right').formatCurrency(optsFC);
+                $('.currencyField').css('text-align', 'right');
+                $('.currencyField').blur(function() {
+                    $(this).formatCurrency(optsFC);
+		}).keyup(function(e) {
+                  var e = window.event || e;
+                  var keyUnicode = e.charCode || e.keyCode;
+                  if (e !== undefined) {
+                        switch (keyUnicode) {
+                                case 16: break; // Shift
+                                case 27: this.value = ''; break; // Esc: clear entry
+                                case 35: break; // End
+                                case 36: break; // Home
+                                case 37: break; // cursor left
+                                case 38: break; // cursor up
+                                case 39: break; // cursor right
+                                case 40: break; // cursor down
+                                case 78: break; // N (Opera 9.63+ maps the "." from the number key section to the "N" key too!) (See: http://unixpapa.com/js/key.html search for ". Del")
+                                case 110: break; // . number block (Opera 9.63+ maps the "." from the number block to the "N" key (78) !!!)
+                                case 190: break; // .
+                                default: $(this).formatCurrency(optsFC);
+                        }
+                  }
+                });
+                $('#participacionInternacional1').click(function () {
+                    if ($(this).is(':checked')) {
+                        $("#elementoEntidadesInternacionales").removeClass('hidden');
+                        $("#entidadesInternacionalesProyecto").removeClass('hidden');
+                    } else {
+                        $("#elementoEntidadesInternacionales").addClass('hidden');
+                        $("#entidadesInternacionalesProyecto").addClass('hidden');
+                    }
+                });
+                
+                <c:if test = "${proyecto.isParticipacionInternacional() == false}">
+                $("#elementoEntidadesInternacionales").addClass('hidden');
+                $("#entidadesInternacionalesProyecto").addClass('hidden');
+                </c:if>
+                    
+                $('#asignar').click(function () {
+                    $('#gruposInvestigacionPorAsignar option:selected').each(function () {
+                        $('#gruposInvestigacion').append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option>");
+                        $(this).remove();
+                        ordenarOpcionesMenu($('#gruposInvestigacion option'));
+                    });
+                });
+                $('#remover').click(function () {
+                    $('#gruposInvestigacion option:selected').each(function () {
+                        $('#gruposInvestigacionPorAsignar').append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option>");
+                        $(this).remove();
+                        ordenarOpcionesMenu($('#gruposInvestigacionPorAsignar option'));
+                    });
+                });                    
             });
             
             $.validate({
@@ -1505,19 +1501,38 @@
                 this.value = this.value.replace(/[^0-9\.]/g, '');
             });
             
+            $('#proyecto').submit(function (evt) {
+                if ($("#gruposInvestigacion option").length == 0) {
+                    bootstrap_alert_proyecto.warning('Debe asignar al menos un grupo de investigación');
+                    return false;
+                }
+                $('#gruposInvestigacion option').prop('selected', true);
+            });
+            
+            function ordenarOpcionesMenu(options) {
+                var arr = options.map(function (_, o) {
+                    return {
+                        t: $(o).text(),
+                        v: o.value
+                    };
+                }).get();
+                arr.sort(function (o1, o2) {
+                    return o1.t > o2.t ? 1 : o1.t < o2.t ? -1 : 0;
+                });
+                options.each(function (i, o) {
+                    o.value = arr[i].v;
+                    $(o).text(arr[i].t);
+                });
+            }
+            
             function eliminarObjetivoEspecifico() {
                proyectoModel.objetivosEspecificos.remove(objetivoEspecificoEliminar);
                $('#confirmacionEliminacionObjetivoEspecifico').modal('toggle');
             }    
 
-            function eliminarGrupoInvestigacion() {
-               proyectoModel.gruposInvestigacion.remove(grupoInvestigacionEliminar);
-               $('#confirmacionEliminacionGrupoInvestigacion').modal('toggle');
-            }   
-
-            function eliminarEntidadInternacional() {
-               proyectoModel.entidadesInternacionales.remove(entidadInternacionalEliminar);
-               $('#confirmacionEliminacionEntidadInternacional').modal('toggle');
+            function eliminarEntidadInternacionalProyecto() {
+               proyectoModel.entidadesInternacionalesProyecto.remove(entidadInternacionalProyectoEliminar);
+               $('#confirmacionEliminacionEntidadInternacionalProyecto').modal('toggle');
             }   
 
             function eliminarProfesorProyecto() {
@@ -1546,11 +1561,11 @@
             } 
 
             function eliminarAlertaAvalProyecto() {
-               proyectoModel.alertaAvalProyecto.remove(alertaAvalEliminar);
+               proyectoModel.alertasAvalProyecto.remove(alertaAvalProyectoEliminar);
                $('#confirmacionEliminacionAlertaAvalProyecto').modal('toggle');
             }  
 
-            var ProyectoModel = function (objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, gruposInvestigacion, entidadesInternacionales, fuentesFinanciacionProyecto, alertasAvalProyecto) {
+            var ProyectoModel = function (objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, entidadesInternacionalesProyecto, fuentesFinanciacionProyecto, alertasAvalProyecto) {
                 self = this;
 
                 self.objetivosEspecificos = ko.observableArray(objetivosEspecificos);
@@ -2032,87 +2047,42 @@
                     
                     $('#personalExternoProyectoModal').modal('show');
                 };
-                
-                self.gruposInvestigacion = ko.observableArray(gruposInvestigacion);
-                self.adicionarGrupoInvestigacion = function () {
-                    if ($('#grupoInvestigacion').val() == "") {
-                        bootstrap_alert_grupoInvestigacion.warning('Debe seleccionar el grupo de investigación');
-                        return false;
-                    }
-                    $('#gruposInvestigacionModal').modal('toggle');
-                    bootstrap_alert_grupoInvestigacion.removeWarning();
-                    if($('#consecutivo').val() == "") {
-                        for(i = 0; i < self.gruposInvestigacion().length; i++) {
-                            if(self.gruposInvestigacion()[i].idGrupoInvestigacion() == $('#grupoInvestigacion').val()) {
-                               bootstrap_alert_grupoInvestigacion.warning('El grupo de investigación ya hace parte del proyecto');
-                               return false;                               
-                            }
-                        }                        
-                        self.gruposInvestigacion.push({
-                            idGrupoInvestigacion: ko.observable($('#grupoInvestigacion').val()),
-                            consecutivo: ko.observable(self.gruposInvestigacion().length + 1),
-                            nombre: ko.observable($('#grupoInvestigacion option:selected').text())
-                        });
-                    } else {
-                        var consecutivo = parseInt($('#consecutivo').val(), 10);
-                        var indice = 0;
-                        for(i = 0; i < self.gruposInvestigacion().length; i++) {
-                           if(self.gruposInvestigacion()[i].consecutivo() == consecutivo){
-                              indice = i; 
-                              break;
-                           }
-                        }
-                        self.gruposInvestigacion()[indice].idGrupoInvestigacion($('#grupoInvestigacion').val());
-                        self.gruposInvestigacion()[indice].nombre($('#grupoInvestigacion option:selected').text());
-                    }
-                    
-                    limpiarDatosVentanaGrupoInvestigacion();
-                };
-                self.eliminarGrupoInvestigacion = function (grupoInvestigacion) {
-                    grupoInvestigacionEliminar = grupoInvestigacion;
-                    $('#confirmacionEliminacionGrupoInvestigacion').modal('show');                    
-                };
-                self.editarGrupoInvestigacion = function (grupoInvestigacion) {
-                    $('#grupoInvestigacion').val(grupoInvestigacion.idGrupoInvestigacion());
-                    $('#consecutivo').val(grupoInvestigacion.consecutivo());
-                    $('#gruposInvestigacionModal').modal('show'); 
-                };
-
-                self.entidadesInternacionales = ko.observableArray(entidadesInternacionales);
+ 
+                self.entidadesInternacionalesProyecto = ko.observableArray(entidadesInternacionalesProyecto);
                 self.adicionarEntidadInternacional = function () {
-                    if ($('#entidadInternacional').val() == "") {
-                        bootstrap_alert_entidadInternacional.warning('Debe ingresar la entidad internacional');
+                    if ($('#entidadInternacionalProyecto').val() == "") {
+                        bootstrap_alert_entidadInternacional_proyecto.warning('Debe ingresar la entidad internacional');
                         return false;
                     }
                     $('#entidadesInternacionalesModal').modal('toggle');
-                    bootstrap_alert_entidadInternacional.removeWarning();
+                    bootstrap_alert_entidadInternacional_proyecto.removeWarning();
                     if($('#consecutivo').val() == "") {
-                        self.entidadesInternacionales.push({
-                            idEntidadInternacional: ko.observable(0),
-                            consecutivo: ko.observable(self.entidadesInternacionales().length + 1),
-                            nombre: ko.observable($('#entidadInternacional').val())
+                        self.entidadesInternacionalesProyecto.push({
+                            idEntidadInternacionalProyecto: ko.observable(0),
+                            consecutivo: ko.observable(self.entidadesInternacionalesProyecto().length + 1),
+                            nombre: ko.observable($('#entidadInternacionalProyecto').val())
                         });
                     } else {
                         var consecutivo = parseInt($('#consecutivo').val(), 10);
                         var indice = 0;
-                        for(i = 0; i < self.entidadesInternacionales().length; i++) {
-                           if(self.entidadesInternacionales()[i].consecutivo() == consecutivo){
+                        for(i = 0; i < self.entidadesInternacionalesProyecto().length; i++) {
+                           if(self.entidadesInternacionalesProyecto()[i].consecutivo() == consecutivo){
                               indice = i; 
                               break;
                            }
                         }
-                        self.entidadesInternacionales()[indice].nombre($('#entidadInternacional').val());
+                        self.entidadesInternacionalesProyecto()[indice].nombre($('#entidadInternacionalProyecto').val());
                     }
                     
                     limpiarDatosVentanaEntidadInternacional();
                 };
-                self.eliminarEntidadInternacional = function (entidadInternacional) {
-                    entidadInternacionalEliminar = entidadInternacional;
-                    $('#confirmacionEliminacionEntidadInternacional').modal('show');                    
+                self.eliminarEntidadInternacionalProyecto = function (entidadInternacionalProyecto) {
+                    entidadInternacionalProyectoEliminar = entidadInternacionalProyecto;
+                    $('#confirmacionEliminacionEntidadInternacionalProyecto').modal('show');                    
                 };
-                self.editarEntidadInternacional = function (entidadInternacional) {
-                    $('#entidadInternacional').val(entidadInternacional.nombre());
-                    $('#consecutivo').val(entidadInternacional.consecutivo());
+                self.editarEntidadInternacionalProyecto = function (entidadInternacionalProyecto) {
+                    $('#entidadInternacionalProyecto').val(entidadInternacionalProyecto.nombre());
+                    $('#consecutivo').val(entidadInternacionalProyecto.consecutivo());
                     $('#entidadesInternacionalesModal').modal('show'); 
                 };
 
@@ -2141,10 +2111,10 @@
                             nombreFuenteFinanciacion: ko.observable($('#fuenteFinanciacion option:selected').text()),
                             idTipoFuenteFinanciacionProyecto: ko.observable($('#tipoFuenteFinanciacionProyecto').val()),
                             nombreTipoFuenteFinanciacionProyecto: ko.observable($('#tipoFuenteFinanciacionProyecto option:selected').text()),
-                            montoEspecies : ko.observable($('#montoEspecies').val().replace("$", "").replace(",", "")),
-                            montoEspeciesFormateada : ko.observable($('#montoEspecies').val()),
-                            montoFrescos : ko.observable($('#montoFrescos').val().replace("$", "").replace(",", "")),
-                            montoFrescosFormateada : ko.observable($('#montoFrescos').val()),
+                            montoEspecies : ko.observable($('#montoEspecies').val().replace("$", "").replace(/\./g, "")),
+                            montoEspeciesFormateado : ko.observable($('#montoEspecies').val()),
+                            montoFrescos : ko.observable($('#montoFrescos').val().replace("$", "").replace(/\./g, "")),
+                            montoFrescosFormateado : ko.observable($('#montoFrescos').val()),
                             consecutivo: ko.observable(self.profesoresProyecto().length + 1)
                         });
                     } else {
@@ -2159,15 +2129,15 @@
                             self.fuentesFinanciacionProyecto()[indice].idFuenteFinanciacion($('#fuenteFinanciacion').val());
                             self.fuentesFinanciacionProyecto()[indice].nombreFuenteFinanciacion($('#fuenteFinanciacion option:selected').text());
                             self.fuentesFinanciacionProyecto()[indice].idTipoFuenteFinanciacionProyecto($('#tipoFuenteFinanciacionProyecto').val());
-                            self.fuentesFinanciacionProyecto()[indice].nombreTipoFuenteFinanciacionProyecto( $('#tipoFuenteFinanciacionProyecto option:selected').val());
-                            self.fuentesFinanciacionProyecto()[indice].montoEspecies( $('#montoEspecies').val().replace("$", "").replace(",", ""));
-                            self.fuentesFinanciacionProyecto()[indice].montoFrescos( $('#montoFrescos').val().replace("$", "").replace(",", ""));
+                            self.fuentesFinanciacionProyecto()[indice].nombreTipoFuenteFinanciacionProyecto( $('#tipoFuenteFinanciacionProyecto option:selected').text());
+                            self.fuentesFinanciacionProyecto()[indice].montoEspecies( $('#montoEspecies').val().replace("$", "").replace(/\./g, ""));
+                            self.fuentesFinanciacionProyecto()[indice].montoFrescos( $('#montoFrescos').val().replace("$", "").replace(/\./g, ""));
                             self.fuentesFinanciacionProyecto()[indice].montoEspeciesFormateado( $('#montoEspecies').val());
                             self.fuentesFinanciacionProyecto()[indice].montoFrescosFormateado( $('#montoFrescos').val());
                     }
 
                    $('#fuenteFinanciacionProyectoModal').modal('toggle');
-                   bootstrap_alert_fuentesFinanciacion_proyecto.removeWarning();
+                   bootstrap_alert_fuenteFinanciacion_proyecto.removeWarning();
                    limpiarDatosVentanaFuenteFinanciacionProyecto();
                 };
                 self.eliminarFuenteFinanciacionProyecto = function (fuenteFinanciacionProyecto) {
@@ -2176,10 +2146,10 @@
                 };
                 self.editarFuenteFinanciacionProyecto = function (fuenteFinanciacionProyecto) {
                     $('#consecutivo').val(fuenteFinanciacionProyecto.consecutivo());
-                    $('#idFuenteFinanciacion').val(fuenteFinanciacionProyecto.idFuenteFinanciacion());
-                    $('#idTipoFuenteFinanciacionProyecto').val(fuenteFinanciacionProyecto.idTipoFuenteFinanciacionProyecto());
-                    $('#montoEspecies').val(fuenteFinanciacionProyecto.montoEspecies());
-                    $('#montoFrescos').val(fuenteFinanciacionProyecto.montoFrescos());
+                    $('#fuenteFinanciacion').val(fuenteFinanciacionProyecto.idFuenteFinanciacion());
+                    $('#tipoFuenteFinanciacionProyecto').val(fuenteFinanciacionProyecto.idTipoFuenteFinanciacionProyecto());
+                    $('#montoEspecies').val(fuenteFinanciacionProyecto.montoEspeciesFormateado());
+                    $('#montoFrescos').val(fuenteFinanciacionProyecto.montoFrescosFormateado());
                     
                     $('#fuenteFinanciacionProyectoModal').modal('show');
                 };
@@ -2190,7 +2160,7 @@
                         bootstrap_alert_alertas_aval_proyecto.warning('Debe ingresar la descripción');
                         return false;
                     }
-                    if ($('#tipoAval').val() == "") {
+                    if ($('#tipoAvalProyecto').val() == "") {
                         bootstrap_alert_alertas_aval_proyecto.warning('Debe seleccionar el tipo de aval');
                         return false;
                     }
@@ -2199,7 +2169,7 @@
                         return false;
                     }
                     if ($('#numeroActaAlertaAvalProyecto').val() == "") {
-                        bootstrap_alert_alertas_aval_proyecto.warning('Debe ingresar el número del acta');
+                        bootstrap_alert_alertas_aval_proyecto.warning('Debe ingresar el número de acta');
                         return false;
                     }
                     $('#alertasAvalProyectoModal').modal('toggle');
@@ -2211,8 +2181,8 @@
                             descripcion: ko.observable($('#descripcionAlertaAvalProyecto').val()),
                             nombreTipoAval: ko.observable($('#tipoAvalProyecto option:selected').text()),
                             idTipoAval: ko.observable($('#tipoAvalProyecto').val()),
-                            fechaActa: ko.observable($('#fechaAlertaAvalProyecto').val()),
-                            numeroActa: ko.observable($('#numeroAlertaAvalProyecto').val())
+                            fechaActa: ko.observable($('#fechaActaAlertaAvalProyecto').val()),
+                            numeroActa: ko.observable($('#numeroActaAlertaAvalProyecto').val())
                         });
                     } else {
                         var consecutivo = parseInt($('#consecutivo').val(), 10);
@@ -2234,14 +2204,14 @@
                 };
                 self.eliminarAlertaAvalProyecto = function (alertaAvalProyecto) {
                     alertaAvalProyectoEliminar = alertaAvalProyecto;
-                    $('#confirmacionEliminacionAlertaAval').modal('show');                    
+                    $('#confirmacionEliminacionAlertaAvalProyecto').modal('show');                    
                 };
-                self.editarCompromisoProyecto = function (alertaAvalProyecto) {
+                self.editarAlertaAvalProyecto = function (alertaAvalProyecto) {
                     $('#descripcionAlertaAvalProyecto').val(alertaAvalProyecto.descripcion());
                     $('#consecutivo').val(alertaAvalProyecto.consecutivo());
                     $('#tipoAvalProyecto').val(alertaAvalProyecto.idTipoAval());
-                    $('#fechaActaAlertaAvalProyecto').val(alertaAvalProyecto.fechaActaFormateada);
-                    $('#numeroActaAlertaAvalProyecto').val(alertaAvalProyecto.numeroActa);
+                    $('#fechaActaAlertaAvalProyecto').val(alertaAvalProyecto.fechaActa());
+                    $('#numeroActaAlertaAvalProyecto').val(alertaAvalProyecto.numeroActa());
                     $('#alertasAvalProyectoModal').modal('show'); 
                 };
             };
@@ -2251,8 +2221,7 @@
             var estudiantesProyecto = new Array();
             var personalExternoProyecto = new Array();
             var compromisosProyecto = new Array();
-            var gruposInvestigacion = new Array();
-            var entidadesInternacionales = new Array();
+            var entidadesInternacionalesProyecto = new Array();
             var fuentesFinanciacionProyecto = new Array();
             var alertasAvalProyecto = new Array();
             
@@ -2261,8 +2230,7 @@
             var estudianteProyectoEliminar = null;
             var personalExternoProyectoEliminar = null;
             var compromisoProyectoEliminar = null;
-            var grupoInvestigacionEliminar = null;
-            var entidadInternacionalEliminar = null;
+            var entidadInternacionalProyectoEliminar = null;
             var fuenteFinanciacionProyectoEliminar = null;
             var alertaAvalProyectoEliminar = null;
 
@@ -2281,11 +2249,8 @@
             <c:if test = "${compromisosProyectoJSON != null}">
             compromisosProyecto = ${compromisosProyectoJSON};
             </c:if>
-            <c:if test = "${gruposInvestigacionJSON != null}">
-            gruposInvestigacion = ${gruposInvestigacionJSON};
-            </c:if>
-            <c:if test = "${entidadesInternacionalesJSON != null}">
-            entidadesInternacionales = ${entidadesInternacionalesJSON};
+            <c:if test = "${entidadesInternacionalesProyectoJSON != null}">
+            entidadesInternacionalesProyecto = ${entidadesInternacionalesProyectoJSON};
             </c:if>
             <c:if test = "${fuentesFinanciacionProyectoJSON != null}">
             fuentesFinanciacionProyecto = ${fuentesFinanciacionProyectoJSON};
@@ -2294,7 +2259,7 @@
             alertasAvalProyecto = ${alertasAvalProyectoJSON};
             </c:if>
                 
-            var proyectoModel = new ProyectoModel(objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, gruposInvestigacion, entidadesInternacionales, fuentesFinanciacionProyecto, alertasAvalProyecto);
+            var proyectoModel = new ProyectoModel(objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, entidadesInternacionalesProyecto, fuentesFinanciacionProyecto, alertasAvalProyecto);
             ko.applyBindings(proyectoModel);
 
             bootstrap_alert_objetivosEspecificos = function () { };
@@ -2541,36 +2506,20 @@
                     }
                 }
            }
-           
-            bootstrap_alert_grupoInvestigacion = function () { };
-            bootstrap_alert_grupoInvestigacion.warning = function (message) {
-                $('#alert_placeholder_grupoInvestigacion').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
-            };
-            bootstrap_alert_grupoInvestigacion.removeWarning = function () {
-                $('#alert_placeholder_grupoInvestigacion').html('');
-            };
-            function mostrarVentanaNuevoGrupoInvestigacion() {
-                limpiarDatosVentanaGrupoInvestigacion();
-                $('#gruposInvestigacionModal').modal('show'); 
-            }
-            function limpiarDatosVentanaGrupoInvestigacion() {
-                $('#grupoInvestigacion').val("");
-                $('#consecutivo').val("");
-            }
             
-            bootstrap_alert_entidadInternacional = function () { };
-            bootstrap_alert_entidadInternacional.warning = function (message) {
-                $('#alert_placeholder_entidadInternacional').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            bootstrap_alert_entidadInternacional_proyecto = function () { };
+            bootstrap_alert_entidadInternacional_proyecto.warning = function (message) {
+                $('#alert_placeholder_entidadInternacional_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
-            bootstrap_alert_entidadInternacional.removeWarning = function () {
-                $('#alert_placeholder_entidadInternacional').html('');
+            bootstrap_alert_entidadInternacional_proyecto.removeWarning = function () {
+                $('#alert_placeholder_entidadInternacional_proyecto').html('');
             };
-            function mostrarVentanaNuevaEntidadInternacional() {
+            function mostrarVentanaNuevaEntidadInternacionalProyecto() {
                 limpiarDatosVentanaEntidadInternacional();
                 $('#entidadesInternacionalesModal').modal('show'); 
             }
             function limpiarDatosVentanaEntidadInternacional() {
-                $('#entidadInternacional').val("");
+                $('#entidadInternacionalProyecto').val("");
                 $('#consecutivo').val("");
             }            
             
@@ -2611,4 +2560,13 @@
                 $('#fechaActaAlertaAvalProyecto').val("");
                 $('#numeroActaAlertaAvalProyecto').val("");
             }
+            
+            bootstrap_alert_proyecto = function () { };
+            bootstrap_alert_proyecto.warning = function (message) {
+                $('#alert_placeholder_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_proyecto.removeWarning = function () {
+                $('#alert_placeholder_proyecto').html('');
+            };
+            
         </script>

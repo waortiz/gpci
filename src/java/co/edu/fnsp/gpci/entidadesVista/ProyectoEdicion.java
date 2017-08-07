@@ -12,10 +12,14 @@ import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
-import co.edu.fnsp.gpci.entidades.EntidadInternacional;
+import co.edu.fnsp.gpci.entidades.EntidadInternacionalProyecto;
+import co.edu.fnsp.gpci.entidades.EstudianteProyecto;
+import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
+import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
+import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
@@ -49,7 +53,7 @@ public class ProyectoEdicion {
     private String estado;
     private ArrayList<ObjetivoEspecifico> objetivosEspecificos = new ArrayList<>();
     private ArrayList<GrupoInvestigacion> gruposInvestigacion = new ArrayList<>();
-    private ArrayList<EntidadInternacional> entidadesInternacionales = new ArrayList<>();
+    private ArrayList<EntidadInternacionalProyecto> entidadesInternacionalesProyecto = new ArrayList<>();
     private ArrayList<ProfesorProyecto> profesoresProyecto = new ArrayList<>();
     private ArrayList<EstudianteProyecto> estudiantesProyecto = new ArrayList<>();
     private ArrayList<PersonalExternoProyecto> personalExternoProyecto = new ArrayList<>();
@@ -64,6 +68,7 @@ public class ProyectoEdicion {
     private ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = new ArrayList<>();
     private ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = new ArrayList<>();
     private ArrayList<AlertaAvalProyecto> alertasAvalProyecto = new ArrayList<>();
+    private ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto = new ArrayList<>();
 
     /**
      * @return the areaTematica
@@ -623,13 +628,6 @@ public class ProyectoEdicion {
     }
 
     /**
-     * @return the JSON gruposInvestigacion
-     */
-    public String getGruposInvestigacionJSON() {
-        return Util.obtenerGruposInvestigacionJSON(gruposInvestigacion);
-    }
-
-    /**
      * @param gruposInvestigacion the gruposInvestigacion to set
      */
     public void setGruposInvestigacion(ArrayList<GrupoInvestigacion> gruposInvestigacion) {
@@ -637,24 +635,24 @@ public class ProyectoEdicion {
     }
 
     /**
-     * @return the entidadesInternacionales
+     * @return the entidadesInternacionalesProyecto
      */
-    public ArrayList<EntidadInternacional> getEntidadesInternacionales() {
-        return entidadesInternacionales;
+    public ArrayList<EntidadInternacionalProyecto> getEntidadesInternacionalesProyecto() {
+        return entidadesInternacionalesProyecto;
     }
 
     /**
-     * @return the JSON entidadesInternacionales
+     * @return the JSON entidadesInternacionalesProyecto
      */
-    public String getEntidadesInternacionalesJSON() {
-        return Util.obtenerEntidadesInternacionalesJSON(entidadesInternacionales);
+    public String getEntidadesInternacionalesProyectoJSON() {
+        return Util.obtenerEntidadesInternacionalesProyectoJSON(entidadesInternacionalesProyecto);
     }
 
     /**
-     * @param entidadesInternacionales the entidadesInternacionales to set
+     * @param entidadesInternacionalesProyecto the entidadesInternacionalesProyecto to set
      */
-    public void setEntidadesInternacionales(ArrayList<EntidadInternacional> entidadesInternacionales) {
-        this.entidadesInternacionales = entidadesInternacionales;
+    public void setEntidadesInternacionalesProyecto(ArrayList<EntidadInternacionalProyecto> entidadesInternacionalesProyecto) {
+        this.entidadesInternacionalesProyecto = entidadesInternacionalesProyecto;
     }
 
     /**
@@ -719,5 +717,26 @@ public class ProyectoEdicion {
      */
     public void setAlertasAvalProyecto(ArrayList<AlertaAvalProyecto> alertasAvalProyecto) {
         this.alertasAvalProyecto = alertasAvalProyecto;
+    }
+
+    /**
+     * @return the cumplimientosAlertasAvalProyecto
+     */
+    public ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto> getCumplimientosAlertasAvalProyecto() {
+        return cumplimientosAlertasAvalProyecto;
+    }
+
+    /**
+    * @return the cumplimientosAlertasAvalProyecto
+    */
+    public String getCumplimientosAlertasAvalProyectoJSON() {
+        return Util.obtenerCumplimientosAlertasAvalProyectoJSON(cumplimientosAlertasAvalProyecto);
+    }
+    
+    /**
+     * @param cumplimientosAlertasAvalProyecto the cumplimientosAlertasAvalProyecto to set
+     */
+    public void setCumplimientosAlertasAvalProyecto(ArrayList<co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto) {
+        this.cumplimientosAlertasAvalProyecto = cumplimientosAlertasAvalProyecto;
     }
 }

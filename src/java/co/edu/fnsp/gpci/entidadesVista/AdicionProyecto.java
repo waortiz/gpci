@@ -5,6 +5,8 @@
  */
 package co.edu.fnsp.gpci.entidadesVista;
 
+import java.util.Date;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 /**
@@ -17,9 +19,11 @@ public class AdicionProyecto {
     private long idAdicion;
     private long montoAdicion;
     private String descripcionAdicion;
-    private String fechaActaAdicion;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaActaAdicion;
     private String numeroActaAdicion;
-    private String fechaActaCODIAdicion;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaActaCODIAdicion;
     private String numeroActaCODIAdicion;
     
     private MultipartFile documentoAdicion;
@@ -97,14 +101,14 @@ public class AdicionProyecto {
     /**
      * @return the fechaActaAdicion
      */
-    public String getFechaActaAdicion() {
+    public Date getFechaActaAdicion() {
         return fechaActaAdicion;
     }
 
     /**
      * @param fechaActaAdicion the fechaActaAdicion to set
      */
-    public void setFechaActaAdicion(String fechaActaAdicion) {
+    public void setFechaActaAdicion(Date fechaActaAdicion) {
         this.fechaActaAdicion = fechaActaAdicion;
     }
 
@@ -125,14 +129,14 @@ public class AdicionProyecto {
     /**
      * @return the fechaActaCODIAdicion
      */
-    public String getFechaActaCODIAdicion() {
+    public Date getFechaActaCODIAdicion() {
         return fechaActaCODIAdicion;
     }
 
     /**
      * @param fechaActaCODIAdicion the fechaActaCODIAdicion to set
      */
-    public void setFechaActaCODIAdicion(String fechaActaCODIAdicion) {
+    public void setFechaActaCODIAdicion(Date fechaActaCODIAdicion) {
         this.fechaActaCODIAdicion = fechaActaCODIAdicion;
     }
 
