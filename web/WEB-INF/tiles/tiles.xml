@@ -89,4 +89,11 @@
        <put-attribute name="body" value="/WEB-INF/jsp/privilegios/crear.jsp" />  
    </definition>  
 
+   <!-- Reportes Page-->
+   <definition name="reportes/integrantesProyectos" extends="base-definition">  
+       <put-attribute name="title" value="Reportes" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/reportes/integrantesProyectos.jsp" />  
+   </definition>  
+
+
 </tiles-definitions>

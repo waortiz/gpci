@@ -15,7 +15,6 @@ import co.edu.fnsp.gpci.editores.TipoProyectoEditor;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
 import co.edu.fnsp.gpci.entidades.Convocatoria;
 import co.edu.fnsp.gpci.entidades.EnfoqueMetodologico;
-import co.edu.fnsp.gpci.entidades.EntidadInternacionalProyecto;
 import co.edu.fnsp.gpci.entidades.EstadoProyecto;
 import co.edu.fnsp.gpci.entidades.Estudiante;
 import co.edu.fnsp.gpci.entidades.Facultad;
@@ -70,7 +69,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @RequestMapping(value = "/proyectos")
 public class ProyectoController {
 
-    private static final Logger logger = LogManager.getLogger(NovedadProyectoController.class.getName());
+    private static final Logger logger = LogManager.getLogger(ProyectoController.class.getName());
 
     @Autowired
     private IServicioProyecto servicioProyecto;

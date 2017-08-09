@@ -186,7 +186,7 @@ public class NovedadProyectoController {
         if (proyecto.getCumplimientosAlertasAvalProyecto().size() > 0) {
             model.addAttribute("cumplimientoAlertasAvalProyectoJSON", proyectoEdicion.getCumplimientoAlertasAvalProyectoJSON());
         }
-        
+
         model.addAttribute("proyecto", proyectoEdicion);
 
         return "novedades/editar";
@@ -261,21 +261,21 @@ public class NovedadProyectoController {
                 if (profesor != null) {
                     adendaProyectoGuardar.setIdPersona(profesor.getIdProfesor());
                 } else {
-                    throw new Exception("El profesor no existe");
+                    throw new IllegalArgumentException("El profesor no existe");
                 }
             } else if (adendaCambioProyecto.getTipoPersonaAdendaCambio() == TipoPersonaEnum.ESTUDIANTE.getIdTipoPersona()) {
                 Estudiante estudiante = servicioProyecto.obtenerEstudiante(adendaCambioProyecto.getTipoIdentificacionPersonaAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAdendaCambio());
                 if (estudiante != null) {
                     adendaProyectoGuardar.setIdPersona(estudiante.getIdEstudiante());
                 } else {
-                    throw new Exception("El estudiante no existe");
+                    throw new IllegalArgumentException("El estudiante no existe");
                 }
             } else if (adendaCambioProyecto.getTipoPersonaAdendaCambio() == TipoPersonaEnum.PERSONAL_EXTERNO.getIdTipoPersona()) {
                 PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(adendaCambioProyecto.getTipoIdentificacionPersonaAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAdendaCambio());
                 if (personalExterno != null) {
                     adendaProyectoGuardar.setIdPersona(personalExterno.getIdPersonalExterno());
                 } else {
-                    throw new Exception("El personal externo no existe");
+                    throw new IllegalArgumentException("El personal externo no existe");
                 }
             }
 
@@ -300,6 +300,9 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(adendas);
 
+        } catch (IllegalArgumentException exc) {
+            logger.error(exc);
+            json = "{\"error\":\"" + exc.getMessage() + "\"}";
         } catch (Exception exc) {
             logger.error(exc);
             throw exc;
@@ -345,21 +348,21 @@ public class NovedadProyectoController {
                 if (profesor != null) {
                     adendaProyectoGuardar.setIdPersona(profesor.getIdProfesor());
                 } else {
-                    throw new Exception("El profesor no existe");
+                    throw new IllegalArgumentException("El profesor no existe");
                 }
             } else if (adendaIngresoProyecto.getTipoPersonaAdendaIngreso() == TipoPersonaEnum.ESTUDIANTE.getIdTipoPersona()) {
                 Estudiante estudiante = servicioProyecto.obtenerEstudiante(adendaIngresoProyecto.getTipoIdentificacionPersonaAdendaIngreso(), adendaIngresoProyecto.getNumeroIdentificacionPersonaAdendaIngreso());
                 if (estudiante != null) {
                     adendaProyectoGuardar.setIdPersona(estudiante.getIdEstudiante());
                 } else {
-                    throw new Exception("El estudiante no existe");
+                    throw new IllegalArgumentException("El estudiante no existe");
                 }
             } else if (adendaIngresoProyecto.getTipoPersonaAdendaIngreso() == TipoPersonaEnum.PERSONAL_EXTERNO.getIdTipoPersona()) {
                 PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(adendaIngresoProyecto.getTipoIdentificacionPersonaAdendaIngreso(), adendaIngresoProyecto.getNumeroIdentificacionPersonaAdendaIngreso());
                 if (personalExterno != null) {
                     adendaProyectoGuardar.setIdPersona(personalExterno.getIdPersonalExterno());
                 } else {
-                    throw new Exception("El personal externo no existe");
+                    throw new IllegalArgumentException("El personal externo no existe");
                 }
             }
 
@@ -382,6 +385,9 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(adendas);
 
+        } catch (IllegalArgumentException exc) {
+            logger.error(exc);
+            json = "{\"error\":\"" + exc.getMessage() + "\"}";
         } catch (Exception exc) {
             logger.error(exc);
             throw exc;
@@ -427,21 +433,21 @@ public class NovedadProyectoController {
                 if (profesor != null) {
                     adendaProyectoGuardar.setIdPersona(profesor.getIdProfesor());
                 } else {
-                    throw new Exception("El profesor no existe");
+                    throw new IllegalArgumentException("El profesor no existe");
                 }
             } else if (adendaRetiroProyecto.getTipoPersonaAdendaRetiro() == TipoPersonaEnum.ESTUDIANTE.getIdTipoPersona()) {
                 Estudiante estudiante = servicioProyecto.obtenerEstudiante(adendaRetiroProyecto.getTipoIdentificacionPersonaAdendaRetiro(), adendaRetiroProyecto.getNumeroIdentificacionPersonaAdendaRetiro());
                 if (estudiante != null) {
                     adendaProyectoGuardar.setIdPersona(estudiante.getIdEstudiante());
                 } else {
-                    throw new Exception("El estudiante no existe");
+                    throw new IllegalArgumentException("El estudiante no existe");
                 }
             } else if (adendaRetiroProyecto.getTipoPersonaAdendaRetiro() == TipoPersonaEnum.PERSONAL_EXTERNO.getIdTipoPersona()) {
                 PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(adendaRetiroProyecto.getTipoIdentificacionPersonaAdendaRetiro(), adendaRetiroProyecto.getNumeroIdentificacionPersonaAdendaRetiro());
                 if (personalExterno != null) {
                     adendaProyectoGuardar.setIdPersona(personalExterno.getIdPersonalExterno());
                 } else {
-                    throw new Exception("El personal externo no existe");
+                    throw new IllegalArgumentException("El personal externo no existe");
                 }
             }
 
@@ -465,6 +471,9 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(adendas);
 
+        } catch (IllegalArgumentException exc) {
+            logger.error(exc);
+            json = "{\"error\":\"" + exc.getMessage() + "\"}";
         } catch (Exception exc) {
             logger.error(exc);
             throw exc;

@@ -32,7 +32,7 @@ public class GPCIInterceptor extends HandlerInterceptorAdapter {
             Usuario usuario = (Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
             for (OpcionMenu opcionMenu : usuario.getOpcionesMenu()) {
                 existe = false;
-                if (request.getRequestURI().toLowerCase().contains(request.getContextPath() + opcionMenu.getUrl())) {
+                if (opcionMenu.getUrl() != null && request.getRequestURI().toLowerCase().contains(opcionMenu.getUrl().toLowerCase())) {
                     existe = true;
                     break;
                 }

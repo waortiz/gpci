@@ -21,6 +21,7 @@ import co.edu.fnsp.gpci.entidades.EstudianteProyecto;
 import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
+import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -426,7 +427,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         return proyectos;
     }
-
+    
     private void ActualizarObjetivosEspecificos(Proyecto proyecto) {
         MapSqlParameterSource parametrosConsultaObjetivosEspecificos = new MapSqlParameterSource();
         parametrosConsultaObjetivosEspecificos.addValue("varIdProyecto", proyecto.getIdProyecto());

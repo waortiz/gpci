@@ -98,7 +98,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#proyectos').paging({limit: 5});
+        $('#proyectos').paging({limit: 10});
     });
 
     $.validate({

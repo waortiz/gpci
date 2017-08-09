@@ -91,7 +91,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#privilegios').paging({limit: 5});
+        $('#privilegios').paging({limit: 10});
     });
 
     var urlEliminacion = '';

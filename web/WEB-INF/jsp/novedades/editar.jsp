@@ -1915,33 +1915,38 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_adendas_cambio.success("Adenda almacenada exitosamente");
-                        limpiarDatosVentanaAdendaCambio();
-                        if (response != "") {
-                            proyectoModel.adendasCambio.removeAll();
-                            var adendas = JSON.parse(response);
-                            for (var i = 0; i < adendas.length; i++) {
-                                proyectoModel.adendasCambio.push(
-                                        {
-                                            idAdenda: ko.observable(adendas[i].idAdenda),
-                                            idTipoPersona: ko.observable(adendas[i].idTipoPersona),
-                                            nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
-                                            idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
-                                            nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
-                                            numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
-                                            nombresPersona: ko.observable(adendas[i].nombresPersona),
-                                            apellidosPersona: ko.observable(adendas[i].apellidosPersona),
-                                            idRol: ko.observable(adendas[i].idRol),
-                                            nombreRol: ko.observable(adendas[i].nombreRol),
-                                            fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
-                                            fechaCambioFormateada: ko.observable(adendas[i].fechaCambioFormateada)
-                                        }
-                                );
+                        var error = JSON.parse(response);
+                        if(error.error != null) {
+                            bootstrap_alert_adendas_cambio.warning(error.error);
+                        } else {
+                            bootstrap_alert_adendas_cambio.success("Adenda almacenada exitosamente");
+                            limpiarDatosVentanaAdendaCambio();
+                            if (response != "") {
+                                proyectoModel.adendasCambio.removeAll();
+                                var adendas = JSON.parse(response);
+                                for (var i = 0; i < adendas.length; i++) {
+                                    proyectoModel.adendasCambio.push(
+                                            {
+                                                idAdenda: ko.observable(adendas[i].idAdenda),
+                                                idTipoPersona: ko.observable(adendas[i].idTipoPersona),
+                                                nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
+                                                idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
+                                                nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
+                                                numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
+                                                nombresPersona: ko.observable(adendas[i].nombresPersona),
+                                                apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                                idRol: ko.observable(adendas[i].idRol),
+                                                nombreRol: ko.observable(adendas[i].nombreRol),
+                                                fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
+                                                fechaCambioFormateada: ko.observable(adendas[i].fechaCambioFormateada)
+                                            }
+                                    );
+                                }
                             }
-                        }
-                    },
+                    }
+                },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adendas_cambio.warning("Error al almacenar la adenda. " + thrownError);
+                        bootstrap_alert_adendas_cambio.warning("Error al almacenar la adenda.");
                     }});
             });
 
@@ -2084,33 +2089,38 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_adendas_retiro.success("Adenda almacenada exitosamente");
-                        limpiarDatosVentanaAdendaRetiro();
-                        if (response != "") {
-                            proyectoModel.adendasRetiro.removeAll();
-                            var adendas = JSON.parse(response);
-                            for (var i = 0; i < adendas.length; i++) {
-                                proyectoModel.adendasRetiro.push(
-                                        {
-                                            idAdenda: ko.observable(adendas[i].idAdenda),
-                                            idTipoPersona: ko.observable(adendas[i].idTipoPersona),
-                                            nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
-                                            idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
-                                            nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
-                                            numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
-                                            nombresPersona: ko.observable(adendas[i].nombresPersona),
-                                            apellidosPersona: ko.observable(adendas[i].apellidosPersona),
-                                            motivo: ko.observable(adendas[i].motivo),
-                                            numeroActa: ko.observable(adendas[i].numeroActa),
-                                            fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
-                                            fechaRetiroFormateada: ko.observable(adendas[i].fechaRetiroFormateada)
-                                        }
-                                );
+                        var error = JSON.parse(response);
+                        if(error.error != null) {
+                            bootstrap_alert_adendas_retiro.warning(error.error);
+                        } else {
+                            bootstrap_alert_adendas_retiro.success("Adenda almacenada exitosamente");
+                            limpiarDatosVentanaAdendaRetiro();
+                            if (response != "") {
+                                proyectoModel.adendasRetiro.removeAll();
+                                var adendas = JSON.parse(response);
+                                for (var i = 0; i < adendas.length; i++) {
+                                    proyectoModel.adendasRetiro.push(
+                                            {
+                                                idAdenda: ko.observable(adendas[i].idAdenda),
+                                                idTipoPersona: ko.observable(adendas[i].idTipoPersona),
+                                                nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
+                                                idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
+                                                nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
+                                                numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
+                                                nombresPersona: ko.observable(adendas[i].nombresPersona),
+                                                apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                                motivo: ko.observable(adendas[i].motivo),
+                                                numeroActa: ko.observable(adendas[i].numeroActa),
+                                                fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
+                                                fechaRetiroFormateada: ko.observable(adendas[i].fechaRetiroFormateada)
+                                            }
+                                    );
+                                }
                             }
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adendas_retiro.warning("Error al almacenar la adenda. " + thrownError);
+                        bootstrap_alert_adendas_retiro.warning("Error al almacenar la adenda.");
                     }});
             });
 
@@ -2245,32 +2255,37 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                        bootstrap_alert_adendas_ingreso.success("Adenda almacenada exitosamente");
-                        limpiarDatosVentanaAdendaIngreso();
-                        if (response != "") {
-                            proyectoModel.adendasIngreso.removeAll();
-                            var adendas = JSON.parse(response);
-                            for (var i = 0; i < adendas.length; i++) {
-                                proyectoModel.adendasIngreso.push(
-                                        {
-                                            idAdenda: ko.observable(adendas[i].idAdenda),
-                                            idTipoPersona: ko.observable(adendas[i].idTipoPersona),
-                                            nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
-                                            idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
-                                            nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
-                                            numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
-                                            nombresPersona: ko.observable(adendas[i].nombresPersona),
-                                            apellidosPersona: ko.observable(adendas[i].apellidosPersona),
-                                            numeroActa: ko.observable(adendas[i].numeroActa),
-                                            fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
-                                            fechaIngresoFormateada: ko.observable(adendas[i].fechaIngresoFormateada)
-                                        }
-                                );
+                        var error = JSON.parse(response);
+                        if(error.error != null) {
+                            bootstrap_alert_adendas_ingreso.warning(error.error);
+                        } else {
+                            bootstrap_alert_adendas_ingreso.success("Adenda almacenada exitosamente");
+                            limpiarDatosVentanaAdendaIngreso();
+                            if (response != "") {
+                                proyectoModel.adendasIngreso.removeAll();
+                                var adendas = JSON.parse(response);
+                                for (var i = 0; i < adendas.length; i++) {
+                                    proyectoModel.adendasIngreso.push(
+                                            {
+                                                idAdenda: ko.observable(adendas[i].idAdenda),
+                                                idTipoPersona: ko.observable(adendas[i].idTipoPersona),
+                                                nombreTipoPersona: ko.observable(adendas[i].nombreTipoPersona),
+                                                idTipoIdentificacionPersona: ko.observable(adendas[i].idTipoIdentificacionPersona),
+                                                nombreTipoIdentificacionPersona: ko.observable(adendas[i].nombreTipoIdentificacionPersona),
+                                                numeroIdentificacionPersona: ko.observable(adendas[i].numeroIdentificacionPersona),
+                                                nombresPersona: ko.observable(adendas[i].nombresPersona),
+                                                apellidosPersona: ko.observable(adendas[i].apellidosPersona),
+                                                numeroActa: ko.observable(adendas[i].numeroActa),
+                                                fechaActaFormateada: ko.observable(adendas[i].fechaActaFormateada),
+                                                fechaIngresoFormateada: ko.observable(adendas[i].fechaIngresoFormateada)
+                                            }
+                                    );
+                                }
                             }
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_adendas_ingreso.warning("Error al almacenar la adenda. " + thrownError);
+                        bootstrap_alert_adendas_ingreso.warning("Error al almacenar la adenda.");
                     }});
             });
 

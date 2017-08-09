@@ -17,6 +17,9 @@
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/metisMenu.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/sb-admin-2.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/font-awesome.min.css" />'>
+        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/jquery.dataTables.min.css" />'>
+        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/buttons.dataTables.min.css" />'>
+        
         <script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
         <script src='<c:url value="/resources/js/jquery-ui.js" />'></script>
         <script src='<c:url value="/resources/js/jquery.form-validator.min.js" />'></script>
@@ -30,6 +33,13 @@
         <script src='<c:url value="/resources/js/menu.js" />'></script>
         <script src='<c:url value="/resources/js/metisMenu.min.js" />'></script>
         <script src='<c:url value="/resources/js/jquery.formatCurrency-1.4.0.min.js" />'></script>
+        <script src='<c:url value="/resources/js/jquery.dataTables.min.js" />'></script>
+        <script src='<c:url value="/resources/js/dataTables.fixedColumns.min.js" />'></script>
+        <script src='<c:url value="/resources/js/dataTables.buttons.min.js" />'></script>
+        <script src='<c:url value="/resources/js/buttons.html5.min.js" />'></script>
+        <script src='<c:url value="/resources/js/buttons.print.min.js" />'></script>
+        <script src='<c:url value="/resources/js/jszip.min.js" />'></script>
+        
     </head>
     <body>
         <header id="header">

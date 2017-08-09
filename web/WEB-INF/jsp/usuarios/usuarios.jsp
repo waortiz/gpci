@@ -64,7 +64,7 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#usuarios').paging({limit: 5});
+        $('#usuarios').paging({limit: 10});
     });
 
     $.validate({
