@@ -16,7 +16,7 @@
             <div class="panel panel-success">
                 <div class="panel-heading">Novedades Proyecto</div>
                 <div class="panel-body">
-                    <table class="table table-hover tablaForm">
+                    <table class="table table-hover tablaForm tablaFormLectura">
                         <tr>
                             <td width="33%">C&oacute;digo:</td>
                             <td width="33%">Nombre corto:</td>
@@ -1744,10 +1744,6 @@
                 }
                 if ($('#idActa').val() == 0 && $('#documentoActa').prop('files').length == 0) {
                     bootstrap_alert_acta.warning('Debe seleccionar el archivo');
-                    return false;
-                }
-                if ($('#observacionesActa').val() == "") {
-                    bootstrap_alert_acta.warning('Debe ingresar las observaciones');
                     return false;
                 }
                 $('#actaModal').modal('toggle');

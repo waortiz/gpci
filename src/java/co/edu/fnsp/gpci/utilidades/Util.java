@@ -20,6 +20,7 @@ import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidades.EstudianteProyecto;
 import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
+import co.edu.fnsp.gpci.entidades.GrupoInvestigacionProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
 import java.text.DecimalFormat;
@@ -263,6 +264,7 @@ public class Util {
                         + "{idCompromisoProyecto: ko.observable(" + compromisoProyecto.getIdCompromisoProyecto() + "),"
                         + "descripcion:ko.observable('" + compromisoProyecto.getDescripcion() + "'),"
                         + "nombreTipoCompromiso:ko.observable('" + compromisoProyecto.getNombreTipoCompromiso() + "'),"
+                        + "soporte:ko.observable('" + compromisoProyecto.getSoporte()+ "'),"
                         + "idTipoCompromiso:ko.observable(" + compromisoProyecto.getIdTipoCompromiso() + "),"
                         + "consecutivo:ko.observable(" + i + ")"
                         + "}";
@@ -556,7 +558,32 @@ public class Util {
 
         return jscriptArray;
     }
-    
+
+    public static String obtenerGruposInvestigacionJSON(ArrayList<GrupoInvestigacionProyecto> gruposInvestigacion) {
+        String jscriptArray = "";
+
+        if (gruposInvestigacion.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < gruposInvestigacion.size(); i++) {
+                GrupoInvestigacionProyecto grupoInvestigacionProyecto = gruposInvestigacion.get(i);
+                jscriptArray = jscriptArray
+                        + "{idGrupoInvestigacion: ko.observable(" + grupoInvestigacionProyecto.getIdGrupoInvestigacion()+ "),"
+                        + "principal:ko.observable(" + grupoInvestigacionProyecto.isPrincipal() + "),"
+                        + "nombre:ko.observable('" + grupoInvestigacionProyecto.getNombre() + "'),"
+                        + "seleccionado:ko.observable(false)"
+                        + "}";
+                if (i < gruposInvestigacion.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;
+    }        
+        
     public static String obtenerFechaFormateada(Date fecha) {
         if (fecha != null) {
             return simpleDateFormat.format(fecha);
@@ -580,5 +607,4 @@ public class Util {
     public static long obtenerNumero(String numero) throws ParseException {
         return (long) decimalFormat.parse(numero);
     }
-
 }

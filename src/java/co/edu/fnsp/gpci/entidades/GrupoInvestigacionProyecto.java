@@ -5,13 +5,15 @@
  */
 package co.edu.fnsp.gpci.entidades;
 
-import java.util.Date;
-
 /**
  *
  * @author William
  */
 public class GrupoInvestigacionProyecto {
+
+    private int idGrupoInvestigacion;
+    private String nombre;
+    private boolean principal;
 
     /**
      * @return the idGrupoInvestigacion
@@ -28,79 +30,31 @@ public class GrupoInvestigacionProyecto {
     }
 
     /**
-     * @return the idProyecto
+     * @return the nombre
      */
-    public long getIdProyecto() {
-        return idProyecto;
+    public String getNombre() {
+        return nombre;
     }
 
     /**
-     * @param idProyecto the idProyecto to set
+     * @param nombre the nombre to set
      */
-    public void setIdProyecto(long idProyecto) {
-        this.idProyecto = idProyecto;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     /**
-     * @return the idConvocatoria
+     * @return the principal
      */
-    public int getIdConvocatoria() {
-        return idConvocatoria;
+    public boolean isPrincipal() {
+        return principal;
     }
 
     /**
-     * @param idConvocatoria the idConvocatoria to set
+     * @param principal the principal to set
      */
-    public void setIdConvocatoria(int idConvocatoria) {
-        this.idConvocatoria = idConvocatoria;
+    public void setPrincipal(boolean principal) {
+        this.principal = principal;
     }
-
-    /**
-     * @return the entidad
-     */
-    public String getEntidad() {
-        return entidad;
-    }
-
-    /**
-     * @param entidad the entidad to set
-     */
-    public void setEntidad(String entidad) {
-        this.entidad = entidad;
-    }
-
-    /**
-     * @return the categoria
-     */
-    public String getCategoria() {
-        return categoria;
-    }
-
-    /**
-     * @param categoria the categoria to set
-     */
-    public void setCategoria(String categoria) {
-        this.categoria = categoria;
-    }
-
-    /**
-     * @return the fecha
-     */
-    public Date getFecha() {
-        return fecha;
-    }
-
-    /**
-     * @param fecha the fecha to set
-     */
-    public void setFecha(Date fecha) {
-        this.fecha = fecha;
-    }
-
-    private int idGrupoInvestigacion;
-    private long idProyecto;
-    private int idConvocatoria;
-    private String entidad;
-    private String categoria;
-    private Date fecha;
+    
 }

@@ -133,5 +133,4 @@ public class CompromisoHomologadoProyecto {
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
     }
-    
 }

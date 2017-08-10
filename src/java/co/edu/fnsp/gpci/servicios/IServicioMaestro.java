@@ -72,4 +72,8 @@ public interface IServicioMaestro {
     ArrayList<TipoAval> obtenerTiposAval();
      
     ArrayList<TipoVinculacion> obtenerTiposVinculacion();
+
+    int ingresarConvocatoria(Convocatoria convocatoria);
+
+    int ingresarAreaTematica(AreaTematica areaTematica);
 }

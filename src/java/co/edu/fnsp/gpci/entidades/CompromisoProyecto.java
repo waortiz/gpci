@@ -15,7 +15,8 @@ public class CompromisoProyecto {
     private String descripcion;
     private String nombreTipoCompromiso;
     private int idTipoCompromiso;
-    
+    private String soporte;
+        
     /**
      * @return the idCompromisoProyecto
      */
@@ -71,5 +72,18 @@ public class CompromisoProyecto {
     public void setIdTipoCompromiso(int idTipoCompromiso) {
         this.idTipoCompromiso = idTipoCompromiso;
     }
-   
+
+    /**
+     * @return the soporte
+     */
+    public String getSoporte() {
+        return soporte;
+    }
+
+    /**
+     * @param soporte the soporte to set
+     */
+    public void setSoporte(String soporte) {
+        this.soporte = soporte;
+    }    
 }

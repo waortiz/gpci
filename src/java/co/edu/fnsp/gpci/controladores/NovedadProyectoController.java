@@ -36,6 +36,7 @@ import com.google.gson.Gson;
 import co.edu.fnsp.gpci.entidades.TipoPersonaEnum;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
@@ -82,6 +83,7 @@ public class NovedadProyectoController {
         BusquedaProyectos busquedaProyectos = new BusquedaProyectos();
         busquedaProyectos.establecerFechaInicioIncial();
         busquedaProyectos.establecerFechaInicioFinal();
+        
         model.addAttribute("busquedaProyectos", busquedaProyectos);
 
         return "novedades/proyectos";
@@ -94,7 +96,15 @@ public class NovedadProyectoController {
         try {
             Date fechaFinal = Util.obtenerFecha(busquedaProyectos.getFechaFinal());
             Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicio());
-            proyectos = servicioNovedadProyecto.obtenerProyectos(fechaInicial, fechaFinal);
+                                
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaInicial);
+            calendar.add(Calendar.HOUR, 11);
+            calendar.add(Calendar.MINUTE, 59);
+            calendar.add(Calendar.SECOND, 59);
+            fechaInicial = calendar.getTime();
+            
+            proyectos = servicioNovedadProyecto.obtenerProyectos(fechaInicial, fechaFinal, busquedaProyectos.getCodigo(), busquedaProyectos.getDocumentoInvestigadorPrincipal());
         } catch (Exception ex) {
             logger.error(ex);
         }

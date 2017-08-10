@@ -26,7 +26,7 @@ import java.util.Date;
  */
 public interface IServicioNovedadProyecto {
     Proyecto obtenerProyecto(long idProyecto);
-    ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal);
+    ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal, String codigo, String documentoInvestigadorPrincipal);
     void guardarActaProyecto(long idProyecto, ActaProyecto actaProyecto, Documento documento);
     ArrayList<ActaProyecto> obtenerActasProyecto(long idProyecto);
     Documento obtenerDocumentoActaProyecto(long idActa);

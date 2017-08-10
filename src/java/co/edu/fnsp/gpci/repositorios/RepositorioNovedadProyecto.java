@@ -306,10 +306,20 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
     }
 
     @Override
-    public ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal) {
+    public ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal, String codigo, String documentoInvestigadorPrincipal) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varFechaInicio", fechaInicio);
         parametros.addValue("varFechaFinal", fechaFinal);
+        if (!codigo.isEmpty()) {
+            parametros.addValue("varCodigo", codigo);
+        } else {
+            parametros.addValue("varCodigo", null);
+        }
+        if (!documentoInvestigadorPrincipal.isEmpty()) {
+            parametros.addValue("varDocumentoInvestigadorPrincipal", documentoInvestigadorPrincipal);
+        } else {
+            parametros.addValue("varDocumentoInvestigadorPrincipal", null);
+        }
 
         Map resultado = obtenerProyectos.execute(parametros);
         ArrayList<ReporteProyecto> proyectos = (ArrayList<ReporteProyecto>) resultado.get("proyectos");

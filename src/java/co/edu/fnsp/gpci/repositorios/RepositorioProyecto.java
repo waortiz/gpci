@@ -19,9 +19,9 @@ import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import co.edu.fnsp.gpci.entidades.Estudiante;
 import co.edu.fnsp.gpci.entidades.EstudianteProyecto;
 import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
+import co.edu.fnsp.gpci.entidades.GrupoInvestigacionProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
-import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -74,6 +74,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     private SimpleJdbcCall obtenerCompromisosProyecto;
 
     private SimpleJdbcCall ingresarGrupoInvestigacionProyecto;
+    private SimpleJdbcCall actualizarGrupoInvestigacionProyecto;
     private SimpleJdbcCall eliminarGrupoInvestigacionProyecto;
     private SimpleJdbcCall obtenerGruposInvestigacionProyecto;
 
@@ -91,7 +92,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     private SimpleJdbcCall actualizarAlertaAvalProyecto;
     private SimpleJdbcCall eliminarAlertaAvalProyecto;
     private SimpleJdbcCall obtenerAlertasAvalProyecto;
-    
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -136,8 +137,9 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         this.obtenerEntidadesInternacionalesProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerEntidadesInternacionalesProyecto").returningResultSet("entidadesInternacionalesProyecto", BeanPropertyRowMapper.newInstance(EntidadInternacionalProyecto.class));
 
         this.ingresarGrupoInvestigacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarGrupoInvestigacionProyecto");
+        this.actualizarGrupoInvestigacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarGrupoInvestigacionProyecto");
         this.eliminarGrupoInvestigacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarGrupoInvestigacionProyecto");
-        this.obtenerGruposInvestigacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerGruposInvestigacionProyecto").returningResultSet("gruposInvestigacionProyecto", BeanPropertyRowMapper.newInstance(GrupoInvestigacion.class));
+        this.obtenerGruposInvestigacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerGruposInvestigacionProyecto").returningResultSet("gruposInvestigacionProyecto", BeanPropertyRowMapper.newInstance(GrupoInvestigacionProyecto.class));
 
         this.ingresarFuenteFinanciacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarFuenteFinanciacionProyecto");
         this.eliminarFuenteFinanciacionProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarFuenteFinanciacionProyecto");
@@ -158,6 +160,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varFechaInicio", proyecto.getFechaInicio());
         parametros.addValue("varFechaFinalizacion", proyecto.getFechaFinalizacion());
         parametros.addValue("varIdAreaTematica", proyecto.getAreaTematica().getIdAreaTematica());
+        parametros.addValue("varFechaIngresadoSIGEP", proyecto.getFechaIngresadoSIGEP());
         parametros.addValue("varIngresadoSIGEP", proyecto.isIngresadoSIGEP());
         parametros.addValue("varIngresadoSIU", proyecto.isIngresadoSIU());
         parametros.addValue("varIngresadoSIIU", proyecto.isIngresadoSIIU());
@@ -186,8 +189,13 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         MapSqlParameterSource parametrosIngresoGrupoInvestigacionProyecto = new MapSqlParameterSource();
         parametrosIngresoGrupoInvestigacionProyecto.addValue("varIdProyecto", idProyecto);
-        for (GrupoInvestigacion grupoInvestigacion : proyecto.getGruposInvestigacion()) {
+        for (GrupoInvestigacionProyecto grupoInvestigacion : proyecto.getGruposInvestigacion()) {
             parametrosIngresoGrupoInvestigacionProyecto.addValue("varIdGrupoInvestigacion", grupoInvestigacion.getIdGrupoInvestigacion());
+            if (proyecto.getIdGrupoInvestigacionPrincipal() == grupoInvestigacion.getIdGrupoInvestigacion()) {
+                parametrosIngresoGrupoInvestigacionProyecto.addValue("varPrincipal", true);
+            } else {
+                parametrosIngresoGrupoInvestigacionProyecto.addValue("varPrincipal", false);
+            }
             ingresarGrupoInvestigacionProyecto.execute(parametrosIngresoGrupoInvestigacionProyecto);
         }
 
@@ -273,6 +281,11 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametrosIngresoCompromiso.addValue("varIdProyecto", idProyecto);
         for (CompromisoProyecto compromiso : proyecto.getCompromisosProyecto()) {
             parametrosIngresoCompromiso.addValue("varDescripcion", compromiso.getDescripcion());
+            if (!compromiso.getSoporte().isEmpty()) {
+                parametrosIngresoCompromiso.addValue("varSoporte", compromiso.getSoporte());
+            } else {
+                parametrosIngresoCompromiso.addValue("varSoporte", null);
+            }
             parametrosIngresoCompromiso.addValue("varIdTipoCompromiso", compromiso.getIdTipoCompromiso());
             ingresarCompromisoProyecto.execute(parametrosIngresoCompromiso);
         }
@@ -309,6 +322,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varNombreCompletoProyecto", proyecto.getNombreCompletoProyecto());
         parametros.addValue("varFechaInicio", proyecto.getFechaInicio());
         parametros.addValue("varFechaFinalizacion", proyecto.getFechaFinalizacion());
+        parametros.addValue("varFechaIngresadoSIGEP", proyecto.getFechaIngresadoSIGEP());
         parametros.addValue("varIdAreaTematica", proyecto.getAreaTematica().getIdAreaTematica());
         parametros.addValue("varIngresadoSIGEP", proyecto.isIngresadoSIGEP());
         parametros.addValue("varIngresadoSIU", proyecto.isIngresadoSIU());
@@ -352,6 +366,9 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         proyecto.setNombreCompletoProyecto((String) resultado.get("varNombreCompletoProyecto"));
         proyecto.setFechaInicio((Date) resultado.get("varFechaInicio"));
         proyecto.setFechaFinalizacion((Date) resultado.get("varFechaFinalizacion"));
+        if(resultado.get("varFechaIngresadoSIGEP") != null) {
+            proyecto.setFechaIngresadoSIGEP((Date) resultado.get("varFechaIngresadoSIGEP"));
+        }
         proyecto.setAreaTematica(new AreaTematica());
         proyecto.getAreaTematica().setIdAreaTematica((int) resultado.get("varIdAreaTematica"));
         proyecto.getAreaTematica().setNombre((String) resultado.get("varAreaTematica"));
@@ -398,8 +415,14 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         proyecto.setCompromisosProyecto(compromisosProyecto);
 
         Map resultadoGruposInvestigacion = obtenerGruposInvestigacionProyecto.execute(parametros);
-        ArrayList<GrupoInvestigacion> gruposInvestigacion = (ArrayList<GrupoInvestigacion>) resultadoGruposInvestigacion.get("gruposInvestigacionProyecto");
+        ArrayList<GrupoInvestigacionProyecto> gruposInvestigacion = (ArrayList<GrupoInvestigacionProyecto>) resultadoGruposInvestigacion.get("gruposInvestigacionProyecto");
         proyecto.setGruposInvestigacion(gruposInvestigacion);
+        for (GrupoInvestigacionProyecto grupoInvestigacion : gruposInvestigacion) {
+            if (grupoInvestigacion.isPrincipal()) {
+                proyecto.setIdGrupoInvestigacionPrincipal(grupoInvestigacion.getIdGrupoInvestigacion());
+                break;
+            }
+        }
 
         Map resultadoEntidadesInternacionales = obtenerEntidadesInternacionalesProyecto.execute(parametros);
         ArrayList<EntidadInternacionalProyecto> entidadesInternacionales = (ArrayList<EntidadInternacionalProyecto>) resultadoEntidadesInternacionales.get("entidadesInternacionalesProyecto");
@@ -417,17 +440,27 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     }
 
     @Override
-    public ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal) {
+    public ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal, String codigo, String documentoInvestigadorPrincipal) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varFechaInicio", fechaInicio);
         parametros.addValue("varFechaFinal", fechaFinal);
+        if (!codigo.isEmpty()) {
+            parametros.addValue("varCodigo", codigo);
+        } else {
+            parametros.addValue("varCodigo", null);
+        }
+        if (!documentoInvestigadorPrincipal.isEmpty()) {
+            parametros.addValue("varDocumentoInvestigadorPrincipal", documentoInvestigadorPrincipal);
+        } else {
+            parametros.addValue("varDocumentoInvestigadorPrincipal", null);
+        }
 
         Map resultado = obtenerProyectos.execute(parametros);
         ArrayList<ReporteProyecto> proyectos = (ArrayList<ReporteProyecto>) resultado.get("proyectos");
 
         return proyectos;
     }
-    
+
     private void ActualizarObjetivosEspecificos(Proyecto proyecto) {
         MapSqlParameterSource parametrosConsultaObjetivosEspecificos = new MapSqlParameterSource();
         parametrosConsultaObjetivosEspecificos.addValue("varIdProyecto", proyecto.getIdProyecto());
@@ -487,6 +520,11 @@ public class RepositorioProyecto implements IRepositorioProyecto {
                 parametrosActualizacionCompromisoProyecto.addValue("varIdCompromisoProyecto", compromisoProyectoModificado.getIdCompromisoProyecto());
                 parametrosActualizacionCompromisoProyecto.addValue("varDescripcion", compromisoProyectoModificado.getDescripcion());
                 parametrosActualizacionCompromisoProyecto.addValue("varIdTipoCompromiso", compromisoProyectoModificado.getIdTipoCompromiso());
+                if (!compromisoProyectoModificado.getSoporte().isEmpty()) {
+                    parametrosActualizacionCompromisoProyecto.addValue("varSoporte", compromisoProyectoModificado.getSoporte());
+                } else {
+                    parametrosActualizacionCompromisoProyecto.addValue("varSoporte", null);
+                }
                 actualizarCompromisoProyecto.execute(parametrosActualizacionCompromisoProyecto);
             }
         }
@@ -497,6 +535,11 @@ public class RepositorioProyecto implements IRepositorioProyecto {
             if (compromisoProyecto.getIdCompromisoProyecto() == 0) {
                 parametrosIngresoCompromisoProyecto.addValue("varDescripcion", compromisoProyecto.getDescripcion());
                 parametrosIngresoCompromisoProyecto.addValue("varIdTipoCompromiso", compromisoProyecto.getIdTipoCompromiso());
+                if (!compromisoProyecto.getSoporte().isEmpty()) {
+                    parametrosIngresoCompromisoProyecto.addValue("varSoporte", compromisoProyecto.getSoporte());
+                } else {
+                    parametrosIngresoCompromisoProyecto.addValue("varSoporte", null);
+                }
                 ingresarCompromisoProyecto.execute(parametrosIngresoCompromisoProyecto);
             }
         }
@@ -603,7 +646,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         if (resultado.get("varIdProfesor") != null) {
             profesor = new Profesor();
-            profesor.setIdProfesor((long)resultado.get("varIdProfesor"));
+            profesor.setIdProfesor((long) resultado.get("varIdProfesor"));
             profesor.setNombres((String) resultado.get("varNombres"));
             profesor.setApellidos((String) resultado.get("varApellidos"));
             profesor.setContacto((String) resultado.get("varContacto"));
@@ -694,7 +737,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         if (resultado.get("varIdEstudiante") != null) {
             estudiante = new Estudiante();
-            estudiante.setIdEstudiante((long)resultado.get("varIdEstudiante"));
+            estudiante.setIdEstudiante((long) resultado.get("varIdEstudiante"));
             estudiante.setNombres((String) resultado.get("varNombres"));
             estudiante.setApellidos((String) resultado.get("varApellidos"));
             estudiante.setContacto((String) resultado.get("varContacto"));
@@ -774,7 +817,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         if (resultado.get("varIdPersonalExterno") != null) {
             personalExterno = new PersonalExterno();
-            personalExterno.setIdPersonalExterno((long)resultado.get("varIdPersonalExterno"));
+            personalExterno.setIdPersonalExterno((long) resultado.get("varIdPersonalExterno"));
             personalExterno.setNombres((String) resultado.get("varNombres"));
             personalExterno.setApellidos((String) resultado.get("varApellidos"));
             personalExterno.setCorreoElectronico((String) resultado.get("varCorreoElectronico"));
@@ -788,28 +831,39 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         MapSqlParameterSource parametrosConsultaGruposInvestigacion = new MapSqlParameterSource();
         parametrosConsultaGruposInvestigacion.addValue("varIdProyecto", proyecto.getIdProyecto());
         Map resultadoGruposInvestigacion = obtenerGruposInvestigacionProyecto.execute(parametrosConsultaGruposInvestigacion);
-        ArrayList<GrupoInvestigacion> gruposInvestigacionActuales = (ArrayList<GrupoInvestigacion>) resultadoGruposInvestigacion.get("gruposInvestigacionProyecto");
+        ArrayList<GrupoInvestigacionProyecto> gruposInvestigacionActuales = (ArrayList<GrupoInvestigacionProyecto>) resultadoGruposInvestigacion.get("gruposInvestigacionProyecto");
 
         MapSqlParameterSource parametrosEliminacionGrupoInvestigacion = new MapSqlParameterSource();
-        for (GrupoInvestigacion grupoInvestigacionActual : gruposInvestigacionActuales) {
-            boolean grupoInvestigacionExiste = false;
-            for (GrupoInvestigacion grupoInvestigacion : proyecto.getGruposInvestigacion()) {
+        MapSqlParameterSource parametrosActualizacionGrupoInvestigacion = new MapSqlParameterSource();
+        for (GrupoInvestigacionProyecto grupoInvestigacionActual : gruposInvestigacionActuales) {
+            GrupoInvestigacionProyecto grupoInvestigacionModificado = null;
+            for (GrupoInvestigacionProyecto grupoInvestigacion : proyecto.getGruposInvestigacion()) {
                 if (grupoInvestigacion.getIdGrupoInvestigacion() == grupoInvestigacionActual.getIdGrupoInvestigacion()) {
-                    grupoInvestigacionExiste = true;
+                    grupoInvestigacionModificado = grupoInvestigacion;
                     break;
                 }
             }
-            if (!grupoInvestigacionExiste) {
+            if (grupoInvestigacionModificado == null) {
+                parametrosEliminacionGrupoInvestigacion.addValue("varIdProyecto", proyecto.getIdProyecto());
                 parametrosEliminacionGrupoInvestigacion.addValue("varIdGrupoInvestigacion", grupoInvestigacionActual.getIdGrupoInvestigacion());
                 eliminarGrupoInvestigacionProyecto.execute(parametrosEliminacionGrupoInvestigacion);
+            } else {
+                parametrosActualizacionGrupoInvestigacion.addValue("varIdGrupoInvestigacion", grupoInvestigacionModificado.getIdGrupoInvestigacion());
+                parametrosActualizacionGrupoInvestigacion.addValue("varIdProyecto", proyecto.getIdProyecto());
+                if (proyecto.getIdGrupoInvestigacionPrincipal() == grupoInvestigacionModificado.getIdGrupoInvestigacion()) {
+                    parametrosActualizacionGrupoInvestigacion.addValue("varPrincipal", true);
+                } else {
+                    parametrosActualizacionGrupoInvestigacion.addValue("varPrincipal", false);
+                }
+                actualizarGrupoInvestigacionProyecto.execute(parametrosActualizacionGrupoInvestigacion);
             }
         }
 
         MapSqlParameterSource parametrosIngresoGrupoInvestigacion = new MapSqlParameterSource();
         parametrosIngresoGrupoInvestigacion.addValue("varIdProyecto", proyecto.getIdProyecto());
-        for (GrupoInvestigacion grupoInvestigacion : proyecto.getGruposInvestigacion()) {
+        for (GrupoInvestigacionProyecto grupoInvestigacion : proyecto.getGruposInvestigacion()) {
             boolean grupoInvestigacionExiste = false;
-            for (GrupoInvestigacion grupoInvestigacionActual : gruposInvestigacionActuales) {
+            for (GrupoInvestigacionProyecto grupoInvestigacionActual : gruposInvestigacionActuales) {
                 if (grupoInvestigacion.getIdGrupoInvestigacion() == grupoInvestigacionActual.getIdGrupoInvestigacion()) {
                     grupoInvestigacionExiste = true;
                     break;
@@ -817,6 +871,11 @@ public class RepositorioProyecto implements IRepositorioProyecto {
             }
             if (!grupoInvestigacionExiste) {
                 parametrosIngresoGrupoInvestigacion.addValue("varIdGrupoInvestigacion", grupoInvestigacion.getIdGrupoInvestigacion());
+                if (proyecto.getIdGrupoInvestigacionPrincipal() == grupoInvestigacion.getIdGrupoInvestigacion()) {
+                    parametrosIngresoGrupoInvestigacion.addValue("varPrincipal", true);
+                } else {
+                    parametrosIngresoGrupoInvestigacion.addValue("varPrincipal", false);
+                }
                 ingresarGrupoInvestigacionProyecto.execute(parametrosIngresoGrupoInvestigacion);
             }
         }
@@ -899,7 +958,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
             }
         }
     }
-    
+
     private void ActualizarAlertasAvalProyecto(Proyecto proyecto) {
         MapSqlParameterSource parametrosConsultaAlertasAvalProyecto = new MapSqlParameterSource();
         parametrosConsultaAlertasAvalProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());

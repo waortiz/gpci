@@ -13,13 +13,13 @@ import co.edu.fnsp.gpci.editores.RiesgoEticoEditor;
 import co.edu.fnsp.gpci.editores.TipoContratoEditor;
 import co.edu.fnsp.gpci.editores.TipoProyectoEditor;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
-import co.edu.fnsp.gpci.entidades.Convocatoria;
 import co.edu.fnsp.gpci.entidades.EnfoqueMetodologico;
 import co.edu.fnsp.gpci.entidades.EstadoProyecto;
 import co.edu.fnsp.gpci.entidades.Estudiante;
 import co.edu.fnsp.gpci.entidades.Facultad;
 import co.edu.fnsp.gpci.entidades.FuenteFinanciacion;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.GrupoInvestigacionProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.Programa;
@@ -38,18 +38,19 @@ import co.edu.fnsp.gpci.entidades.TipoVinculacion;
 import co.edu.fnsp.gpci.entidades.Usuario;
 import co.edu.fnsp.gpci.entidadesVista.BusquedaPersona;
 import co.edu.fnsp.gpci.entidadesVista.BusquedaProyectos;
+import co.edu.fnsp.gpci.entidades.Convocatoria;
 import co.edu.fnsp.gpci.entidadesVista.ProyectoEdicion;
 import co.edu.fnsp.gpci.servicios.IServicioMaestro;
 import co.edu.fnsp.gpci.servicios.IServicioProyecto;
 import co.edu.fnsp.gpci.utilidades.Util;
 import com.google.gson.Gson;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomCollectionEditor;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -101,7 +102,15 @@ public class ProyectoController {
         try {
             Date fechaFinal = Util.obtenerFecha(busquedaProyectos.getFechaFinal());
             Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicio());
-            proyectos = servicioProyecto.obtenerProyectos(fechaInicial, fechaFinal);
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaInicial);
+            calendar.add(Calendar.HOUR, 11);
+            calendar.add(Calendar.MINUTE, 59);
+            calendar.add(Calendar.SECOND, 59);
+            fechaInicial = calendar.getTime();
+
+            proyectos = servicioProyecto.obtenerProyectos(fechaInicial, fechaFinal, busquedaProyectos.getCodigo(), busquedaProyectos.getDocumentoInvestigadorPrincipal());
         } catch (Exception ex) {
             logger.error(ex);
         }
@@ -157,7 +166,7 @@ public class ProyectoController {
         model.addAttribute("tiposCompromiso", tiposCompromiso);
         model.addAttribute("tiposAval", tiposAval);
         model.addAttribute("tiposVinculacion", tiposVinculacion);
-        
+
         model.addAttribute("proyecto", new Proyecto());
 
         return "proyectos/crear";
@@ -208,7 +217,6 @@ public class ProyectoController {
             }
             List<AreaTematica> areasTematicas = servicioMaestro.obtenerAreasTematicas();
             List<TipoProyecto> tiposProyecto = servicioMaestro.obtenerTiposProyecto();
-            List<GrupoInvestigacion> gruposInvestigacion = servicioMaestro.obtenerGruposInvestigacion();
             List<RiesgoEtico> riesgosEticos = servicioMaestro.obtenerRiesgosEtico();
             List<TipoContrato> tiposContrato = servicioMaestro.obtenerTiposContrato();
             List<EnfoqueMetodologico> enfoquesMetodologicos = servicioMaestro.obtenerEnfoquesMetodologicos();
@@ -224,6 +232,7 @@ public class ProyectoController {
             List<TipoCompromiso> tiposCompromiso = servicioMaestro.obtenerTiposCompromiso();
             List<TipoAval> tiposAval = servicioMaestro.obtenerTiposAval();
             List<TipoVinculacion> tiposVinculacion = servicioMaestro.obtenerTiposVinculacion();
+            List<GrupoInvestigacion> gruposInvestigacion = servicioMaestro.obtenerGruposInvestigacion();
 
             model.addAttribute("areasTematicas", areasTematicas);
             model.addAttribute("tiposProyecto", tiposProyecto);
@@ -244,6 +253,7 @@ public class ProyectoController {
             model.addAttribute("tiposVinculacion", tiposVinculacion);
 
             ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
+            proyectoEdicion.setIdGrupoInvestigacionPrincipal(proyecto.getIdGrupoInvestigacionPrincipal());
             proyectoEdicion.setIdProyecto(proyecto.getIdProyecto());
             proyectoEdicion.setAreaTematica(Integer.toString(proyecto.getAreaTematica().getIdAreaTematica()));
             proyectoEdicion.setCodigo(proyecto.getCodigo());
@@ -253,6 +263,7 @@ public class ProyectoController {
             proyectoEdicion.setConvocatoria(Long.toString(proyecto.getConvocatoria().getIdConvocatoria()));
             proyectoEdicion.setEnfoqueMetodologico(Integer.toString(proyecto.getEnfoqueMetodologico().getIdEnfoqueMetodologico()));
             proyectoEdicion.setEstado(Integer.toString(proyecto.getEstado().getIdEstadoProyecto()));
+            proyectoEdicion.setFechaIngresadoSIGEP(Util.obtenerFechaFormateada(proyecto.getFechaIngresadoSIGEP()));
             proyectoEdicion.setFechaInicio(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
             proyectoEdicion.setFechaFinalizacion(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
             proyectoEdicion.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
@@ -298,11 +309,14 @@ public class ProyectoController {
             if (proyectoEdicion.getAlertasAvalProyecto().size() > 0) {
                 model.addAttribute("alertasAvalProyectoJSON", proyectoEdicion.getAlertasAvalProyectoJSON());
             }
-
+            proyectoEdicion.setGruposInvestigacion(proyecto.getGruposInvestigacion());
+            if (proyectoEdicion.getGruposInvestigacion().size() > 0) {
+                model.addAttribute("gruposInvestigacionJSON", proyectoEdicion.getGruposInvestigacionJSON());
+            }
             ArrayList<GrupoInvestigacion> gruposInvestigacionPorAsignar = new ArrayList<>();
             for (GrupoInvestigacion grupoInvestigacion : gruposInvestigacion) {
                 boolean existe = false;
-                for (GrupoInvestigacion grupoInvestigacionAsignado : proyecto.getGruposInvestigacion()) {
+                for (GrupoInvestigacionProyecto grupoInvestigacionAsignado : proyecto.getGruposInvestigacion()) {
                     if (grupoInvestigacion.getIdGrupoInvestigacion() == grupoInvestigacionAsignado.getIdGrupoInvestigacion()) {
                         existe = true;
                         break;
@@ -312,9 +326,7 @@ public class ProyectoController {
                     gruposInvestigacionPorAsignar.add(grupoInvestigacion);
                 }
             }
-
             model.addAttribute("gruposInvestigacionPorAsignar", gruposInvestigacionPorAsignar);
-            model.addAttribute("gruposInvestigacionAsignados", proyecto.getGruposInvestigacion());
 
             model.addAttribute("proyecto", proyectoEdicion);
         }
@@ -348,7 +360,7 @@ public class ProyectoController {
         List<FuenteFinanciacion> fuentesFinanciacion = servicioMaestro.obtenerFuentesFinanciacion();
         List<TipoCompromiso> tiposCompromiso = servicioMaestro.obtenerTiposCompromiso();
         List<TipoVinculacion> tiposVinculacion = servicioMaestro.obtenerTiposVinculacion();
-        
+
         model.addAttribute("areasTematicas", areasTematicas);
         model.addAttribute("tiposProyecto", tiposProyecto);
         model.addAttribute("riesgosEticos", riesgosEticos);
@@ -366,10 +378,11 @@ public class ProyectoController {
         model.addAttribute("fuentesFinanciacion", fuentesFinanciacion);
         model.addAttribute("tiposFuenteFinanciacionProyecto", tiposFuenteFinanciacionProyecto);
         model.addAttribute("tiposVinculacion", tiposVinculacion);
-        
+
         ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
         Proyecto proyecto = servicioProyecto.obtenerProyecto(idProyecto);
         proyectoEdicion.setIdProyecto(idProyecto);
+        proyectoEdicion.setIdGrupoInvestigacionPrincipal(proyecto.getIdGrupoInvestigacionPrincipal());
         proyectoEdicion.setAreaTematica(Integer.toString(proyecto.getAreaTematica().getIdAreaTematica()));
         proyectoEdicion.setCodigo(proyecto.getCodigo());
         proyectoEdicion.setCodigoCOLCIENCIAS(proyecto.getCodigoCOLCIENCIAS());
@@ -380,6 +393,7 @@ public class ProyectoController {
         proyectoEdicion.setEstado(Integer.toString(proyecto.getEstado().getIdEstadoProyecto()));
         proyectoEdicion.setFechaInicio(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
         proyectoEdicion.setFechaFinalizacion(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
+        proyectoEdicion.setFechaIngresadoSIGEP(Util.obtenerFechaFormateada(proyecto.getFechaIngresadoSIGEP()));
         proyectoEdicion.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
         proyectoEdicion.setIngresadoSIIU(proyecto.isIngresadoSIIU());
         proyectoEdicion.setIngresadoSIU(proyecto.isIngresadoSIU());
@@ -423,11 +437,15 @@ public class ProyectoController {
         if (proyectoEdicion.getAlertasAvalProyecto().size() > 0) {
             model.addAttribute("alertasAvalProyectoJSON", proyectoEdicion.getAlertasAvalProyectoJSON());
         }
+        proyectoEdicion.setGruposInvestigacion(proyecto.getGruposInvestigacion());
+        if (proyectoEdicion.getGruposInvestigacion().size() > 0) {
+            model.addAttribute("gruposInvestigacionJSON", proyectoEdicion.getGruposInvestigacionJSON());
+        }
 
         ArrayList<GrupoInvestigacion> gruposInvestigacionPorAsignar = new ArrayList<>();
         for (GrupoInvestigacion grupoInvestigacion : gruposInvestigacion) {
             boolean existe = false;
-            for (GrupoInvestigacion grupoInvestigacionAsignado : proyecto.getGruposInvestigacion()) {
+            for (GrupoInvestigacionProyecto grupoInvestigacionAsignado : proyecto.getGruposInvestigacion()) {
                 if (grupoInvestigacion.getIdGrupoInvestigacion() == grupoInvestigacionAsignado.getIdGrupoInvestigacion()) {
                     existe = true;
                     break;
@@ -437,9 +455,7 @@ public class ProyectoController {
                 gruposInvestigacionPorAsignar.add(grupoInvestigacion);
             }
         }
-
         model.addAttribute("gruposInvestigacionPorAsignar", gruposInvestigacionPorAsignar);
-        model.addAttribute("gruposInvestigacionAsignados", proyecto.getGruposInvestigacion());
 
         model.addAttribute("proyecto", proyectoEdicion);
 
@@ -497,27 +513,5 @@ public class ProyectoController {
         binder.registerCustomEditor(EnfoqueMetodologico.class, new EnfoqueMetodologicoEditor());
         binder.registerCustomEditor(Convocatoria.class, new ConvocatoriaEditor());
         binder.registerCustomEditor(EstadoProyecto.class, new EstadoProyectoEditor());
-        binder.registerCustomEditor(ArrayList.class, "gruposInvestigacion", new CustomCollectionEditor(ArrayList.class) {
-
-            @Override
-            protected Object convertElement(Object element) {
-                GrupoInvestigacion grupoInvestigacion = new GrupoInvestigacion();
-                if (element instanceof String && !((String) element).equals("")) {
-                    try {
-                        grupoInvestigacion.setIdGrupoInvestigacion(Integer.parseInt((String) element));
-                    } catch (NumberFormatException e) {
-
-                    }
-                } else if (element instanceof Integer) {
-                    try {
-                        grupoInvestigacion.setIdGrupoInvestigacion((int) element);
-                    } catch (Exception e) {
-
-                    }
-                }
-
-                return grupoInvestigacion;
-            }
-        });
     }
 }

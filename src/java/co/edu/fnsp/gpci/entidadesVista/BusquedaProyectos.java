@@ -17,6 +17,8 @@ public class BusquedaProyectos {
 
     private String fechaInicio;
     private String fechaFinal;
+    private String documentoInvestigadorPrincipal;
+    private String codigo;
 
     /**
      * @return the fechaInicio
@@ -60,6 +62,34 @@ public class BusquedaProyectos {
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, 15);
         fechaFinal = formatter.format(calendar.getTime());
+    }
+
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+
+    /**
+     * @return the documentoInvestigadorPrincipal
+     */
+    public String getDocumentoInvestigadorPrincipal() {
+        return documentoInvestigadorPrincipal;
+    }
+
+    /**
+     * @param documentoInvestigadorPrincipal the documentoInvestigadorPrincipal to set
+     */
+    public void setDocumentoInvestigadorPrincipal(String documentoInvestigadorPrincipal) {
+        this.documentoInvestigadorPrincipal = documentoInvestigadorPrincipal;
     }
 
 }

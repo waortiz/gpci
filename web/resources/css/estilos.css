@@ -1,7 +1,12 @@
 @charset "utf-8";
 
 .tablaForm { 
-    width:90%; 
+    width:100%; 
+}
+
+.tablaFormLectura td {
+    border-top: none !important;
+    border-bottom: none !important;
 }
 
 .tablaForm td {

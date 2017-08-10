@@ -32,6 +32,7 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.simple.SimpleJdbcCall;
 import org.springframework.stereotype.Repository;
 
@@ -43,12 +44,14 @@ import org.springframework.stereotype.Repository;
 public class RepositorioMaestro implements IRepositorioMaestro {
 
     private SimpleJdbcCall obtenerAreasTematicas;
+    private SimpleJdbcCall ingresarAreaTematica;
     private SimpleJdbcCall obtenerTiposProyecto;
     private SimpleJdbcCall obtenerGruposInvestigacion;
     private SimpleJdbcCall obtenerRiesgosEticos;
     private SimpleJdbcCall obtenerTiposContrato;
     private SimpleJdbcCall obtenerEnfoquesMetodologicos;
     private SimpleJdbcCall obtenerConvocatorias;
+    private SimpleJdbcCall ingresarConvocatoria;
     private SimpleJdbcCall obtenerEstadosProyecto;
     private SimpleJdbcCall obtenerTiposIdentificacion;
     private SimpleJdbcCall obtenerRoles;
@@ -68,6 +71,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
         jdbcTemplate.setResultsMapCaseInsensitive(true);
 
+        this.ingresarAreaTematica = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarAreaTematica");
         this.obtenerAreasTematicas = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAreasTematicas").
                 returningResultSet("areasTematicas", BeanPropertyRowMapper.newInstance(AreaTematica.class));
         this.obtenerTiposProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerTiposProyecto").
@@ -80,6 +84,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
                 returningResultSet("tiposContrato", BeanPropertyRowMapper.newInstance(TipoContrato.class));
         this.obtenerEnfoquesMetodologicos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerEnfoquesMetodologicos").
                 returningResultSet("enfoquesMetodologicos", BeanPropertyRowMapper.newInstance(EnfoqueMetodologico.class));
+        this.ingresarConvocatoria = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarConvocatoria");
         this.obtenerConvocatorias = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerConvocatorias").
                 returningResultSet("convocatorias", BeanPropertyRowMapper.newInstance(Convocatoria.class));
         this.obtenerEstadosProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerEstadosProyecto").
@@ -268,5 +273,27 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         ArrayList<TipoVinculacion> tiposVinculacion = (ArrayList<TipoVinculacion>) resultado.get("tiposVinculacion");
 
         return tiposVinculacion;
+    }
+
+    @Override
+    public int ingresarConvocatoria(Convocatoria convocatoria) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varNombre", convocatoria.getNombre());
+        Map resultado = ingresarConvocatoria.execute(parametros);
+
+        int idConvocatoria = (int) resultado.get("varIdConvocatoria");
+        
+        return idConvocatoria;
+    }
+
+    @Override
+    public int ingresarAreaTematica(AreaTematica areaTematica) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varNombre", areaTematica.getNombre());
+        Map resultado = ingresarAreaTematica.execute(parametros);
+
+        int idAreaTematica = (int) resultado.get("varIdAreaTematica");
+        
+        return idAreaTematica;
     }
 }

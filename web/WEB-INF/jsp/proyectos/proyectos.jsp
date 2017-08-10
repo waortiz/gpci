@@ -20,16 +20,20 @@
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="tab1success">
                     <form:form method="POST" action="${pageContext.request.contextPath}/proyectos/proyectos" modelAttribute="busquedaProyectos">
-                        <table class='table table-hover' style='font-size:12px;'> 
+                        <table class='table' style='font-size:12px;'> 
                             <tr  class='text-success'>
-                                <td style="vertical-align: middle">Fecha inicial:</td>
+                                <td align="center"><b>Fecha inicial</b></td>
+                                <td align="center"><b>Fecha final</b></td>
+                                <td align="center"><b>Código</b></td>
+                                <td align="center"><b>Documento investigador principal</b></td>
+                            </tr>
+                            <tr  class='text-success'>
                                 <td>
                                     <div class="input-group date">
                                         <form:input path="fechaInicio" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" />
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                 </td>
-                                <td style="vertical-align: middle">Fecha final:</td>
                                 <td>
                                     <div class="input-group date">
                                         <form:input path="fechaFinal" class="form-control datepicker" data-date-format="dd/mm/yyyy" data-validation="required" data-validation-error-msg="Debe ingresar fecha de fin" readonly="true"/>
@@ -37,8 +41,23 @@
                                     </div>
                                 </td>
                                 <td>
-                                    <input type="submit" value="Buscar" class="btn-sm btn-success" />
+                                    <form:input path="codigo" class="form-control" maxlength="15" />
                                 </td>
+                                <td>
+                                    <form:input path="documentoInvestigadorPrincipal" class="form-control" maxlength="20" />
+                                </td>
+                            </tr>
+                        </table>
+                        <table class="table"> 
+                            <tr>
+                                <td align="right" style="width: 95%">
+                                    <a href='${pageContext.request.contextPath}/proyectos/crear'  title='Registrar Proyecto' >
+                                        <input type='button' class='btn-sm btn-success' value='Registrar proyecto' />
+                                    </a> 
+                                </td>
+                               <td align="right" style="width: 5%">
+                                   <input type="submit" value="Buscar" class="btn-sm btn-success" />
+                               </td>
                             </tr>
                         </table>
                         <table class='table table-hover' style='font-size:12px;' id="proyectos"> 
@@ -94,15 +113,6 @@
                 </div>
             </div>
         </div>
-        <table class='table table-hover' style='font-size:12px;'> 
-            <tr>
-                <td align="right">
-                    <a href='${pageContext.request.contextPath}/proyectos/crear'  title='Registrar Proyecto' >
-                        <input type='button' class='btn-sm btn-success' value='Registrar proyecto' />
-                    </a> 
-                </td>
-            </tr>
-        </table>
     </div>
 </div>
 <script type="text/javascript">

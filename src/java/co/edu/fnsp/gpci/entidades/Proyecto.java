@@ -40,6 +40,9 @@ public class Proyecto {
     private EstadoProyecto estado = new EstadoProyecto();
     private Date fechaCreacion;
     private Usuario usuarioCreacion = new Usuario();
+    private long idGrupoInvestigacionPrincipal;
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    private Date fechaIngresadoSIGEP;
     private ArrayList<CompromisoProyecto> compromisosProyecto = new ArrayList<>();
     private ArrayList<EstudianteProyecto> estudiantesProyecto = new ArrayList<>();
     private ArrayList<ObjetivoEspecifico> objetivosEspecificos = new ArrayList<>();
@@ -52,7 +55,7 @@ public class Proyecto {
     private ArrayList<AdendaRetiroProyecto> adendasRetiroProyecto = new ArrayList<>();
     private ArrayList<AdicionProyecto> adicionesProyecto = new ArrayList<>();
     private ArrayList<PlazoProyecto> plazosProyecto = new ArrayList<>();
-    private ArrayList<GrupoInvestigacion> gruposInvestigacion = new ArrayList<>();
+    private ArrayList<GrupoInvestigacionProyecto> gruposInvestigacion = new ArrayList<>();
     private ArrayList<EntidadInternacionalProyecto> entidadesInternacionalesProyecto = new ArrayList<>();
     private ArrayList<FuenteFinanciacionProyecto> fuentesFinanciacionProyecto = new ArrayList<>();
     private ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = new ArrayList<>();
@@ -525,14 +528,14 @@ public class Proyecto {
     /**
      * @return the gruposInvestigacion
      */
-    public ArrayList<GrupoInvestigacion> getGruposInvestigacion() {
+    public ArrayList<GrupoInvestigacionProyecto> getGruposInvestigacion() {
         return gruposInvestigacion;
     }
 
     /**
      * @param gruposInvestigacion the gruposInvestigacion to set
      */
-    public void setGruposInvestigacion(ArrayList<GrupoInvestigacion> gruposInvestigacion) {
+    public void setGruposInvestigacion(ArrayList<GrupoInvestigacionProyecto> gruposInvestigacion) {
         this.gruposInvestigacion = gruposInvestigacion;
     }
 
@@ -632,5 +635,33 @@ public class Proyecto {
      */
     public void setCumplimientosAlertasAvalProyecto(ArrayList<CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto) {
         this.cumplimientosAlertasAvalProyecto = cumplimientosAlertasAvalProyecto;
+    }
+
+    /**
+     * @return the idGrupoInvestigacionPrincipal
+     */
+    public long getIdGrupoInvestigacionPrincipal() {
+        return idGrupoInvestigacionPrincipal;
+    }
+
+    /**
+     * @param idGrupoInvestigacionPrincipal the idGrupoInvestigacionPrincipal to set
+     */
+    public void setIdGrupoInvestigacionPrincipal(long idGrupoInvestigacionPrincipal) {
+        this.idGrupoInvestigacionPrincipal = idGrupoInvestigacionPrincipal;
+    }
+
+    /**
+     * @return the fechaIngresadoSIGEP
+     */
+    public Date getFechaIngresadoSIGEP() {
+        return fechaIngresadoSIGEP;
+    }
+
+    /**
+     * @param fechaIngresadoSIGEP the fechaIngresadoSIGEP to set
+     */
+    public void setFechaIngresadoSIGEP(Date fechaIngresadoSIGEP) {
+        this.fechaIngresadoSIGEP = fechaIngresadoSIGEP;
     }
 }

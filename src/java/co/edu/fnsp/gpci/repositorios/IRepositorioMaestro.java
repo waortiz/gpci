@@ -72,4 +72,8 @@ public interface IRepositorioMaestro {
     ArrayList<TipoAval> obtenerTiposAval();
 
     ArrayList<TipoVinculacion> obtenerTiposVinculacion();
+
+    int ingresarConvocatoria(Convocatoria convocatoria);
+
+    public int ingresarAreaTematica(AreaTematica areaTematica);
 }

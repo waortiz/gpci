@@ -46,8 +46,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
     }
 
     @Override
-    public ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal) {
-        return repositorioNovedadProyecto.obtenerProyectos(fechaInicio, fechaFinal);
+    public ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal, String codigo, String documentoInvestigadorPrincipal) {
+        return repositorioNovedadProyecto.obtenerProyectos(fechaInicio, fechaFinal, codigo, documentoInvestigadorPrincipal);
     }
 
     @Override

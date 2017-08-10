@@ -15,7 +15,7 @@ import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.EntidadInternacionalProyecto;
 import co.edu.fnsp.gpci.entidades.EstudianteProyecto;
 import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
-import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.GrupoInvestigacionProyecto;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
 import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.PlazoProyecto;
@@ -37,6 +37,7 @@ public class ProyectoEdicion {
     private String nombreCortoProyecto;
     private String fechaInicio;
     private String fechaFinalizacion;
+    private String fechaIngresadoSIGEP;
     private String areaTematica;
     private boolean ingresadoSIGEP;
     private boolean ingresadoSIIU;
@@ -53,8 +54,9 @@ public class ProyectoEdicion {
     private String convocatoria;
     private String objetivoGeneral;
     private String estado;
+    private long idGrupoInvestigacionPrincipal;
     private ArrayList<ObjetivoEspecifico> objetivosEspecificos = new ArrayList<>();
-    private ArrayList<GrupoInvestigacion> gruposInvestigacion = new ArrayList<>();
+    private ArrayList<GrupoInvestigacionProyecto> gruposInvestigacion = new ArrayList<>();
     private ArrayList<EntidadInternacionalProyecto> entidadesInternacionalesProyecto = new ArrayList<>();
     private ArrayList<ProfesorProyecto> profesoresProyecto = new ArrayList<>();
     private ArrayList<EstudianteProyecto> estudiantesProyecto = new ArrayList<>();
@@ -71,6 +73,20 @@ public class ProyectoEdicion {
     private ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = new ArrayList<>();
     private ArrayList<AlertaAvalProyecto> alertasAvalProyecto = new ArrayList<>();
     private ArrayList<CumplimientoAlertaAvalProyecto> cumplimientoAlertasAvalProyecto = new ArrayList<>();
+
+    /**
+     * @return the fechaIngresadoSIGEP
+     */
+    public String getFechaIngresadoSIGEP() {
+        return fechaIngresadoSIGEP;
+    }
+
+    /**
+     * @param fechaIngresadoSIGEP the fechaIngresadoSIGEP to set
+     */
+    public void setFechaIngresadoSIGEP(String fechaIngresadoSIGEP) {
+        this.fechaIngresadoSIGEP = fechaIngresadoSIGEP;
+    }
 
     /**
      * @return the areaTematica
@@ -625,14 +641,21 @@ public class ProyectoEdicion {
     /**
      * @return the gruposInvestigacion
      */
-    public ArrayList<GrupoInvestigacion> getGruposInvestigacion() {
+    public ArrayList<GrupoInvestigacionProyecto> getGruposInvestigacion() {
         return gruposInvestigacion;
+    }
+
+    /**
+     * @return the gruposInvestigacion
+     */
+    public String getGruposInvestigacionJSON() {
+        return Util.obtenerGruposInvestigacionJSON(this.gruposInvestigacion);
     }
 
     /**
      * @param gruposInvestigacion the gruposInvestigacion to set
      */
-    public void setGruposInvestigacion(ArrayList<GrupoInvestigacion> gruposInvestigacion) {
+    public void setGruposInvestigacion(ArrayList<GrupoInvestigacionProyecto> gruposInvestigacion) {
         this.gruposInvestigacion = gruposInvestigacion;
     }
 
@@ -740,5 +763,19 @@ public class ProyectoEdicion {
      */
     public void setCumplimientoAlertasAvalProyecto(ArrayList<CumplimientoAlertaAvalProyecto> cumplimientoAlertasAvalProyecto) {
         this.cumplimientoAlertasAvalProyecto = cumplimientoAlertasAvalProyecto;
+    }
+
+    /**
+     * @return the idGrupoInvestigacionPrincipal
+     */
+    public long getIdGrupoInvestigacionPrincipal() {
+        return idGrupoInvestigacionPrincipal;
+    }
+
+    /**
+     * @param idGrupoInvestigacionPrincipal the idGrupoInvestigacionPrincipal to set
+     */
+    public void setIdGrupoInvestigacionPrincipal(long idGrupoInvestigacionPrincipal) {
+        this.idGrupoInvestigacionPrincipal = idGrupoInvestigacionPrincipal;
     }
 }

@@ -139,4 +139,14 @@ public class ServicioMaestro implements IServicioMaestro {
     public ArrayList<TipoVinculacion> obtenerTiposVinculacion() {
         return repositorioMaestro.obtenerTiposVinculacion();
     }
+
+    @Override
+    public int ingresarConvocatoria(Convocatoria convocatoria) {
+        return repositorioMaestro.ingresarConvocatoria(convocatoria);
+    }
+
+    @Override
+    public int ingresarAreaTematica(AreaTematica areaTematica) {
+        return repositorioMaestro.ingresarAreaTematica(areaTematica);
+    }
 }
