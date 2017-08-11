@@ -20,9 +20,10 @@
                     <form:form method="POST" action="${pageContext.request.contextPath}/proyectos/crear" modelAttribute="proyecto">
                         <table class="tablaForm">
                             <tr>
-                                <td width="33%">C&oacute;digo:</td>
-                                <td width="33%">Nombre corto:</td>
-                                <td width="33%">Convocatoria:</td>
+                                <td width="30%">C&oacute;digo:</td>
+                                <td width="30%">Nombre corto:</td>
+                                <td width="35%">Convocatoria:</td>
+                                <td width="5%">&nbsp;</td>
                             </tr>
                             <tr>
                                 <td><form:input path="codigo" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el código" maxlength="15" /></td>
@@ -34,21 +35,24 @@
                                             <form:options items="${convocatorias}" itemLabel="nombre" itemValue="idConvocatoria" />
                                         </form:select>
                                     </div>
+                                </td>
+                                <td>
                                     <button class="btn btn-dark" onclick="mostrarVentanaNuevaConvocatoria(); return false;">
                                         <i class="glyphicon glyphicon-plus"></i>
                                     </button>                                       
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="3">Nombre completo proyecto:</td>
+                                <td colspan="4">Nombre completo proyecto:</td>
                             </tr>
                             <tr>
-                                <td colspan="3"><form:input path="nombreCompletoProyecto" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el nombre completo" maxlength="300" /></td>
+                                <td colspan="4"><form:input path="nombreCompletoProyecto" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el nombre completo" maxlength="300" /></td>
                             </tr>
                             <tr>
                                 <td>Fecha de inicio:</td>
                                 <td>Fecha de finalizaci&oacute;n:</td>
                                 <td>Area tem&aacute;tica:</td>
+                                <td>&nbsp;</td>
                             </tr>
                             <tr>
                                 <td>
@@ -70,10 +74,14 @@
                                         </form:select>
                                     </div>     
                                 </td>
-                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaAreaTematica(); return false;">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                </button>                                       
+                                <td>
+                                    <button class="btn btn-dark" onclick="mostrarVentanaNuevaAreaTematica(); return false;">
+                                        <i class="glyphicon glyphicon-plus"></i>
+                                    </button>                                       
+                                </td>
                             </tr>
+                         </table>                            
+                         <table class="tablaForm">  
                             <tr>
                                 <td>Ingresado SIGEP:</td>
                                 <td>Ingresado SIIU:</td>
@@ -168,7 +176,7 @@
                                     <table align="center">
                                         <tr>
                                             <td rowspan="2">
-                                                <select name="gruposInvestigacionPorAsignar" id="gruposInvestigacionPorAsignar" class="form-control" multiple="true" style="width:450px; height: 200px">
+                                                <select name="gruposInvestigacionPorAsignar" id="gruposInvestigacionPorAsignar" class="form-control" multiple="true" style="width:450px; height: 150px">
                                                     <c:forEach var="grupoInvestigacion" items="${gruposInvestigacionPorAsignar}">
                                                         <option value="${grupoInvestigacion.getIdGrupoInvestigacion()}">${grupoInvestigacion.getNombre()}</option>
                                                     </c:forEach>
@@ -179,7 +187,7 @@
                                                 <a href="JavaScript:void(0);" id="removerGrupoInvestigacion"><span class="glyphicon glyphicon-arrow-left"></span></a>
                                             </td>
                                             <td rowspan="2" style="vertical-align: top">
-                                                <table class="table table-hover tablaForm" style="width: 100%" align="center" >
+                                                <table class="table table-hover tablaForm" style="width: 100%" align="center" id="tablaGruposInvestigacion">
                                                     <thead>
                                                         <tr class="table-row">
                                                             <th style="width: 85%;text-align: center">Grupo investigación</th>
@@ -193,12 +201,12 @@
                                                                 <span data-bind="text: nombre" ></span>
                                                                 <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'gruposInvestigacion[' + $index() + '].nombre'  }">
                                                             </td>
-                                                            <td style="width: 10%">
-                                                                <input type="radio" class="form-control" name="principal" data-bind="attr:{value: idGrupoInvestigacion}, checked: $root.idGrupoInvestigacionPrincipal">
+                                                            <td style="width: 10%" align="center">
+                                                                <input type="radio" name="principal" data-bind="attr:{value: idGrupoInvestigacion}, checked: $root.idGrupoInvestigacionPrincipal">
                                                                 <input type="hidden" data-bind="value: idGrupoInvestigacion, attr: { 'name': 'gruposInvestigacion[' + $index() + '].idGrupoInvestigacion'  }" />
                                                             </td>
-                                                            <td style="width: 5%">
-                                                                <input type="checkbox" data-bind="chkecked: seleccionado, attr: { 'name': 'gruposInvestigacion[' + $index() + '].seleccionado'  }" />
+                                                            <td style="width: 5%" align="center">
+                                                                <input type="checkbox" data-bind="checked: seleccionado, attr: { 'name': 'gruposInvestigacion[' + $index() + '].seleccionado'  }" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -978,7 +986,7 @@
                                                 </table>
                                                 <table class="tablaForm">
                                                     <tr>
-                                                        <td>Porcentaje de propiedad intelectual:</td>
+                                                        <td>% PI:</td>
                                                         <td>Horas semana:</td>
                                                         <td>Meses dedicados:</td>
                                                     </tr>
@@ -1110,7 +1118,7 @@
                                                         <td colspan="2">Fuente:</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="2">
                                                             <select name="fuenteFinanciacion" id="fuenteFinanciacion" class="form-control">
                                                                 <option value=""></option>
                                                             <c:forEach var="fuenteFinanciacion" items="${fuentesFinanciacion}">
@@ -1123,7 +1131,7 @@
                                                         <td colspan="2">Tipo de fuente:</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="2">
                                                             <select name="tipoFuenteFinanciacionProyecto" id="tipoFuenteFinanciacionProyecto" class="form-control">
                                                                 <option value=""></option>
                                                             <c:forEach var="tipoFuenteFinanciacion" items="${tiposFuenteFinanciacionProyecto}">
@@ -1458,7 +1466,7 @@
                             </tr>
                         </table>                                  
                         <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <form:hidden path="idGrupoInvestigacionPrincipal" data-bind="idGrupoInvestigacionPrincipal"  />
+                        <input type="hidden" id="idGrupoInvestigacionPrincipal" name=idGrupoInvestigacionPrincipal" data-bind="value: idGrupoInvestigacionPrincipal"  />
                     </form:form>
                     <form id="convocatoriaForm">
                         <div class="modal fade" id="convocatoriaModal" tabindex="-1" role="dialog" aria-labelledby="convocatoriaModalLabel" aria-hidden="true">
@@ -1483,6 +1491,7 @@
                                         </table>
                                     </div>
                                     <div class="modal-footer">
+                                        <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                         <button type="submit" class="btn btn-primary">Aceptar</button>
                                     </div>                                    
@@ -1513,6 +1522,7 @@
                                         </table>
                                     </div>
                                     <div class="modal-footer">
+                                        <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
                                         <button type="submit" class="btn btn-primary">Aceptar</button>
                                     </div>                                    
@@ -1632,17 +1642,15 @@
             });
             
             $('#proyecto').submit(function (evt) {
-                if ($("#gruposInvestigacion option").length == 0) {
+                if (proyectoModel.gruposInvestigacion().length == 0) {
                     bootstrap_alert_proyecto.warning('Debe asignar al menos un grupo de investigación');
                     return false;
                 }
                                 
-                $('#ingresadoSIGEP1').click(function () {
-                    if ($(this).is(':checked') && $('#fechaIngresadoSIGEP').val() == "") {
-                        bootstrap_alert_proyecto.warning('Debe ingresar la fecha de ingresado SIGEP');
-                        return false;
-                    } 
-                });
+                if ($('#ingresadoSIGEP1').is(':checked') && $('#fechaIngresadoSIGEP').val() == "") {
+                    bootstrap_alert_proyecto.warning('Debe ingresar la fecha de ingresado SIGEP');
+                    return false;
+                } 
             });
             
            $('#convocatoriaForm').submit(function (evt) {
@@ -1670,7 +1678,6 @@
                             $('#convocatoria').append("<option value='" + convocatoria.idConvocatoria + "'>" + convocatoria.nombre + "</option>");
                             ordenarOpcionesMenu($('#convocatoria option'));
                             $('#convocatoria').val(convocatoria.idConvocatoria);
-                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         bootstrap_alert_convocatoria.warning("Error al almacenar la convocatoria.");
@@ -1702,7 +1709,6 @@
                             $('#areaTematica').append("<option value='" + areaTematica.idAreaTematica + "'>" + areaTematica.nombre + "</option>");
                             ordenarOpcionesMenu($('#areaTematica option'));
                             $('#areaTematica').val(areaTematica.idAreaTematica);
-                        }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         bootstrap_alert_areaTematica.warning("Error al almacenar el área temática.");
@@ -1768,7 +1774,7 @@
             var ProyectoModel = function (objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, entidadesInternacionalesProyecto, fuentesFinanciacionProyecto, alertasAvalProyecto, gruposInvestigacion, idGrupoInvestigacionPrincipal) {
                 self = this;
 
-                self.idGrupoInvestigacionPrincipal = ko.observable(ko.idGrupoInvestigacionPrincipal);
+                self.idGrupoInvestigacionPrincipal = ko.observable(idGrupoInvestigacionPrincipal);
                 self.gruposInvestigacion = ko.observableArray(gruposInvestigacion);
                 
                 self.objetivosEspecificos = ko.observableArray(objetivosEspecificos);
