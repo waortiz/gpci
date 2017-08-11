@@ -79,17 +79,16 @@
             $('#opcionesMenuPorAsignar option:selected').each(function () {
                 $('#opcionesMenu').append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option>");
                 $(this).remove();
-                ordenarOpcionesMenu($('#opcionesMenu option'));
             });
+            ordenarOpcionesMenu($('#opcionesMenu option'));
         });
         $('#remover').click(function () {
             $('#opcionesMenu option:selected').each(function () {
                 $('#opcionesMenuPorAsignar').append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option>");
                 $(this).remove();
-                ordenarOpcionesMenu($('#opcionesMenuPorAsignar option'));
             });
+            ordenarOpcionesMenu($('#opcionesMenuPorAsignar option'));
         });
-
     });
 
     function ordenarOpcionesMenu(options) {

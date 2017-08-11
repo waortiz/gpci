@@ -131,15 +131,15 @@
             $('#privilegiosPorAsignar option:selected').each(function () {
                 $('#privilegios').append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option>");
                 $(this).remove();
-                ordenarPrivilegios($('#privilegios option'));
             });
+            ordenarPrivilegios($('#privilegios option'));
         });
         $('#remover').click(function () {
             $('#privilegios option:selected').each(function () {
                 $('#privilegiosPorAsignar').append("<option value='" + $(this).val() + "'>" + $(this).text() + "</option>");
                 $(this).remove();
-                ordenarPrivilegios($('#privilegiosPorAsignar option'));
             });
+            ordenarPrivilegios($('#privilegiosPorAsignar option'));
         });
 
     });
