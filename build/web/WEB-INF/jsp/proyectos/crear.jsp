@@ -176,7 +176,7 @@
                                     <table align="center">
                                         <tr>
                                             <td rowspan="2">
-                                                <select name="gruposInvestigacionPorAsignar" id="gruposInvestigacionPorAsignar" class="form-control" multiple="true" style="width:450px; height: 150px">
+                                                <select name="gruposInvestigacionPorAsignar" id="gruposInvestigacionPorAsignar" class="form-control" multiple="true" style="width:500px; height: 150px">
                                                     <c:forEach var="grupoInvestigacion" items="${gruposInvestigacionPorAsignar}">
                                                         <option value="${grupoInvestigacion.getIdGrupoInvestigacion()}">${grupoInvestigacion.getNombre()}</option>
                                                     </c:forEach>
@@ -187,26 +187,26 @@
                                                 <a href="JavaScript:void(0);" id="removerGrupoInvestigacion"><span class="glyphicon glyphicon-arrow-left"></span></a>
                                             </td>
                                             <td rowspan="2" style="vertical-align: top">
-                                                <table class="table table-hover tablaForm" style="width: 100%" align="center" id="tablaGruposInvestigacion">
+                                                <table class="table table-striped header-fixed" style="width: 100%" align="center" id="tablaGruposInvestigacion">
                                                     <thead>
                                                         <tr class="table-row">
-                                                            <th style="width: 85%;text-align: center">Grupo investigación</th>
-                                                            <th style="width: 10%;text-align: center">Principal</th>
-                                                            <th style="width: 5%">&nbsp;</th>
+                                                            <th style="width: 70%;text-align: center">Grupo investigación</th>
+                                                            <th style="width: 20%;text-align: center">Principal</th>
+                                                            <th style="width: 10%;text-align: center" align="center"><input type="checkbox" id="seleccionarTodosGruposInvestigacion" /></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody data-bind="foreach: { data: gruposInvestigacion }">
                                                         <tr class="table-row">
-                                                            <td style="width: 85%">
+                                                            <td style="width: 70%">
                                                                 <span data-bind="text: nombre" ></span>
                                                                 <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'gruposInvestigacion[' + $index() + '].nombre'  }">
                                                             </td>
-                                                            <td style="width: 10%" align="center">
+                                                            <td style="width: 20%" align="center">
                                                                 <input type="radio" name="principal" data-bind="attr:{value: idGrupoInvestigacion}, checked: $root.idGrupoInvestigacionPrincipal">
                                                                 <input type="hidden" data-bind="value: idGrupoInvestigacion, attr: { 'name': 'gruposInvestigacion[' + $index() + '].idGrupoInvestigacion'  }" />
                                                             </td>
-                                                            <td style="width: 5%" align="center">
-                                                                <input type="checkbox" data-bind="checked: seleccionado, attr: { 'name': 'gruposInvestigacion[' + $index() + '].seleccionado'  }" />
+                                                            <td style="width: 10%" align="center">
+                                                                <input type="checkbox" class="seleccionGrupoInvestigacion" data-bind="checked: seleccionado, attr: { 'name': 'gruposInvestigacion[' + $index() + '].seleccionado'  }" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1536,6 +1536,17 @@
         <script>
             var optsFC = { decimalSymbol: ',', digitGroupSymbol: '.', roundToDecimalPlace: 0 };
             $(document).ready(function () {
+                $('#seleccionarTodosGruposInvestigacion').click(function() {
+                    if(this.checked){
+                        $(".seleccionGrupoInvestigacion").each(function(){
+                          this.checked = true;
+                        })              
+                    } else {
+                        $(".seleccionGrupoInvestigacion").each(function(){
+                          this.checked = false;
+                        })              
+                    }
+                });
                 $('.currencyField').css('text-align', 'right');
                 $('.currencyField').blur(function() {
                     $(this).formatCurrency(optsFC);

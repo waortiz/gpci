@@ -18,3 +18,27 @@
     padding:3px 8px 3px 8px;
     font-size:13px; 
 }
+
+.header-fixed thead, .header-fixed tbody, .header-fixed tr, .header-fixed td, .header-fixed th { display: block; }
+
+.header-fixed tr:after {
+    content: ' ';
+    display: block;
+    visibility: hidden;
+    clear: both;
+}
+
+.header-fixed tbody {
+    height: 120px;
+    overflow-y: auto;
+}
+
+.header-fixed tbody td, .header-fixed thead th {
+    float: left;
+}
+
+.header-fixed thead th {
+    border-bottom: none !important;
+}
+
+
