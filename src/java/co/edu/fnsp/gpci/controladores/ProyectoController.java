@@ -253,8 +253,8 @@ public class ProyectoController {
             model.addAttribute("tiposVinculacion", tiposVinculacion);
 
             ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
-            proyectoEdicion.setIdGrupoInvestigacionPrincipal(proyecto.getIdGrupoInvestigacionPrincipal());
             proyectoEdicion.setIdProyecto(proyecto.getIdProyecto());
+            proyectoEdicion.setIdGrupoInvestigacionPrincipal(proyecto.getIdGrupoInvestigacionPrincipal());
             proyectoEdicion.setAreaTematica(Integer.toString(proyecto.getAreaTematica().getIdAreaTematica()));
             proyectoEdicion.setCodigo(proyecto.getCodigo());
             proyectoEdicion.setCodigoCOLCIENCIAS(proyecto.getCodigoCOLCIENCIAS());

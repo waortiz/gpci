@@ -9,7 +9,6 @@ import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.EntidadInternacionalProyecto;
-import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
 import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
 import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.Profesor;
@@ -291,7 +290,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         }
 
         MapSqlParameterSource parametrosIngresoFuenteFinanciacionProyecto = new MapSqlParameterSource();
-        parametrosIngresoFuenteFinanciacionProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
+        parametrosIngresoFuenteFinanciacionProyecto.addValue("varIdProyecto", idProyecto);
         for (FuenteFinanciacionProyecto fuenteFinanciacion : proyecto.getFuentesFinanciacionProyecto()) {
             if (fuenteFinanciacion.getIdFuenteFinanciacionProyecto() == 0) {
                 parametrosIngresoFuenteFinanciacionProyecto.addValue("varIdFuenteFinanciacion", fuenteFinanciacion.getIdFuenteFinanciacion());
@@ -366,7 +365,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         proyecto.setNombreCompletoProyecto((String) resultado.get("varNombreCompletoProyecto"));
         proyecto.setFechaInicio((Date) resultado.get("varFechaInicio"));
         proyecto.setFechaFinalizacion((Date) resultado.get("varFechaFinalizacion"));
-        if(resultado.get("varFechaIngresadoSIGEP") != null) {
+        if (resultado.get("varFechaIngresadoSIGEP") != null) {
             proyecto.setFechaIngresadoSIGEP((Date) resultado.get("varFechaIngresadoSIGEP"));
         }
         proyecto.setAreaTematica(new AreaTematica());
@@ -417,9 +416,9 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         Map resultadoGruposInvestigacion = obtenerGruposInvestigacionProyecto.execute(parametros);
         ArrayList<GrupoInvestigacionProyecto> gruposInvestigacion = (ArrayList<GrupoInvestigacionProyecto>) resultadoGruposInvestigacion.get("gruposInvestigacionProyecto");
         proyecto.setGruposInvestigacion(gruposInvestigacion);
-        for (GrupoInvestigacionProyecto grupoInvestigacion : gruposInvestigacion) {
-            if (grupoInvestigacion.isPrincipal()) {
-                proyecto.setIdGrupoInvestigacionPrincipal(grupoInvestigacion.getIdGrupoInvestigacion());
+        for (int i = 0; i < gruposInvestigacion.size(); i++) {
+            if (gruposInvestigacion.get(i).isPrincipal()) {
+                proyecto.setIdGrupoInvestigacionPrincipal(gruposInvestigacion.get(i).getIdGrupoInvestigacion());
                 break;
             }
         }

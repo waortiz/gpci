@@ -54,7 +54,7 @@ public class ProyectoEdicion {
     private String convocatoria;
     private String objetivoGeneral;
     private String estado;
-    private long idGrupoInvestigacionPrincipal;
+    private int idGrupoInvestigacionPrincipal;
     private ArrayList<ObjetivoEspecifico> objetivosEspecificos = new ArrayList<>();
     private ArrayList<GrupoInvestigacionProyecto> gruposInvestigacion = new ArrayList<>();
     private ArrayList<EntidadInternacionalProyecto> entidadesInternacionalesProyecto = new ArrayList<>();
@@ -768,14 +768,14 @@ public class ProyectoEdicion {
     /**
      * @return the idGrupoInvestigacionPrincipal
      */
-    public long getIdGrupoInvestigacionPrincipal() {
+    public int getIdGrupoInvestigacionPrincipal() {
         return idGrupoInvestigacionPrincipal;
     }
 
     /**
      * @param idGrupoInvestigacionPrincipal the idGrupoInvestigacionPrincipal to set
      */
-    public void setIdGrupoInvestigacionPrincipal(long idGrupoInvestigacionPrincipal) {
+    public void setIdGrupoInvestigacionPrincipal(int idGrupoInvestigacionPrincipal) {
         this.idGrupoInvestigacionPrincipal = idGrupoInvestigacionPrincipal;
     }
 }

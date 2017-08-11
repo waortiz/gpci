@@ -43,7 +43,7 @@ public class MaestroController {
             int idConvocatoria = servicioMaestro.ingresarConvocatoria(convocatoriaGuardar);
             convocatoriaGuardar.setIdConvocatoria(idConvocatoria);
             Gson gson = new Gson();
-            json = gson.toJson(idConvocatoria);
+            json = gson.toJson(convocatoriaGuardar);
 
         } catch (Exception exc) {
             logger.error(exc);
@@ -63,7 +63,7 @@ public class MaestroController {
             int idAreaTematica = servicioMaestro.ingresarAreaTematica(areaTematicaGuardar);
             areaTematicaGuardar.setIdAreaTematica(idAreaTematica);
             Gson gson = new Gson();
-            json = gson.toJson(idAreaTematica);
+            json = gson.toJson(areaTematicaGuardar);
 
         } catch (Exception exc) {
             logger.error(exc);

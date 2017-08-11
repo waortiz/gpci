@@ -187,7 +187,7 @@
                                                 <a href="JavaScript:void(0);" id="removerGrupoInvestigacion"><span class="glyphicon glyphicon-arrow-left"></span></a>
                                             </td>
                                             <td rowspan="2" style="vertical-align: top">
-                                                <table class="table table-striped header-fixed" style="width: 100%" align="center" id="tablaGruposInvestigacion">
+                                                <table class="table table-striped header-fixed" style="width: 500px" align="center" id="tablaGruposInvestigacion">
                                                     <thead>
                                                         <tr class="table-row">
                                                             <th style="width: 70%;text-align: center">Grupo investigación</th>
@@ -202,11 +202,11 @@
                                                                 <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'gruposInvestigacion[' + $index() + '].nombre'  }">
                                                             </td>
                                                             <td style="width: 20%" align="center">
-                                                                <input type="radio" name="principal" data-bind="attr:{value: idGrupoInvestigacion}, checked: $root.idGrupoInvestigacionPrincipal">
+                                                                <input type="radio" data-bind="attr : {'name': 'principal'}, value: idGrupoInvestigacion, checked: $root.idGrupoInvestigacionPrincipal">
                                                                 <input type="hidden" data-bind="value: idGrupoInvestigacion, attr: { 'name': 'gruposInvestigacion[' + $index() + '].idGrupoInvestigacion'  }" />
                                                             </td>
                                                             <td style="width: 10%" align="center">
-                                                                <input type="checkbox" class="seleccionGrupoInvestigacion" data-bind="checked: seleccionado, attr: { 'name': 'gruposInvestigacion[' + $index() + '].seleccionado'  }" />
+                                                                <input type="checkbox" class="seleccionGrupoInvestigacion" data-bind="checked: seleccionado" />
                                                             </td>
                                                         </tr>
                                                     </tbody>
@@ -1466,7 +1466,7 @@
                             </tr>
                         </table>                                  
                         <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                        <input type="hidden" id="idGrupoInvestigacionPrincipal" name=idGrupoInvestigacionPrincipal" data-bind="value: idGrupoInvestigacionPrincipal"  />
+                        <form:hidden path="idGrupoInvestigacionPrincipal" data-bind="value: idGrupoInvestigacionPrincipal" />
                     </form:form>
                     <form id="convocatoriaForm">
                         <div class="modal fade" id="convocatoriaModal" tabindex="-1" role="dialog" aria-labelledby="convocatoriaModalLabel" aria-hidden="true">
@@ -1485,7 +1485,7 @@
                                         <table class="tablaForm">
                                             <tr>
                                                 <td>
-                                                    <input id="nombreConvocatoria" name="nombreconvocatoria" class="form-control" maxlength="250" />
+                                                    <input id="nombreConvocatoria" name="nombreConvocatoria" class="form-control" maxlength="250" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -1516,7 +1516,7 @@
                                         <table class="tablaForm">
                                             <tr>
                                                 <td>
-                                                    <input id="nombreareaTematica" name="nombreareaTematica" class="form-control" maxlength="250" />
+                                                    <input id="nombreAreaTematica" name="nombreAreaTematica" class="form-control" maxlength="250" />
                                                 </td>
                                             </tr>
                                         </table>
@@ -1537,15 +1537,9 @@
             var optsFC = { decimalSymbol: ',', digitGroupSymbol: '.', roundToDecimalPlace: 0 };
             $(document).ready(function () {
                 $('#seleccionarTodosGruposInvestigacion').click(function() {
-                    if(this.checked){
-                        $(".seleccionGrupoInvestigacion").each(function(){
-                          this.checked = true;
-                        })              
-                    } else {
-                        $(".seleccionGrupoInvestigacion").each(function(){
-                          this.checked = false;
-                        })              
-                    }
+                    for(i = 0; i < proyectoModel.gruposInvestigacion().length; i++) {
+                        proyectoModel.gruposInvestigacion()[i].seleccionado(this.checked);
+                    }                    
                 });
                 $('.currencyField').css('text-align', 'right');
                 $('.currencyField').blur(function() {
@@ -1605,6 +1599,7 @@
                     }
                     if(!existePrincipal) {
                        proyectoModel.gruposInvestigacion()[0].principal(true); 
+                       proyectoModel.idGrupoInvestigacionPrincipal(proyectoModel.gruposInvestigacion()[0].idGrupoInvestigacion());
                     }
                 });
                 $('#removerGrupoInvestigacion').click(function () {
@@ -1614,6 +1609,7 @@
                       if(proyectoModel.gruposInvestigacion()[i].seleccionado()) {
                         gruposInvestigacionRemover[contador] = proyectoModel.gruposInvestigacion()[i];
                         contador++;
+                        $('#gruposInvestigacionPorAsignar').append("<option value='" + proyectoModel.gruposInvestigacion()[i].idGrupoInvestigacion() + "'>" + proyectoModel.gruposInvestigacion()[i].nombre() + "</option>");
                       }
                    }
                    for(i = 0; i < gruposInvestigacionRemover.length; i++) {
@@ -1629,8 +1625,12 @@
                       }
                       if(!existePrincipal) {
                          proyectoModel.gruposInvestigacion()[0].principal(true); 
+                         proyectoModel.idGrupoInvestigacionPrincipal(proyectoModel.gruposInvestigacion()[0].idGrupoInvestigacion());
                       }
-                   }
+                   } else {
+                     proyectoModel.idGrupoInvestigacionPrincipal(0);
+                   }    
+                   $('#seleccionarTodosGruposInvestigacion').prop('checked' , false);
                    ordenarOpcionesMenu($('#gruposInvestigacionPorAsignar option'));
                 });                    
             });
@@ -1683,7 +1683,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                            bootstrap_alert_convocatoria.success("Convocatoria almacenada exitosamente");
+                            bootstrap_alert_proyecto.success("Convocatoria almacenada exitosamente");
                             $('#nombreConvocatoria').val("");
                             var convocatoria = JSON.parse(response);
                             $('#convocatoria').append("<option value='" + convocatoria.idConvocatoria + "'>" + convocatoria.nombre + "</option>");
@@ -1714,7 +1714,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                            bootstrap_alert_areaTematica.success("Área temática almacenada exitosamente");
+                            bootstrap_alert_proyecto.success("Área temática almacenada exitosamente");
                             $('#nombreConvocatoria').val("");
                             var areaTematica = JSON.parse(response);
                             $('#areaTematica').append("<option value='" + areaTematica.idAreaTematica + "'>" + areaTematica.nombre + "</option>");
@@ -1785,9 +1785,8 @@
             var ProyectoModel = function (objetivosEspecificos, profesoresProyecto, estudiantesProyecto, personalExternoProyecto, compromisosProyecto, entidadesInternacionalesProyecto, fuentesFinanciacionProyecto, alertasAvalProyecto, gruposInvestigacion, idGrupoInvestigacionPrincipal) {
                 self = this;
 
-                self.idGrupoInvestigacionPrincipal = ko.observable(idGrupoInvestigacionPrincipal);
                 self.gruposInvestigacion = ko.observableArray(gruposInvestigacion);
-                
+                self.idGrupoInvestigacionPrincipal = ko.observable(idGrupoInvestigacionPrincipal);
                 self.objetivosEspecificos = ko.observableArray(objetivosEspecificos);
                 self.adicionarObjetivoEspecifico = function () {
                     if ($('#objetivoEspecifico').val() == "") {
@@ -2814,6 +2813,9 @@
             bootstrap_alert_proyecto = function () { };
             bootstrap_alert_proyecto.warning = function (message) {
                 $('#alert_placeholder_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            bootstrap_alert_proyecto.success = function (message) {
+                $('#alert_placeholder_proyecto').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
             };
             bootstrap_alert_proyecto.removeWarning = function () {
                 $('#alert_placeholder_proyecto').html('');

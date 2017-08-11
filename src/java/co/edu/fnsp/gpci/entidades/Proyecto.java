@@ -16,6 +16,7 @@ import org.springframework.format.annotation.DateTimeFormat;
 public class Proyecto {
 
     private long idProyecto;
+    private int idGrupoInvestigacionPrincipal;
     private String nombreCompletoProyecto;
     private String nombreCortoProyecto;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
@@ -40,7 +41,6 @@ public class Proyecto {
     private EstadoProyecto estado = new EstadoProyecto();
     private Date fechaCreacion;
     private Usuario usuarioCreacion = new Usuario();
-    private long idGrupoInvestigacionPrincipal;
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     private Date fechaIngresadoSIGEP;
     private ArrayList<CompromisoProyecto> compromisosProyecto = new ArrayList<>();
@@ -61,6 +61,20 @@ public class Proyecto {
     private ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = new ArrayList<>();
     private ArrayList<AlertaAvalProyecto> alertasAvalProyecto = new ArrayList<>();
     private ArrayList<CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto = new ArrayList<>();
+
+    /**
+     * @return the idGrupoInvestigacionPrincipal
+     */
+    public int getIdGrupoInvestigacionPrincipal() {
+        return idGrupoInvestigacionPrincipal;
+    }
+
+    /**
+     * @param idGrupoInvestigacionPrincipal the idGrupoInvestigacionPrincipal to set
+     */
+    public void setIdGrupoInvestigacionPrincipal(int idGrupoInvestigacionPrincipal) {
+        this.idGrupoInvestigacionPrincipal = idGrupoInvestigacionPrincipal;
+    }
     
     
     /**
@@ -635,20 +649,6 @@ public class Proyecto {
      */
     public void setCumplimientosAlertasAvalProyecto(ArrayList<CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto) {
         this.cumplimientosAlertasAvalProyecto = cumplimientosAlertasAvalProyecto;
-    }
-
-    /**
-     * @return the idGrupoInvestigacionPrincipal
-     */
-    public long getIdGrupoInvestigacionPrincipal() {
-        return idGrupoInvestigacionPrincipal;
-    }
-
-    /**
-     * @param idGrupoInvestigacionPrincipal the idGrupoInvestigacionPrincipal to set
-     */
-    public void setIdGrupoInvestigacionPrincipal(long idGrupoInvestigacionPrincipal) {
-        this.idGrupoInvestigacionPrincipal = idGrupoInvestigacionPrincipal;
     }
 
     /**
