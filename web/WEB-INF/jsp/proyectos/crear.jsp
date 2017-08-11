@@ -105,13 +105,13 @@
                                     </div>
                                 </td>
                                 <td><form:input path="codigoSIIU" class="form-control" maxlength="50" /></td>
-                                <td><form:input path="codigoSIU" class="form-control" data-validation="required" maxlength="50" data-validation-error-msg="Debe ingresar el c&oacute;digo SIU" /></td>
+                                <td><form:input path="codigoSIU" class="form-control" maxlength="50" /></td>
                             </tr>
                             <tr>
                                <td colspan="3">C&oacute;digo COLCIENCIAS:</td>
                             </tr>
                             <tr>
-                               <td colspan="3"><form:input path="codigoCOLCIENCIAS" class="form-control" data-validation="required" maxlength="50" data-validation-error-msg="Debe ingresar el c&oacute;digo COLCIENCIAS" /></td>
+                               <td colspan="3"><form:input path="codigoCOLCIENCIAS" class="form-control" maxlength="50" /></td>
                             </tr>
                             <tr>
                                 <td>Participaci&oacute;n internacional:</td>
@@ -554,9 +554,6 @@
                                                     <tr>
                                                         <td>Horas semana plan:</td>
                                                         <td>Meses dedicados plan:</td>
-                                                        <td>Horas semana fuera del plan:</td>
-                                                        <td>Meses fuera plan</td>
-                                                        <td>% PI:</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -565,13 +562,24 @@
                                                         <td>
                                                             <input type="text" id="mesesDedicadosProfesor" name="mesesDedicadosProfesor" class="form-control numbersOnly" maxlength="5" />
                                                         </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Horas semana fuera del plan:</td>
+                                                        <td>Meses fuera plan:</td>
+                                                    </tr>
+                                                    <tr>
                                                         <td>
                                                             <input type="text" id="horasSemanaFueraPlanProfesor" name="horasSemanaFueraPlanProfesor" class="form-control numbersOnly" maxlength="3" />
                                                         </td>
                                                         <td>
                                                             <input type="text" id="mesesFueraPlanProfesor" name="mesesFueraPlanProfesor" class="form-control numbersOnly" maxlength="5" />
                                                         </td>
-                                                        <td>
+                                                    </tr>
+                                                    <tr>
+                                                         <td colspan="2">Porcentaje de propiedad intelectual:</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
                                                             <input type="text" id="porcentajePIProfesor" name="porcentajePIProfesor" class="form-control numbersOnly" maxlength="3" />
                                                         </td>
                                                     </tr>
@@ -1662,6 +1670,33 @@
                     bootstrap_alert_proyecto.warning('Debe ingresar la fecha de ingresado SIGEP');
                     return false;
                 } 
+
+                if ($('#ingresadoSIIU1').is(':checked') && $('#codigoSIIU').val() == "") {
+                    bootstrap_alert_proyecto.warning('Debe ingresar el código SIIU');
+                    return false;
+                } 
+
+                if ($('#ingresadoSIU1').is(':checked') && $('#codigoSIU').val() == "") {
+                    bootstrap_alert_proyecto.warning('Debe ingresar el código SIU');
+                    return false;
+                } 
+                evt.preventDefault();
+                var formData = new FormData(this);
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/proyectos/crear",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                       window.location.href = '${pageContext.request.contextPath}/proyectos/proyectos';
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        bootstrap_alert_proyecto.warning("Error al almacenar el proyecto.");
+                    }});
             });
             
            $('#convocatoriaForm').submit(function (evt) {

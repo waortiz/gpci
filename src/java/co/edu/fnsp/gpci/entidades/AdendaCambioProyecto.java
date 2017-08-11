@@ -15,21 +15,43 @@ public class AdendaCambioProyecto {
 
     private long idAdenda;
     private long idPersona;
+    private long idPersonaAnterior;
     private Date fechaActa;
     private String fechaActaFormateada;
     private String numeroActa;
     private Date fechaCambio;
     private String fechaCambioFormateada;
-    private String nombreTipoIdentificacionPersona;
     private int idTipoPersona;
     private String nombreTipoPersona;
+
+    private int idTipoIdentificacionPersonaAnterior;
+    private String nombreTipoIdentificacionPersonaAnterior;
+    private long numeroIdentificacionPersonaAnterior;
+    private String nombresPersonaAnterior;
+    private String apellidosPersonaAnterior;
+
     private int idTipoIdentificacionPersona;
+    private String nombreTipoIdentificacionPersona;
     private long numeroIdentificacionPersona;
     private String nombresPersona;
     private String apellidosPersona;
     private String nombreRol;
     private int idRol;
     private String observaciones;
+
+    /**
+     * @return the idPersonaAnterior
+     */
+    public long getIdPersonaAnterior() {
+        return idPersonaAnterior;
+    }
+
+    /**
+     * @param idPersonaAnterior the idPersonaAnterior to set
+     */
+    public void setIdPersonaAnterior(long idPersonaAnterior) {
+        this.idPersonaAnterior = idPersonaAnterior;
+    }
 
     /**
      * @return the idPersona
@@ -269,5 +291,75 @@ public class AdendaCambioProyecto {
      */
     public void setObservaciones(String observaciones) {
         this.observaciones = observaciones;
+    }
+
+    /**
+     * @return the idTipoIdentificacionPersonaAnterior
+     */
+    public int getIdTipoIdentificacionPersonaAnterior() {
+        return idTipoIdentificacionPersonaAnterior;
+    }
+
+    /**
+     * @param idTipoIdentificacionPersonaAnterior the idTipoIdentificacionPersonaAnterior to set
+     */
+    public void setIdTipoIdentificacionPersonaAnterior(int idTipoIdentificacionPersonaAnterior) {
+        this.idTipoIdentificacionPersonaAnterior = idTipoIdentificacionPersonaAnterior;
+    }
+
+    /**
+     * @return the numeroIdentificacionPersonaAnterior
+     */
+    public long getNumeroIdentificacionPersonaAnterior() {
+        return numeroIdentificacionPersonaAnterior;
+    }
+
+    /**
+     * @param numeroIdentificacionPersonaAnterior the numeroIdentificacionPersonaAnterior to set
+     */
+    public void setNumeroIdentificacionPersonaAnterior(long numeroIdentificacionPersonaAnterior) {
+        this.numeroIdentificacionPersonaAnterior = numeroIdentificacionPersonaAnterior;
+    }
+
+    /**
+     * @return the nombresPersonaAnterior
+     */
+    public String getNombresPersonaAnterior() {
+        return nombresPersonaAnterior;
+    }
+
+    /**
+     * @param nombresPersonaAnterior the nombresPersonaAnterior to set
+     */
+    public void setNombresPersonaAnterior(String nombresPersonaAnterior) {
+        this.nombresPersonaAnterior = nombresPersonaAnterior;
+    }
+
+    /**
+     * @return the apellidosPersonaAnterior
+     */
+    public String getApellidosPersonaAnterior() {
+        return apellidosPersonaAnterior;
+    }
+
+    /**
+     * @param apellidosPersonaAnterior the apellidosPersonaAnterior to set
+     */
+    public void setApellidosPersonaAnterior(String apellidosPersonaAnterior) {
+        this.apellidosPersonaAnterior = apellidosPersonaAnterior;
+    }
+
+    /**
+     * @return the nombreTipoIdentificacionPersonaAnterior
+     */
+    public String getNombreTipoIdentificacionPersonaAnterior() {
+        return nombreTipoIdentificacionPersonaAnterior;
+    }
+
+    /**
+     * @param nombreTipoIdentificacionPersonaAnterior the nombreTipoIdentificacionPersonaAnterior to set
+     */
+    public void setNombreTipoIdentificacionPersonaAnterior(String nombreTipoIdentificacionPersonaAnterior) {
+        this.nombreTipoIdentificacionPersonaAnterior = nombreTipoIdentificacionPersonaAnterior;
     }
 }

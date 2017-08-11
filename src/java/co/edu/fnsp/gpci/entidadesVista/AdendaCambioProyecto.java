@@ -19,6 +19,8 @@ public class AdendaCambioProyecto {
     private String fechaActaAdendaCambio;
     private String numeroActaAdendaCambio;
     private int tipoPersonaAdendaCambio;
+    private int tipoIdentificacionPersonaAnteriorAdendaCambio;
+    private long numeroIdentificacionPersonaAnteriorAdendaCambio;
     private int tipoIdentificacionPersonaAdendaCambio;
     private long numeroIdentificacionPersonaAdendaCambio;
     private int rolAdendaCambio;
@@ -177,5 +179,33 @@ public class AdendaCambioProyecto {
      */
     public void setFechaAdendaCambio(String fechaAdendaCambio) {
         this.fechaAdendaCambio = fechaAdendaCambio;
+    }
+
+    /**
+     * @return the tipoIdentificacionPersonaAnteriorAdendaCambio
+     */
+    public int getTipoIdentificacionPersonaAnteriorAdendaCambio() {
+        return tipoIdentificacionPersonaAnteriorAdendaCambio;
+    }
+
+    /**
+     * @param tipoIdentificacionPersonaAnteriorAdendaCambio the tipoIdentificacionPersonaAnteriorAdendaCambio to set
+     */
+    public void setTipoIdentificacionPersonaAnteriorAdendaCambio(int tipoIdentificacionPersonaAnteriorAdendaCambio) {
+        this.tipoIdentificacionPersonaAnteriorAdendaCambio = tipoIdentificacionPersonaAnteriorAdendaCambio;
+    }
+
+    /**
+     * @return the numeroIdentificacionPersonaAnteriorAdendaCambio
+     */
+    public long getNumeroIdentificacionPersonaAnteriorAdendaCambio() {
+        return numeroIdentificacionPersonaAnteriorAdendaCambio;
+    }
+
+    /**
+     * @param numeroIdentificacionPersonaAnteriorAdendaCambio the numeroIdentificacionPersonaAnteriorAdendaCambio to set
+     */
+    public void setNumeroIdentificacionPersonaAnteriorAdendaCambio(long numeroIdentificacionPersonaAnteriorAdendaCambio) {
+        this.numeroIdentificacionPersonaAnteriorAdendaCambio = numeroIdentificacionPersonaAnteriorAdendaCambio;
     }
 }

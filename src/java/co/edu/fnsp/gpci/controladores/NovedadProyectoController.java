@@ -267,6 +267,12 @@ public class NovedadProyectoController {
         try {
             AdendaCambioProyecto adendaProyectoGuardar = new AdendaCambioProyecto();
             if (adendaCambioProyecto.getTipoPersonaAdendaCambio() == TipoPersonaEnum.PROFESOR.getIdTipoPersona()) {
+                Profesor profesorAnterior = servicioProyecto.obtenerProfesor(adendaCambioProyecto.getTipoIdentificacionPersonaAnteriorAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAnteriorAdendaCambio());
+                if (profesorAnterior != null) {
+                    adendaProyectoGuardar.setIdPersonaAnterior(profesorAnterior.getIdProfesor());
+                } else {
+                    throw new IllegalArgumentException("El profesor a retirar no existe");
+                }
                 Profesor profesor = servicioProyecto.obtenerProfesor(adendaCambioProyecto.getTipoIdentificacionPersonaAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAdendaCambio());
                 if (profesor != null) {
                     adendaProyectoGuardar.setIdPersona(profesor.getIdProfesor());
@@ -274,6 +280,12 @@ public class NovedadProyectoController {
                     throw new IllegalArgumentException("El profesor no existe");
                 }
             } else if (adendaCambioProyecto.getTipoPersonaAdendaCambio() == TipoPersonaEnum.ESTUDIANTE.getIdTipoPersona()) {
+                Estudiante estudianteAnterior = servicioProyecto.obtenerEstudiante(adendaCambioProyecto.getTipoIdentificacionPersonaAnteriorAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAnteriorAdendaCambio());
+                if (estudianteAnterior != null) {
+                    adendaProyectoGuardar.setIdPersonaAnterior(estudianteAnterior.getIdEstudiante());
+                } else {
+                    throw new IllegalArgumentException("El estudiante a retirar no existe");
+                }
                 Estudiante estudiante = servicioProyecto.obtenerEstudiante(adendaCambioProyecto.getTipoIdentificacionPersonaAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAdendaCambio());
                 if (estudiante != null) {
                     adendaProyectoGuardar.setIdPersona(estudiante.getIdEstudiante());
@@ -281,6 +293,12 @@ public class NovedadProyectoController {
                     throw new IllegalArgumentException("El estudiante no existe");
                 }
             } else if (adendaCambioProyecto.getTipoPersonaAdendaCambio() == TipoPersonaEnum.PERSONAL_EXTERNO.getIdTipoPersona()) {
+                PersonalExterno personalExternoAnterior = servicioProyecto.obtenerPersonalExterno(adendaCambioProyecto.getTipoIdentificacionPersonaAnteriorAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAnteriorAdendaCambio());
+                if (personalExternoAnterior != null) {
+                    adendaProyectoGuardar.setIdPersonaAnterior(personalExternoAnterior.getIdPersonalExterno());
+                } else {
+                    throw new IllegalArgumentException("El personal externo a retirar no existe");
+                }
                 PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(adendaCambioProyecto.getTipoIdentificacionPersonaAdendaCambio(), adendaCambioProyecto.getNumeroIdentificacionPersonaAdendaCambio());
                 if (personalExterno != null) {
                     adendaProyectoGuardar.setIdPersona(personalExterno.getIdPersonalExterno());

@@ -310,12 +310,12 @@
                               <thead>
                                 <tr class="table-row">
                                     <td style="width: 5%;text-align: center"><strong>Tipo persona</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Tipo de identificación</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
-                                    <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
-                                    <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
+                                    <td style="width: 20%;text-align: center"><strong>Tipo de identificación nueva persona</strong></td>
+                                    <td style="width: 15%;text-align: center"><strong>Número de identificación nueva persona</strong></td>
+                                    <td style="width: 15%;text-align: center"><strong>Nombres nueva persona</strong></td>
+                                    <td style="width: 15%;text-align: center"><strong>Apellidos nueva persona</strong></td>
                                     <td style="width: 10%;text-align: center"><strong>Rol</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Fecha de cambio</strong></td>
+                                    <td style="width: 5%;text-align: center"><strong>Fecha de cambio</strong></td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
                                     <td style="width: 5%">&nbsp;</td>
@@ -326,22 +326,22 @@
                                     <td style="width: 5%">
                                         <span data-bind="text: nombreTipoPersona" ></span>
                                     </td>
-                                    <td style="width: 10%">
+                                    <td style="width: 20%">
                                         <span data-bind="text: nombreTipoIdentificacionPersona" ></span>
                                     </td>
-                                    <td style="width: 10%">
+                                    <td style="width: 15%">
                                         <span data-bind="text: numeroIdentificacionPersona" ></span>
                                     </td>
-                                    <td style="width: 20%">
+                                    <td style="width: 15%">
                                         <span data-bind="text: nombresPersona" ></span>
                                     </td>
-                                    <td style="width: 20%">
+                                    <td style="width: 15%">
                                         <span data-bind="text: apellidosPersona" ></span>
                                     </td>
                                     <td style="width: 10%">
                                         <span data-bind="text: nombreRol" ></span>
                                     </td>
-                                    <td style="width: 15%">
+                                    <td style="width: 5%">
                                         <span data-bind="text: fechaCambioFormateada" ></span>
                                     </td>
                                     <td style="width: 5%">
@@ -412,8 +412,49 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td width="45%">Tipo de identificación:</td>
-                                                        <td width="45%">Número de identificación:</td>
+                                                        <td width="45%">Tipo identificación persona anterior:</td>
+                                                        <td width="45%">Número identificación persona anterior:</td>
+                                                        <td width="10%">&nbsp;</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <select name="tipoIdentificacionPersonaAnteriorAdendaCambio" id="tipoIdentificacionPersonaAnteriorAdendaCambio" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                            </c:forEach>
+                                                            </select>    
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAnteriorAdendaCambio" name="numeroIdentificacionPersonaAnteriorAdendaCambio" maxlength="20"/>
+                                                        </td>
+                                                        <td>
+                                                            <div class="btn-group">
+                                                                <button class="btn btn-dark" onclick="buscarPersonaAnteriorAdendaCambio(); return false;">
+                                                                    <i class="glyphicon glyphicon-search"></i>
+                                                                </button>
+                                                            </div>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td>Nombres persona anterior:</td>
+                                                        <td>Apellidos persona anterior:</td>                                    
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <input type="text" id="nombresPersonaAnteriorAdendaCambio" name="nombresPersonaAnteriorAdendaCambio" class="form-control" readonly />
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="apellidosPersonaAnteriorAdendaCambio" name="apellidosPersonaAnteriorAdendaCambio" class="form-control" readonly />
+                                                        </td>                                    
+                                                    </tr>                                                        
+                                                </table>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td width="45%">Tipo identificación nueva persona:</td>
+                                                        <td width="45%">Número identificación nueva persona:</td>
                                                         <td width="10%">&nbsp;</td>
                                                     </tr>
                                                     <tr>
@@ -436,24 +477,20 @@
                                                             </div>
                                                         </td>
                                                     </tr>
+                                                </table>
+                                                <table class="tablaForm">
                                                     <tr>
-                                                        <td colspan="3">Nombres:</td>
+                                                        <td>Nombres nueva persona:</td>
+                                                        <td>Apellidos nueva persona:</td>                                    
                                                     </tr>
                                                     <tr>
-                                                        <td colspan="3">
+                                                        <td>
                                                             <input type="text" id="nombresPersonaAdendaCambio" name="nombresPersonaAdendaCambio" class="form-control" readonly />
                                                         </td>
-                                                    </tr>                                                        
-                                                    <tr>
-                                                        <td colspan="3">Apellidos:</td>                                    
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">
+                                                        <td>
                                                             <input type="text" id="apellidosPersonaAdendaCambio" name="apellidosPersonaAdendaCambio" class="form-control" readonly />
                                                         </td>                                    
                                                     </tr>                                                        
-                                                 </table>
-                                                <table class="tablaForm">
                                                     <tr>
                                                         <td>Fecha de cambio</td>                                                        
                                                         <td>Rol</td>                                                        
@@ -502,7 +539,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
-                                                            <textarea id="observacionesAdendaCambio" name="observacionesAdendaCambio" class="form-control" rows="5"></textarea>
+                                                            <textarea id="observacionesAdendaCambio" name="observacionesAdendaCambio" class="form-control" rows="3"></textarea>
                                                         </td>
                                                     </tr>                                                    
                                                 </table>
@@ -1815,6 +1852,55 @@
                     }});
             }
 
+          function buscarPersonaAnteriorAdendaCambio() {
+          
+                if ($('#tipoPersonaAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe seleccionar el tipo de persona');
+                    return false;
+                }
+                if ($('#tipoIdentificacionPersonaAnteriorAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe seleccionar el tipo de identificación de la persona a retirar');
+                    return false;
+                }
+                if ($('#numeroIdentificacionPersonaAnteriorAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe ingresar el número de identificación de la persona a retirar');
+                    return false;
+                }
+
+                var tipoIdentificacion = $('#tipoIdentificacionPersonaAnteriorAdendaCambio').val();
+                var numeroIdentificacion = $('#numeroIdentificacionPersonaAnteriorAdendaCambio').val();
+                var tipoPersona = "";
+                if ($('#tipoPersonaAdendaCambio').val() == "1") {
+                    tipoPersona = "profesores";
+                } else if ($('#tipoPersonaAdendaCambio').val() == "2") {
+                    tipoPersona = "estudiantes";
+                } else if ($('#tipoPersonaAdendaCambio').val() == "3") {
+                    tipoPersona = "personalExterno";
+                }
+
+                $.ajax({
+                        type: "POST",
+                        url: "${pageContext.request.contextPath}/proyectos/" + tipoPersona,
+                        data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                        beforeSend: function(xhr){
+                           xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                        },                        
+                        success: function(response){
+                           if(response != "") {
+                             var estudiante = JSON.parse(response);
+                             $('#nombresPersonaAnteriorAdendaCambio').val(estudiante.nombres);
+                             $('#apellidosPersonaAnteriorAdendaCambio').val(estudiante.apellidos);
+                           } else {
+                             $('#nombresPersonaAnteriorAdendaCambio').val("");
+                             $('#apellidosPersonaAnteriorAdendaCambio').val("");
+                           }    
+                        },
+                        error: function(e){
+                            bootstrap_alert_adenda_cambio.warning(e);
+                        }
+                    });
+           }
+
           function buscarPersonaAdendaCambio() {
           
                 if ($('#tipoPersonaAdendaCambio').val() == "") {
@@ -1869,6 +1955,14 @@
                 var formData = new FormData(this);
                 if ($('#tipoPersonaAdendaCambio').val() == "") {
                     bootstrap_alert_adenda_cambio.warning('Debe seleccionar el tipo de persona');
+                    return false;
+                }
+                if ($('#tipoIdentificacionPersonaAnteriorAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe seleccionar el tipo de identificación de la persona a retirar');
+                    return false;
+                }
+                if ($('#numeroIdentificacionPersonaAnteriorAdendaCambio').val() == "") {
+                    bootstrap_alert_adenda_cambio.warning('Debe ingresar el número de identificación de la persona a retirar');
                     return false;
                 }
                 if ($('#tipoIdentificacionPersonaAdendaCambio').val() == "") {
@@ -2836,11 +2930,15 @@
                     $('#fechaAdendaCambio').val(adenda.fechaCambioFormateada());
                     $('#tipoPersonaAdendaCambio').val(adenda.idTipoPersona());
                     $('#rolAdendaCambio').val(adenda.idRol());
+                    $('#tipoIdentificacionPersonaAnteriorAdendaCambio').val(adenda.idTipoIdentificacionPersonaAnterior());
+                    $('#numeroIdentificacionPersonaAnteriorAdendaCambio').val(adenda.numeroIdentificacionPersonaAnterior());
+                    $('#nombresPersonaAnteriorAdendaCambio').val(adenda.nombresPersonaAnterior());
+                    $('#apellidosPersonaAnteriorAdendaCambio').val(adenda.apellidosPersonaAnterior());
                     $('#tipoIdentificacionPersonaAdendaCambio').val(adenda.idTipoIdentificacionPersona());
                     $('#numeroIdentificacionPersonaAdendaCambio').val(adenda.numeroIdentificacionPersona());
-                    $('#fechaActaAdendaCambio').val(adenda.fechaActaFormateada());
                     $('#nombresPersonaAdendaCambio').val(adenda.nombresPersona());
                     $('#apellidosPersonaAdendaCambio').val(adenda.apellidosPersona());
+                    $('#fechaActaAdendaCambio').val(adenda.fechaActaFormateada());
                     $('#numeroActaAdendaCambio').val(adenda.numeroActa());
                     $('#observacionesAdendaCambio').val(adenda.observaciones());
                     $('#adendaCambioModal').modal('show');
@@ -3085,6 +3183,10 @@
                 $('#fechaAdendaCambio').val("");
                 $('#tipoPersonaAdendaCambio').val("");
                 $('#rolAdendaCambio').val("");
+                $('#tipoIdentificacionPersonaAnteriorAdendaCambio').val("");
+                $('#numeroIdentificacionPersonaAnteriorAdendaCambio').val("");
+                $('#nombresPersonaAnteriorAdendaCambio').val("");
+                $('#apellidosPersonaAnteriorAdendaCambio').val("");
                 $('#tipoIdentificacionPersonaAdendaCambio').val("");
                 $('#numeroIdentificacionPersonaAdendaCambio').val("");
                 $('#fechaActaAdendaCambio').val("");

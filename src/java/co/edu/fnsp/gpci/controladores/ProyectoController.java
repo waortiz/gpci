@@ -179,7 +179,7 @@ public class ProyectoController {
      * @return
      */
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
-    public String crearProyecto(@ModelAttribute("proyecto") Proyecto proyecto, Model model) {
+    public @ResponseBody String crearProyecto(@ModelAttribute("proyecto") Proyecto proyecto, Model model) {
 
         try {
             if (proyecto.getIdProyecto() == 0) {
@@ -196,142 +196,12 @@ public class ProyectoController {
                 servicioProyecto.actualizarProyecto(proyecto);
             }
 
-            model.addAttribute("proyectos", new ArrayList<>());
-            if (proyecto.getIdProyecto() == 0) {
-                model.addAttribute("mensaje", "El proyecto se ha ingreasado exitosamente");
-            } else {
-                model.addAttribute("mensaje", "El proyecto se ha actualizado exitosamente");
-            }
-            BusquedaProyectos busquedaProyectos = new BusquedaProyectos();
-            busquedaProyectos.establecerFechaInicioIncial();
-            busquedaProyectos.establecerFechaInicioFinal();
-            model.addAttribute("busquedaProyectos", busquedaProyectos);
-
-            return "proyectos/proyectos";
+            return "";
+            
         } catch (Exception exc) {
             logger.error(exc);
-            if (proyecto.getIdProyecto() == 0) {
-                model.addAttribute("mensaje", "No se pudo ingresar el proyecto: " + exc.getMessage());
-            } else {
-                model.addAttribute("mensaje", "No se pudo actualizar el proyecto: " + exc.getMessage());
-            }
-            List<AreaTematica> areasTematicas = servicioMaestro.obtenerAreasTematicas();
-            List<TipoProyecto> tiposProyecto = servicioMaestro.obtenerTiposProyecto();
-            List<RiesgoEtico> riesgosEticos = servicioMaestro.obtenerRiesgosEtico();
-            List<TipoContrato> tiposContrato = servicioMaestro.obtenerTiposContrato();
-            List<EnfoqueMetodologico> enfoquesMetodologicos = servicioMaestro.obtenerEnfoquesMetodologicos();
-            List<Convocatoria> convocatorias = servicioMaestro.obtenerConvocatorias();
-            List<EstadoProyecto> estadosProyecto = servicioMaestro.obtenerEstadosProyecto();
-            List<TipoIdentificacion> tiposIdentificacion = servicioMaestro.obtenerTiposIdentificacion();
-            List<Rol> roles = servicioMaestro.obtenerRoles();
-            List<Facultad> facultades = servicioMaestro.obtenerFacultades();
-            List<TipoEstudiante> tiposEstudiante = servicioMaestro.obtenerTiposEstudiante();
-            List<Programa> programas = servicioMaestro.obtenerProgramas();
-            List<TipoFuenteFinanciacionProyecto> tiposFuenteFinanciacionProyecto = servicioMaestro.obtenerTiposFuenteFinanciacionProyecto();
-            List<FuenteFinanciacion> fuentesFinanciacion = servicioMaestro.obtenerFuentesFinanciacion();
-            List<TipoCompromiso> tiposCompromiso = servicioMaestro.obtenerTiposCompromiso();
-            List<TipoAval> tiposAval = servicioMaestro.obtenerTiposAval();
-            List<TipoVinculacion> tiposVinculacion = servicioMaestro.obtenerTiposVinculacion();
-            List<GrupoInvestigacion> gruposInvestigacion = servicioMaestro.obtenerGruposInvestigacion();
-
-            model.addAttribute("areasTematicas", areasTematicas);
-            model.addAttribute("tiposProyecto", tiposProyecto);
-            model.addAttribute("riesgosEticos", riesgosEticos);
-            model.addAttribute("tiposContrato", tiposContrato);
-            model.addAttribute("enfoquesMetodologicos", enfoquesMetodologicos);
-            model.addAttribute("convocatorias", convocatorias);
-            model.addAttribute("estadosProyecto", estadosProyecto);
-            model.addAttribute("tiposIdentificacion", tiposIdentificacion);
-            model.addAttribute("roles", roles);
-            model.addAttribute("facultades", facultades);
-            model.addAttribute("tiposEstudiante", tiposEstudiante);
-            model.addAttribute("programas", programas);
-            model.addAttribute("fuentesFinanciacion", fuentesFinanciacion);
-            model.addAttribute("tiposFuenteFinanciacionProyecto", tiposFuenteFinanciacionProyecto);
-            model.addAttribute("tiposCompromiso", tiposCompromiso);
-            model.addAttribute("tiposAval", tiposAval);
-            model.addAttribute("tiposVinculacion", tiposVinculacion);
-
-            ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
-            proyectoEdicion.setIdProyecto(proyecto.getIdProyecto());
-            proyectoEdicion.setIdGrupoInvestigacionPrincipal(proyecto.getIdGrupoInvestigacionPrincipal());
-            proyectoEdicion.setAreaTematica(Integer.toString(proyecto.getAreaTematica().getIdAreaTematica()));
-            proyectoEdicion.setCodigo(proyecto.getCodigo());
-            proyectoEdicion.setCodigoCOLCIENCIAS(proyecto.getCodigoCOLCIENCIAS());
-            proyectoEdicion.setCodigoSIIU(proyecto.getCodigoSIIU());
-            proyectoEdicion.setCodigoSIU(proyecto.getCodigoSIU());
-            proyectoEdicion.setConvocatoria(Long.toString(proyecto.getConvocatoria().getIdConvocatoria()));
-            proyectoEdicion.setEnfoqueMetodologico(Integer.toString(proyecto.getEnfoqueMetodologico().getIdEnfoqueMetodologico()));
-            proyectoEdicion.setEstado(Integer.toString(proyecto.getEstado().getIdEstadoProyecto()));
-            proyectoEdicion.setFechaIngresadoSIGEP(Util.obtenerFechaFormateada(proyecto.getFechaIngresadoSIGEP()));
-            proyectoEdicion.setFechaInicio(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
-            proyectoEdicion.setFechaFinalizacion(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
-            proyectoEdicion.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
-            proyectoEdicion.setIngresadoSIIU(proyecto.isIngresadoSIIU());
-            proyectoEdicion.setIngresadoSIU(proyecto.isIngresadoSIU());
-            proyectoEdicion.setNombreCompletoProyecto(proyecto.getNombreCompletoProyecto());
-            proyectoEdicion.setNombreCortoProyecto(proyecto.getNombreCortoProyecto());
-            proyectoEdicion.setObjetivoGeneral(proyecto.getObjetivoGeneral());
-            proyectoEdicion.setParticipacionInternacional(proyecto.isParticipacionInternacional());
-            proyectoEdicion.setRiesgoEtico(Integer.toString(proyecto.getRiesgoEtico().getIdRiesgoEtico()));
-            proyectoEdicion.setTipoContrato(Integer.toString(proyecto.getTipoContrato().getIdTipoContrato()));
-            proyectoEdicion.setTipoProyecto(Integer.toString(proyecto.getTipoProyecto().getIdTipoProyecto()));
-            proyectoEdicion.setObjetivosEspecificos(proyecto.getObjetivosEspecificos());
-            if (proyectoEdicion.getObjetivosEspecificos().size() > 0) {
-                model.addAttribute("objetivosEspecificosJSON", proyectoEdicion.getObjetivosEspecificosJSON());
-            }
-            proyectoEdicion.setProfesoresProyecto(proyecto.getProfesoresProyecto());
-            if (proyectoEdicion.getProfesoresProyecto().size() > 0) {
-                model.addAttribute("profesoresProyectoJSON", proyectoEdicion.getProfesoresProyectoJSON());
-            }
-            proyectoEdicion.setEstudiantesProyecto(proyecto.getEstudiantesProyecto());
-            if (proyectoEdicion.getEstudiantesProyecto().size() > 0) {
-                model.addAttribute("estudiantesProyectoJSON", proyectoEdicion.getEstudiantesProyectoJSON());
-            }
-            proyectoEdicion.setPersonalExternoProyecto(proyecto.getPersonalExternoProyecto());
-            if (proyectoEdicion.getPersonalExternoProyecto().size() > 0) {
-                model.addAttribute("personalExternoProyectoJSON", proyectoEdicion.getPersonalExternoProyectoJSON());
-            }
-            proyectoEdicion.setCompromisosProyecto(proyecto.getCompromisosProyecto());
-            if (proyectoEdicion.getCompromisosProyecto().size() > 0) {
-                model.addAttribute("compromisosProyectoJSON", proyectoEdicion.getCompromisosProyectoJSON());
-            }
-            proyectoEdicion.setGruposInvestigacion(proyecto.getGruposInvestigacion());
-            proyectoEdicion.setEntidadesInternacionalesProyecto(proyecto.getEntidadesInternacionalesProyecto());
-            if (proyectoEdicion.getEntidadesInternacionalesProyecto().size() > 0) {
-                model.addAttribute("entidadesInternacionalesProyectoJSON", proyectoEdicion.getEntidadesInternacionalesProyectoJSON());
-            }
-            proyectoEdicion.setFuentesFinanciacionProyecto(proyecto.getFuentesFinanciacionProyecto());
-            if (proyectoEdicion.getFuentesFinanciacionProyecto().size() > 0) {
-                model.addAttribute("fuentesFinanciacionProyectoJSON", proyectoEdicion.getFuentesFinanciacionProyectoJSON());
-            }
-            proyectoEdicion.setAlertasAvalProyecto(proyecto.getAlertasAvalProyecto());
-            if (proyectoEdicion.getAlertasAvalProyecto().size() > 0) {
-                model.addAttribute("alertasAvalProyectoJSON", proyectoEdicion.getAlertasAvalProyectoJSON());
-            }
-            proyectoEdicion.setGruposInvestigacion(proyecto.getGruposInvestigacion());
-            if (proyectoEdicion.getGruposInvestigacion().size() > 0) {
-                model.addAttribute("gruposInvestigacionJSON", proyectoEdicion.getGruposInvestigacionJSON());
-            }
-            ArrayList<GrupoInvestigacion> gruposInvestigacionPorAsignar = new ArrayList<>();
-            for (GrupoInvestigacion grupoInvestigacion : gruposInvestigacion) {
-                boolean existe = false;
-                for (GrupoInvestigacionProyecto grupoInvestigacionAsignado : proyecto.getGruposInvestigacion()) {
-                    if (grupoInvestigacion.getIdGrupoInvestigacion() == grupoInvestigacionAsignado.getIdGrupoInvestigacion()) {
-                        existe = true;
-                        break;
-                    }
-                }
-                if (!existe) {
-                    gruposInvestigacionPorAsignar.add(grupoInvestigacion);
-                }
-            }
-            model.addAttribute("gruposInvestigacionPorAsignar", gruposInvestigacionPorAsignar);
-
-            model.addAttribute("proyecto", proyectoEdicion);
+            throw exc;
         }
-
-        return "proyectos/crear";
     }
 
     /**

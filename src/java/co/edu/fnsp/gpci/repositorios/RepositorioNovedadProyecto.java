@@ -571,6 +571,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosIngresoAdendaProyecto.addValue("varIdProyecto", idProyecto);
             parametrosIngresoAdendaProyecto.addValue("varIdTipoPersona", adendaProyecto.getIdTipoPersona());
             parametrosIngresoAdendaProyecto.addValue("varIdRol", adendaProyecto.getIdRol());
+            parametrosIngresoAdendaProyecto.addValue("varIdPersonaAnterior", adendaProyecto.getIdPersonaAnterior());
             parametrosIngresoAdendaProyecto.addValue("varIdPersona", adendaProyecto.getIdPersona());
             parametrosIngresoAdendaProyecto.addValue("varObservaciones", adendaProyecto.getObservaciones());
             parametrosIngresoAdendaProyecto.addValue("varFechaActa", adendaProyecto.getFechaActa());
@@ -591,6 +592,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             parametrosActualizacionAdendaProyecto.addValue("varIdAdenda", adendaProyecto.getIdAdenda());
             parametrosActualizacionAdendaProyecto.addValue("varIdTipoPersona", adendaProyecto.getIdTipoPersona());
             parametrosActualizacionAdendaProyecto.addValue("varIdRol", adendaProyecto.getIdRol());
+            parametrosActualizacionAdendaProyecto.addValue("varIdPersonaAnterior", adendaProyecto.getIdPersonaAnterior());
             parametrosActualizacionAdendaProyecto.addValue("varIdPersona", adendaProyecto.getIdPersona());
             parametrosActualizacionAdendaProyecto.addValue("varObservaciones", adendaProyecto.getObservaciones());
             parametrosActualizacionAdendaProyecto.addValue("varFechaActa", adendaProyecto.getFechaActa());
