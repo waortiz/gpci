@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
+import co.edu.fnsp.gpci.entidades.CompromisoHomologadoProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
@@ -372,5 +373,20 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
             transactionManager.rollback(txStatus);
             throw exc;
         }
+    }
+
+    @Override
+    public ArrayList<CompromisoHomologadoProyecto> obtenerCompromisoHomologadosProyecto(long idProyecto) {
+        return repositorioNovedadProyecto.obtenerCompromisoHomologadosProyecto(idProyecto);
+    }
+
+    @Override
+    public void guardarCompromisoHomologadoProyecto(long idProyecto, CompromisoHomologadoProyecto compromisoHomologadoProyecto) {
+        repositorioNovedadProyecto.guardarCompromisoHomologadoProyecto(idProyecto, compromisoHomologadoProyecto);
+    }
+
+    @Override
+    public void eliminarCompromisoHomologadoProyecto(long idCompromisoHomologadoProyecto) {
+        repositorioNovedadProyecto.eliminarCompromisoHomologadoProyecto(idCompromisoHomologadoProyecto);
     }
 }

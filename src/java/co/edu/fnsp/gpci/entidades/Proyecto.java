@@ -61,7 +61,8 @@ public class Proyecto {
     private ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = new ArrayList<>();
     private ArrayList<AlertaAvalProyecto> alertasAvalProyecto = new ArrayList<>();
     private ArrayList<CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto = new ArrayList<>();
-
+    private ArrayList<CompromisoHomologadoProyecto> compromisosHomologadosProyecto = new ArrayList<>();
+    
     /**
      * @return the idGrupoInvestigacionPrincipal
      */
@@ -663,5 +664,19 @@ public class Proyecto {
      */
     public void setFechaIngresadoSIGEP(Date fechaIngresadoSIGEP) {
         this.fechaIngresadoSIGEP = fechaIngresadoSIGEP;
+    }
+
+    /**
+     * @return the compromisosHomologadosProyecto
+     */
+    public ArrayList<CompromisoHomologadoProyecto> getCompromisosHomologadosProyecto() {
+        return compromisosHomologadosProyecto;
+    }
+
+    /**
+     * @param compromisosHomologadosProyecto the compromisosHomologadosProyecto to set
+     */
+    public void setCompromisosHomologadosProyecto(ArrayList<CompromisoHomologadoProyecto> compromisosHomologadosProyecto) {
+        this.compromisosHomologadosProyecto = compromisosHomologadosProyecto;
     }
 }

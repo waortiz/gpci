@@ -22,6 +22,7 @@ import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
+import co.edu.fnsp.gpci.entidades.CompromisoHomologadoProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
@@ -73,6 +74,7 @@ public class ProyectoEdicion {
     private ArrayList<CumplimientoCompromisoProyecto> cumplimientoCompromisosProyecto = new ArrayList<>();
     private ArrayList<AlertaAvalProyecto> alertasAvalProyecto = new ArrayList<>();
     private ArrayList<CumplimientoAlertaAvalProyecto> cumplimientoAlertasAvalProyecto = new ArrayList<>();
+    private ArrayList<CompromisoHomologadoProyecto> compromisosHomologadosProyecto = new ArrayList<>();
 
     /**
      * @return the fechaIngresadoSIGEP
@@ -777,5 +779,26 @@ public class ProyectoEdicion {
      */
     public void setIdGrupoInvestigacionPrincipal(int idGrupoInvestigacionPrincipal) {
         this.idGrupoInvestigacionPrincipal = idGrupoInvestigacionPrincipal;
+    }
+
+    /**
+     * @return the compromisosHomologadosProyecto
+     */
+    public ArrayList<CompromisoHomologadoProyecto> getCompromisosHomologadosProyecto() {
+        return compromisosHomologadosProyecto;
+    }
+
+    /**
+     * @return the compromisosHomologadosProyecto
+     */
+    public String getCompromisosHomologadosProyectoJSON() {
+        return Util.obtenerCompromisosHomologadosProyectoJSON(compromisosHomologadosProyecto);
+    }
+    
+    /**
+     * @param compromisosHomologadosProyecto the compromisosHomologadosProyecto to set
+     */
+    public void setCompromisosHomologadosProyecto(ArrayList<CompromisoHomologadoProyecto> compromisosHomologadosProyecto) {
+        this.compromisosHomologadosProyecto = compromisosHomologadosProyecto;
     }
 }

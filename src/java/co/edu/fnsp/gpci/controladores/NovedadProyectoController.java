@@ -12,6 +12,7 @@ import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
+import co.edu.fnsp.gpci.entidades.CompromisoHomologadoProyecto;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
@@ -135,6 +136,7 @@ public class NovedadProyectoController {
         proyectoEdicion.setEstado(proyecto.getEstado().getNombre());
         proyectoEdicion.setFechaInicio(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
         proyectoEdicion.setFechaFinalizacion(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
+        proyectoEdicion.setFechaIngresadoSIGEP(Util.obtenerFechaFormateada(proyecto.getFechaIngresadoSIGEP()));
         proyectoEdicion.setIngresadoSIGEP(proyecto.isIngresadoSIGEP());
         proyectoEdicion.setIngresadoSIIU(proyecto.isIngresadoSIIU());
         proyectoEdicion.setIngresadoSIU(proyecto.isIngresadoSIU());
@@ -153,6 +155,7 @@ public class NovedadProyectoController {
         proyectoEdicion.setProrrogasProyecto(proyecto.getProrrogasProyecto());
         proyectoEdicion.setPlazosProyecto(proyecto.getPlazosProyecto());
         proyectoEdicion.setCumplimientoCompromisosProyecto(proyecto.getCumplimientoCompromisosProyecto());
+        proyectoEdicion.setCompromisosHomologadosProyecto(proyecto.getCompromisosHomologadosProyecto());
         proyectoEdicion.setCumplimientoAlertasAvalProyecto(proyecto.getCumplimientosAlertasAvalProyecto());
 
         List<Rol> roles = servicioMaestro.obtenerRoles();
@@ -192,6 +195,9 @@ public class NovedadProyectoController {
         }
         if (proyecto.getCumplimientoCompromisosProyecto().size() > 0) {
             model.addAttribute("cumplimientoCompromisosProyectoJSON", proyectoEdicion.getCumplimientoCompromisosProyectoJSON());
+        }
+        if (proyecto.getCompromisosHomologadosProyecto().size() > 0) {
+            model.addAttribute("compromisosHomologadosProyectoJSON", proyectoEdicion.getCompromisosHomologadosProyectoJSON());
         }
         if (proyecto.getCumplimientosAlertasAvalProyecto().size() > 0) {
             model.addAttribute("cumplimientoAlertasAvalProyectoJSON", proyectoEdicion.getCumplimientoAlertasAvalProyectoJSON());
@@ -770,6 +776,50 @@ public class NovedadProyectoController {
         return json;
     }
 
+    @RequestMapping(value = {"/compromisoHomologado"}, method = RequestMethod.POST)
+    public @ResponseBody
+    String guardarCompromisoHomologadoProyecto(@ModelAttribute(value = "compromisoHomologadoProyecto") co.edu.fnsp.gpci.entidadesVista.CompromisoHomologadoProyecto compromisoHomologadoProyecto, Model model) throws Exception {
+        String json = "";
+        try {
+            CompromisoHomologadoProyecto compromisoHomologadoProyectoGuardar = new CompromisoHomologadoProyecto();
+            compromisoHomologadoProyectoGuardar.setIdCompromisoHomologadoProyecto(compromisoHomologadoProyecto.getIdCompromisoHomologadoProyecto());
+            compromisoHomologadoProyectoGuardar.setIdCompromisoProyectoHomologado(compromisoHomologadoProyecto.getCompromisoProyectoHomologado());
+            compromisoHomologadoProyectoGuardar.setIdCompromisoProyecto(compromisoHomologadoProyecto.getNuevoCompromisoProyecto());
+            compromisoHomologadoProyectoGuardar.setFechaActa(Util.obtenerFecha(compromisoHomologadoProyecto.getFechaActaCompromisoHomologadoProyecto()));
+            compromisoHomologadoProyectoGuardar.setNumeroActa(compromisoHomologadoProyecto.getNumeroActaCompromisoHomologadoProyecto());
+            compromisoHomologadoProyectoGuardar.setDescripcion(compromisoHomologadoProyecto.getDescripcionCompromisoHomologadoProyecto());
+            compromisoHomologadoProyectoGuardar.setObservaciones(compromisoHomologadoProyecto.getObservacionesCompromisoHomologadoProyecto());
+
+            servicioNovedadProyecto.guardarCompromisoHomologadoProyecto(compromisoHomologadoProyecto.getIdProyecto(), compromisoHomologadoProyectoGuardar);
+            ArrayList<CompromisoHomologadoProyecto> compromisoHomologados = servicioNovedadProyecto.obtenerCompromisoHomologadosProyecto(compromisoHomologadoProyecto.getIdProyecto());
+            Gson gson = new Gson();
+            json = gson.toJson(compromisoHomologados);
+
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
+        return json;
+    }
+
+    @RequestMapping(value = "/eliminarCompromisoHomologado/{idProyecto}/{idCompromisoHomologadoProyecto}", method = RequestMethod.GET)
+    public @ResponseBody
+    String eliminarCompromisoHomologadoProyecto(@PathVariable("idProyecto") long idProyecto, @PathVariable("idCompromisoHomologadoProyecto") long idCompromisoHomologadoProyecto, Model model) {
+        String json = "";
+        try {
+            servicioNovedadProyecto.eliminarCompromisoHomologadoProyecto(idCompromisoHomologadoProyecto);
+            ArrayList<CompromisoHomologadoProyecto> compromisoHomologados = servicioNovedadProyecto.obtenerCompromisoHomologadosProyecto(idProyecto);
+            Gson gson = new Gson();
+            json = gson.toJson(compromisoHomologados);
+        } catch (Exception exc) {
+            logger.error(exc);
+            throw exc;
+        }
+
+        return json;
+    }
+    
     @RequestMapping(value = {"/cumplimientoAlertaAval"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarCumplimientoAlertaAvalProyecto(@ModelAttribute(value = "cumplimientoAlertaAvalProyecto") co.edu.fnsp.gpci.entidadesVista.CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto, Model model) throws Exception {

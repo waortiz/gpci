@@ -1476,6 +1476,35 @@
                         <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                         <form:hidden path="idGrupoInvestigacionPrincipal" data-bind="value: idGrupoInvestigacionPrincipal" />
                     </form:form>
+                    <div class="modal fade" id="confirmacionAlmacenamientoProyecto" tabindex="-1" role="dialog" aria-labelledby="confirmacionAlmacenamientoProyectoLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <div class="alert alert-info">
+                                        <strong>
+                                        <c:if test = "${proyecto.getIdProyecto() == 0}">
+                                            Registro Proyecto
+                                        </c:if>
+                                        <c:if test = "${proyecto.getIdProyecto() > 0}">
+                                            Actualización Proyecto
+                                        </c:if>
+                                        </strong>
+                                    </div>
+                                </div>
+                                <div class="modal-body">
+                                        <c:if test = "${proyecto.getIdProyecto() == 0}">
+                                            El proyecto se ha registrado exitosamente
+                                        </c:if>
+                                        <c:if test = "${proyecto.getIdProyecto() > 0}">
+                                            El proyecto se ha actualizado exitosamente
+                                        </c:if>
+                                </div>
+                                <div class="modal-footer">
+                                    <a class="btn btn-success btn-ok" onclick="mostrarVentanaListadoProyectos();">Aceptar</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>                           
                     <form id="convocatoriaForm">
                         <div class="modal fade" id="convocatoriaModal" tabindex="-1" role="dialog" aria-labelledby="convocatoriaModalLabel" aria-hidden="true">
                             <div class="modal-dialog" role="document">
@@ -1692,12 +1721,17 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                       window.location.href = '${pageContext.request.contextPath}/proyectos/proyectos';
+                       $('#confirmacionAlmacenamientoProyecto').modal('show');
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         bootstrap_alert_proyecto.warning("Error al almacenar el proyecto.");
                     }});
             });
+            
+           function mostrarVentanaListadoProyectos() {
+              $('#confirmacionAlmacenamientoProyecto').modal('toggle');
+              window.location.href = '${pageContext.request.contextPath}/proyectos/proyectos';
+           }
             
            $('#convocatoriaForm').submit(function (evt) {
                 evt.preventDefault();

@@ -11,6 +11,7 @@ import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
 import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.AdicionProyecto;
 import co.edu.fnsp.gpci.entidades.AreaTematica;
+import co.edu.fnsp.gpci.entidades.CompromisoHomologadoProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoAlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.CumplimientoCompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.Documento;
@@ -113,6 +114,11 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
     private SimpleJdbcCall obtenerDocumentoCumplimientoAlertaAvalProyecto;
     private SimpleJdbcCall actualizarDocumentoCumplimientoAlertaAvalProyecto;
 
+    private SimpleJdbcCall ingresarCompromisoHomologadoProyecto;
+    private SimpleJdbcCall actualizarCompromisoHomologadoProyecto;
+    private SimpleJdbcCall eliminarCompromisoHomologadoProyecto;
+    private SimpleJdbcCall obtenerCompromisosHomologadosProyecto;
+    
     @Autowired
     public void setDataSource(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -185,6 +191,11 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         this.obtenerDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerDocumentoCumplimientoCompromisoProyecto");
         this.actualizarDocumentoCumplimientoCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarDocumentoCumplimientoCompromisoProyecto");
 
+        this.ingresarCompromisoHomologadoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarCompromisoHomologadoProyecto");
+        this.eliminarCompromisoHomologadoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarCompromisoHomologadoProyecto");
+        this.actualizarCompromisoHomologadoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarCompromisoHomologadoProyecto");
+        this.obtenerCompromisosHomologadosProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCompromisosHomologadosProyecto").returningResultSet("compromisosHomologadosProyecto", BeanPropertyRowMapper.newInstance(CompromisoHomologadoProyecto.class));
+        
         this.ingresarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarCumplimientoAlertaAvalProyecto");
         this.eliminarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarCumplimientoAlertaAvalProyecto");
         this.actualizarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarCumplimientoAlertaAvalProyecto");
@@ -294,6 +305,13 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             cumplimientoCompromisoProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(cumplimientoCompromisoProyecto.getFechaActa()));
         }
         proyecto.setCumplimientoCompromisosProyecto(cumplimientoCompromisosProyecto);
+
+        Map resultadoCompromisosHomologados = obtenerCompromisosHomologadosProyecto.execute(parametros);
+        ArrayList<CompromisoHomologadoProyecto> compromisosHomologadosProyecto = (ArrayList<CompromisoHomologadoProyecto>) resultadoCompromisosHomologados.get("compromisosHomologadosProyecto");
+        for (CompromisoHomologadoProyecto compromisoHomologadoProyecto : compromisosHomologadosProyecto) {
+            compromisoHomologadoProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(compromisoHomologadoProyecto.getFechaActa()));
+        }
+        proyecto.setCompromisosHomologadosProyecto(compromisosHomologadosProyecto);
 
         Map resultadoCumplimientosAlertasAvalProyecto = obtenerCumplimientosAlertasAvalProyecto.execute(parametros);
         ArrayList<CumplimientoAlertaAvalProyecto> cumplimientosAlertasAvalProyecto = (ArrayList<CumplimientoAlertaAvalProyecto>) resultadoCumplimientosAlertasAvalProyecto.get("cumplimientosAlertasAvalProyecto");
@@ -973,6 +991,55 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdCumplimientoCompromisoProyecto", idCumplimientoCompromisoProyecto);
         eliminarCumplimientoCompromisoProyecto.execute(parametros);
+    }
+    
+    @Override
+    public void guardarCompromisoHomologadoProyecto(long idProyecto, CompromisoHomologadoProyecto compromisoHomologadoProyecto) {
+
+        if (compromisoHomologadoProyecto.getIdCompromisoHomologadoProyecto() == 0) {
+            MapSqlParameterSource parametrosIngresoCompromisoHomologadoProyecto = new MapSqlParameterSource();
+            parametrosIngresoCompromisoHomologadoProyecto.addValue("varIdProyecto", idProyecto);
+            parametrosIngresoCompromisoHomologadoProyecto.addValue("varIdCompromisoProyectoHomologado", compromisoHomologadoProyecto.getIdCompromisoProyectoHomologado());
+            parametrosIngresoCompromisoHomologadoProyecto.addValue("varIdCompromisoProyecto", compromisoHomologadoProyecto.getIdCompromisoProyecto());
+            parametrosIngresoCompromisoHomologadoProyecto.addValue("varFechaActa", compromisoHomologadoProyecto.getFechaActa());
+            parametrosIngresoCompromisoHomologadoProyecto.addValue("varNumeroActa", compromisoHomologadoProyecto.getNumeroActa());
+            parametrosIngresoCompromisoHomologadoProyecto.addValue("varDescripcion", compromisoHomologadoProyecto.getDescripcion());
+            parametrosIngresoCompromisoHomologadoProyecto.addValue("varObservaciones", compromisoHomologadoProyecto.getObservaciones());
+            ingresarCompromisoHomologadoProyecto.execute(parametrosIngresoCompromisoHomologadoProyecto);
+
+        } else {
+            MapSqlParameterSource parametrosActualizacionCompromisoHomologadoProyecto = new MapSqlParameterSource();
+            parametrosActualizacionCompromisoHomologadoProyecto.addValue("varIdCompromisoHomologadoProyecto", compromisoHomologadoProyecto.getIdCompromisoHomologadoProyecto());
+            parametrosActualizacionCompromisoHomologadoProyecto.addValue("varIdCompromisoProyectoHomologado", compromisoHomologadoProyecto.getIdCompromisoProyectoHomologado());
+            parametrosActualizacionCompromisoHomologadoProyecto.addValue("varIdCompromisoProyecto", compromisoHomologadoProyecto.getIdCompromisoProyecto());
+            parametrosActualizacionCompromisoHomologadoProyecto.addValue("varFechaActa", compromisoHomologadoProyecto.getFechaActa());
+            parametrosActualizacionCompromisoHomologadoProyecto.addValue("varNumeroActa", compromisoHomologadoProyecto.getNumeroActa());
+            parametrosActualizacionCompromisoHomologadoProyecto.addValue("varDescripcion", compromisoHomologadoProyecto.getDescripcion());
+            parametrosActualizacionCompromisoHomologadoProyecto.addValue("varObservaciones", compromisoHomologadoProyecto.getObservaciones());
+            actualizarCompromisoHomologadoProyecto.execute(parametrosActualizacionCompromisoHomologadoProyecto);
+        }
+    }
+
+    @Override
+    public ArrayList<CompromisoHomologadoProyecto> obtenerCompromisoHomologadosProyecto(long idProyecto) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdProyecto", idProyecto);
+
+        Map resultadoCompromisosHomologadosProyecto = obtenerCompromisosHomologadosProyecto.execute(parametros);
+        ArrayList<CompromisoHomologadoProyecto> compromisoHomologadosProyecto = (ArrayList<CompromisoHomologadoProyecto>) resultadoCompromisosHomologadosProyecto.get("compromisosHomologadosProyecto");
+        for (CompromisoHomologadoProyecto compromisoHomologadoProyecto : compromisoHomologadosProyecto) {
+            compromisoHomologadoProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(compromisoHomologadoProyecto.getFechaActa()));
+        }
+
+        return compromisoHomologadosProyecto;
+
+    }
+
+    @Override
+    public void eliminarCompromisoHomologadoProyecto(long idCompromisoHomologadoProyecto) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdCompromisoHomologadoProyecto", idCompromisoHomologadoProyecto);
+        eliminarCompromisoHomologadoProyecto.execute(parametros);
     }
     
     @Override

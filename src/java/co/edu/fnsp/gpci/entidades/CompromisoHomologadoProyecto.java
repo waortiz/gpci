@@ -14,6 +14,8 @@ import java.util.Date;
 public class CompromisoHomologadoProyecto {
 
     private long idCompromisoHomologadoProyecto;
+    private long idCompromisoProyectoHomologado;
+    private String descripcionCompromisoProyectoHomologado;
     private long idCompromisoProyecto;
     private String descripcionCompromisoProyecto;
     private Date fechaActa;
@@ -21,6 +23,34 @@ public class CompromisoHomologadoProyecto {
     private String fechaActaFormateada;
     private String observaciones;
     private String descripcion;
+
+    /**
+     * @return the idCompromisoProyectoHomologado
+     */
+    public long getIdCompromisoProyectoHomologado() {
+        return idCompromisoProyectoHomologado;
+    }
+
+    /**
+     * @param idCompromisoProyectoHomologado the idCompromisoProyectoHomologado to set
+     */
+    public void setIdCompromisoProyectoHomologado(long idCompromisoProyectoHomologado) {
+        this.idCompromisoProyectoHomologado = idCompromisoProyectoHomologado;
+    }
+
+    /**
+     * @return the descripcionCompromisoProyectoHomologado
+     */
+    public String getDescripcionCompromisoProyectoHomologado() {
+        return descripcionCompromisoProyectoHomologado;
+    }
+
+    /**
+     * @param descripcionCompromisoProyectoHomologado the descripcionCompromisoProyectoHomologado to set
+     */
+    public void setDescripcionCompromisoProyectoHomologado(String descripcionCompromisoProyectoHomologado) {
+        this.descripcionCompromisoProyectoHomologado = descripcionCompromisoProyectoHomologado;
+    }
 
     /**
      * @return the idCompromisoHomologadoProyecto

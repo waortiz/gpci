@@ -52,6 +52,8 @@
             <mvc:exclude-mapping path="/novedades/cumplimientoCompromiso" />
             <mvc:exclude-mapping path="/novedades/documentoCumplimientoCompromiso/**" />
             <mvc:exclude-mapping path="/novedades/eliminarCumplimientoCompromiso/**" />
+            <mvc:exclude-mapping path="/novedades/compromisoHomologado" />
+            <mvc:exclude-mapping path="/novedades/eliminarCompromisoHomologado/**" />
             <mvc:exclude-mapping path="/novedades/cumplimientoAlertaAval" />
             <mvc:exclude-mapping path="/novedades/documentoCumplimientoAlertaAval/**" />
             <mvc:exclude-mapping path="/novedades/eliminarCumplimientoAlertaAval/**" />

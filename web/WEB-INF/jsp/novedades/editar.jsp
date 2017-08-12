@@ -18,9 +18,9 @@
                 <div class="panel-body">
                     <table class="table table-hover tablaForm tablaFormLectura">
                         <tr>
-                            <td width="33%">C&oacute;digo:</td>
-                            <td width="33%">Nombre corto:</td>
-                            <td width="33%">Convocatoria:</td>
+                            <td width="33%"><strong>C&oacute;digo:</strong></td>
+                            <td width="33%"><strong>Nombre corto:</strong></td>
+                            <td width="33%"><strong>Convocatoria:</strong></td>
                         </tr>
                         <tr>
                             <td>${proyecto.getCodigo()}</td>
@@ -81,14 +81,20 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>C&oacute;digo COLCIENCIAS:</strong></td>
+                            <td><strong>Fecha ingresado SIGEP:</<strong></td>
                             <td><strong>C&oacute;digo SIIU:</strong></td>
                             <td><strong>C&oacute;digo SIU:</strong></td>
                         </tr>
                         <tr>
-                            <td>${proyecto.getCodigoCOLCIENCIAS()}</td>
+                            <td>${proyecto.getFechaIngresadoSIGEP()}</td>
                             <td>${proyecto.getCodigoSIIU()}</td>
                             <td>${proyecto.getCodigoSIU()}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="3"><strong>C&oacute;digo COLCIENCIAS:</strong></td>
+                        </tr>
+                        <tr>
+                            <td colspan="3">${proyecto.getCodigoCOLCIENCIAS()}</td>
                         </tr>
                         <tr>
                             <td><strong>Participaci&oacute;n internacional:</strong></td>
@@ -145,6 +151,7 @@
                           <li><a data-toggle="tab" href="#prorrogasTab">Prórrogas</a></li>
                           <li><a data-toggle="tab" href="#plazosTab">Plazos</a></li>
                           <li><a data-toggle="tab" href="#cumplimientoCompromisosProyectoTab">Compromisos</a></li>
+                          <li><a data-toggle="tab" href="#compromisosHomologadosProyectoTab">Homologaciones</a></li>
                           <li><a data-toggle="tab" href="#cumplimientoAlertasAvalProyectoTab">Alertas aval</a></li>
                     </ul>
                     <div class="tab-content">
@@ -1578,6 +1585,159 @@
                                 </div>  
                             </div>                               
                         </div>   
+                        <div id="compromisosHomologadosProyectoTab" class="tab-pane fade">
+                            <div class="alert alert-info" style="margin-top:20px;">
+                                <strong>Compromisos Homologados</strong>
+                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaCompromisoHomologadoProyecto(); return false;">
+                                    <i class="glyphicon glyphicon-plus"></i>
+                                </button>                            
+                            </div>
+                            <div id="alert_placeholder_compromisos_homologados_proyecto"></div>
+                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                <thead>
+                                    <tr class="table-row">
+                                        <td style="width: 30%;text-align: center"><strong>Compromiso a homologar</strong></td>
+                                        <td style="width: 30%;text-align: center"><strong>Nuevo compromiso</strong></td>
+                                        <td style="width: 15%;text-align: center"><strong>Fecha acta</strong></td>
+                                        <td style="width: 15%;text-align: center"><strong>Número del acta</strong></td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                        <td style="width: 5%">&nbsp;</td>
+                                    </tr>
+                                </thead>
+                                <tbody data-bind="foreach: { data: compromisosHomologadosProyecto }">
+                                    <tr class="table-row">
+                                    <td style="width: 30%">
+                                        <span data-bind="text: descripcionCompromisoProyectoHomologado" ></span>
+                                    </td>
+                                    <td style="width: 30%">
+                                        <span data-bind="text: descripcionCompromisoProyecto" ></span>
+                                    </td>
+                                    <td style="width: 15%">
+                                        <span data-bind="text: fechaActaFormateada" ></span>
+                                    </td>
+                                    <td style="width: 15%">
+                                        <span data-bind="text: numeroActa" ></span>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.eliminarCompromisoHomologadoProyecto" title="Eliminar homologación del compromiso">
+                                            <i class="glyphicon glyphicon-trash"></i>
+                                        </button>
+                                    </td>
+                                    <td style="width: 5%">
+                                        <button class="btn btn-dark" data-bind="click: $root.editarCompromisoHomologadoProyecto" title="Editar homologación del compromiso">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                        </button>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                            <div class="modal fade" id="confirmacionEliminacionCompromisoHomologadoProyecto" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <div class="alert alert-info">
+                                                <strong>Eliminar Cumplimiento de Compromiso</strong>
+                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                    <span aria-hidden="true">&times;</span>
+                                                </button>
+                                            </div>
+                                        </div>
+                                        <div class="modal-body">
+                                            ¿Está seguro de eliminar la homologación del compromiso?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                            <a class="btn btn-danger btn-ok" onclick="eliminarCompromisoHomologadoProyecto();">Eliminar</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="modal fade" id="compromisoHomologadoProyectoModal" tabindex="-1" role="dialog" aria-labelledby="compromisoHomologadoProyectoModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/compromisoHomologado" modelAttribute="compromisoHomologadoProyecto">
+                                            <div class="modal-header">
+                                                <div class="alert alert-info">
+                                                    <strong>Homologación de Compromiso</strong>
+                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                        <span aria-hidden="true">&times;</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+                                            <div class="modal-body">
+                                                <div id="alert_placeholder_compromisos_homologado_proyecto"></div>
+                                                <table class="tablaForm">
+                                                    <tr>
+                                                        <td colspan="2">Compromiso a homologar</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <select name="compromisoProyectoHomologado" id="compromisoProyectoHomologado" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="compromisoProyecto" items="${compromisosProyecto}">
+                                                                <option value="${compromisoProyecto.getIdCompromisoProyecto()}">${compromisoProyecto.getDescripcion()}</option>
+                                                            </c:forEach>
+                                                            </select>      
+                                                            <input type="hidden" id="idCompromisoHomologadoProyecto" name="idCompromisoHomologadoProyecto" value="0"/>
+                                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Compromiso</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <select name="nuevoCompromisoProyecto" id="nuevoCompromisoProyecto" class="form-control">
+                                                                <option value=""></option>
+                                                            <c:forEach var="compromisoProyecto" items="${compromisosProyecto}">
+                                                                <option value="${compromisoProyecto.getIdCompromisoProyecto()}">${compromisoProyecto.getDescripcion()}</option>
+                                                            </c:forEach>
+                                                            </select>      
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">Descripción</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <input id="descripcionCompromisoHomologadoProyecto" name="descripcionCompromisoHomologadoProyecto" class="form-control" maxlength="200"></textarea>
+                                                        </td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td>Fecha acta</td>                                                        
+                                                        <td>Número del acta</td>                                                        
+                                                    </tr>
+                                                    <tr>
+                                                        <td>
+                                                            <div class="input-group date">
+                                                                <input id="fechaActaCompromisoHomologadoProyecto" name="fechaActaCompromisoHomologadoProyecto" class="form-control datepicker" readonly="true" />
+                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                            </div>                                                        
+                                                        </td>
+                                                        <td>
+                                                            <input type="text" id="numeroActaCompromisoHomologadoProyecto" name="numeroActaCompromisoHomologadoProyecto" class="form-control datepicker" maxlength="45" />
+                                                        </td>
+                                                    </tr>                                                    
+                                                    <tr>
+                                                        <td colspan="2">Observaciones</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td colspan="2">
+                                                            <textarea id="observacionesCompromisoHomologadoProyecto" name="observacionesCompromisoHomologadoProyecto" class="form-control" rows="3"></textarea>
+                                                        </td>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                            <div class="modal-footer">
+                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                <button type="submit" class="btn btn-primary">Aceptar</button>
+                                            </div>   
+                                        </form:form>
+                                    </div>
+                                </div>  
+                            </div>                               
+                        </div>                           
                        <div id="cumplimientoAlertasAvalProyectoTab" class="tab-pane fade">
                             <div class="alert alert-info" style="margin-top:20px;">
                                 <strong>Cumplimiento de las Alertas de Aval</strong>
@@ -1971,6 +2131,11 @@
                 }
                 if ($('#numeroIdentificacionPersonaAdendaCambio').val() == "") {
                     bootstrap_alert_adenda_cambio.warning('Debe ingresar el número de identificación');
+                    return false;
+                }
+                if ($('#tipoIdentificacionPersonaAnteriorAdendaCambio').val() == $('#tipoIdentificacionPersonaAdendaCambio').val() &&
+                    $('#numeroIdentificacionPersonaAnteriorAdendaCambio').val() == $('#numeroIdentificacionPersonaAdendaCambio').val()){
+                    bootstrap_alert_adenda_cambio.warning('Las persona deben ser diferentes');
                     return false;
                 }
                 if ($('#rolAdendaCambio').val() == "") {
@@ -2813,6 +2978,107 @@
                     }});
             }
 
+      $('#compromisoHomologadoProyecto').submit(function (evt) {
+                evt.preventDefault();
+                var formData = new FormData(this);
+                if ($('#compromisoProyectoHomologado').val() == "") {
+                    alert_placeholder_compromisos_homologado_proyecto.warning('Debe seleccionar el compromiso a homologar');
+                    return false;
+                }
+                if ($('#nuevoCompromisoProyecto').val() == "") {
+                    alert_placeholder_compromisos_homologado_proyecto.warning('Debe seleccionar el compromiso');
+                    return false;
+                }
+                if ($('#compromisoProyectoHomologado').val() == $('#nuevoCompromisoProyecto').val()) {
+                    alert_placeholder_compromisos_homologado_proyecto.warning('Los compromisos debe ser diferentes');
+                    return false;
+                }
+                if ($('#descripcionCompromisoHomologadoProyecto').val() == "") {
+                    alert_placeholder_compromisos_homologado_proyecto.warning('Debe ingresar la descripción');
+                    return false;
+                }
+                if ($('#fechaActaCompromisoHomologadoProyecto').val() == "") {
+                    alert_placeholder_compromisos_homologado_proyecto.warning('Debe ingresar la fecha del acta');
+                    return false;
+                }
+                if ($('#numeroActaCompromisoHomologadoProyecto').val() == "") {
+                    alert_placeholder_compromisos_homologado_proyecto.warning('Debe ingresar el número del acta');
+                    return false;
+                }
+                $('#compromisoHomologadoProyectoModal').modal('toggle');
+                alert_placeholder_compromisos_homologado_proyecto.removeWarning();
+                $.ajax({
+                    type: "POST",
+                    url: "${pageContext.request.contextPath}/novedades/compromisoHomologado",
+                    data: formData,
+                    processData: false,
+                    contentType: false,
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        alert_placeholder_compromisos_homologados_proyecto.success("La homologación del compromiso se ha almacenado exitosamente");
+                        limpiarDatosVentanaCompromisoHomologadoProyecto();
+                        if (response != "") {
+                            proyectoModel.compromisosHomologadosProyecto.removeAll();
+                            var compromisosHomologadosProyecto = JSON.parse(response);
+                            for (var i = 0; i < compromisosHomologadosProyecto.length; i++) {
+                                proyectoModel.compromisosHomologadosProyecto.push(
+                                        {
+                                            idCompromisoHomologadoProyecto: ko.observable(compromisosHomologadosProyecto[i].idCompromisoHomologadoProyecto),
+                                            idCompromisoProyectoHomologado: ko.observable(compromisosHomologadosProyecto[i].idCompromisoProyectoHomologado),
+                                            descripcionCompromisoProyectoHomologado: ko.observable(compromisosHomologadosProyecto[i].descripcionCompromisoProyectoHomologado),
+                                            idCompromisoProyecto: ko.observable(compromisosHomologadosProyecto[i].idCompromisoProyecto),
+                                            descripcionCompromisoProyecto: ko.observable(compromisosHomologadosProyecto[i].descripcionCompromisoProyecto),
+                                            descripcion: ko.observable(compromisosHomologadosProyecto[i].descripcion),
+                                            observaciones: ko.observable(compromisosHomologadosProyecto[i].observaciones),
+                                            fechaActaFormateada: ko.observable(compromisosHomologadosProyecto[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(compromisosHomologadosProyecto[i].numeroActa)
+                                        }
+                                );
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert_placeholder_compromisos_homologados_proyecto.warning("Error al almacenar la homologación del compromiso");
+                    }});
+            });
+
+            function eliminarCompromisoHomologadoProyecto () {
+                $('#confirmacionEliminacionCompromisoHomologadoProyecto').modal('toggle');
+                $.ajax({
+                    type: 'GET',
+                    url: "${pageContext.request.contextPath}/novedades/eliminarCompromisoHomologado/" + $('#idProyecto').val() + "/" + compromisoHomologadoEliminarProyecto.idCompromisoHomologadoProyecto(),
+                    beforeSend: function (xhr) {
+                        xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                    },
+                    success: function (response) {
+                        alert_placeholder_compromisos_homologados_proyecto.success("Homologación del compromiso eliminada exitosamente");
+                        if (response != "") {
+                            proyectoModel.compromisosHomologadosProyecto.removeAll();
+                            var compromisosHomologadosProyecto = JSON.parse(response);
+                            for (var i = 0; i < compromisosHomologadosProyecto.length; i++) {
+                                proyectoModel.compromisosHomologadosProyecto.push(
+                                        {
+                                            idCompromisoHomologadoProyecto: ko.observable(compromisosHomologadosProyecto[i].idCompromisoHomologadoProyecto),
+                                            idCompromisoProyectoHomologado: ko.observable(compromisosHomologadosProyecto[i].idCompromisoProyectoHomologado),
+                                            descripcionCompromisoProyectoHomologado: ko.observable(compromisosHomologadosProyecto[i].descripcionCompromisoProyectoHomologado),
+                                            idCompromisoProyecto: ko.observable(compromisosHomologadosProyecto[i].idCompromisoProyecto),
+                                            descripcionCompromisoProyecto: ko.observable(compromisosHomologadosProyecto[i].descripcionCompromisoProyecto),
+                                            descripcion: ko.observable(compromisosHomologadosProyecto[i].descripcion),
+                                            observaciones: ko.observable(compromisosHomologadosProyecto[i].observaciones),
+                                            fechaActaFormateada: ko.observable(compromisosHomologadosProyecto[i].fechaActaFormateada),
+                                            numeroActa: ko.observable(compromisosHomologadosProyecto[i].numeroActa)
+                                        }
+                                );
+                            }
+                        }
+                    },
+                    error: function (xhr, ajaxOptions, thrownError) {
+                        alert_placeholder_compromisos_homologados_proyecto.warning("Error al eliminar la homologación del compromiso");
+                    }});
+            }
+
       $('#cumplimientoAlertaAvalProyecto').submit(function (evt) {
                 evt.preventDefault();
                 var formData = new FormData(this);
@@ -2898,7 +3164,7 @@
                     }});
             }
 
-            var ProyectoModel = function (actas, adendasIngreso, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto, cumplimientoAlertasAvalProyecto) {
+            var ProyectoModel = function (actas, adendasIngreso, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto, compromisosHomologadosProyecto, cumplimientoAlertasAvalProyecto) {
                 self = this;
                 self.actas = ko.observableArray(actas);
                 self.verDocumentoActa = function (acta) {
@@ -3060,7 +3326,23 @@
                     $('#numeroActaCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.numeroActa());
                     $('#cumplimientoCompromisoProyectoModal').modal('show');
                 };                 
-                
+
+                self.compromisosHomologadosProyecto = ko.observableArray(compromisosHomologadosProyecto);
+                self.eliminarCompromisoHomologadoProyecto = function (compromisoHomologadoProyecto) {
+                    compromisoHomologadoEliminarProyecto = compromisoHomologadoProyecto;
+                    $('#confirmacionEliminacionCompromisoHomologadoProyecto').modal('show');
+                };
+                self.editarCompromisoHomologadoProyecto = function (compromisoHomologadoProyecto) {
+                    $('#idCompromisoHomologadoProyecto').val(compromisoHomologadoProyecto.idCompromisoHomologadoProyecto());
+                    $('#compromisoProyectoHomologado').val(compromisoHomologadoProyecto.idCompromisoProyectoHomologado());
+                    $('#nuevoCompromisoProyecto').val(compromisoHomologadoProyecto.idCompromisoProyecto());
+                    $('#fechaActaCompromisoHomologadoProyecto').val(compromisoHomologadoProyecto.fechaActaFormateada());
+                    $('#numeroActaCompromisoHomologadoProyecto').val(compromisoHomologadoProyecto.numeroActa());
+                    $('#descripcionCompromisoHomologadoProyecto').val(compromisoHomologadoProyecto.descripcion());
+                    $('#observacionesCompromisoHomologadoProyecto').val(compromisoHomologadoProyecto.observaciones());
+                    $('#compromisoHomologadoProyectoModal').modal('show');
+                };                 
+
                 self.cumplimientoAlertasAvalProyecto = ko.observableArray(cumplimientoAlertasAvalProyecto);
                 self.verDocumentoCumplimientoAlertaAvalProyecto = function (cumplimientoAlertaAvalProyecto) {
                     window.location.href = "${pageContext.request.contextPath}/novedades/documentoCumplimientoAlertaAval/" + cumplimientoAlertaAvalProyecto.idCumplimientoAlertaAvalProyecto();
@@ -3094,6 +3376,8 @@
             var plazoEliminar = null; 
             var cumplimientoCompromisosProyecto = new Array();
             var cumplimientoCompromisoEliminarProyecto = null; 
+            var compromisosHomologadosProyecto = new Array();
+            var compromisoHomologadoEliminarProyecto = null; 
             var cumplimientoAlertasAvalProyecto = new Array();
             var cumplimientoAlertaAvalEliminarProyecto = null; 
             <c:if test = "${actasProyectoJSON != null}">
@@ -3120,10 +3404,13 @@
             <c:if test = "${cumplimientoCompromisosProyectoJSON != null}">
             cumplimientoCompromisosProyecto = ${cumplimientoCompromisosProyectoJSON};
             </c:if>
+            <c:if test = "${compromisosHomologadosProyectoJSON != null}">
+            compromisosHomologadosProyecto = ${compromisosHomologadosProyectoJSON};
+            </c:if>
             <c:if test = "${cumplimientoAlertasAvalProyectoJSON != null}">
             cumplimientoAlertasAvalProyecto = ${cumplimientoAlertasAvalProyectoJSON};
             </c:if>
-            var proyectoModel = new ProyectoModel(actas, adendasCambio, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto, cumplimientoAlertasAvalProyecto);
+            var proyectoModel = new ProyectoModel(actas, adendasCambio, adendasIngreso, adendasRetiro, adiciones, prorrogas, plazos, cumplimientoCompromisosProyecto, compromisosHomologadosProyecto, cumplimientoAlertasAvalProyecto);
             ko.applyBindings(proyectoModel);
 
             bootstrap_alert_actas = function () { };
@@ -3391,6 +3678,38 @@
                 $('#documentoCumplimientoCompromisoProyecto').val("");
                 $('#fechaActaCumplimientoCompromisoProyecto').val("");
                 $('#numeroActaCumplimientoCompromisoProyecto').val("");
+            }
+            
+            alert_placeholder_compromisos_homologados_proyecto = function () { };
+            alert_placeholder_compromisos_homologados_proyecto.warning = function (message) {
+                $('#alert_placeholder_compromisos_homologados_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            alert_placeholder_compromisos_homologados_proyecto.success = function (message) {
+                $('#alert_placeholder_compromisos_homologados_proyecto').html('<div class="alert alert-success"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            alert_placeholder_compromisos_homologados_proyecto.removeWarning = function () {
+                $('#alert_placeholder_compromisos_homologados_proyecto').html('');
+            };
+            alert_placeholder_compromisos_homologado_proyecto = function () { };
+            alert_placeholder_compromisos_homologado_proyecto.warning = function (message) {
+                $('#alert_placeholder_compromisos_homologado_proyecto').html('<div class="alert alert-danger"><a class="close" data-dismiss="alert">×</a><span>' + message + '</span></div>');
+            };
+            alert_placeholder_compromisos_homologado_proyecto.removeWarning = function () {
+                $('#alert_placeholder_compromisos_homologado_proyecto').html('');
+            };
+            function mostrarVentanaNuevaCompromisoHomologadoProyecto() {
+                limpiarDatosVentanaCompromisoHomologadoProyecto();
+                $('#compromisoHomologadoProyectoModal').modal('show');
+            }
+            function limpiarDatosVentanaCompromisoHomologadoProyecto() {
+                $('#idCompromisoHomologadoProyecto').val(0);
+                $('#compromisoProyectoHomologado').val("");
+                $('#nuevoCompromisoProyecto').val("");
+                $('#documentoCompromisoHomologadoProyecto').val("");
+                $('#fechaActaCompromisoHomologadoProyecto').val("");
+                $('#numeroActaCompromisoHomologadoProyecto').val("");
+                $('#descripcionCompromisoHomologadoProyecto').val("");
+                $('#observacionesCompromisoHomologadoProyecto').val("");
             }
             
             alert_placeholder_cumplimientos_alertas_aval_proyecto = function () { };

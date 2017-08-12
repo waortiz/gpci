@@ -23,6 +23,7 @@ import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacionProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
+import co.edu.fnsp.gpci.entidades.CompromisoHomologadoProyecto;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -612,4 +613,34 @@ public class Util {
     public static long obtenerNumero(String numero) throws ParseException {
         return (long) decimalFormat.parse(numero);
     }
+
+    public static String obtenerCompromisosHomologadosProyectoJSON(ArrayList<CompromisoHomologadoProyecto> compromisosHomologadosProyecto) {
+        String jscriptArray = "";
+
+        if (compromisosHomologadosProyecto.size() > 0) {
+            jscriptArray = "[";
+
+            for (int i = 0; i < compromisosHomologadosProyecto.size(); i++) {
+                CompromisoHomologadoProyecto compromisoHomologado = compromisosHomologadosProyecto.get(i);
+                jscriptArray = jscriptArray
+                        + "{idCompromisoHomologadoProyecto: ko.observable(" + compromisoHomologado.getIdCompromisoHomologadoProyecto() + "),"
+                        + "idCompromisoProyectoHomologado:ko.observable(" + compromisoHomologado.getIdCompromisoProyectoHomologado()+ "),"
+                        + "descripcionCompromisoProyectoHomologado:ko.observable('" + compromisoHomologado.getDescripcionCompromisoProyectoHomologado()+ "'),"
+                        + "idCompromisoProyecto:ko.observable(" + compromisoHomologado.getIdCompromisoProyecto() + "),"
+                        + "descripcionCompromisoProyecto:ko.observable('" + compromisoHomologado.getDescripcionCompromisoProyecto() + "'),"
+                        + "numeroActa:ko.observable('" + compromisoHomologado.getNumeroActa() + "'),"
+                        + "fechaActaFormateada:ko.observable('" + simpleDateFormat.format(compromisoHomologado.getFechaActa()) + "'),"
+                        + "descripcion:ko.observable('" + compromisoHomologado.getDescripcion()+ "'),"
+                        + "observaciones:ko.observable('" + compromisoHomologado.getObservaciones()+ "'),"
+                        + "consecutivo:ko.observable(" + i + ")"
+                        + "}";
+                if (i < compromisosHomologadosProyecto.size() - 1) {
+                    jscriptArray = jscriptArray + ",";
+                }
+            }
+
+            jscriptArray = jscriptArray + "]";
+        }
+
+        return jscriptArray;    }
 }
