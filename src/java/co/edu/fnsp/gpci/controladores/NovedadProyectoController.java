@@ -84,7 +84,7 @@ public class NovedadProyectoController {
         BusquedaProyectos busquedaProyectos = new BusquedaProyectos();
         busquedaProyectos.establecerFechaInicioIncial();
         busquedaProyectos.establecerFechaInicioFinal();
-        
+
         model.addAttribute("busquedaProyectos", busquedaProyectos);
 
         return "novedades/proyectos";
@@ -96,7 +96,7 @@ public class NovedadProyectoController {
         ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
         try {
             Date fechaFinal = Util.obtenerFecha(busquedaProyectos.getFechaFinal());
-            Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicio());
+            Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicial());
                                 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(fechaInicial);
@@ -819,7 +819,7 @@ public class NovedadProyectoController {
 
         return json;
     }
-    
+
     @RequestMapping(value = {"/cumplimientoAlertaAval"}, method = RequestMethod.POST)
     public @ResponseBody
     String guardarCumplimientoAlertaAvalProyecto(@ModelAttribute(value = "cumplimientoAlertaAvalProyecto") co.edu.fnsp.gpci.entidadesVista.CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto, Model model) throws Exception {

@@ -21,6 +21,7 @@ import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacionProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
+import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -456,6 +457,11 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         Map resultado = obtenerProyectos.execute(parametros);
         ArrayList<ReporteProyecto> proyectos = (ArrayList<ReporteProyecto>) resultado.get("proyectos");
+        for(ReporteProyecto proyecto:proyectos) {
+            proyecto.setFechaCreacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaCreacion()));
+            proyecto.setFechaFinalizacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
+            proyecto.setFechaInicioFormateada(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
+        }
 
         return proyectos;
     }

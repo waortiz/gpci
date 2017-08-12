@@ -101,7 +101,7 @@ public class ProyectoController {
         ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
         try {
             Date fechaFinal = Util.obtenerFecha(busquedaProyectos.getFechaFinal());
-            Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicio());
+            Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicial());
 
             Calendar calendar = Calendar.getInstance();
             calendar.setTime(fechaInicial);

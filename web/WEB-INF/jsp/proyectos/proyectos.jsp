@@ -30,7 +30,7 @@
                             <tr  class='text-success'>
                                 <td>
                                     <div class="input-group date">
-                                        <form:input path="fechaInicio" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" />
+                                        <form:input path="fechaInicial" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" />
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                 </td>
@@ -80,13 +80,13 @@
                                                 ${proyecto.getNombreCortoProyecto()}
                                             </td>
                                             <td align="center">
-                                                ${proyecto.getFechaCreacionFormato()}
+                                                ${proyecto.getFechaCreacionFormateada()}
                                             </td>
                                             <td align="center">
-                                                ${proyecto.getFechaInicioFormato()}
+                                                ${proyecto.getFechaInicioFormateada()}
                                             </td>
                                             <td align="center">
-                                                ${proyecto.getFechaFinalizacionFormato()}
+                                                ${proyecto.getFechaFinalizacionFormateada()}
                                             </td>
                                             <td align="center">
                                                 ${proyecto.getTipoProyecto()}

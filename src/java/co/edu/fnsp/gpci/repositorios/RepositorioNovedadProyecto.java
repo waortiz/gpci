@@ -341,7 +341,12 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
 
         Map resultado = obtenerProyectos.execute(parametros);
         ArrayList<ReporteProyecto> proyectos = (ArrayList<ReporteProyecto>) resultado.get("proyectos");
-
+        for(ReporteProyecto proyecto:proyectos) {
+            proyecto.setFechaCreacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaCreacion()));
+            proyecto.setFechaFinalizacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
+            proyecto.setFechaInicioFormateada(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
+        }
+        
         return proyectos;
     }
 

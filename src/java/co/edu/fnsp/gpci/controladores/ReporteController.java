@@ -40,6 +40,9 @@ public class ReporteController {
     @RequestMapping(value = "/integrantesProyectos", method = RequestMethod.GET)
     public String obtenerProyectos(Model model) {
 
+        ArrayList<ReporteIntegranteProyecto> reporte = servicioReporte.obtenerIntegrantesProyectos();
+        model.addAttribute("reporte", reporte);
+
         return "reportes/integrantesProyectos";
     }
 

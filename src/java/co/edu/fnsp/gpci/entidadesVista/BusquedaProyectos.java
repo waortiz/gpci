@@ -15,25 +15,25 @@ import java.util.Date;
  */
 public class BusquedaProyectos {
 
-    private String fechaInicio;
+    private String fechaInicial;
     private String fechaFinal;
     private String documentoInvestigadorPrincipal;
     private String codigo;
 
     /**
-     * @return the fechaInicio
+     * @return the fechaInicial
      */
-    public String getFechaInicio() {
-        return fechaInicio;
+    public String getFechaInicial() {
+        return fechaInicial;
     }
 
     /**
-     * @param fechaInicio the fechaInicio to set
+     * @param fechaInicial the fechaInicial to set
      */
-    public void setFechaInicio(String fechaInicio) {
-        this.fechaInicio = fechaInicio;
+    public void setFechaInicial(String fechaInicial) {
+        this.fechaInicial = fechaInicial;
     }
-    
+
     /**
      * @param fechaFinal the fechaFinal to set
      */
@@ -53,7 +53,7 @@ public class BusquedaProyectos {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date());
         calendar.add(Calendar.DATE, -15);
-        fechaInicio = formatter.format(calendar.getTime());
+        fechaInicial = formatter.format(calendar.getTime());
     }
 
     public void establecerFechaInicioFinal() {
