@@ -48,21 +48,21 @@ public interface IServicioMaestro {
     ArrayList<Convocatoria> obtenerConvocatorias();
 
     ArrayList<EstadoProyecto> obtenerEstadosProyecto();
-    
+
     ArrayList<TipoIdentificacion> obtenerTiposIdentificacion();
-    
+
     ArrayList<Rol> obtenerRoles();
-    
+
     ArrayList<Facultad> obtenerFacultades();
-    
+
     ArrayList<TipoEstudiante> obtenerTiposEstudiante();
-    
+
     ArrayList<Programa> obtenerProgramas();
-    
+
     ArrayList<TipoActa> obtenerTiposActa();
-    
+
     ArrayList<TipoFuenteFinanciacionProyecto> obtenerTiposFuenteFinanciacionProyecto();
-    
+
     ArrayList<FuenteFinanciacion> obtenerFuentesFinanciacion();
 
     ArrayList<TipoPersona> obtenerTiposPersona();
@@ -70,7 +70,7 @@ public interface IServicioMaestro {
     ArrayList<TipoCompromiso> obtenerTiposCompromiso();
 
     ArrayList<TipoAval> obtenerTiposAval();
-     
+
     ArrayList<TipoVinculacion> obtenerTiposVinculacion();
 
     int ingresarConvocatoria(Convocatoria convocatoria);

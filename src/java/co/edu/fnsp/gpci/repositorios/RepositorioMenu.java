@@ -22,12 +22,13 @@ import org.springframework.stereotype.Repository;
  */
 @Repository("repositorioMenu")
 public class RepositorioMenu implements IRepositorioMenu {
+
     private SimpleJdbcCall obtenerOpcionesMenu;
     private SimpleJdbcCall obtenerOpcionesMenuUsuario;
     private SimpleJdbcCall obtenerOpcionesMenuPrivilegio;
     private SimpleJdbcCall ingresarOpcionMenuPrivilegio;
     private SimpleJdbcCall eliminarOpcionMenuPrivilegio;
-    
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -38,45 +39,45 @@ public class RepositorioMenu implements IRepositorioMenu {
         this.ingresarOpcionMenuPrivilegio = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarOpcionMenuPrivilegio");
         this.eliminarOpcionMenuPrivilegio = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarOpcionMenuPrivilegio");
         this.obtenerOpcionesMenu = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerOpcionesMenuConUrl").
-                returningResultSet("opcionesMenu", BeanPropertyRowMapper.newInstance(OpcionMenu.class));        
+                returningResultSet("opcionesMenu", BeanPropertyRowMapper.newInstance(OpcionMenu.class));
         this.obtenerOpcionesMenuPrivilegio = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerOpcionesMenuPrivilegio").
-                returningResultSet("opcionesMenu", BeanPropertyRowMapper.newInstance(OpcionMenu.class));        
+                returningResultSet("opcionesMenu", BeanPropertyRowMapper.newInstance(OpcionMenu.class));
     }
-    
-   @Override
-   public ArrayList<OpcionMenu> obtenerOpcionesMenuUsuario(long idUsuario) {
+
+    @Override
+    public ArrayList<OpcionMenu> obtenerOpcionesMenuUsuario(long idUsuario) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdUsuario", idUsuario);
         Map resultado = obtenerOpcionesMenuUsuario.execute(parametros);
         ArrayList<OpcionMenu> opcionesMenu = (ArrayList<OpcionMenu>) resultado.get("opcionesMenu");
 
         return opcionesMenu;
-   }
+    }
 
-   @Override
-   public ArrayList<OpcionMenu> obtenerOpcionesMenu() {
+    @Override
+    public ArrayList<OpcionMenu> obtenerOpcionesMenu() {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         Map resultado = obtenerOpcionesMenu.execute(parametros);
         ArrayList<OpcionMenu> opcionesMenu = (ArrayList<OpcionMenu>) resultado.get("opcionesMenu");
 
         return opcionesMenu;
-   }   
+    }
 
-   @Override
-   public ArrayList<OpcionMenu> obtenerOpcionesMenuPrivilegio(int idPrivilegio) {
+    @Override
+    public ArrayList<OpcionMenu> obtenerOpcionesMenuPrivilegio(int idPrivilegio) {
         MapSqlParameterSource parametrosConsultaOpcionesMenu = new MapSqlParameterSource();
         parametrosConsultaOpcionesMenu.addValue("varIdPrivilegio", idPrivilegio);
-        Map resultadoOpcionesMenu= obtenerOpcionesMenuPrivilegio.execute(parametrosConsultaOpcionesMenu);
+        Map resultadoOpcionesMenu = obtenerOpcionesMenuPrivilegio.execute(parametrosConsultaOpcionesMenu);
         ArrayList<OpcionMenu> opcionesMenu = (ArrayList<OpcionMenu>) resultadoOpcionesMenu.get("opcionesMenu");
 
         return opcionesMenu;
-   }
-   
-   @Override
+    }
+
+    @Override
     public void actualizarOpcionesMenuPrivilegio(long idPrivilegio, ArrayList<OpcionMenu> opcionesMenu) {
         MapSqlParameterSource parametrosConsultaOpcionesMenu = new MapSqlParameterSource();
         parametrosConsultaOpcionesMenu.addValue("varIdPrivilegio", idPrivilegio);
-        Map resultadoOpcionesMenu= obtenerOpcionesMenuPrivilegio.execute(parametrosConsultaOpcionesMenu);
+        Map resultadoOpcionesMenu = obtenerOpcionesMenuPrivilegio.execute(parametrosConsultaOpcionesMenu);
         ArrayList<OpcionMenu> opcionesMenuActuales = (ArrayList<OpcionMenu>) resultadoOpcionesMenu.get("opcionesMenu");
 
         MapSqlParameterSource parametrosEliminacionOpcionMenu = new MapSqlParameterSource();
@@ -84,7 +85,7 @@ public class RepositorioMenu implements IRepositorioMenu {
         for (OpcionMenu opcionMenuActual : opcionesMenuActuales) {
             boolean opcionMenuExiste = false;
             for (OpcionMenu opcionMenu : opcionesMenu) {
-                if (opcionMenu.getIdOpcionMenu()== opcionMenuActual.getIdOpcionMenu()) {
+                if (opcionMenu.getIdOpcionMenu() == opcionMenuActual.getIdOpcionMenu()) {
                     opcionMenuExiste = true;
                     break;
                 }

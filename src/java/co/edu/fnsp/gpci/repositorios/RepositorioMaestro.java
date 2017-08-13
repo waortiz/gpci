@@ -282,7 +282,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         Map resultado = ingresarConvocatoria.execute(parametros);
 
         int idConvocatoria = (int) resultado.get("varIdConvocatoria");
-        
+
         return idConvocatoria;
     }
 
@@ -293,7 +293,7 @@ public class RepositorioMaestro implements IRepositorioMaestro {
         Map resultado = ingresarAreaTematica.execute(parametros);
 
         int idAreaTematica = (int) resultado.get("varIdAreaTematica");
-        
+
         return idAreaTematica;
     }
 }

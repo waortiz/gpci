@@ -13,8 +13,12 @@ import java.util.ArrayList;
  * @author William
  */
 public interface IRepositorioMenu {
-   ArrayList<OpcionMenu> obtenerOpcionesMenuUsuario(long idUsuario);
-   ArrayList<OpcionMenu> obtenerOpcionesMenuPrivilegio(int idPrivilegio);
-   void actualizarOpcionesMenuPrivilegio(long idPrivilegio, ArrayList<OpcionMenu> opcionesMenu);
-   ArrayList<OpcionMenu> obtenerOpcionesMenu();
+
+    ArrayList<OpcionMenu> obtenerOpcionesMenuUsuario(long idUsuario);
+
+    ArrayList<OpcionMenu> obtenerOpcionesMenuPrivilegio(int idPrivilegio);
+
+    void actualizarOpcionesMenuPrivilegio(long idPrivilegio, ArrayList<OpcionMenu> opcionesMenu);
+
+    ArrayList<OpcionMenu> obtenerOpcionesMenu();
 }

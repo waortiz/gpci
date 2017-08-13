@@ -5,7 +5,9 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
+import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
+import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
 import co.edu.fnsp.gpci.repositorios.IRepositorioReporte;
 import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,5 +27,15 @@ public class ServicioReporte implements IServicioReporte {
     @Override
     public ArrayList<ReporteIntegranteProyecto> obtenerIntegrantesProyectos() {
         return repositorioReporte.obtenerIntegrantesProyectos();
+    }
+
+    @Override
+    public ArrayList<ReporteProyectoPorGrupoInvestigacion> obtenerProyectosPorGrupoInvestigacion() {
+        return repositorioReporte.obtenerProyectosPorGrupoInvestigacion();
+    }
+
+    @Override
+    public ArrayList<ReporteFuenteFinanciacionProyecto> obtenerFuentesFinanciacionProyectos() {
+         return repositorioReporte.obtenerFuentesFinanciacionProyectos();
     }
 }

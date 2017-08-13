@@ -5,7 +5,9 @@
  */
 package co.edu.fnsp.gpci.controladores;
 
+import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
+import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
 import co.edu.fnsp.gpci.entidadesVista.DatosIntegrantesProyectos;
 import co.edu.fnsp.gpci.servicios.IServicioReporte;
 import com.google.gson.Gson;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
+
 
 /**
  *
@@ -46,21 +48,31 @@ public class ReporteController {
         return "reportes/integrantesProyectos";
     }
 
-    @RequestMapping(value = "/obtenerIntegrantesProyectos", method = RequestMethod.GET)
-    public @ResponseBody
-    String obtenerIntegrantesProyectos(Model model) {
+    /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/proyectosPorGrupoInvestigacion", method = RequestMethod.GET)
+    public String obtenerProyectosPorGrupoInvestigacion(Model model) {
 
-        ArrayList<ReporteIntegranteProyecto> reporte = servicioReporte.obtenerIntegrantesProyectos();
-        DatosIntegrantesProyectos datos = new DatosIntegrantesProyectos();
-        datos.setDraw(1);
-        datos.setRecordsFiltered(reporte.size());
-        datos.setRecordsTotal(reporte.size());
-        datos.setData(reporte);
-        
-        Gson gson = new Gson();
-        String json = "";
-        json = gson.toJson(datos);
+        ArrayList<ReporteProyectoPorGrupoInvestigacion> reporte = servicioReporte.obtenerProyectosPorGrupoInvestigacion();
+        model.addAttribute("reporte", reporte);
 
-        return json;
+        return "reportes/proyectosPorGrupoInvestigacion";
+    }
+
+     /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/fuentesFinanciacionProyectos", method = RequestMethod.GET)
+    public String obtenerFuentesFinanciacionProyectos(Model model) {
+
+        ArrayList<ReporteFuenteFinanciacionProyecto> reporte = servicioReporte.obtenerFuentesFinanciacionProyectos();
+        model.addAttribute("reporte", reporte);
+
+        return "reportes/fuentesFinanciacionProyectos";
     }
 }

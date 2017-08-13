@@ -94,6 +94,14 @@
        <put-attribute name="title" value="Reportes" />  
        <put-attribute name="body" value="/WEB-INF/jsp/reportes/integrantesProyectos.jsp" />  
    </definition>  
+   <definition name="reportes/proyectosPorGrupoInvestigacion" extends="base-definition">  
+       <put-attribute name="title" value="Reportes" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/reportes/proyectosPorGrupoInvestigacion.jsp" />  
+   </definition>  
+   <definition name="reportes/fuentesFinanciacionProyectos" extends="base-definition">  
+       <put-attribute name="title" value="Reportes" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/reportes/fuentesFinanciacionProyectos.jsp" />  
+   </definition>  
 
 
 </tiles-definitions>

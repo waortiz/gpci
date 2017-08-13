@@ -14,17 +14,30 @@ import java.util.ArrayList;
  * @author William
  */
 public interface IServicioSeguridad {
+
     Usuario obtenerUsuario(String nombreUsuario);
+
     Usuario obtenerUsuario(long idUsuario);
+
     void crearUsuario(Usuario usuario);
+
     void actualizarUsuario(Usuario usuario);
+
     void actualizarClaveUsuario(long idUsuario, String claveAnterior, String nuevaClave);
+
     ArrayList<Privilegio> obtenerPrivilegios();
+
     ArrayList<Privilegio> obtenerPrivilegiosUsuario(long idUsuario);
+
     ArrayList<Usuario> obtenerUsuarios();
+
     void actualizarPrivilegiosUsuario(long idUsuario, ArrayList<Privilegio> privilegios);
+
     void crearPrivilegio(Privilegio privilegio);
+
     void eliminarPrivilegio(int idPrivilegio);
+
     Privilegio obtenerPrivilegio(int idPrivilegio);
+
     boolean existePrivilegio(String codigo);
 }

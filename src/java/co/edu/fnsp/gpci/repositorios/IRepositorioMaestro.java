@@ -75,5 +75,5 @@ public interface IRepositorioMaestro {
 
     int ingresarConvocatoria(Convocatoria convocatoria);
 
-    public int ingresarAreaTematica(AreaTematica areaTematica);
+    int ingresarAreaTematica(AreaTematica areaTematica);
 }

@@ -175,7 +175,6 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varIdEnfoqueMetodologico", proyecto.getEnfoqueMetodologico().getIdEnfoqueMetodologico());
         parametros.addValue("varIdConvocatoria", proyecto.getConvocatoria().getIdConvocatoria());
         parametros.addValue("varObjetivoGeneral", proyecto.getObjetivoGeneral());
-        parametros.addValue("varIdEstado", proyecto.getEstado().getIdEstadoProyecto());
         parametros.addValue("varidUsuarioCreacion", proyecto.getUsuarioCreacion().getIdUsuario());
         Map resultado = ingresarProyecto.execute(parametros);
 
@@ -337,7 +336,6 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varIdTipoContrato", proyecto.getTipoContrato().getIdTipoContrato());
         parametros.addValue("varIdEnfoqueMetodologico", proyecto.getEnfoqueMetodologico().getIdEnfoqueMetodologico());
         parametros.addValue("varIdConvocatoria", proyecto.getConvocatoria().getIdConvocatoria());
-        parametros.addValue("varIdEstado", proyecto.getEstado().getIdEstadoProyecto());
         parametros.addValue("varObjetivoGeneral", proyecto.getObjetivoGeneral());
 
         actualizarProyecto.execute(parametros);
@@ -457,7 +455,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         Map resultado = obtenerProyectos.execute(parametros);
         ArrayList<ReporteProyecto> proyectos = (ArrayList<ReporteProyecto>) resultado.get("proyectos");
-        for(ReporteProyecto proyecto:proyectos) {
+        for (ReporteProyecto proyecto : proyectos) {
             proyecto.setFechaCreacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaCreacion()));
             proyecto.setFechaFinalizacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
             proyecto.setFechaInicioFormateada(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));

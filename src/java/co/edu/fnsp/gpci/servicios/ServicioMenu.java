@@ -36,5 +36,5 @@ public class ServicioMenu implements IServicioMenu {
     public ArrayList<OpcionMenu> obtenerOpcionesMenu() {
         return repositorioMenu.obtenerOpcionesMenu();
     }
-   
+
 }

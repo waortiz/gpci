@@ -41,4 +41,11 @@
     border-bottom: none !important;
 }
 
+.table-report td, .table-report th  {
+    font-size: 10pt !important;
+}
+
+.dataTables_filter  {
+    font-size: 10pt !important;
+}
 

@@ -13,7 +13,10 @@ import java.util.ArrayList;
  * @author William
  */
 public interface IServicioMenu {
-   ArrayList<OpcionMenu> obtenerOpcionesMenuUsuario(long idUsuario);
-   void actualizarOpcionesMenuPrivilegio(long idPrivilegio, ArrayList<OpcionMenu> opcionesMenu);
-   ArrayList<OpcionMenu> obtenerOpcionesMenu();
+
+    ArrayList<OpcionMenu> obtenerOpcionesMenuUsuario(long idUsuario);
+
+    void actualizarOpcionesMenuPrivilegio(long idPrivilegio, ArrayList<OpcionMenu> opcionesMenu);
+
+    ArrayList<OpcionMenu> obtenerOpcionesMenu();
 }

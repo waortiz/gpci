@@ -47,7 +47,6 @@ public class ServicioProyecto implements IServicioProyecto {
         TransactionDefinition txDef = new DefaultTransactionDefinition();
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
-            establecerEstadoProyecto(proyecto);
             repositorioProyecto.ingresarProyecto(proyecto);
             transactionManager.commit(txStatus);
         } catch (Exception exc) {
@@ -61,7 +60,6 @@ public class ServicioProyecto implements IServicioProyecto {
         TransactionDefinition txDef = new DefaultTransactionDefinition();
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
-            establecerEstadoProyecto(proyecto);
             repositorioProyecto.actualizarProyecto(proyecto);
             transactionManager.commit(txStatus);
         } catch (Exception exc) {
@@ -103,38 +101,5 @@ public class ServicioProyecto implements IServicioProyecto {
     @Override
     public ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto) {
         return repositorioProyecto.obtenerAlertasAvalProyecto(idProyecto);
-    }
-
-    private void establecerEstadoProyecto(Proyecto proyecto) {
-        EstadoProyecto estadoProyecto = new EstadoProyecto();
-        int meses = 0;
-        for (PlazoProyecto plazo : proyecto.getPlazosProyecto()) {
-            meses += plazo.getMesesAprobados();
-        }
-        for (ProrrogaProyecto prorroga : proyecto.getProrrogasProyecto()) {
-            meses += prorroga.getMesesAprobados();
-        }
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(proyecto.getFechaFinalizacion());
-        calendar.add(Calendar.MONTH, meses);
-        Date fechaFinalizacion = calendar.getTime();
-        if (fechaFinalizacion.compareTo(new Date()) >= 0) {
-            estadoProyecto.setIdEstadoProyecto(EstadoProyectoEnum.EJECUCION.getIdEstadoProyecto());
-            proyecto.setEstado(estadoProyecto);
-        } else if (fechaFinalizacion.compareTo(new Date()) < 0) {
-            boolean existeActaFinalizacion = false;
-            for (ActaProyecto acta : proyecto.getActasProyecto()) {
-                if (acta.getIdTipoActa() == TipoActaEnum.FINALIZACION.getIdTipoActa()) {
-                    existeActaFinalizacion = true;
-                    break;
-                }
-            }
-            if (existeActaFinalizacion) {
-                estadoProyecto.setIdEstadoProyecto(EstadoProyectoEnum.FINALIZADO.getIdEstadoProyecto());
-            } else {
-                estadoProyecto.setIdEstadoProyecto(EstadoProyectoEnum.ATRASADO.getIdEstadoProyecto());
-            }
-            proyecto.setEstado(estadoProyecto);
-        }
     }
 }

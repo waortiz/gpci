@@ -5,7 +5,9 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
+import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
+import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
 import java.util.ArrayList;
 
 /**
@@ -15,4 +17,8 @@ import java.util.ArrayList;
 public interface IServicioReporte {
 
     ArrayList<ReporteIntegranteProyecto> obtenerIntegrantesProyectos();
+
+    ArrayList<ReporteProyectoPorGrupoInvestigacion> obtenerProyectosPorGrupoInvestigacion();
+
+    ArrayList<ReporteFuenteFinanciacionProyecto> obtenerFuentesFinanciacionProyectos();
 }

@@ -26,45 +26,86 @@ import java.util.Date;
  * @author William
  */
 public interface IServicioNovedadProyecto {
+
     Proyecto obtenerProyecto(long idProyecto);
+
     ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal, String codigo, String documentoInvestigadorPrincipal);
+
     void guardarActaProyecto(long idProyecto, ActaProyecto actaProyecto, Documento documento);
+
     ArrayList<ActaProyecto> obtenerActasProyecto(long idProyecto);
+
     Documento obtenerDocumentoActaProyecto(long idActa);
+
     void eliminarActaProyecto(long idActa);
+
     void guardarAdicionProyecto(long idProyecto, AdicionProyecto actaProyecto, Documento documento);
+
     ArrayList<AdicionProyecto> obtenerAdicionesProyecto(long idProyecto);
+
     Documento obtenerDocumentoAdicionProyecto(long idAdicion);
+
     void eliminarAdicionProyecto(long idAdicion);
+
     void guardarProrrogaProyecto(long idProyecto, ProrrogaProyecto prorrogaroyecto, Documento documento);
+
     ArrayList<ProrrogaProyecto> obtenerProrrogasProyecto(long idProyecto);
+
     Documento obtenerDocumentoProrrogaProyecto(long idProrroga);
-    void eliminarProrrogaProyecto(long idProrroga);    
+
+    void eliminarProrrogaProyecto(long idProrroga);
+
     void guardarPlazoProyecto(long idProyecto, PlazoProyecto plazoProyecto, Documento documento);
+
     ArrayList<PlazoProyecto> obtenerPlazosProyecto(long idProyecto);
+
     Documento obtenerDocumentoPlazoProyecto(long idPlazo);
-    void eliminarPlazoProyecto(long idPlazo);        
+
+    void eliminarPlazoProyecto(long idPlazo);
+
     void guardarAdendaCambioProyecto(long idProyecto, AdendaCambioProyecto adendaCambioProyecto, Documento documento);
+
     ArrayList<AdendaCambioProyecto> obtenerAdendasCambioProyecto(long idProyecto);
+
     Documento obtenerDocumentoAdendaCambioProyecto(long idAdenda);
+
     void eliminarAdendaCambioProyecto(long idAdenda);
+
     void guardarAdendaIngresoProyecto(long idProyecto, AdendaIngresoProyecto adendaIngresoProyecto, Documento documento);
+
     ArrayList<AdendaIngresoProyecto> obtenerAdendasIngresoProyecto(long idProyecto);
+
     Documento obtenerDocumentoAdendaIngresoProyecto(long idAdenda);
+
     void eliminarAdendaIngresoProyecto(long idAdenda);
+
     void guardarAdendaRetiroProyecto(long idProyecto, AdendaRetiroProyecto adendaRetiroProyecto, Documento documento);
+
     ArrayList<AdendaRetiroProyecto> obtenerAdendasRetiroProyecto(long idProyecto);
+
     Documento obtenerDocumentoAdendaRetiroProyecto(long idAdenda);
-    void eliminarAdendaRetiroProyecto(long idAdenda);   
+
+    void eliminarAdendaRetiroProyecto(long idAdenda);
+
     void guardarCumplimientoCompromisoProyecto(long idProyecto, CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto, Documento documento);
+
     ArrayList<CumplimientoCompromisoProyecto> obtenerCumplimientoCompromisosProyecto(long idProyecto);
+
     Documento obtenerDocumentoCumplimientoCompromisoProyecto(long idCumplimientoCompromiso);
+
     void eliminarCumplimientoCompromisoProyecto(long idCumplimientoCompromiso);
+
     ArrayList<CompromisoHomologadoProyecto> obtenerCompromisoHomologadosProyecto(long idProyecto);
+
     void guardarCompromisoHomologadoProyecto(long idProyecto, CompromisoHomologadoProyecto compromisoHomologadoProyecto);
+
     void eliminarCompromisoHomologadoProyecto(long idCompromisoHomologadoProyecto);
+
     void guardarCumplimientoAlertaAvalProyecto(long idProyecto, CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto, Documento documento);
+
     ArrayList<CumplimientoAlertaAvalProyecto> obtenerCumplimientosAlertasAvalProyecto(long idProyecto);
+
     Documento obtenerDocumentoCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto);
-    void eliminarCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto);  
+
+    void eliminarCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto);
 }

@@ -118,7 +118,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
     private SimpleJdbcCall actualizarCompromisoHomologadoProyecto;
     private SimpleJdbcCall eliminarCompromisoHomologadoProyecto;
     private SimpleJdbcCall obtenerCompromisosHomologadosProyecto;
-    
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -195,7 +195,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         this.eliminarCompromisoHomologadoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarCompromisoHomologadoProyecto");
         this.actualizarCompromisoHomologadoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarCompromisoHomologadoProyecto");
         this.obtenerCompromisosHomologadosProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCompromisosHomologadosProyecto").returningResultSet("compromisosHomologadosProyecto", BeanPropertyRowMapper.newInstance(CompromisoHomologadoProyecto.class));
-        
+
         this.ingresarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarCumplimientoAlertaAvalProyecto");
         this.eliminarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarCumplimientoAlertaAvalProyecto");
         this.actualizarCumplimientoAlertaAvalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarCumplimientoAlertaAvalProyecto");
@@ -319,7 +319,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
             cumplimientoAlertaAvalProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(cumplimientoAlertaAvalProyecto.getFechaActa()));
         }
         proyecto.setCumplimientosAlertasAvalProyecto(cumplimientosAlertasAvalProyecto);
-        
+
         return proyecto;
     }
 
@@ -341,12 +341,12 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
 
         Map resultado = obtenerProyectos.execute(parametros);
         ArrayList<ReporteProyecto> proyectos = (ArrayList<ReporteProyecto>) resultado.get("proyectos");
-        for(ReporteProyecto proyecto:proyectos) {
+        for (ReporteProyecto proyecto : proyectos) {
             proyecto.setFechaCreacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaCreacion()));
             proyecto.setFechaFinalizacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
             proyecto.setFechaInicioFormateada(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
         }
-        
+
         return proyectos;
     }
 
@@ -997,7 +997,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         parametros.addValue("varIdCumplimientoCompromisoProyecto", idCumplimientoCompromisoProyecto);
         eliminarCumplimientoCompromisoProyecto.execute(parametros);
     }
-    
+
     @Override
     public void guardarCompromisoHomologadoProyecto(long idProyecto, CompromisoHomologadoProyecto compromisoHomologadoProyecto) {
 
@@ -1046,7 +1046,7 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         parametros.addValue("varIdCompromisoHomologadoProyecto", idCompromisoHomologadoProyecto);
         eliminarCompromisoHomologadoProyecto.execute(parametros);
     }
-    
+
     @Override
     public void guardarCumplimientoAlertaAvalProyecto(long idProyecto, CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto, Documento documento) {
 

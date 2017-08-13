@@ -15,7 +15,6 @@
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/paging.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/menu.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/metisMenu.min.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/sb-admin-2.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/font-awesome.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/jquery.dataTables.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/buttons.dataTables.min.css" />'>
@@ -39,7 +38,6 @@
         <script src='<c:url value="/resources/js/buttons.html5.min.js" />'></script>
         <script src='<c:url value="/resources/js/buttons.print.min.js" />'></script>
         <script src='<c:url value="/resources/js/jszip.min.js" />'></script>
-        
     </head>
     <body>
         <header id="header">
