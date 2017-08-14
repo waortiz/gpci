@@ -5,24 +5,10 @@
  */
 package co.edu.fnsp.gpci.repositorios;
 
-import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
-import co.edu.fnsp.gpci.entidades.AreaTematica;
-import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
-import co.edu.fnsp.gpci.entidades.EntidadInternacionalProyecto;
-import co.edu.fnsp.gpci.entidades.GrupoInvestigacion;
-import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
-import co.edu.fnsp.gpci.entidades.PersonalExterno;
-import co.edu.fnsp.gpci.entidades.Profesor;
-import co.edu.fnsp.gpci.entidades.Proyecto;
-import co.edu.fnsp.gpci.entidades.ReporteProyecto;
-import co.edu.fnsp.gpci.entidades.TipoProyecto;
-import co.edu.fnsp.gpci.entidades.Estudiante;
-import co.edu.fnsp.gpci.entidades.EstudianteProyecto;
-import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
-import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
-import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
+import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
+import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
@@ -45,6 +31,9 @@ public class RepositorioReporte implements IRepositorioReporte {
     private SimpleJdbcCall obtenerIntegrantesProyectos;
     private SimpleJdbcCall obtenerProyectosPorGrupoInvestigacion;
     private SimpleJdbcCall obtenerFuentesFinanciacionProyectos;
+    private SimpleJdbcCall obtenerProyectosEjecucionAtrasadosProfesor;
+    private SimpleJdbcCall obtenerProyectosProfesor;
+    private SimpleJdbcCall obtenerProyectosInscritos;
     
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -54,6 +43,9 @@ public class RepositorioReporte implements IRepositorioReporte {
         this.obtenerIntegrantesProyectos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerIntegrantesProyectos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteIntegranteProyecto.class));
         this.obtenerProyectosPorGrupoInvestigacion = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosPorGrupoInvestigacion").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyectoPorGrupoInvestigacion.class));
         this.obtenerFuentesFinanciacionProyectos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerFuentesFinanciacionProyectos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteFuenteFinanciacionProyecto.class));
+        this.obtenerProyectosEjecucionAtrasadosProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosEjecucionAtrasadosProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProfesorProyecto.class));
+        this.obtenerProyectosProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProfesorProyecto.class));
+        this.obtenerProyectosInscritos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosInscritos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyectoInscrito.class));
     }
 
     @Override
@@ -90,4 +82,47 @@ public class RepositorioReporte implements IRepositorioReporte {
         
         return proyectos;    
     }
+
+    @Override
+    public ArrayList<ReporteProfesorProyecto> obtenerProyectosEjecucionAtrasadosProfesor(long numeroIdentificacion) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varNumeroIdentificacion", numeroIdentificacion);
+
+        Map resultado = obtenerProyectosEjecucionAtrasadosProfesor.execute(parametros);
+        ArrayList<ReporteProfesorProyecto> proyectos = (ArrayList<ReporteProfesorProyecto>) resultado.get("proyectos");
+
+        for(ReporteProfesorProyecto proyecto : proyectos) {
+            proyecto.setFechaInicioFormateada(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
+            proyecto.setFechaFinalizacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
+        }
+        
+        return proyectos;    
+    }
+
+    @Override
+    public ArrayList<ReporteProfesorProyecto> obtenerProyectosProfesor(long numeroIdentificacion) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varNumeroIdentificacion", numeroIdentificacion);
+
+        Map resultado = obtenerProyectosProfesor.execute(parametros);
+        ArrayList<ReporteProfesorProyecto> proyectos = (ArrayList<ReporteProfesorProyecto>) resultado.get("proyectos");
+
+        for(ReporteProfesorProyecto proyecto : proyectos) {
+            proyecto.setFechaInicioFormateada(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
+            proyecto.setFechaFinalizacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
+        }
+        
+        return proyectos;    
+    }
+    
+    @Override
+    public ArrayList<ReporteProyectoInscrito> obtenerProyectosInscritos() {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+
+        Map resultado = obtenerProyectosInscritos.execute(parametros);
+        ArrayList<ReporteProyectoInscrito> proyectos = (ArrayList<ReporteProyectoInscrito>) resultado.get("proyectos");
+
+        return proyectos;    
+    }
+
  }

@@ -7,6 +7,8 @@ package co.edu.fnsp.gpci.servicios;
 
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
+import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
+import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
 import co.edu.fnsp.gpci.repositorios.IRepositorioReporte;
 import java.util.ArrayList;
@@ -38,4 +40,19 @@ public class ServicioReporte implements IServicioReporte {
     public ArrayList<ReporteFuenteFinanciacionProyecto> obtenerFuentesFinanciacionProyectos() {
          return repositorioReporte.obtenerFuentesFinanciacionProyectos();
     }
+
+    @Override
+    public ArrayList<ReporteProfesorProyecto> obtenerProyectosEjecucionAtrasadosProfesor(long numeroIdentificacion) {
+        return repositorioReporte.obtenerProyectosEjecucionAtrasadosProfesor(numeroIdentificacion);
+    }
+    @Override
+    public ArrayList<ReporteProfesorProyecto> obtenerProyectosProfesor(long numeroIdentificacion) {
+        return repositorioReporte.obtenerProyectosProfesor(numeroIdentificacion);
+    }
+
+    @Override
+    public ArrayList<ReporteProyectoInscrito> obtenerProyectosInscritos() {
+        return repositorioReporte.obtenerProyectosInscritos();
+    }
+
 }

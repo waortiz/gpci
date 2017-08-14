@@ -18,6 +18,7 @@ public class BusquedaProyectos {
     private String fechaInicial;
     private String fechaFinal;
     private String documentoInvestigadorPrincipal;
+    private String cedulaProfesor;
     private String codigo;
 
     /**
@@ -92,4 +93,17 @@ public class BusquedaProyectos {
         this.documentoInvestigadorPrincipal = documentoInvestigadorPrincipal;
     }
 
+    /**
+     * @return the cedulaProfesor
+     */
+    public String getCedulaProfesor() {
+        return cedulaProfesor;
+    }
+
+    /**
+     * @param cedulaProfesor the cedulaProfesor to set
+     */
+    public void setCedulaProfesor(String cedulaProfesor) {
+        this.cedulaProfesor = cedulaProfesor;
+    }
 }
