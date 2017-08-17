@@ -5,8 +5,11 @@
  */
 package co.edu.fnsp.gpci.controladores;
 
-import co.edu.fnsp.gpci.entidades.ProyectosPorEstado;
-import co.edu.fnsp.gpci.servicios.IServicioProyecto;
+import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
+import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
+import co.edu.fnsp.gpci.servicios.IServicioReporte;
+import com.google.gson.Gson;
+import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -21,23 +24,22 @@ import org.springframework.ui.Model;
 public class IndexController {
 
     @Autowired
-    private IServicioProyecto servicioProyecto;
+    private IServicioReporte servicioReporte;
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String index(Model model) {
-        String datosBarra = "";
-
-        ProyectosPorEstado proyectosPorEstado = servicioProyecto.obtenerCantidadProyectosPorEstado();
+        ArrayList<ProyectoPorEstadoPorAnyo> proyectosPorEstadoPorAnyo = servicioReporte.obtenerProyectosPorEstadoPorAnyo();
+        Gson gson = new Gson();
+        String datosBarra = gson.toJson(proyectosPorEstadoPorAnyo);
+        model.addAttribute("datosBarra", datosBarra);
+       
+        CantidadProyectosPorEstado cantidadProyectosPorEstado = servicioReporte.obtenerCantidadProyectosPorEstado();
         String datosGrafico = "[\n"
                 + "      ['Estado', 'Cantidad'],\n"
-                + "      ['Ejecución', " + proyectosPorEstado.getCantidadProyectosEjecucion() + "],\n"
-                + "      ['Finalizado', " + proyectosPorEstado.getCantidadProyectosFinalizados() + "],\n"
-                + "      ['Atrasado', " + proyectosPorEstado.getCantidadProyectosAtrasados() + "],\n"
-                + "      ['Cancelado', " + proyectosPorEstado.getCantidadProyectosCancelados() + "],\n"
-                + "      ['Trasladado', " + proyectosPorEstado.getCantidadProyectosTrasladados() + "]\n"
+                + "      ['Ejecución', " + cantidadProyectosPorEstado.getCantidadProyectosEjecucion() + "],\n"
+                + "      ['Finalizados', " + cantidadProyectosPorEstado.getCantidadProyectosFinalizados() + "],\n"
+                + "      ['Atrasados', " + cantidadProyectosPorEstado.getCantidadProyectosAtrasados() + "],\n"
                 + "    ]";
-
-        model.addAttribute("datosBarra", datosBarra);
         model.addAttribute("datosGrafico", datosGrafico);
 
         return "index";

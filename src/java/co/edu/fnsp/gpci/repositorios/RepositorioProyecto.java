@@ -21,7 +21,6 @@ import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacionProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
-import co.edu.fnsp.gpci.entidades.ProyectosPorEstado;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
 import java.util.Date;
@@ -45,8 +44,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     private SimpleJdbcCall actualizarProyecto;
     private SimpleJdbcCall obtenerProyecto;
     private SimpleJdbcCall obtenerProyectos;
-    private SimpleJdbcCall obtenerCantidadProyectosPorEstado;
-
+    
     private SimpleJdbcCall ingresarObjetivoEspecificoProyecto;
     private SimpleJdbcCall actualizarObjetivoEspecificoProyecto;
     private SimpleJdbcCall eliminarObjetivoEspecificoProyecto;
@@ -103,7 +101,6 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         this.ingresarProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarProyecto");
         this.actualizarProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarProyecto");
         this.obtenerProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyecto");
-        this.obtenerCantidadProyectosPorEstado = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstado");
         this.obtenerProyectos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyecto.class));
 
         this.ingresarObjetivoEspecificoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarObjetivoEspecificoProyecto");
@@ -1001,23 +998,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametrosConsultaAlertaAvalsProyecto.addValue("varIdProyecto", idProyecto);
         Map resultadoAlertaAvalsProyecto = obtenerAlertasAvalProyecto.execute(parametrosConsultaAlertaAvalsProyecto);
         ArrayList<AlertaAvalProyecto> alertasAvalProyecto = (ArrayList<AlertaAvalProyecto>) resultadoAlertaAvalsProyecto.get("alertasAvalProyecto");
+
         return alertasAvalProyecto;
     }
-
-    @Override
-    public ProyectosPorEstado obtenerCantidadProyectosPorEstado() {
-        ProyectosPorEstado proyectosPorEstado = new ProyectosPorEstado();
-        MapSqlParameterSource parametros = new MapSqlParameterSource();
-
-        Map resultado = obtenerCantidadProyectosPorEstado.execute(parametros);
-
-        proyectosPorEstado.setCantidadProyectosAtrasados((int) resultado.get("varCantidadProyectosAtrasados"));
-        proyectosPorEstado.setCantidadProyectosFinalizados((int) resultado.get("varCantidadProyectosFinalizados"));
-        proyectosPorEstado.setCantidadProyectosCancelados((int) resultado.get("varCantidadProyectosCancelados"));
-        proyectosPorEstado.setCantidadProyectosEjecucion((int) resultado.get("varCantidadProyectosEjecucion"));
-        proyectosPorEstado.setCantidadProyectosTrasladados((int) resultado.get("varCantidadProyectosTrasladados"));
-        
-        return proyectosPorEstado;
-    }
-
 }

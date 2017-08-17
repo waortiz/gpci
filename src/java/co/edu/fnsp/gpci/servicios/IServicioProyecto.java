@@ -6,7 +6,6 @@
 package co.edu.fnsp.gpci.servicios;
 
 import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
-import co.edu.fnsp.gpci.entidades.ProyectosPorEstado;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.Profesor;
@@ -39,6 +38,4 @@ public interface IServicioProyecto {
     ArrayList<CompromisoProyecto> obtenerCompromisosProyecto(long idProyecto);
 
     ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto);
-
-    public ProyectosPorEstado obtenerCantidadProyectosPorEstado();
 }

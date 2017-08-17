@@ -5,23 +5,15 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
-import co.edu.fnsp.gpci.entidades.ActaProyecto;
 import co.edu.fnsp.gpci.entidades.AlertaAvalProyecto;
 import co.edu.fnsp.gpci.entidades.CompromisoProyecto;
-import co.edu.fnsp.gpci.entidades.EstadoProyecto;
-import co.edu.fnsp.gpci.entidades.EstadoProyectoEnum;
 import co.edu.fnsp.gpci.entidades.PersonalExterno;
-import co.edu.fnsp.gpci.entidades.PlazoProyecto;
 import co.edu.fnsp.gpci.entidades.Profesor;
-import co.edu.fnsp.gpci.entidades.ProrrogaProyecto;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
-import co.edu.fnsp.gpci.entidades.TipoActaEnum;
 import co.edu.fnsp.gpci.entidades.Estudiante;
-import co.edu.fnsp.gpci.entidades.ProyectosPorEstado;
 import co.edu.fnsp.gpci.repositorios.IRepositorioProyecto;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -102,10 +94,5 @@ public class ServicioProyecto implements IServicioProyecto {
     @Override
     public ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto) {
         return repositorioProyecto.obtenerAlertasAvalProyecto(idProyecto);
-    }
-
-    @Override
-    public ProyectosPorEstado obtenerCantidadProyectosPorEstado() {
-        return repositorioProyecto.obtenerCantidadProyectosPorEstado();
     }
 }

@@ -12,7 +12,6 @@ import co.edu.fnsp.gpci.entidades.Profesor;
 import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.entidades.Estudiante;
-import co.edu.fnsp.gpci.entidades.ProyectosPorEstado;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -39,6 +38,4 @@ public interface IRepositorioProyecto {
     ArrayList<CompromisoProyecto> obtenerCompromisosProyecto(long idProyecto);
 
     ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto);
-
-    ProyectosPorEstado obtenerCantidadProyectosPorEstado();
 }

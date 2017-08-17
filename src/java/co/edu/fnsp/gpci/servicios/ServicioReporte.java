@@ -5,6 +5,8 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
+import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
+import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
@@ -54,5 +56,14 @@ public class ServicioReporte implements IServicioReporte {
     public ArrayList<ReporteProyectoInscrito> obtenerProyectosInscritos() {
         return repositorioReporte.obtenerProyectosInscritos();
     }
+    
+    @Override
+    public CantidadProyectosPorEstado obtenerCantidadProyectosPorEstado() {
+        return repositorioReporte.obtenerCantidadProyectosPorEstado();
+    }
 
+    @Override
+    public ArrayList<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo() {
+        return repositorioReporte.obtenerProyectosPorEstadoPorAnyo();
+    }
 }

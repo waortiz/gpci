@@ -9,7 +9,7 @@ package co.edu.fnsp.gpci.entidades;
  *
  * @author William
  */
-public class ProyectosPorEstado {
+public class CantidadProyectosPorEstado {
 
     private int cantidadProyectosEjecucion;
     private int cantidadProyectosFinalizados;

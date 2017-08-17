@@ -5,6 +5,8 @@
  */
 package co.edu.fnsp.gpci.servicios;
 
+import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
+import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
@@ -29,4 +31,8 @@ public interface IServicioReporte {
     ArrayList<ReporteProfesorProyecto> obtenerProyectosProfesor(long numeroIdentificacion);
     
     ArrayList<ReporteProyectoInscrito> obtenerProyectosInscritos();
+        
+    CantidadProyectosPorEstado obtenerCantidadProyectosPorEstado();
+
+    ArrayList<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo();
 }

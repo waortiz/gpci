@@ -5,6 +5,8 @@
  */
 package co.edu.fnsp.gpci.repositorios;
 
+import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
+import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
@@ -34,6 +36,8 @@ public class RepositorioReporte implements IRepositorioReporte {
     private SimpleJdbcCall obtenerProyectosEjecucionAtrasadosProfesor;
     private SimpleJdbcCall obtenerProyectosProfesor;
     private SimpleJdbcCall obtenerProyectosInscritos;
+    private SimpleJdbcCall obtenerCantidadProyectosPorEstado;
+    private SimpleJdbcCall obtenerCantidadProyectosPorEstadoPorAnyo;
     
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -46,6 +50,8 @@ public class RepositorioReporte implements IRepositorioReporte {
         this.obtenerProyectosEjecucionAtrasadosProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosEjecucionAtrasadosProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProfesorProyecto.class));
         this.obtenerProyectosProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProfesorProyecto.class));
         this.obtenerProyectosInscritos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosInscritos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyectoInscrito.class));
+        this.obtenerCantidadProyectosPorEstado = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstado");
+        this.obtenerCantidadProyectosPorEstadoPorAnyo = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstadoPorAnyo").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoPorEstadoPorAnyo.class));
     }
 
     @Override
@@ -125,4 +131,29 @@ public class RepositorioReporte implements IRepositorioReporte {
         return proyectos;    
     }
 
+    @Override
+    public CantidadProyectosPorEstado obtenerCantidadProyectosPorEstado() {
+        CantidadProyectosPorEstado cantidadProyectosPorEstado = new CantidadProyectosPorEstado();
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+
+        Map resultado = obtenerCantidadProyectosPorEstado.execute(parametros);
+
+        cantidadProyectosPorEstado.setCantidadProyectosAtrasados((int) resultado.get("varCantidadProyectosAtrasados"));
+        cantidadProyectosPorEstado.setCantidadProyectosFinalizados((int) resultado.get("varCantidadProyectosFinalizados"));
+        cantidadProyectosPorEstado.setCantidadProyectosCancelados((int) resultado.get("varCantidadProyectosCancelados"));
+        cantidadProyectosPorEstado.setCantidadProyectosEjecucion((int) resultado.get("varCantidadProyectosEjecucion"));
+        cantidadProyectosPorEstado.setCantidadProyectosTrasladados((int) resultado.get("varCantidadProyectosTrasladados"));
+        
+        return cantidadProyectosPorEstado;
+    }
+
+    @Override
+    public ArrayList<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo() {
+        MapSqlParameterSource parametrosConsultaCantidadProyectosPorEstadoPorAnyo = new MapSqlParameterSource();
+        Map resultadoProyectosPorEstadoPorAnyo = obtenerCantidadProyectosPorEstadoPorAnyo.execute(parametrosConsultaCantidadProyectosPorEstadoPorAnyo);
+        ArrayList<ProyectoPorEstadoPorAnyo> proyectosPorEstadoPorAnyo = (ArrayList<ProyectoPorEstadoPorAnyo>) resultadoProyectosPorEstadoPorAnyo.get("proyectos");
+
+        return proyectosPorEstadoPorAnyo;
+    }
+    
  }

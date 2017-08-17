@@ -22,35 +22,20 @@
 </div>
 <script>
     $(document).ready(function () {
-// Use Morris.Bar
         Morris.Bar({
             element: 'graph',
-            data: [
-                {x: '2014', e: 2, f: 3, a: 2, c: 3, t: 3},
-                {x: '2015', e: 4, f: 2, a: 5, c: 1, t: 6},
-                {x: '2016', e: 1, f: 0, a: 2, c: 4, t: 1},
-                {x: '2017', e: 8, f: 2, a: 4, c: 3, t: 0}
-            ],
-            xkey: 'x',
-            ykeys: ['e', 'f', 'a', 'c', 't'],
-            labels: ['Ejecución', 'Finalizado', 'Atrasado', 'Cancelado', 'Trasladado']
-        }).on('click', function (i, row) {
-            console.log(i, row);
+            data: ${datosBarra},
+            xkey: 'anyo',
+            ykeys: ['ejecucion', 'finalizados', 'atrasados'],
+            labels: ['Ejecución', 'Finalizados', 'Atrasados']
         });
     });
 
-    // Load google charts
     google.charts.load('current', {'packages':['corechart']});
     google.charts.setOnLoadCallback(drawChart);
-
-    // Draw the chart and set the chart values
     function drawChart() {
       var data = google.visualization.arrayToDataTable(${datosGrafico});
-
-      // Optional; add a title and set the width and height of the chart
       var options = {is3D: true, 'width':900, 'height':500};
-
-      // Display the chart inside the <div> element with id="piechart"
       var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
       chart.draw(data, options);
     }
