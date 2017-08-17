@@ -590,7 +590,7 @@ CREATE TABLE `fuentesfinanciacionproyectos` (
   CONSTRAINT `fuentesfinanciacionproyectos_proyectos_idproyecto` FOREIGN KEY (`idProyecto`) REFERENCES `proyectos` (`idProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fuentesfinproy_fuentesfinanciaron_idfuentefinanciacion` FOREIGN KEY (`idFuenteFinanciacion`) REFERENCES `fuentesfinanciacion` (`idFuenteFinanciacion`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `fuentesfinproy_tiposfuentefinpro_idtipofuentefinproy` FOREIGN KEY (`idTipoFuenteFinanciacionProyecto`) REFERENCES `tiposfuentefinanciacionproyecto` (`idTipoFuenteFinanciacionProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=53 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=54 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -916,23 +916,17 @@ CREATE TABLE `proyectos` (
   `fechaInicio` datetime NOT NULL,
   `fechaFinalizacion` datetime NOT NULL,
   `idAreaTematica` int(11) NOT NULL,
-  `ingresadoSIGEP` tinyint(1) NOT NULL,
-  `ingresadoSIIU` tinyint(1) NOT NULL,
-  `ingresadoSIU` tinyint(1) NOT NULL,
-  `codigoSIIU` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
-  `codigoCOLCIENCIAS` varchar(50) COLLATE utf8_spanish_ci NOT NULL,
-  `codigoSIU` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `codigoCOLCIENCIAS` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
   `codigo` varchar(15) COLLATE utf8_spanish_ci NOT NULL,
   `participacionInternacional` tinyint(1) NOT NULL,
   `idTipoProyecto` int(11) NOT NULL,
   `idRiesgoEtico` int(11) NOT NULL,
   `idTipoContrato` int(11) NOT NULL,
   `idEnfoqueMetodologico` int(11) NOT NULL,
-  `idConvocatoria` int(11) DEFAULT NULL,
+  `idConvocatoria` int(11) NOT NULL,
   `objetivoGeneral` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
   `fechaCreacion` datetime NOT NULL,
   `idUsuarioCreacion` bigint(20) NOT NULL,
-  `fechaIngresadoSIGEP` datetime DEFAULT NULL,
   PRIMARY KEY (`idProyecto`),
   KEY `proyectos_areastematicas_idareatematica_idx` (`idAreaTematica`),
   KEY `proyectos_riegoseticos_idriesgoetico_idx` (`idRiesgoEtico`),
@@ -1199,17 +1193,25 @@ BEGIN
         from plazosproyectos 
         where idProyecto = varIdProyecto;
         
+        IF mesesPlazos IS NULL THEN
+          SET mesesPlazos = 0;
+		END IF;
+        
         select sum(mesesAprobados)
         into mesesProrrogas
         from prorrogasproyectos
         where idProyecto = varIdProyecto;
 
+        IF mesesProrrogas IS NULL THEN
+          SET mesesProrrogas = 0;
+		END IF;
+
 		SET meses = mesesPlazos + mesesProrrogas;
 
-        SET fechaFinalizacionProyecto =  DATE_ADD(fechaFinalizacionProyecto, INTERVAL 10 MONTH);
-        if fechaFinalizacionproyecto >= now() then
+        SET fechaFinalizacionProyecto =  DATE_ADD(fechaFinalizacionProyecto, INTERVAL meses MONTH);
+        if fechaFinalizacionProyecto >= now() then
             set estadoProyecto = 1;
-        elseif fechaFinalizacion < now() then
+        elseif fechaFinalizacionProyecto < now() then
 			select count(idActa)
             into actasFinalizacion
             from actasProyectos
@@ -2270,12 +2272,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarProyecto`(
    varFechaInicio datetime,
    varFechaFinalizacion datetime,
    varIdAreaTematica int(11),
-   varIngresadoSIGEP tinyint(1),
-   varIngresadoSIIU tinyint(1),
-   varIngresadoSIU tinyint(1),
-   varCodigoSIIU varchar(50),
    varCodigoCOLCIENCIAS varchar(50),
-   varCodigoSIU varchar(50),
    varCodigo varchar(15),
    varParticipacionInternacional tinyint(1),
    varIdTipoProyecto int(11),
@@ -2283,8 +2280,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarProyecto`(
    varIdTipoContrato int(11),
    varIdEnfoqueMetodologico int(11),
    varIdConvocatoria int(11),
-   varObjetivoGeneral varchar(300),
-   varFechaIngresadoSIGEP datetime
+   varObjetivoGeneral varchar(300)
 )
 BEGIN
 UPDATE proyectos
@@ -2294,12 +2290,7 @@ nombreCortoProyecto = varNombreCortoProyecto,
 fechaInicio = varFechaInicio,
 fechaFinalizacion = varFechaFinalizacion,
 idAreaTematica = varIdAreaTematica,
-ingresadoSIGEP = varIngresadoSIGEP,
-ingresadoSIIU = varIngresadoSIIU,
-ingresadoSIU = varIngresadoSIU,
-codigoSIIU = varCodigoSIIU,
 codigoCOLCIENCIAS = varCodigoCOLCIENCIAS,
-codigoSIU = varCodigoSIU,
 codigo = varCodigo,
 participacionInternacional = varParticipacionInternacional,
 idTipoProyecto = varIdTipoProyecto,
@@ -2307,8 +2298,7 @@ idRiesgoEtico  = varIdRiesgoEtico,
 idTipoContrato = varIdTipoContrato,
 idEnfoqueMetodologico = varIdEnfoqueMetodologico,
 idConvocatoria = varIdConvocatoria,
-objetivoGeneral = varObjetivoGeneral,
-fechaIngresadoSIGEP = varfechaIngresadoSIGEP
+objetivoGeneral = varObjetivoGeneral
 WHERE idProyecto = varIdProyecto;
 
 END ;;
@@ -4396,12 +4386,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `IngresarProyecto`(
    varFechaInicio datetime,
    varFechaFinalizacion datetime,
    varIdAreaTematica int(11),
-   varIngresadoSIGEP tinyint(1),
-   varIngresadoSIIU tinyint(1),
-   varIngresadoSIU tinyint(1),
-   varCodigoSIIU varchar(50),
    varCodigoCOLCIENCIAS varchar(50),
-   varCodigoSIU varchar(50),
    varCodigo varchar(15),
    varParticipacionInternacional tinyint(1),
    varIdTipoProyecto int(11),
@@ -4411,7 +4396,6 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `IngresarProyecto`(
    varIdConvocatoria int(11),
    varObjetivoGeneral varchar(300),
    varIdUsuarioCreacion bigint(11),
-   varfechaIngresadoSIGEP datetime,
    OUT varIdProyecto bigint(20)
 )
 BEGIN
@@ -4422,12 +4406,7 @@ INSERT INTO proyectos
 `fechaInicio`,
 `fechaFinalizacion`,
 `idAreaTematica`,
-`ingresadoSIGEP`,
-`ingresadoSIIU`,
-`ingresadoSIU`,
-`codigoSIIU`,
 `codigoCOLCIENCIAS`,
-`codigoSIU`,
 `codigo`,
 `participacionInternacional`,
 `idTipoProyecto`,
@@ -4437,8 +4416,7 @@ INSERT INTO proyectos
 `idConvocatoria`,
 `objetivoGeneral`,
 `fechaCreacion`,
-`idUsuarioCreacion`,
-fechaIngresadoSIGEP)
+`idUsuarioCreacion`)
 VALUES
 (
 varNombreCompletoProyecto,
@@ -4446,12 +4424,7 @@ varNombreCortoProyecto,
 varfechaInicio,
 varfechaFinalizacion,
 varidAreaTematica,
-varingresadoSIGEP,
-varingresadoSIIU,
-varingresadoSIU,
-varcodigoSIIU,
 varcodigoCOLCIENCIAS,
-varcodigoSIU,
 varcodigo,
 varparticipacionInternacional,
 varidTipoProyecto,
@@ -4461,8 +4434,7 @@ varidEnfoqueMetodologico,
 varidConvocatoria,
 varobjetivoGeneral,
 now(),
-varidUsuarioCreacion,
-varfechaIngresadoSIGEP);
+varidUsuarioCreacion);
 
 SET varIdProyecto = LAST_INSERT_ID();
 
@@ -4906,6 +4878,159 @@ SELECT idAreaTematica,
 FROM AreasTematicas
 ORDER BY nombre;
 
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerCantidadProyectosPorEstado` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerCantidadProyectosPorEstado`(
+	out varCantidadProyectosEjecucion int(11),
+    out varCantidadProyectosFinalizados int(11),
+	out varCantidadProyectosAtrasados int(11),
+	out varCantidadProyectosTrasladados int(11),
+	out varCantidadProyectosCancelados int(11)
+)
+BEGIN
+	  DECLARE varIdProyecto bigint;
+      DECLARE varIdEstado int;
+      DECLARE done INT DEFAULT 0;
+      DECLARE CursorProyectos CURSOR FOR
+      SELECT IdProyecto
+	  FROM Proyectos;
+
+      DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+	 SET varCantidadProyectosEjecucion = 0;
+     SET varCantidadProyectosFinalizados = 0;
+	 SET varCantidadProyectosAtrasados = 0;
+	 SET varCantidadProyectosTrasladados = 0;
+	 SET varCantidadProyectosCancelados = 0;
+
+      OPEN CursorProyectos;
+      REPEAT
+        FETCH CursorProyectos INTO varIdProyecto;
+
+        IF NOT done THEN
+		    
+            SET varIdEstado = ObtenerEstadoProyecto(varIdProyecto);
+            IF varIdEstado = 1 THEN
+				SET varCantidadProyectosEjecucion = varCantidadProyectosEjecucion + 1;
+            ELSEIF varIdEstado = 2 THEN
+                SET varCantidadProyectosFinalizados = varCantidadProyectosFinalizados + 1;
+            ELSEIF varIdEstado = 3 THEN
+				SET varCantidadProyectosAtrasados = varCantidadProyectosAtrasados + 1;
+            ELSEIF varIdEstado = 4 THEN
+				SET varCantidadProyectosTrasladados = varCantidadProyectosTrasladados + 1;
+            ELSEIF varIdEstado = 5 THEN
+				SET varCantidadProyectosCancelados = varCantidadProyectosCancelados + 1;
+            END IF;
+        END IF;
+
+      UNTIL done END REPEAT;
+      CLOSE CursorProyectos;
+
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `ObtenerCantidadProyectosPorEstadoPorAnyo` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8 */ ;
+/*!50003 SET character_set_results = utf8 */ ;
+/*!50003 SET collation_connection  = utf8_general_ci */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerCantidadProyectosPorEstadoPorAnyo`(
+
+)
+BEGIN
+	  DECLARE varIdProyecto bigint;
+      DECLARE varIdEstado int;
+      DECLARE varAnyo int;
+      DECLARE varAnyoAnterior int;
+      
+      DECLARE varCantidadProyectosEjecucion int(11);
+      DECLARE varCantidadProyectosFinalizados int(11);
+	  DECLARE varCantidadProyectosAtrasados int(11);
+	  DECLARE varCantidadProyectosTrasladados int(11);
+	  DECLARE varCantidadProyectosCancelados int(11);
+      
+      DECLARE done INT DEFAULT 0;
+      DECLARE CursorProyectos CURSOR FOR
+      SELECT year(fechaCreacion), IdProyecto
+	  FROM Proyectos
+      ORDER BY year(fechaCreacion);
+
+      DECLARE CONTINUE HANDLER FOR NOT FOUND SET done = 1;
+
+	 SET varCantidadProyectosEjecucion = 0;
+     SET varCantidadProyectosFinalizados = 0;
+	 SET varCantidadProyectosAtrasados = 0;
+	 SET varCantidadProyectosTrasladados = 0;
+	 SET varCantidadProyectosCancelados = 0;
+	 
+	 CREATE TEMPORARY TABLE IF NOT EXISTS CantidadProyectosPorEstadoPorAnyo (anyo int, ejecucion int(11),
+																			 finalizados int(11), atrasados int(11), trasladados int(11), cancelados int(11)) ENGINE = MEMORY;
+     DELETE FROM CantidadProyectosPorEstadoPorAnyo;
+    
+     OPEN CursorProyectos;
+     REPEAT
+        FETCH CursorProyectos INTO varAnyo, varIdProyecto;
+
+        IF NOT done THEN
+		    IF varAnyoAnterior IS NULL THEN
+				SET varAnyoAnterior = varAnyo;
+            END IF;
+            IF varAnyoAnterior <> varAnyo THEN
+				INSERT INTO CantidadProyectosPorEstadoPorAnyo (anyo, ejecucion, finalizados, atrasados, trasladados, cancelados) 
+                VALUES (varAnyoAnterior, varCantidadProyectosEjecucion, varCantidadProyectosFinalizados, varCantidadProyectosAtrasados, varCantidadProyectosTrasladados, varCantidadProyectosCancelados);
+
+				SET varCantidadProyectosEjecucion = 0;
+				SET varCantidadProyectosFinalizados = 0;
+				SET varCantidadProyectosAtrasados = 0;
+				SET varCantidadProyectosTrasladados = 0;
+				SET varCantidadProyectosCancelados = 0;
+                SET varAnyoAnterior = varAnyo;
+            END IF;
+            
+			SET varIdEstado = ObtenerEstadoProyecto(varIdProyecto);
+			IF varIdEstado = 1 THEN
+				SET varCantidadProyectosEjecucion = varCantidadProyectosEjecucion + 1;
+			ELSEIF varIdEstado = 2 THEN
+				SET varCantidadProyectosFinalizados = varCantidadProyectosFinalizados + 1;
+			ELSEIF varIdEstado = 3 THEN
+				SET varCantidadProyectosAtrasados = varCantidadProyectosAtrasados + 1;
+			ELSEIF varIdEstado = 4 THEN
+				SET varCantidadProyectosTrasladados = varCantidadProyectosTrasladados + 1;
+			ELSEIF varIdEstado = 5 THEN
+				SET varCantidadProyectosCancelados = varCantidadProyectosCancelados + 1;
+			END IF;
+        END IF;
+
+     UNTIL done END REPEAT;
+     CLOSE CursorProyectos;
+
+	 INSERT INTO CantidadProyectosPorEstadoPorAnyo (anyo, ejecucion, finalizados, atrasados, trasladados, cancelados) 
+	 VALUES (varAnyoAnterior, varCantidadProyectosEjecucion, varCantidadProyectosFinalizados, varCantidadProyectosAtrasados, varCantidadProyectosTrasladados, varCantidadProyectosCancelados);
+
+	 SELECT anyo, ejecucion, finalizados, atrasados, trasladados, cancelados
+     FROM CantidadProyectosPorEstadoPorAnyo;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -6344,12 +6469,12 @@ SELECT
    pro.fechaFinalizacion,
    pro.idAreaTematica,
    atem.nombre areaTematica,
-   pro.ingresadoSIGEP,
-   pro.ingresadoSIIU,
-   pro.ingresadoSIU,
-   pro.codigoSIIU,
+   0,
+   0,
+   0,
+   '',
    pro.codigoCOLCIENCIAS,
-   pro.codigoSIU,
+   '',
    pro.codigo,
    pro.participacionInternacional,
    pro.idTipoProyecto,
@@ -6363,7 +6488,7 @@ SELECT
    pro.idConvocatoria,
    con.nombre convocatoria,
    pro.objetivoGeneral,
-   pro.fechaIngresadoSIGEP
+   null
 INTO
 	varNombreCompletoProyecto,
 	varNombreCortoProyecto,
@@ -6521,19 +6646,10 @@ BEGIN
 	select pro.codigo,
            pro.nombreCompletoProyecto,
            concat(concat(prof.nombres, ' '), prof.apellidos) investigadorPrincipal,
-           case pro.ingresadoSIGEP
-             when 1 then 'Sí'
-             else 'No'
-		   end ingresadoSIGEP,
-           case pro.ingresadoSIIU
-             when 1 then 'Sí'
-             else 'No'
-		   end ingresadoSIIU,
-           pro.codigoSIIU,
-           case pro.ingresadoSIU
-           when 1 then 'Sí'
-             else 'No'
-		   end ingresadoSIU
+           'No' ingresadoSIGEP,
+           'No' ingresadoSIIU,
+           '' codigoSIIU,
+           'No'ingresadoSIU
      from proyectos pro
       inner join profesoresproyectos profp on pro.idproyecto = profp.idproyecto and profp.idrol = 1
       inner join profesores prof on prof.idprofesor = profp.idprofesor
@@ -6544,44 +6660,26 @@ BEGIN
     	select pro.codigo,
            pro.nombreCompletoProyecto,
            concat(concat(est.nombres, ' '), est.apellidos) investigadorPrincipal,
-           case pro.ingresadoSIGEP
-             when 1 then 'Sí'
-             else 'No'
-		   end ingresadoSIGEP,
-           case pro.ingresadoSIIU
-             when 1 then 'Sí'
-             else 'No'
-		   end ingresadoSIIU,
-           pro.codigoSIIU,
-           case pro.ingresadoSIU
-           when 1 then 'Sí'
-             else 'No'
-		   end ingresadoSIU
+           'No' ingresadoSIGEP,
+           'No' ingresadoSIIU,
+           '' codigoSIIU,
+           'No'ingresadoSIU
      from proyectos pro
       inner join estudiantesproyectos estp on pro.idproyecto = estp.idproyecto and estp.idrol = 1
       inner join estudiantes est on est.idestudiante = estp.idestudiante
       
-      union all
-      
-      	select pro.codigo,
-           pro.nombreCompletoProyecto,
-           concat(concat(pe.nombres, ' '), pe.apellidos) investigadorPrincipal,
-           case pro.ingresadoSIGEP
-             when 1 then 'Sí'
-             else 'No'
-		   end ingresadoSIGEP,
-           case pro.ingresadoSIIU
-             when 1 then 'Sí'
-             else 'No'
-		   end ingresadoSIIU,
-           pro.codigoSIIU,
-           case pro.ingresadoSIU
-           when 1 then 'Sí'
-             else 'No'
-		   end ingresadoSIU
-     from proyectos pro
-      inner join personalexternoproyectos pep on pro.idproyecto = pep.idproyecto and pep.idrol = 1
-      inner join personalexterno pe on pe.idpersonalexterno = pep.idpersonalexterno;
+   union all
+  
+   select pro.codigo,
+	   pro.nombreCompletoProyecto,
+	   concat(concat(pe.nombres, ' '), pe.apellidos) investigadorPrincipal,
+	   'No' ingresadoSIGEP,
+	   'No' ingresadoSIIU,
+	   '' codigoSIIU,
+	   'No'ingresadoSIU
+   from proyectos pro
+     inner join personalexternoproyectos pep on pro.idproyecto = pep.idproyecto and pep.idrol = 1
+     inner join personalexterno pe on pe.idpersonalexterno = pep.idpersonalexterno;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -7122,4 +7220,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-13 21:45:19
+-- Dump completed on 2017-08-17  9:07:40
