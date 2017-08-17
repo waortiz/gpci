@@ -18,6 +18,7 @@ import co.edu.fnsp.gpci.entidades.Proyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyecto;
 import co.edu.fnsp.gpci.entidades.TipoActaEnum;
 import co.edu.fnsp.gpci.entidades.Estudiante;
+import co.edu.fnsp.gpci.entidades.ProyectosPorEstado;
 import co.edu.fnsp.gpci.repositorios.IRepositorioProyecto;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -101,5 +102,10 @@ public class ServicioProyecto implements IServicioProyecto {
     @Override
     public ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto) {
         return repositorioProyecto.obtenerAlertasAvalProyecto(idProyecto);
+    }
+
+    @Override
+    public ProyectosPorEstado obtenerCantidadProyectosPorEstado() {
+        return repositorioProyecto.obtenerCantidadProyectosPorEstado();
     }
 }

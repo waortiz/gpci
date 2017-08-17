@@ -80,7 +80,7 @@
                                     </button>                                       
                                 </td>
                             </tr>
-                         </table>                            
+                         </table>
                          <table class="tablaForm">  
                             <tr>
                                 <td>Ingresado SIGEP:</td>
@@ -88,9 +88,9 @@
                                 <td>Ingresado SIU:</td>
                             </tr>
                             <tr>
-                                <td><form:checkbox path="ingresadoSIGEP" /></td>
-                                <td><form:checkbox path="ingresadoSIIU" /></td>
-                                <td><form:checkbox path="ingresadoSIU" /></td>
+                                <td><form:checkbox path="ingresadoSIGEP" disabled="true" /></td>
+                                <td><form:checkbox path="ingresadoSIIU" disabled="true" /></td>
+                                <td><form:checkbox path="ingresadoSIU" disabled="true" /></td>
                             </tr>
                             <tr>
                                 <td>Fecha ingresado SIGEP:</td>
@@ -99,26 +99,21 @@
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="input-group date">
-                                        <form:input path="fechaIngresadoSIGEP" class="form-control datepicker" data-date-format="dd/mm/yyyy" readonly="true"/>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                    </div>
+                                    <form:input path="fechaIngresadoSIGEP" class="form-control" readonly="true"/>
                                 </td>
-                                <td><form:input path="codigoSIIU" class="form-control" maxlength="50" /></td>
-                                <td><form:input path="codigoSIU" class="form-control" maxlength="50" /></td>
+                                <td><form:input path="codigoSIIU" maxlength="50" class="form-control" readonly="true"/></td>
+                                <td><form:input path="codigoSIU"  maxlength="50" class="form-control" readonly="true"/></td>
                             </tr>
+                         </table>                            
+                         <table class="tablaForm">  
                             <tr>
-                               <td colspan="3">C&oacute;digo COLCIENCIAS:</td>
-                            </tr>
-                            <tr>
-                               <td colspan="3"><form:input path="codigoCOLCIENCIAS" class="form-control" maxlength="50" /></td>
-                            </tr>
-                            <tr>
+                                <td>C&oacute;digo COLCIENCIAS:</td>
                                 <td>Participaci&oacute;n internacional:</td>
                                 <td>Tipo de proyecto:</td>
                                 <td>Tipo de contrato:</td>
                             </tr>
                             <tr>
+                                <td><form:input path="codigoCOLCIENCIAS" class="form-control" maxlength="50" /></td>
                                 <td><form:checkbox path="participacionInternacional" /></td>
                                 <td>
                                     <div class="selectContainer">
@@ -137,6 +132,8 @@
                                     </div>  
                                 </td>
                             </tr>
+                         </table>                            
+                         <table class="tablaForm">  
                             <tr>
                                 <td>Enfoque metodol&oacute;gico:</td>
                                 <td>Riesgo &eacute;tico:</td>
@@ -192,7 +189,7 @@
                                                         <tr class="table-row">
                                                             <th style="width: 70%;text-align: center">Grupo investigación</th>
                                                             <th style="width: 20%;text-align: center">Principal</th>
-                                                            <th style="width: 10%;text-align: center" align="center"><input type="checkbox" id="seleccionarTodosGruposInvestigacion" /></th>
+                                                            <th style="width: 10%;text-align: center" align="center"><input type="checkbox" id="seleccionarTodosGruposInvestigacion" title="Seleccionar todos" /></th>
                                                         </tr>
                                                     </thead>
                                                     <tbody data-bind="foreach: { data: gruposInvestigacion }">

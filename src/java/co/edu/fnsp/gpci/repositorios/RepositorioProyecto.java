@@ -21,6 +21,7 @@ import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacionProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
+import co.edu.fnsp.gpci.entidades.ProyectosPorEstado;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,6 +45,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     private SimpleJdbcCall actualizarProyecto;
     private SimpleJdbcCall obtenerProyecto;
     private SimpleJdbcCall obtenerProyectos;
+    private SimpleJdbcCall obtenerCantidadProyectosPorEstado;
 
     private SimpleJdbcCall ingresarObjetivoEspecificoProyecto;
     private SimpleJdbcCall actualizarObjetivoEspecificoProyecto;
@@ -101,6 +103,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         this.ingresarProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarProyecto");
         this.actualizarProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarProyecto");
         this.obtenerProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyecto");
+        this.obtenerCantidadProyectosPorEstado = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstado");
         this.obtenerProyectos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyecto.class));
 
         this.ingresarObjetivoEspecificoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarObjetivoEspecificoProyecto");
@@ -160,13 +163,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varFechaInicio", proyecto.getFechaInicio());
         parametros.addValue("varFechaFinalizacion", proyecto.getFechaFinalizacion());
         parametros.addValue("varIdAreaTematica", proyecto.getAreaTematica().getIdAreaTematica());
-        parametros.addValue("varFechaIngresadoSIGEP", proyecto.getFechaIngresadoSIGEP());
-        parametros.addValue("varIngresadoSIGEP", proyecto.isIngresadoSIGEP());
-        parametros.addValue("varIngresadoSIU", proyecto.isIngresadoSIU());
-        parametros.addValue("varIngresadoSIIU", proyecto.isIngresadoSIIU());
-        parametros.addValue("varCodigoSIIU", proyecto.getCodigoSIIU());
         parametros.addValue("varCodigoCOLCIENCIAS", proyecto.getCodigoCOLCIENCIAS());
-        parametros.addValue("varCodigoSIU", proyecto.getCodigoSIU());
         parametros.addValue("varCodigo", proyecto.getCodigo());
         parametros.addValue("varParticipacionInternacional", proyecto.isParticipacionInternacional());
         parametros.addValue("varIdTipoProyecto", proyecto.getTipoProyecto().getIdTipoProyecto());
@@ -321,14 +318,8 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varNombreCompletoProyecto", proyecto.getNombreCompletoProyecto());
         parametros.addValue("varFechaInicio", proyecto.getFechaInicio());
         parametros.addValue("varFechaFinalizacion", proyecto.getFechaFinalizacion());
-        parametros.addValue("varFechaIngresadoSIGEP", proyecto.getFechaIngresadoSIGEP());
         parametros.addValue("varIdAreaTematica", proyecto.getAreaTematica().getIdAreaTematica());
-        parametros.addValue("varIngresadoSIGEP", proyecto.isIngresadoSIGEP());
-        parametros.addValue("varIngresadoSIU", proyecto.isIngresadoSIU());
-        parametros.addValue("varIngresadoSIIU", proyecto.isIngresadoSIIU());
-        parametros.addValue("varCodigoSIIU", proyecto.getCodigoSIIU());
         parametros.addValue("varCodigoCOLCIENCIAS", proyecto.getCodigoCOLCIENCIAS());
-        parametros.addValue("varCodigoSIU", proyecto.getCodigoSIU());
         parametros.addValue("varCodigo", proyecto.getCodigo());
         parametros.addValue("varParticipacionInternacional", proyecto.isParticipacionInternacional());
         parametros.addValue("varIdTipoProyecto", proyecto.getTipoProyecto().getIdTipoProyecto());
@@ -1011,6 +1002,22 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         Map resultadoAlertaAvalsProyecto = obtenerAlertasAvalProyecto.execute(parametrosConsultaAlertaAvalsProyecto);
         ArrayList<AlertaAvalProyecto> alertasAvalProyecto = (ArrayList<AlertaAvalProyecto>) resultadoAlertaAvalsProyecto.get("alertasAvalProyecto");
         return alertasAvalProyecto;
+    }
+
+    @Override
+    public ProyectosPorEstado obtenerCantidadProyectosPorEstado() {
+        ProyectosPorEstado proyectosPorEstado = new ProyectosPorEstado();
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+
+        Map resultado = obtenerCantidadProyectosPorEstado.execute(parametros);
+
+        proyectosPorEstado.setCantidadProyectosAtrasados((int) resultado.get("varCantidadProyectosAtrasados"));
+        proyectosPorEstado.setCantidadProyectosFinalizados((int) resultado.get("varCantidadProyectosFinalizados"));
+        proyectosPorEstado.setCantidadProyectosCancelados((int) resultado.get("varCantidadProyectosCancelados"));
+        proyectosPorEstado.setCantidadProyectosEjecucion((int) resultado.get("varCantidadProyectosEjecucion"));
+        proyectosPorEstado.setCantidadProyectosTrasladados((int) resultado.get("varCantidadProyectosTrasladados"));
+        
+        return proyectosPorEstado;
     }
 
 }

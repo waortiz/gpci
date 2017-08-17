@@ -22,7 +22,7 @@
                             <td width="33%"><strong>Nombre corto:</strong></td>
                             <td width="33%"><strong>Convocatoria:</strong></td>
                         </tr>
-                        <tr>
+                        <tr class="filaTablaLectura">
                             <td>${proyecto.getCodigo()}</td>
                             <td>${proyecto.getNombreCortoProyecto()}</td>
                             <td>
@@ -32,7 +32,7 @@
                         <tr>
                            <td colspan="3"><strong>Nombre completo proyecto:</strong></td>
                         </tr>
-                        <tr>
+                        <tr class="filaTablaLectura">
                             <td colspan="3">${proyecto.getNombreCompletoProyecto()}</td>
                         </tr>
                         <tr>
@@ -40,7 +40,7 @@
                             <td><strong>Fecha de finalizaci&oacute;n:</strong></td>
                             <td><strong>Area tem&aacute;tica:</strong></td>
                         </tr>
-                        <tr>
+                        <tr class="filaTablaLectura">
                             <td>
                                 ${proyecto.getFechaInicio()}
                             </td>
@@ -55,7 +55,7 @@
                             <td><strong>Ingresado SIIU:</strong></td>
                             <td><strong>Ingresado SIU:</strong></td>
                         </tr>
-                        <tr>
+                        <tr class="filaTablaLectura">
                             <td>
                                 <c:if test="${proyecto.isIngresadoSIGEP() == true}">
                                     Sí
@@ -85,23 +85,21 @@
                             <td><strong>C&oacute;digo SIIU:</strong></td>
                             <td><strong>C&oacute;digo SIU:</strong></td>
                         </tr>
-                        <tr>
+                        <tr class="filaTablaLectura">
                             <td>${proyecto.getFechaIngresadoSIGEP()}</td>
                             <td>${proyecto.getCodigoSIIU()}</td>
                             <td>${proyecto.getCodigoSIU()}</td>
                         </tr>
+                     </table>
+                     <table class="table table-hover tablaForm tablaFormLectura">
                         <tr>
-                            <td colspan="3"><strong>C&oacute;digo COLCIENCIAS:</strong></td>
-                        </tr>
-                        <tr>
-                            <td colspan="3">${proyecto.getCodigoCOLCIENCIAS()}</td>
-                        </tr>
-                        <tr>
+                            <td><strong>C&oacute;digo COLCIENCIAS:</strong></td>
                             <td><strong>Participaci&oacute;n internacional:</strong></td>
                             <td><strong>Tipo de proyecto:</strong></td>
                             <td><strong>Tipo de contrato:</strong></td>
                         </tr>
-                        <tr>
+                        <tr class="filaTablaLectura">
+                            <td>${proyecto.getCodigoCOLCIENCIAS()}</td>
                             <td>
                                 <c:if test="${proyecto.isParticipacionInternacional() == true}">
                                     Sí
@@ -117,12 +115,14 @@
                                 ${proyecto.getTipoContrato()}
                             </td>
                         </tr>
+                     </table>
+                     <table class="table table-hover tablaForm tablaFormLectura">
                         <tr>
                             <td><strong>Enfoque metodol&oacute;gico:</strong></td>
                             <td><strong>Riesgo &eacute;tico:</strong></td>
                             <td><strong>Estado:</strong></td>
                         </tr>
-                        <tr>
+                        <tr class="filaTablaLectura">
                             <td>
                                 ${proyecto.getEnfoqueMetodologico()}
                             </td>
@@ -136,7 +136,7 @@
                         <tr>
                             <td colspan="3"><strong>Objetivo general:</strong></td>
                         </tr>
-                        <tr>
+                        <tr class="filaTablaLectura">
                             <td colspan="3">
                                 ${proyecto.getObjetivoGeneral()}
                             </td>
@@ -144,9 +144,9 @@
                     </table>
                     <ul class="nav nav-tabs">
                           <li class="active"><a data-toggle="tab" href="#actasTab">Actas</a></li>
-                          <li><a data-toggle="tab" href="#adendasCambioTab">Adendas Cambio</a></li>
-                          <li><a data-toggle="tab" href="#adendasIngresoTab">Adendas Ingreso</a></li>
-                          <li><a data-toggle="tab" href="#adendasRetiroTab">Adendas Retiro</a></li>
+                          <li><a data-toggle="tab" href="#adendasCambioTab">Adenda Cambio</a></li>
+                          <li><a data-toggle="tab" href="#adendasIngresoTab">Adenda Ingreso</a></li>
+                          <li><a data-toggle="tab" href="#adendasRetiroTab">Adenda Retiro</a></li>
                           <li><a data-toggle="tab" href="#adicionesTab">Adiciones</a></li>
                           <li><a data-toggle="tab" href="#prorrogasTab">Prórrogas</a></li>
                           <li><a data-toggle="tab" href="#plazosTab">Plazos</a></li>

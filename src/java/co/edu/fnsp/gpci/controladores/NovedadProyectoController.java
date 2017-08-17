@@ -80,10 +80,26 @@ public class NovedadProyectoController {
     @RequestMapping(value = "/proyectos", method = RequestMethod.GET)
     public String obtenerProyectos(Model model) {
 
-        model.addAttribute("proyectos", new ArrayList<>());
         BusquedaProyectos busquedaProyectos = new BusquedaProyectos();
-        busquedaProyectos.establecerFechaInicioIncial();
-        busquedaProyectos.establecerFechaInicioFinal();
+        ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
+        try {
+            busquedaProyectos.establecerFechaInicioIncial();
+            busquedaProyectos.establecerFechaInicioFinal();
+            
+            Date fechaFinal = Util.obtenerFecha(busquedaProyectos.getFechaFinal());
+            Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicial());
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(fechaInicial);
+            calendar.add(Calendar.HOUR, 11);
+            calendar.add(Calendar.MINUTE, 59);
+            calendar.add(Calendar.SECOND, 59);
+            fechaInicial = calendar.getTime();
+
+            proyectos = servicioProyecto.obtenerProyectos(fechaInicial, fechaFinal, busquedaProyectos.getCodigo(), busquedaProyectos.getDocumentoInvestigadorPrincipal());
+        } catch (Exception ex) {
+            logger.error(ex);
+        }
 
         model.addAttribute("busquedaProyectos", busquedaProyectos);
 

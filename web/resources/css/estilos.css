@@ -6,7 +6,10 @@
 
 .tablaFormLectura td {
     border-top: none !important;
-    border-bottom: none !important;
+}
+
+.filaTablaLectura td {
+    border-bottom: 1px solid #ddd !important;
 }
 
 .tablaForm td {
