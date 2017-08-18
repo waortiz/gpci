@@ -32,7 +32,7 @@
 }
 
 .header-fixed tbody {
-    height: 120px;
+    height: 80px;
     overflow-y: auto;
 }
 

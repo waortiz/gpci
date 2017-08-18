@@ -173,7 +173,7 @@
                                     <table align="center">
                                         <tr>
                                             <td rowspan="2">
-                                                <select name="gruposInvestigacionPorAsignar" id="gruposInvestigacionPorAsignar" class="form-control" multiple="true" style="width:500px; height: 150px">
+                                                <select name="gruposInvestigacionPorAsignar" id="gruposInvestigacionPorAsignar" class="form-control" multiple="true" style="width:500px; height: 80px">
                                                     <c:forEach var="grupoInvestigacion" items="${gruposInvestigacionPorAsignar}">
                                                         <option value="${grupoInvestigacion.getIdGrupoInvestigacion()}">${grupoInvestigacion.getNombre()}</option>
                                                     </c:forEach>

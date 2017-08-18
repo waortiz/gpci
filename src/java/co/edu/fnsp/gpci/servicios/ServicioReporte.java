@@ -17,14 +17,12 @@ import java.util.ArrayList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-
 /**
  *
  * @author William
  */
 @Service("servicioReporte")
 public class ServicioReporte implements IServicioReporte {
-
     @Autowired
     private IRepositorioReporte repositorioReporte;
 

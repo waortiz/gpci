@@ -21,6 +21,7 @@ import co.edu.fnsp.gpci.entidades.FuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.GrupoInvestigacionProyecto;
 import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
+import co.edu.fnsp.gpci.entidades.ProyectoNotificacion;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
 import java.util.Date;
@@ -44,6 +45,8 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     private SimpleJdbcCall actualizarProyecto;
     private SimpleJdbcCall obtenerProyecto;
     private SimpleJdbcCall obtenerProyectos;
+    private SimpleJdbcCall obtenerProyectosNotificar;
+    private SimpleJdbcCall ingresarNotificacionVencimientoPlazo;
     
     private SimpleJdbcCall ingresarObjetivoEspecificoProyecto;
     private SimpleJdbcCall actualizarObjetivoEspecificoProyecto;
@@ -72,6 +75,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     private SimpleJdbcCall actualizarCompromisoProyecto;
     private SimpleJdbcCall eliminarCompromisoProyecto;
     private SimpleJdbcCall obtenerCompromisosProyecto;
+    private SimpleJdbcCall obtenerCompromisosProyectoPorCumplir;
 
     private SimpleJdbcCall ingresarGrupoInvestigacionProyecto;
     private SimpleJdbcCall actualizarGrupoInvestigacionProyecto;
@@ -102,6 +106,8 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         this.actualizarProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarProyecto");
         this.obtenerProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyecto");
         this.obtenerProyectos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyecto.class));
+        this.obtenerProyectosNotificar = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosNotificar").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoNotificacion.class));
+        this.ingresarNotificacionVencimientoPlazo = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarNotificacionVencimientoPlazo");
 
         this.ingresarObjetivoEspecificoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarObjetivoEspecificoProyecto");
         this.eliminarObjetivoEspecificoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarObjetivoEspecificoProyecto");
@@ -130,6 +136,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         this.eliminarCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarCompromisoProyecto");
         this.actualizarCompromisoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarCompromisoProyecto");
         this.obtenerCompromisosProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCompromisosProyecto").returningResultSet("compromisosProyecto", BeanPropertyRowMapper.newInstance(CompromisoProyecto.class));
+        this.obtenerCompromisosProyectoPorCumplir = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCompromisosProyectoPorCumplir").returningResultSet("compromisosProyecto", BeanPropertyRowMapper.newInstance(CompromisoProyecto.class));
 
         this.ingresarEntidadInternacionalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarEntidadInternacionalProyecto");
         this.eliminarEntidadInternacionalProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("EliminarEntidadInternacionalProyecto");
@@ -542,9 +549,21 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametrosConsultaCompromisosProyecto.addValue("varIdProyecto", idProyecto);
         Map resultadoCompromisosProyecto = obtenerCompromisosProyecto.execute(parametrosConsultaCompromisosProyecto);
         ArrayList<CompromisoProyecto> compromisosProyecto = (ArrayList<CompromisoProyecto>) resultadoCompromisosProyecto.get("compromisosProyecto");
+
         return compromisosProyecto;
     }
 
+    @Override
+    public ArrayList<CompromisoProyecto> obtenerCompromisosProyectoPorCumplir(long idProyecto) {
+        MapSqlParameterSource parametrosConsultaCompromisosProyecto = new MapSqlParameterSource();
+        parametrosConsultaCompromisosProyecto.addValue("varIdProyecto", idProyecto);
+        Map resultadoCompromisosProyecto = obtenerCompromisosProyectoPorCumplir.execute(parametrosConsultaCompromisosProyecto);
+        ArrayList<CompromisoProyecto> compromisosProyecto = (ArrayList<CompromisoProyecto>) resultadoCompromisosProyecto.get("compromisosProyecto");
+
+        return compromisosProyecto;
+    }
+
+    
     private void ActualizarProfesoresProyecto(Proyecto proyecto) {
         MapSqlParameterSource parametrosConsultaProfesoresProyecto = new MapSqlParameterSource();
         parametrosConsultaProfesoresProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());
@@ -994,11 +1013,30 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
     @Override
     public ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto) {
-        MapSqlParameterSource parametrosConsultaAlertaAvalsProyecto = new MapSqlParameterSource();
-        parametrosConsultaAlertaAvalsProyecto.addValue("varIdProyecto", idProyecto);
-        Map resultadoAlertaAvalsProyecto = obtenerAlertasAvalProyecto.execute(parametrosConsultaAlertaAvalsProyecto);
-        ArrayList<AlertaAvalProyecto> alertasAvalProyecto = (ArrayList<AlertaAvalProyecto>) resultadoAlertaAvalsProyecto.get("alertasAvalProyecto");
+        MapSqlParameterSource parametrosConsultaAlertasAvalProyecto = new MapSqlParameterSource();
+        parametrosConsultaAlertasAvalProyecto.addValue("varIdProyecto", idProyecto);
+        Map resultadoAlertasAvalProyecto = obtenerAlertasAvalProyecto.execute(parametrosConsultaAlertasAvalProyecto);
+        ArrayList<AlertaAvalProyecto> alertasAvalProyecto = (ArrayList<AlertaAvalProyecto>) resultadoAlertasAvalProyecto.get("alertasAvalProyecto");
 
         return alertasAvalProyecto;
     }
+
+    @Override
+    public ArrayList<ProyectoNotificacion> obtenerProyectosNotificar(int diasPreviosNotificacion) {
+        MapSqlParameterSource parametrosConsultaProyectosNotificar = new MapSqlParameterSource();
+        parametrosConsultaProyectosNotificar.addValue("varDiasPreviosNotificacion", diasPreviosNotificacion);
+        Map resultadoProyectosNotificar = obtenerProyectosNotificar.execute(parametrosConsultaProyectosNotificar);
+        ArrayList<ProyectoNotificacion> proyectosNotificacion = (ArrayList<ProyectoNotificacion>) resultadoProyectosNotificar.get("proyectos");
+
+        return proyectosNotificacion;
+    }
+
+    @Override
+    public void ingresarNotificacionVencimientoPlazo(long idProyecto, int idTipoPersona, long idPersona) {
+        MapSqlParameterSource parametrosIngresoNotificacionVencimientoPlazo = new MapSqlParameterSource();
+        parametrosIngresoNotificacionVencimientoPlazo.addValue("varIdProyecto", idProyecto);
+        parametrosIngresoNotificacionVencimientoPlazo.addValue("varIdTipoPersona", idTipoPersona);
+        parametrosIngresoNotificacionVencimientoPlazo.addValue("varIdPersona", idPersona);
+        ingresarNotificacionVencimientoPlazo.execute(parametrosIngresoNotificacionVencimientoPlazo);
+   }
 }

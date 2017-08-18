@@ -7,7 +7,7 @@
         <div class="panel-heading">
             <div class="panel-heading">
                 <i class="fa fa-bar-chart"></i>
-                Estados Proyectos
+                Estado Proyectos
             </div>
         </div>
         <div class="panel-body">
@@ -35,7 +35,7 @@
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
       var data = google.visualization.arrayToDataTable(${datosGrafico});
-      var options = {is3D: true, 'width':900, 'height':500};
+      var options = {is3D: true, 'width':700, 'height':300};
       var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
       chart.draw(data, options);
     }
