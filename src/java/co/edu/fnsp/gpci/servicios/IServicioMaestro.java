@@ -25,7 +25,7 @@ import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import co.edu.fnsp.gpci.entidades.TipoVinculacion;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -33,45 +33,45 @@ import java.util.ArrayList;
  */
 public interface IServicioMaestro {
 
-    ArrayList<AreaTematica> obtenerAreasTematicas();
+    List<AreaTematica> obtenerAreasTematicas();
 
-    ArrayList<TipoProyecto> obtenerTiposProyecto();
+    List<TipoProyecto> obtenerTiposProyecto();
 
-    ArrayList<GrupoInvestigacion> obtenerGruposInvestigacion();
+    List<GrupoInvestigacion> obtenerGruposInvestigacion();
 
-    ArrayList<RiesgoEtico> obtenerRiesgosEtico();
+    List<RiesgoEtico> obtenerRiesgosEtico();
 
-    ArrayList<TipoContrato> obtenerTiposContrato();
+    List<TipoContrato> obtenerTiposContrato();
 
-    ArrayList<EnfoqueMetodologico> obtenerEnfoquesMetodologicos();
+    List<EnfoqueMetodologico> obtenerEnfoquesMetodologicos();
 
-    ArrayList<Convocatoria> obtenerConvocatorias();
+    List<Convocatoria> obtenerConvocatorias();
 
-    ArrayList<EstadoProyecto> obtenerEstadosProyecto();
+    List<EstadoProyecto> obtenerEstadosProyecto();
 
-    ArrayList<TipoIdentificacion> obtenerTiposIdentificacion();
+    List<TipoIdentificacion> obtenerTiposIdentificacion();
 
-    ArrayList<Rol> obtenerRoles();
+    List<Rol> obtenerRoles();
 
-    ArrayList<Facultad> obtenerFacultades();
+    List<Facultad> obtenerFacultades();
 
-    ArrayList<TipoEstudiante> obtenerTiposEstudiante();
+    List<TipoEstudiante> obtenerTiposEstudiante();
 
-    ArrayList<Programa> obtenerProgramas();
+    List<Programa> obtenerProgramas();
 
-    ArrayList<TipoActa> obtenerTiposActa();
+    List<TipoActa> obtenerTiposActa();
 
-    ArrayList<TipoFuenteFinanciacionProyecto> obtenerTiposFuenteFinanciacionProyecto();
+    List<TipoFuenteFinanciacionProyecto> obtenerTiposFuenteFinanciacionProyecto();
 
-    ArrayList<FuenteFinanciacion> obtenerFuentesFinanciacion();
+    List<FuenteFinanciacion> obtenerFuentesFinanciacion();
 
-    ArrayList<TipoPersona> obtenerTiposPersona();
+    List<TipoPersona> obtenerTiposPersona();
 
-    ArrayList<TipoCompromiso> obtenerTiposCompromiso();
+    List<TipoCompromiso> obtenerTiposCompromiso();
 
-    ArrayList<TipoAval> obtenerTiposAval();
+    List<TipoAval> obtenerTiposAval();
 
-    ArrayList<TipoVinculacion> obtenerTiposVinculacion();
+    List<TipoVinculacion> obtenerTiposVinculacion();
 
     int ingresarConvocatoria(Convocatoria convocatoria);
 

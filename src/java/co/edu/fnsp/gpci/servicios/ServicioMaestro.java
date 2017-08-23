@@ -26,7 +26,7 @@ import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import co.edu.fnsp.gpci.entidades.TipoVinculacion;
 import co.edu.fnsp.gpci.repositorios.IRepositorioMaestro;
-import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -41,102 +41,102 @@ public class ServicioMaestro implements IServicioMaestro {
     private IRepositorioMaestro repositorioMaestro;
 
     @Override
-    public ArrayList<AreaTematica> obtenerAreasTematicas() {
+    public List<AreaTematica> obtenerAreasTematicas() {
         return repositorioMaestro.obtenerAreasTematicas();
     }
 
     @Override
-    public ArrayList<TipoProyecto> obtenerTiposProyecto() {
+    public List<TipoProyecto> obtenerTiposProyecto() {
         return repositorioMaestro.obtenerTiposProyecto();
     }
 
     @Override
-    public ArrayList<GrupoInvestigacion> obtenerGruposInvestigacion() {
+    public List<GrupoInvestigacion> obtenerGruposInvestigacion() {
         return repositorioMaestro.obtenerGruposInvestigacion();
     }
 
     @Override
-    public ArrayList<RiesgoEtico> obtenerRiesgosEtico() {
+    public List<RiesgoEtico> obtenerRiesgosEtico() {
         return repositorioMaestro.obtenerRiesgosEtico();
     }
 
     @Override
-    public ArrayList<TipoContrato> obtenerTiposContrato() {
+    public List<TipoContrato> obtenerTiposContrato() {
         return repositorioMaestro.obtenerTiposContrato();
     }
 
     @Override
-    public ArrayList<EnfoqueMetodologico> obtenerEnfoquesMetodologicos() {
+    public List<EnfoqueMetodologico> obtenerEnfoquesMetodologicos() {
         return repositorioMaestro.obtenerEnfoquesMetodologicos();
     }
 
     @Override
-    public ArrayList<Convocatoria> obtenerConvocatorias() {
+    public List<Convocatoria> obtenerConvocatorias() {
         return repositorioMaestro.obtenerConvocatorias();
     }
 
     @Override
-    public ArrayList<EstadoProyecto> obtenerEstadosProyecto() {
+    public List<EstadoProyecto> obtenerEstadosProyecto() {
         return repositorioMaestro.obtenerEstadosProyecto();
     }
 
     @Override
-    public ArrayList<TipoIdentificacion> obtenerTiposIdentificacion() {
+    public List<TipoIdentificacion> obtenerTiposIdentificacion() {
         return repositorioMaestro.obtenerTiposIdentificacion();
     }
 
     @Override
-    public ArrayList<Rol> obtenerRoles() {
+    public List<Rol> obtenerRoles() {
         return repositorioMaestro.obtenerRoles();
     }
 
     @Override
-    public ArrayList<Facultad> obtenerFacultades() {
+    public List<Facultad> obtenerFacultades() {
         return repositorioMaestro.obtenerFacultades();
     }
 
     @Override
-    public ArrayList<TipoEstudiante> obtenerTiposEstudiante() {
+    public List<TipoEstudiante> obtenerTiposEstudiante() {
         return repositorioMaestro.obtenerTiposEstudiante();
     }
 
     @Override
-    public ArrayList<Programa> obtenerProgramas() {
+    public List<Programa> obtenerProgramas() {
         return repositorioMaestro.obtenerProgramas();
     }
 
     @Override
-    public ArrayList<TipoActa> obtenerTiposActa() {
+    public List<TipoActa> obtenerTiposActa() {
         return repositorioMaestro.obtenerTiposActa();
     }
 
     @Override
-    public ArrayList<TipoFuenteFinanciacionProyecto> obtenerTiposFuenteFinanciacionProyecto() {
+    public List<TipoFuenteFinanciacionProyecto> obtenerTiposFuenteFinanciacionProyecto() {
         return repositorioMaestro.obtenerTiposFuenteFinanciacionProyecto();
     }
 
     @Override
-    public ArrayList<FuenteFinanciacion> obtenerFuentesFinanciacion() {
+    public List<FuenteFinanciacion> obtenerFuentesFinanciacion() {
         return repositorioMaestro.obtenerFuentesFinanciacion();
     }
 
     @Override
-    public ArrayList<TipoPersona> obtenerTiposPersona() {
+    public List<TipoPersona> obtenerTiposPersona() {
         return repositorioMaestro.obtenerTiposPersona();
     }
 
     @Override
-    public ArrayList<TipoCompromiso> obtenerTiposCompromiso() {
+    public List<TipoCompromiso> obtenerTiposCompromiso() {
         return repositorioMaestro.obtenerTiposCompromiso();
     }
 
     @Override
-    public ArrayList<TipoAval> obtenerTiposAval() {
+    public List<TipoAval> obtenerTiposAval() {
         return repositorioMaestro.obtenerTiposAval();
     }
 
     @Override
-    public ArrayList<TipoVinculacion> obtenerTiposVinculacion() {
+    public List<TipoVinculacion> obtenerTiposVinculacion() {
         return repositorioMaestro.obtenerTiposVinculacion();
     }
 

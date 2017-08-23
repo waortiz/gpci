@@ -7,7 +7,7 @@ package co.edu.fnsp.gpci.servicios;
 
 import co.edu.fnsp.gpci.entidades.Privilegio;
 import co.edu.fnsp.gpci.entidades.Usuario;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -25,13 +25,13 @@ public interface IServicioSeguridad {
 
     void actualizarClaveUsuario(long idUsuario, String claveAnterior, String nuevaClave);
 
-    ArrayList<Privilegio> obtenerPrivilegios();
+    List<Privilegio> obtenerPrivilegios();
 
-    ArrayList<Privilegio> obtenerPrivilegiosUsuario(long idUsuario);
+    List<Privilegio> obtenerPrivilegiosUsuario(long idUsuario);
 
-    ArrayList<Usuario> obtenerUsuarios();
+    List<Usuario> obtenerUsuarios();
 
-    void actualizarPrivilegiosUsuario(long idUsuario, ArrayList<Privilegio> privilegios);
+    void actualizarPrivilegiosUsuario(long idUsuario, List<Privilegio> privilegios);
 
     void crearPrivilegio(Privilegio privilegio);
 

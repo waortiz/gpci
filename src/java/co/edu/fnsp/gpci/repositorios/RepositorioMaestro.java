@@ -27,6 +27,7 @@ import co.edu.fnsp.gpci.entidades.TipoProyecto;
 import co.edu.fnsp.gpci.entidades.TipoVinculacion;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -116,161 +117,161 @@ public class RepositorioMaestro implements IRepositorioMaestro {
     }
 
     @Override
-    public ArrayList<AreaTematica> obtenerAreasTematicas() {
+    public List<AreaTematica> obtenerAreasTematicas() {
         Map resultado = obtenerAreasTematicas.execute(new HashMap<>());
-        ArrayList<AreaTematica> areasTematicas = (ArrayList<AreaTematica>) resultado.get("areasTematicas");
+        List<AreaTematica> areasTematicas = (ArrayList<AreaTematica>) resultado.get("areasTematicas");
 
         return areasTematicas;
     }
 
     @Override
-    public ArrayList<TipoProyecto> obtenerTiposProyecto() {
+    public List<TipoProyecto> obtenerTiposProyecto() {
         Map resultado = obtenerTiposProyecto.execute(new HashMap<>());
-        ArrayList<TipoProyecto> tiposProyecto = (ArrayList<TipoProyecto>) resultado.get("tiposProyecto");
+        List<TipoProyecto> tiposProyecto = (ArrayList<TipoProyecto>) resultado.get("tiposProyecto");
 
         return tiposProyecto;
     }
 
     @Override
-    public ArrayList<GrupoInvestigacion> obtenerGruposInvestigacion() {
+    public List<GrupoInvestigacion> obtenerGruposInvestigacion() {
         Map resultado = obtenerGruposInvestigacion.execute(new HashMap<>());
-        ArrayList<GrupoInvestigacion> gruposInvestigacion = (ArrayList<GrupoInvestigacion>) resultado.get("gruposInvestigacion");
+        List<GrupoInvestigacion> gruposInvestigacion = (ArrayList<GrupoInvestigacion>) resultado.get("gruposInvestigacion");
 
         return gruposInvestigacion;
     }
 
     @Override
-    public ArrayList<RiesgoEtico> obtenerRiesgosEtico() {
+    public List<RiesgoEtico> obtenerRiesgosEtico() {
         Map resultado = obtenerRiesgosEticos.execute(new HashMap<>());
-        ArrayList<RiesgoEtico> riesgosEtico = (ArrayList<RiesgoEtico>) resultado.get("riesgosEticos");
+        List<RiesgoEtico> riesgosEtico = (ArrayList<RiesgoEtico>) resultado.get("riesgosEticos");
 
         return riesgosEtico;
     }
 
     @Override
-    public ArrayList<TipoContrato> obtenerTiposContrato() {
+    public List<TipoContrato> obtenerTiposContrato() {
         Map resultado = obtenerTiposContrato.execute(new HashMap<>());
-        ArrayList<TipoContrato> tiposContrato = (ArrayList<TipoContrato>) resultado.get("tiposContrato");
+        List<TipoContrato> tiposContrato = (ArrayList<TipoContrato>) resultado.get("tiposContrato");
 
         return tiposContrato;
     }
 
     @Override
-    public ArrayList<EnfoqueMetodologico> obtenerEnfoquesMetodologicos() {
+    public List<EnfoqueMetodologico> obtenerEnfoquesMetodologicos() {
         Map resultado = obtenerEnfoquesMetodologicos.execute(new HashMap<>());
-        ArrayList<EnfoqueMetodologico> enfoquesMetodologicos = (ArrayList<EnfoqueMetodologico>) resultado.get("enfoquesMetodologicos");
+        List<EnfoqueMetodologico> enfoquesMetodologicos = (ArrayList<EnfoqueMetodologico>) resultado.get("enfoquesMetodologicos");
 
         return enfoquesMetodologicos;
     }
 
     @Override
-    public ArrayList<Convocatoria> obtenerConvocatorias() {
+    public List<Convocatoria> obtenerConvocatorias() {
         Map resultado = obtenerConvocatorias.execute(new HashMap<>());
-        ArrayList<Convocatoria> convocatorias = (ArrayList<Convocatoria>) resultado.get("convocatorias");
+        List<Convocatoria> convocatorias = (ArrayList<Convocatoria>) resultado.get("convocatorias");
 
         return convocatorias;
     }
 
     @Override
-    public ArrayList<EstadoProyecto> obtenerEstadosProyecto() {
+    public List<EstadoProyecto> obtenerEstadosProyecto() {
         Map resultado = obtenerEstadosProyecto.execute(new HashMap<>());
-        ArrayList<EstadoProyecto> estadosProyecto = (ArrayList<EstadoProyecto>) resultado.get("estadosProyecto");
+        List<EstadoProyecto> estadosProyecto = (ArrayList<EstadoProyecto>) resultado.get("estadosProyecto");
 
         return estadosProyecto;
     }
 
     @Override
-    public ArrayList<TipoIdentificacion> obtenerTiposIdentificacion() {
+    public List<TipoIdentificacion> obtenerTiposIdentificacion() {
         Map resultado = obtenerTiposIdentificacion.execute(new HashMap<>());
-        ArrayList<TipoIdentificacion> tiposIdentificacion = (ArrayList<TipoIdentificacion>) resultado.get("tiposIdentificacion");
+        List<TipoIdentificacion> tiposIdentificacion = (ArrayList<TipoIdentificacion>) resultado.get("tiposIdentificacion");
 
         return tiposIdentificacion;
     }
 
     @Override
-    public ArrayList<Rol> obtenerRoles() {
+    public List<Rol> obtenerRoles() {
         Map resultado = obtenerRoles.execute(new HashMap<>());
-        ArrayList<Rol> roles = (ArrayList<Rol>) resultado.get("roles");
+        List<Rol> roles = (ArrayList<Rol>) resultado.get("roles");
 
         return roles;
     }
 
     @Override
-    public ArrayList<Facultad> obtenerFacultades() {
+    public List<Facultad> obtenerFacultades() {
         Map resultado = obtenerFacultades.execute(new HashMap<>());
-        ArrayList<Facultad> facultades = (ArrayList<Facultad>) resultado.get("facultades");
+        List<Facultad> facultades = (ArrayList<Facultad>) resultado.get("facultades");
 
         return facultades;
     }
 
     @Override
-    public ArrayList<TipoEstudiante> obtenerTiposEstudiante() {
+    public List<TipoEstudiante> obtenerTiposEstudiante() {
         Map resultado = obtenerTiposEstudiante.execute(new HashMap<>());
-        ArrayList<TipoEstudiante> tiposEstudiante = (ArrayList<TipoEstudiante>) resultado.get("tiposEstudiante");
+        List<TipoEstudiante> tiposEstudiante = (ArrayList<TipoEstudiante>) resultado.get("tiposEstudiante");
 
         return tiposEstudiante;
     }
 
     @Override
-    public ArrayList<Programa> obtenerProgramas() {
+    public List<Programa> obtenerProgramas() {
         Map resultado = obtenerProgramas.execute(new HashMap<>());
-        ArrayList<Programa> programas = (ArrayList<Programa>) resultado.get("programas");
+        List<Programa> programas = (ArrayList<Programa>) resultado.get("programas");
 
         return programas;
     }
 
     @Override
-    public ArrayList<TipoActa> obtenerTiposActa() {
+    public List<TipoActa> obtenerTiposActa() {
         Map resultado = obtenerTiposActa.execute(new HashMap<>());
-        ArrayList<TipoActa> tiposActa = (ArrayList<TipoActa>) resultado.get("tiposActa");
+        List<TipoActa> tiposActa = (ArrayList<TipoActa>) resultado.get("tiposActa");
 
         return tiposActa;
     }
 
     @Override
-    public ArrayList<TipoFuenteFinanciacionProyecto> obtenerTiposFuenteFinanciacionProyecto() {
+    public List<TipoFuenteFinanciacionProyecto> obtenerTiposFuenteFinanciacionProyecto() {
         Map resultado = obtenerTiposFuentesFinanciacionProyecto.execute(new HashMap<>());
-        ArrayList<TipoFuenteFinanciacionProyecto> tiposFuenteFinanciacionProyecto = (ArrayList<TipoFuenteFinanciacionProyecto>) resultado.get("tiposFuenteFinanciacionProyecto");
+        List<TipoFuenteFinanciacionProyecto> tiposFuenteFinanciacionProyecto = (ArrayList<TipoFuenteFinanciacionProyecto>) resultado.get("tiposFuenteFinanciacionProyecto");
 
         return tiposFuenteFinanciacionProyecto;
     }
 
     @Override
-    public ArrayList<FuenteFinanciacion> obtenerFuentesFinanciacion() {
+    public List<FuenteFinanciacion> obtenerFuentesFinanciacion() {
         Map resultado = obtenerFuentesFinanciacion.execute(new HashMap<>());
-        ArrayList<FuenteFinanciacion> fuentesFinanciacion = (ArrayList<FuenteFinanciacion>) resultado.get("fuentesFinanciacion");
+        List<FuenteFinanciacion> fuentesFinanciacion = (ArrayList<FuenteFinanciacion>) resultado.get("fuentesFinanciacion");
 
         return fuentesFinanciacion;
     }
 
     @Override
-    public ArrayList<TipoPersona> obtenerTiposPersona() {
+    public List<TipoPersona> obtenerTiposPersona() {
         Map resultado = obtenerTiposPersona.execute(new HashMap<>());
-        ArrayList<TipoPersona> tiposPersona = (ArrayList<TipoPersona>) resultado.get("tiposPersona");
+        List<TipoPersona> tiposPersona = (ArrayList<TipoPersona>) resultado.get("tiposPersona");
 
         return tiposPersona;
     }
 
     @Override
-    public ArrayList<TipoCompromiso> obtenerTiposCompromiso() {
+    public List<TipoCompromiso> obtenerTiposCompromiso() {
         Map resultado = obtenerTiposCompromiso.execute(new HashMap<>());
-        ArrayList<TipoCompromiso> tiposCompromiso = (ArrayList<TipoCompromiso>) resultado.get("tiposCompromiso");
+        List<TipoCompromiso> tiposCompromiso = (ArrayList<TipoCompromiso>) resultado.get("tiposCompromiso");
 
         return tiposCompromiso;
     }
 
     @Override
-    public ArrayList<TipoAval> obtenerTiposAval() {
+    public List<TipoAval> obtenerTiposAval() {
         Map resultado = obtenerTiposAval.execute(new HashMap<>());
-        ArrayList<TipoAval> tiposAval = (ArrayList<TipoAval>) resultado.get("tiposAval");
+        List<TipoAval> tiposAval = (ArrayList<TipoAval>) resultado.get("tiposAval");
 
         return tiposAval;
     }
 
     @Override
-    public ArrayList<TipoVinculacion> obtenerTiposVinculacion() {
+    public List<TipoVinculacion> obtenerTiposVinculacion() {
         Map resultado = obtenerTiposVinculacion.execute(new HashMap<>());
-        ArrayList<TipoVinculacion> tiposVinculacion = (ArrayList<TipoVinculacion>) resultado.get("tiposVinculacion");
+        List<TipoVinculacion> tiposVinculacion = (ArrayList<TipoVinculacion>) resultado.get("tiposVinculacion");
 
         return tiposVinculacion;
     }

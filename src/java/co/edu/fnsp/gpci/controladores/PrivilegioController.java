@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.Privilegio;
 import co.edu.fnsp.gpci.servicios.IServicioMenu;
 import co.edu.fnsp.gpci.servicios.IServicioSeguridad;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,7 +43,7 @@ public class PrivilegioController {
 
     @RequestMapping(value = "/crear", method = RequestMethod.GET)
     public String mostrarCreacionPrivilegio(Model model) {
-        ArrayList<OpcionMenu> opcionesMenu = servicioMenu.obtenerOpcionesMenu();
+        List<OpcionMenu> opcionesMenu = servicioMenu.obtenerOpcionesMenu();
         model.addAttribute("opcionesMenuPorAsignar", opcionesMenu);
         model.addAttribute("opcionesMenuAsignados", new ArrayList<>());
         model.addAttribute("privilegio", new Privilegio());
@@ -76,8 +77,8 @@ public class PrivilegioController {
     @RequestMapping(value = "/editar/{idPrivilegio}", method = RequestMethod.GET)
     public String mostrarEdicionPrivilegio(@PathVariable int idPrivilegio, Model model) {
         Privilegio privilegio = servicioSeguridad.obtenerPrivilegio(idPrivilegio);
-        ArrayList<OpcionMenu> opcionesMenu = servicioMenu.obtenerOpcionesMenu();
-        ArrayList<OpcionMenu> opcionesMenuPorAsignar = new ArrayList<>();
+        List<OpcionMenu> opcionesMenu = servicioMenu.obtenerOpcionesMenu();
+        List<OpcionMenu> opcionesMenuPorAsignar = new ArrayList<>();
         for (OpcionMenu opcionMenu : opcionesMenu) {
             boolean existe = false;
             for (OpcionMenu opcionMenuAsignado : privilegio.getOpcionesMenu()) {
@@ -115,7 +116,7 @@ public class PrivilegioController {
     @RequestMapping(value = "/privilegios", method = RequestMethod.GET)
     public String obtenerUsuarios(Model model) {
 
-        ArrayList<Privilegio> privilegios = servicioSeguridad.obtenerPrivilegios();
+        List<Privilegio> privilegios = servicioSeguridad.obtenerPrivilegios();
         model.addAttribute("privilegios", privilegios);
 
         return "privilegios/privilegios";

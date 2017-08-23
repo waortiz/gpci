@@ -7,12 +7,13 @@ package co.edu.fnsp.gpci.servicios;
 
 import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
+import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
  *
@@ -20,19 +21,21 @@ import java.util.ArrayList;
  */
 public interface IServicioReporte {
 
-    ArrayList<ReporteIntegranteProyecto> obtenerIntegrantesProyectos();
+    List<ReporteIntegranteProyecto> obtenerIntegrantesProyectos();
 
-    ArrayList<ReporteProyectoPorGrupoInvestigacion> obtenerProyectosPorGrupoInvestigacion();
+    List<ReporteProyectoPorGrupoInvestigacion> obtenerProyectosPorGrupoInvestigacion();
 
-    ArrayList<ReporteFuenteFinanciacionProyecto> obtenerFuentesFinanciacionProyectos();
+    List<ReporteFuenteFinanciacionProyecto> obtenerFuentesFinanciacionProyectos();
     
-    ArrayList<ReporteProfesorProyecto> obtenerProyectosEjecucionAtrasadosProfesor(long numeroIdentificacion);
+    List<ReporteProfesorProyecto> obtenerProyectosEjecucionAtrasadosProfesor(long numeroIdentificacion);
     
-    ArrayList<ReporteProfesorProyecto> obtenerProyectosProfesor(long numeroIdentificacion);
+    List<ReporteProfesorProyecto> obtenerProyectosProfesor(long numeroIdentificacion);
     
-    ArrayList<ReporteProyectoInscrito> obtenerProyectosInscritos();
+    List<ReporteProyectoInscrito> obtenerProyectosInscritos();
         
     CantidadProyectosPorEstado obtenerCantidadProyectosPorEstado();
 
-    ArrayList<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo();
+    List<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo();
+
+    List<ProyectoEstudiante> obtenerProyectosEstudiante(long idEstudiante);
 }

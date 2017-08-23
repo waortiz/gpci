@@ -114,4 +114,8 @@
        <put-attribute name="title" value="Reportes" />  
        <put-attribute name="body" value="/WEB-INF/jsp/reportes/proyectosInscritos.jsp" />  
    </definition>  
+   <definition name="reportes/certificados" extends="base-definition">  
+       <put-attribute name="title" value="Certificados" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/reportes/certificados.jsp" />  
+   </definition>  
 </tiles-definitions>

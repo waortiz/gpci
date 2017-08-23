@@ -7,6 +7,7 @@ package co.edu.fnsp.gpci.repositorios;
 
 import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
+import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
@@ -14,6 +15,7 @@ import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,7 @@ public class RepositorioReporte implements IRepositorioReporte {
     private SimpleJdbcCall obtenerProyectosInscritos;
     private SimpleJdbcCall obtenerCantidadProyectosPorEstado;
     private SimpleJdbcCall obtenerCantidadProyectosPorEstadoPorAnyo;
+    private SimpleJdbcCall obtenerProyectosEstudiante;
     
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -52,10 +55,11 @@ public class RepositorioReporte implements IRepositorioReporte {
         this.obtenerProyectosInscritos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosInscritos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyectoInscrito.class));
         this.obtenerCantidadProyectosPorEstado = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstado");
         this.obtenerCantidadProyectosPorEstadoPorAnyo = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstadoPorAnyo").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoPorEstadoPorAnyo.class));
+        this.obtenerProyectosEstudiante = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosEstudiante").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoEstudiante.class));
     }
 
     @Override
-    public ArrayList<ReporteIntegranteProyecto> obtenerIntegrantesProyectos() {
+    public List<ReporteIntegranteProyecto> obtenerIntegrantesProyectos() {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
 
         Map resultado = obtenerIntegrantesProyectos.execute(parametros);
@@ -65,7 +69,7 @@ public class RepositorioReporte implements IRepositorioReporte {
     }
 
     @Override
-    public ArrayList<ReporteProyectoPorGrupoInvestigacion> obtenerProyectosPorGrupoInvestigacion() {
+    public List<ReporteProyectoPorGrupoInvestigacion> obtenerProyectosPorGrupoInvestigacion() {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
 
         Map resultado = obtenerProyectosPorGrupoInvestigacion.execute(parametros);
@@ -75,7 +79,7 @@ public class RepositorioReporte implements IRepositorioReporte {
     }
 
     @Override
-    public ArrayList<ReporteFuenteFinanciacionProyecto> obtenerFuentesFinanciacionProyectos() {
+    public List<ReporteFuenteFinanciacionProyecto> obtenerFuentesFinanciacionProyectos() {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
 
         Map resultado = obtenerFuentesFinanciacionProyectos.execute(parametros);
@@ -90,7 +94,7 @@ public class RepositorioReporte implements IRepositorioReporte {
     }
 
     @Override
-    public ArrayList<ReporteProfesorProyecto> obtenerProyectosEjecucionAtrasadosProfesor(long numeroIdentificacion) {
+    public List<ReporteProfesorProyecto> obtenerProyectosEjecucionAtrasadosProfesor(long numeroIdentificacion) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varNumeroIdentificacion", numeroIdentificacion);
 
@@ -106,7 +110,7 @@ public class RepositorioReporte implements IRepositorioReporte {
     }
 
     @Override
-    public ArrayList<ReporteProfesorProyecto> obtenerProyectosProfesor(long numeroIdentificacion) {
+    public List<ReporteProfesorProyecto> obtenerProyectosProfesor(long numeroIdentificacion) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varNumeroIdentificacion", numeroIdentificacion);
 
@@ -122,7 +126,7 @@ public class RepositorioReporte implements IRepositorioReporte {
     }
     
     @Override
-    public ArrayList<ReporteProyectoInscrito> obtenerProyectosInscritos() {
+    public List<ReporteProyectoInscrito> obtenerProyectosInscritos() {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
 
         Map resultado = obtenerProyectosInscritos.execute(parametros);
@@ -148,12 +152,24 @@ public class RepositorioReporte implements IRepositorioReporte {
     }
 
     @Override
-    public ArrayList<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo() {
+    public List<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo() {
         MapSqlParameterSource parametrosConsultaCantidadProyectosPorEstadoPorAnyo = new MapSqlParameterSource();
         Map resultadoProyectosPorEstadoPorAnyo = obtenerCantidadProyectosPorEstadoPorAnyo.execute(parametrosConsultaCantidadProyectosPorEstadoPorAnyo);
         ArrayList<ProyectoPorEstadoPorAnyo> proyectosPorEstadoPorAnyo = (ArrayList<ProyectoPorEstadoPorAnyo>) resultadoProyectosPorEstadoPorAnyo.get("proyectos");
 
         return proyectosPorEstadoPorAnyo;
+    }
+
+    @Override
+    public List<ProyectoEstudiante> obtenerProyectosEstudiante(long idEstudiante) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdEstudiante", idEstudiante);
+
+        Map resultado = obtenerProyectosEstudiante.execute(parametros);
+        ArrayList<ProyectoEstudiante> proyectos = (ArrayList<ProyectoEstudiante>) resultado.get("proyectos");
+
+        
+        return proyectos;        
     }
     
  }

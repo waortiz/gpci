@@ -5,26 +5,33 @@
  */
 package co.edu.fnsp.gpci.controladores;
 
+import co.edu.fnsp.gpci.entidades.Estudiante;
+import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.TipoIdentificacionEnum;
 import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidadesVista.BusquedaProyectos;
 import co.edu.fnsp.gpci.servicios.IServicioMaestro;
+import co.edu.fnsp.gpci.servicios.IServicioProyecto;
 import co.edu.fnsp.gpci.servicios.IServicioReporte;
+import co.edu.fnsp.gpci.utilidades.Util;
 import java.io.ByteArrayOutputStream;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import org.apache.xmlbeans.XmlCursor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -49,7 +56,10 @@ public class ReporteController {
 
     @Autowired
     private IServicioMaestro servicioMaestro;
-        
+
+    @Autowired
+    private IServicioProyecto servicioProyecto;
+
     /**
      *
      * @param model
@@ -58,7 +68,7 @@ public class ReporteController {
     @RequestMapping(value = "/integrantesProyectos", method = RequestMethod.GET)
     public String obtenerProyectos(Model model) {
 
-        ArrayList<ReporteIntegranteProyecto> reporte = servicioReporte.obtenerIntegrantesProyectos();
+        List<ReporteIntegranteProyecto> reporte = servicioReporte.obtenerIntegrantesProyectos();
         model.addAttribute("reporte", reporte);
 
         return "reportes/integrantesProyectos";
@@ -72,7 +82,7 @@ public class ReporteController {
     @RequestMapping(value = "/proyectosPorGrupoInvestigacion", method = RequestMethod.GET)
     public String obtenerProyectosPorGrupoInvestigacion(Model model) {
 
-        ArrayList<ReporteProyectoPorGrupoInvestigacion> reporte = servicioReporte.obtenerProyectosPorGrupoInvestigacion();
+        List<ReporteProyectoPorGrupoInvestigacion> reporte = servicioReporte.obtenerProyectosPorGrupoInvestigacion();
         model.addAttribute("reporte", reporte);
 
         return "reportes/proyectosPorGrupoInvestigacion";
@@ -86,7 +96,7 @@ public class ReporteController {
     @RequestMapping(value = "/fuentesFinanciacionProyectos", method = RequestMethod.GET)
     public String obtenerFuentesFinanciacionProyectos(Model model) {
 
-        ArrayList<ReporteFuenteFinanciacionProyecto> reporte = servicioReporte.obtenerFuentesFinanciacionProyectos();
+        List<ReporteFuenteFinanciacionProyecto> reporte = servicioReporte.obtenerFuentesFinanciacionProyectos();
         model.addAttribute("reporte", reporte);
 
         return "reportes/fuentesFinanciacionProyectos";
@@ -105,7 +115,7 @@ public class ReporteController {
     @RequestMapping(value = "/proyectosEjecucionAtrasadosProfesor", method = RequestMethod.POST)
     public String obtenerProyectosEjecucionAtrasadosProfesor(@ModelAttribute(value = "busquedaProyectos") BusquedaProyectos busquedaProyectos, Model model) {
 
-        ArrayList<ReporteProfesorProyecto> proyectos = new ArrayList<>();
+        List<ReporteProfesorProyecto> proyectos = new ArrayList<>();
         try {
             proyectos = servicioReporte.obtenerProyectosEjecucionAtrasadosProfesor(Long.parseLong(busquedaProyectos.getCedulaProfesor()));
         } catch (Exception ex) {
@@ -130,7 +140,7 @@ public class ReporteController {
     @RequestMapping(value = "/proyectosProfesor", method = RequestMethod.POST)
     public String obtenerProyectosProfesor(@ModelAttribute(value = "busquedaProyectos") BusquedaProyectos busquedaProyectos, Model model) {
 
-        ArrayList<ReporteProfesorProyecto> proyectos = new ArrayList<>();
+        List<ReporteProfesorProyecto> proyectos = new ArrayList<>();
         try {
             proyectos = servicioReporte.obtenerProyectosProfesor(Long.parseLong(busquedaProyectos.getCedulaProfesor()));
         } catch (Exception ex) {
@@ -150,13 +160,13 @@ public class ReporteController {
     @RequestMapping(value = "/proyectosInscritos", method = RequestMethod.GET)
     public String obtenerProyectosInscritos(Model model) {
 
-        ArrayList<ReporteProyectoInscrito> reporte = servicioReporte.obtenerProyectosInscritos();
+        List<ReporteProyectoInscrito> reporte = servicioReporte.obtenerProyectosInscritos();
         model.addAttribute("reporte", reporte);
 
         return "reportes/proyectosInscritos";
     }
 
-     /**
+    /**
      *
      * @param model
      * @return
@@ -166,19 +176,75 @@ public class ReporteController {
 
         List<TipoPersona> tiposPersona = servicioMaestro.obtenerTiposPersona();
         model.addAttribute("tiposPersona", tiposPersona);
-        
+
         return "reportes/certificadoParticipanteProyecto";
     }
-    
-    @RequestMapping(value = "/generarCertificadoParticipanteProyecto/{numeroDocumento}", method = RequestMethod.GET)
-    public void generarCertificadoEstudiante(@PathVariable("numeroDocumento") long numeroDocumento, HttpServletResponse response) {
+
+    @RequestMapping(value = "/generarCertificadoEstudiante/{numeroDocumento}", method = RequestMethod.GET)
+    public void generarCertificadoEstudiante(@PathVariable("numeroDocumento") long numeroDocumento, HttpServletResponse response, HttpServletRequest request) {
         try {
-            String filePath = "F:\\Sample.doc";
+            String nombreEstudiante = "";
+            Estudiante estudiante = servicioProyecto.obtenerEstudiante(TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion(), numeroDocumento);
+            if (estudiante != null) {
+                nombreEstudiante = estudiante.getNombres() + " " + estudiante.getApellidos();
+            } else {
+                throw new IllegalArgumentException("El estudiante no existe");
+            }
+
+            String filePath = request.getSession().getServletContext().getRealPath("/WEB-INF/plantillas/constancia_participacion_estudiante_personal_externo.docx");
             XWPFDocument documento = new XWPFDocument(new FileInputStream(filePath));
-            documento = reemplazarTexto(documento, "NOMBRE_PARTICIPANTE", "MyValue1");
+            reemplazarTexto(documento, "NOMBRE_PARTICIPANTE", nombreEstudiante);
+
+            List<ProyectoEstudiante> proyectos = servicioReporte.obtenerProyectosEstudiante(estudiante.getIdEstudiante());
+            XWPFParagraph parrafoInicial = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
+            reemplazarTexto(documento, "PROYECTOS_PARTICIPANTE", "");
+            XmlCursor cursor = parrafoInicial.getCTP().newCursor();
+            XWPFParagraph parrafo = null;
+            for (ProyectoEstudiante proyecto : proyectos) {
+                parrafo = documento.insertNewParagraph(cursor);
+                parrafo.createRun().setText("Nombre del proyecto: " + proyecto.getNombreCompletoProyecto());
+                cursor = parrafo.getCTP().newCursor();
+
+                parrafo = documento.insertNewParagraph(cursor);
+                parrafo.createRun().setText("Grupo de Investigación: " + proyecto.getGrupoInvestigacion());
+                cursor = parrafo.getCTP().newCursor();
+
+                parrafo = documento.insertNewParagraph(cursor);
+                parrafo.createRun().setText("Fuente de Financiación: " + proyecto.getFuenteFinanciacion());
+                cursor = parrafo.getCTP().newCursor();
+
+                parrafo = documento.insertNewParagraph(cursor);
+                parrafo.createRun().setText("Código del Proyecto: " + proyecto.getCodigoProyecto());
+                cursor = parrafo.getCTP().newCursor();
+
+                parrafo = documento.insertNewParagraph(cursor);
+                parrafo.createRun().setText("Rol: " + proyecto.getRol());
+                cursor = parrafo.getCTP().newCursor();
+
+                parrafo = documento.insertNewParagraph(cursor);
+                parrafo.createRun().setText("Fecha inicio " + Util.obtenerFechaLargaFormateada(proyecto.getFechaInicio()));
+                cursor = parrafo.getCTP().newCursor();
+
+                parrafo = documento.insertNewParagraph(cursor);
+                parrafo.createRun().setText("Fecha finalización: " + Util.obtenerFechaLargaFormateada(proyecto.getFechaFinalizacion()));
+                cursor = parrafo.getCTP().newCursor();
+
+                parrafo = documento.insertNewParagraph(cursor);
+                parrafo.createRun().setText("Dedicación al proyecto: " + proyecto.getHorasSemana() + " horas semanales");
+                cursor = parrafo.getCTP().newCursor();
+
+                parrafo = documento.insertNewParagraph(cursor);
+                parrafo.createRun().setText("");
+                cursor = parrafo.getCTP().newCursor();
+
+                parrafo = documento.insertNewParagraph(cursor);
+                parrafo.createRun().setText("");
+                cursor = parrafo.getCTP().newCursor();
+            }
+            reemplazarTexto(documento, "FECHA_EXPEDICION", Util.obtenerFechaLargaFormateada(new Date()));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
             documento.write(baos);
-            
+
             response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             response.setContentLength(baos.toByteArray().length);
             response.setHeader("Content-Disposition", "attachment; filename=certificado");
@@ -188,7 +254,7 @@ public class ReporteController {
         }
     }
 
-    private static XWPFDocument reemplazarTexto(XWPFDocument documento, String textoEncontrar, String textoReemplazar) {
+    private static void reemplazarTexto(XWPFDocument documento, String textoEncontrar, String textoReemplazar) {
         for (XWPFParagraph parrafo : documento.getParagraphs()) {
             List<XWPFRun> runs = parrafo.getRuns();
             if (runs != null) {
@@ -201,7 +267,22 @@ public class ReporteController {
                 }
             }
         }
-
-        return documento;
     }
+    
+        private static XWPFParagraph obtenerParrafo(XWPFDocument documento, String textoEncontrar) {
+        for (XWPFParagraph parrafo : documento.getParagraphs()) {
+            List<XWPFRun> runs = parrafo.getRuns();
+            if (runs != null) {
+                for (XWPFRun run : runs) {
+                    String text = run.getText(0);
+                    if (text != null && text.contains(textoEncontrar)) {
+                        return parrafo;
+                    }
+                }
+            }
+        }
+
+        return null;
+    }
+
 }

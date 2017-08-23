@@ -9,6 +9,7 @@ import co.edu.fnsp.gpci.entidades.OpcionMenu;
 import co.edu.fnsp.gpci.entidades.Privilegio;
 import co.edu.fnsp.gpci.entidades.Usuario;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -198,7 +199,7 @@ public class RepositorioSeguridad implements IRepositorioSeguridad {
     }
 
     @Override
-    public void actualizarPrivilegiosUsuario(long idUsuario, ArrayList<Privilegio> privilegios) {
+    public void actualizarPrivilegiosUsuario(long idUsuario, List<Privilegio> privilegios) {
         MapSqlParameterSource parametrosConsultaPrivilegios = new MapSqlParameterSource();
         parametrosConsultaPrivilegios.addValue("varIdUsuario", idUsuario);
         Map resultadoPrivilegios = obtenerPrivilegiosUsuario.execute(parametrosConsultaPrivilegios);

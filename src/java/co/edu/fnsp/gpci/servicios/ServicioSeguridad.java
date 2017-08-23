@@ -8,7 +8,7 @@ package co.edu.fnsp.gpci.servicios;
 import co.edu.fnsp.gpci.entidades.Privilegio;
 import co.edu.fnsp.gpci.entidades.Usuario;
 import co.edu.fnsp.gpci.repositorios.IRepositorioSeguridad;
-import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.stereotype.Service;
@@ -69,22 +69,22 @@ public class ServicioSeguridad implements IServicioSeguridad {
     }
 
     @Override
-    public ArrayList<Privilegio> obtenerPrivilegios() {
+    public List<Privilegio> obtenerPrivilegios() {
         return repositorioSeguridad.obtenerPrivilegios();
     }
 
     @Override
-    public ArrayList<Usuario> obtenerUsuarios() {
+    public List<Usuario> obtenerUsuarios() {
         return repositorioSeguridad.obtenerUsuarios();
     }
 
     @Override
-    public void actualizarPrivilegiosUsuario(long idUsuario, ArrayList<Privilegio> privilegios) {
+    public void actualizarPrivilegiosUsuario(long idUsuario, List<Privilegio> privilegios) {
         repositorioSeguridad.actualizarPrivilegiosUsuario(idUsuario, privilegios);
     }
 
     @Override
-    public ArrayList<Privilegio> obtenerPrivilegiosUsuario(long idUsuario) {
+    public List<Privilegio> obtenerPrivilegiosUsuario(long idUsuario) {
         return repositorioSeguridad.obtenerPrivilegiosUsuario(idUsuario);
     }
 

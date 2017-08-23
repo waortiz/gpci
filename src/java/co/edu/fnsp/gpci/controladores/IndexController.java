@@ -9,7 +9,7 @@ import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
 import co.edu.fnsp.gpci.servicios.IServicioReporte;
 import com.google.gson.Gson;
-import java.util.ArrayList;
+import java.util.List;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +35,7 @@ public class IndexController {
         String datosBarra = "[]";
         String datosGrafico = "[]";
         try {
-            ArrayList<ProyectoPorEstadoPorAnyo> proyectosPorEstadoPorAnyo = servicioReporte.obtenerProyectosPorEstadoPorAnyo();
+            List<ProyectoPorEstadoPorAnyo> proyectosPorEstadoPorAnyo = servicioReporte.obtenerProyectosPorEstadoPorAnyo();
             Gson gson = new Gson();
             datosBarra = gson.toJson(proyectosPorEstadoPorAnyo);
 

@@ -10,6 +10,7 @@ import co.edu.fnsp.gpci.entidades.Usuario;
 import co.edu.fnsp.gpci.entidades.PrivilegiosUsuario;
 import co.edu.fnsp.gpci.servicios.IServicioSeguridad;
 import java.util.ArrayList;
+import java.util.List;
 import org.apache.logging.log4j.Logger;
 import org.apache.logging.log4j.LogManager;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class UsuarioController {
 
     @RequestMapping(value = "/crear", method = RequestMethod.GET)
     public String mostrarCreacionUsuario(Model model) {
-        ArrayList<Privilegio> privilegios = servicioSeguridad.obtenerPrivilegios();
+        List<Privilegio> privilegios = servicioSeguridad.obtenerPrivilegios();
         model.addAttribute("privilegiosPorAsignar", privilegios);
         model.addAttribute("privilegiosAsignados", new ArrayList<>());
         model.addAttribute("usuario", new Usuario());
@@ -102,7 +103,7 @@ public class UsuarioController {
     @RequestMapping(value = "/usuarios", method = RequestMethod.GET)
     public String obtenerUsuarios(Model model) {
 
-        ArrayList<Usuario> usuarios = servicioSeguridad.obtenerUsuarios();
+        List<Usuario> usuarios = servicioSeguridad.obtenerUsuarios();
         model.addAttribute("usuarios", usuarios);
 
         return "usuarios/usuarios";
@@ -116,8 +117,8 @@ public class UsuarioController {
      */
     @RequestMapping(value = "/privilegios/{idUsuario}", method = RequestMethod.GET)
     public String mostrarPrivilegiosUsuario(@PathVariable long idUsuario, Model model) {
-        ArrayList<Privilegio> privilegios = servicioSeguridad.obtenerPrivilegios();
-        ArrayList<Privilegio> privilegiosPorAsignar = new ArrayList<>();
+        List<Privilegio> privilegios = servicioSeguridad.obtenerPrivilegios();
+        List<Privilegio> privilegiosPorAsignar = new ArrayList<>();
         Usuario usuario = servicioSeguridad.obtenerUsuario(idUsuario);
         for (Privilegio privilegio : privilegios) {
             boolean existe = false;

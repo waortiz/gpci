@@ -64,6 +64,7 @@
             <mvc:exclude-mapping path="/novedades/eliminarCumplimientoAlertaAval/**" />
             <mvc:exclude-mapping path="/maestros/convocatoria" />
             <mvc:exclude-mapping path="/maestros/areaTematica" />
+            <mvc:exclude-mapping path="/reportes/generarCertificadoEstudiante" />
             <ref bean="gpciInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

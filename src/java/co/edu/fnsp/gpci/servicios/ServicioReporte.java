@@ -7,13 +7,14 @@ package co.edu.fnsp.gpci.servicios;
 
 import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
+import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
 import co.edu.fnsp.gpci.repositorios.IRepositorioReporte;
-import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,31 +28,31 @@ public class ServicioReporte implements IServicioReporte {
     private IRepositorioReporte repositorioReporte;
 
     @Override
-    public ArrayList<ReporteIntegranteProyecto> obtenerIntegrantesProyectos() {
+    public List<ReporteIntegranteProyecto> obtenerIntegrantesProyectos() {
         return repositorioReporte.obtenerIntegrantesProyectos();
     }
 
     @Override
-    public ArrayList<ReporteProyectoPorGrupoInvestigacion> obtenerProyectosPorGrupoInvestigacion() {
+    public List<ReporteProyectoPorGrupoInvestigacion> obtenerProyectosPorGrupoInvestigacion() {
         return repositorioReporte.obtenerProyectosPorGrupoInvestigacion();
     }
 
     @Override
-    public ArrayList<ReporteFuenteFinanciacionProyecto> obtenerFuentesFinanciacionProyectos() {
+    public List<ReporteFuenteFinanciacionProyecto> obtenerFuentesFinanciacionProyectos() {
          return repositorioReporte.obtenerFuentesFinanciacionProyectos();
     }
 
     @Override
-    public ArrayList<ReporteProfesorProyecto> obtenerProyectosEjecucionAtrasadosProfesor(long numeroIdentificacion) {
+    public List<ReporteProfesorProyecto> obtenerProyectosEjecucionAtrasadosProfesor(long numeroIdentificacion) {
         return repositorioReporte.obtenerProyectosEjecucionAtrasadosProfesor(numeroIdentificacion);
     }
     @Override
-    public ArrayList<ReporteProfesorProyecto> obtenerProyectosProfesor(long numeroIdentificacion) {
+    public List<ReporteProfesorProyecto> obtenerProyectosProfesor(long numeroIdentificacion) {
         return repositorioReporte.obtenerProyectosProfesor(numeroIdentificacion);
     }
 
     @Override
-    public ArrayList<ReporteProyectoInscrito> obtenerProyectosInscritos() {
+    public List<ReporteProyectoInscrito> obtenerProyectosInscritos() {
         return repositorioReporte.obtenerProyectosInscritos();
     }
     
@@ -61,7 +62,12 @@ public class ServicioReporte implements IServicioReporte {
     }
 
     @Override
-    public ArrayList<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo() {
+    public List<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo() {
         return repositorioReporte.obtenerProyectosPorEstadoPorAnyo();
+    }
+
+    @Override
+    public List<ProyectoEstudiante> obtenerProyectosEstudiante(long idEstudiante) {
+        return repositorioReporte.obtenerProyectosEstudiante(idEstudiante);
     }
 }
