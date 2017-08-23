@@ -37,7 +37,7 @@ public class TareaProyecto {
             try {
                 ArrayList<CompromisoProyecto> compromisosProyecto = repositorioProyecto.obtenerCompromisosProyectoPorCumplir(proyecto.getIdProyecto());
                 StringBuilder notificacion = new StringBuilder();
-                notificacion.append("Sr(a) <b><i>").append(proyecto.getInvestigadorPrincipal()).append("</i></b><br>El proyecto ").append(proyecto.getNombreCortoProyecto()).append(" está próximo a vencerse en los plazos regulares.");
+                notificacion.append("Sr(a) <b><i>").append(proyecto.getInvestigadorPrincipal()).append("</i></b><br /><br />El proyecto ").append(proyecto.getNombreCortoProyecto()).append(" está próximo a vencerse en los plazos regulares.");
                 if(compromisosProyecto.size() > 0) {
                     notificacion.append(" Los compromisos pendientes son:<br /><ul>");
                 }
@@ -47,7 +47,7 @@ public class TareaProyecto {
                 if(compromisosProyecto.size() > 0) {
                     notificacion.append("</ul>");
                 }
-                mail.sendMail(proyecto.getCorreoElectronico(), "Notificación Vemcimiento Proyecto", notificacion.toString());
+                mail.sendMail(proyecto.getCorreoElectronico(), "Notificación Vencimiento Proyecto", notificacion.toString());
                 repositorioProyecto.ingresarNotificacionVencimientoPlazo(proyecto.getIdProyecto(), proyecto.getIdTipoPersona(), proyecto.getIdPersona());
             } catch (Exception exc) {
                 logger.error(exc);

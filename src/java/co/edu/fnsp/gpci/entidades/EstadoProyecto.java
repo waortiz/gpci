@@ -10,7 +10,10 @@ package co.edu.fnsp.gpci.entidades;
  * @author William
  */
 public class EstadoProyecto {
-
+   
+    private int idEstadoProyecto;
+    private String nombre;
+    
     /**
      * @return the idEstadoProyecto
      */
@@ -38,12 +41,5 @@ public class EstadoProyecto {
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
-    
-    @Override
-    public String toString() {
-        return "{Id: " + idEstadoProyecto + ", nombre: " + nombre + "}";
-    }
-    
-    private int idEstadoProyecto;
-    private String nombre;
+
 }

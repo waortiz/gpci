@@ -8,6 +8,8 @@ package co.edu.fnsp.gpci.repositorios;
 import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
 import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
+import co.edu.fnsp.gpci.entidades.ProyectoPersonalExterno;
+import co.edu.fnsp.gpci.entidades.ProyectoProfesor;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
@@ -40,7 +42,9 @@ public class RepositorioReporte implements IRepositorioReporte {
     private SimpleJdbcCall obtenerProyectosInscritos;
     private SimpleJdbcCall obtenerCantidadProyectosPorEstado;
     private SimpleJdbcCall obtenerCantidadProyectosPorEstadoPorAnyo;
-    private SimpleJdbcCall obtenerProyectosEstudiante;
+    private SimpleJdbcCall obtenerProyectosCertificadoProfesor;
+    private SimpleJdbcCall obtenerProyectosCertificadoEstudiante;
+    private SimpleJdbcCall obtenerProyectosCertificadoPersonalExterno;
     
     @Autowired
     public void setDataSource(DataSource dataSource) {
@@ -55,7 +59,9 @@ public class RepositorioReporte implements IRepositorioReporte {
         this.obtenerProyectosInscritos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosInscritos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyectoInscrito.class));
         this.obtenerCantidadProyectosPorEstado = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstado");
         this.obtenerCantidadProyectosPorEstadoPorAnyo = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstadoPorAnyo").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoPorEstadoPorAnyo.class));
-        this.obtenerProyectosEstudiante = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosEstudiante").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoEstudiante.class));
+        this.obtenerProyectosCertificadoProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosCertificadoProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoProfesor.class));
+        this.obtenerProyectosCertificadoEstudiante = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosCertificadoEstudiante").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoEstudiante.class));
+        this.obtenerProyectosCertificadoPersonalExterno = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosCertificadoPersonalExterno").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoPersonalExterno.class));
     }
 
     @Override
@@ -161,12 +167,37 @@ public class RepositorioReporte implements IRepositorioReporte {
     }
 
     @Override
-    public List<ProyectoEstudiante> obtenerProyectosEstudiante(long idEstudiante) {
+    public List<ProyectoProfesor> obtenerProyectosCertificadoProfesor(long idProfesor) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdProfesor", idProfesor);
+
+        Map resultado = obtenerProyectosCertificadoProfesor.execute(parametros);
+        ArrayList<ProyectoProfesor> proyectos = (ArrayList<ProyectoProfesor>) resultado.get("proyectos");
+
+        
+        return proyectos;        
+    }
+
+    
+    @Override
+    public List<ProyectoEstudiante> obtenerProyectosCertificadoEstudiante(long idEstudiante) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varIdEstudiante", idEstudiante);
 
-        Map resultado = obtenerProyectosEstudiante.execute(parametros);
+        Map resultado = obtenerProyectosCertificadoEstudiante.execute(parametros);
         ArrayList<ProyectoEstudiante> proyectos = (ArrayList<ProyectoEstudiante>) resultado.get("proyectos");
+
+        
+        return proyectos;        
+    }
+
+    @Override
+    public List<ProyectoPersonalExterno> obtenerProyectosCertificadoPersonalExterno(long idPersonalExterno) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdPersonalExterno", idPersonalExterno);
+
+        Map resultado = obtenerProyectosCertificadoPersonalExterno.execute(parametros);
+        ArrayList<ProyectoPersonalExterno> proyectos = (ArrayList<ProyectoPersonalExterno>) resultado.get("proyectos");
 
         
         return proyectos;        

@@ -8,6 +8,8 @@ package co.edu.fnsp.gpci.servicios;
 import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
 import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
+import co.edu.fnsp.gpci.entidades.ProyectoPersonalExterno;
+import co.edu.fnsp.gpci.entidades.ProyectoProfesor;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
@@ -37,5 +39,9 @@ public interface IServicioReporte {
 
     List<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo();
 
-    List<ProyectoEstudiante> obtenerProyectosEstudiante(long idEstudiante);
+    List<ProyectoProfesor> obtenerProyectosCertificadoProfesor(long idProfesor);
+
+    List<ProyectoEstudiante> obtenerProyectosCertificadoEstudiante(long idEstudiante);
+    
+    List<ProyectoPersonalExterno> obtenerProyectosCertificadoPersonalExterno(long idPersonalExterno);
 }

@@ -8,6 +8,8 @@ package co.edu.fnsp.gpci.repositorios;
 import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
 import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
+import co.edu.fnsp.gpci.entidades.ProyectoPersonalExterno;
+import co.edu.fnsp.gpci.entidades.ProyectoProfesor;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
@@ -37,5 +39,9 @@ public interface IRepositorioReporte {
 
     List<ProyectoPorEstadoPorAnyo> obtenerProyectosPorEstadoPorAnyo();
 
-    List<ProyectoEstudiante> obtenerProyectosEstudiante(long idEstudiante);
+    List<ProyectoEstudiante> obtenerProyectosCertificadoEstudiante(long idEstudiante);
+
+    List<ProyectoPersonalExterno> obtenerProyectosCertificadoPersonalExterno(long idPersonalExterno);
+
+    List<ProyectoProfesor> obtenerProyectosCertificadoProfesor(long idProfesor);
 }

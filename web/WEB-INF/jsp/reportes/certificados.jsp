@@ -16,22 +16,32 @@
                 <div class="tab-pane fade in active" id="tab1success">
                     <form id="certificado" name="certificado">
                         <div id="alert_placeholder"></div>
-                        <table class='table' style='font-size:12px;'> 
-                            <tr  class='text-success'>
+                        <table class="tablaForm"> 
+                            <tr>
                                 <td>Tipo persona</td>
                                 <td>
                                     <select name="tipoPersona" id="tipoPersona" class="form-control">
                                         <option value=""></option>
-                                        <option value="2">Estudiante</option>
-                                        <option value="3">Personal Externo</option>
+                                        <c:forEach var="tipoPersona" items="${tiposPersona}">
+                                            <option value="${tipoPersona.getIdTipoPersona()}">${tipoPersona.getNombre()}</option>
+                                        </c:forEach>
                                     </select>    
                                 </td>
-                                <td align="center"><b>Cédula</b></td>
+                                <td>Tipo de documento</td>
+                                <td>
+                                    <select name="tipoIdentificacion" id="tipoIdentificacion" class="form-control">
+                                        <option value=""></option>
+                                    <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                    </c:forEach>
+                                    </select>    
+                                </td>                                
                                 <td>
                                     <input id="numeroDocumento" name="numeroDocumento" class="form-control" maxlength="20"/>
                                 </td>
                                 <td align="right">
-                                    <button type="button" class="btn btn-primary" onclick=generarCertificado()">Generar</button>
+                                    <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    <button type="button" class="btn-sm btn-success" onclick="generarCertificado()">Generar</button>
                                 </td>
                             </tr>
                         </table>                    
@@ -44,26 +54,110 @@
 <script type="text/javascript">
 
     function generarCertificado() {
-
-        var tipoPersona = "";
+        bootstrap_alert.removeWarning();
         if ($('#tipoPersona').val() == "") {
-            bootstrap_alert_adenda_cambio.warning('Debe seleccionar el tipo de persona');
+            bootstrap_alert.warning('Debe seleccionar el tipo de persona');
+            return false;
+        }
+        if ($('#tipoIdentificacion').val() == "") {
+            bootstrap_alert.warning('Debe seleccionar el tipo de identificación');
             return false;
         }
         if ($('#numeroDocumento').val() == "") {
-            bootstrap_alert_adenda_cambio.warning('Debe ingresar la cédula');
+            bootstrap_alert.warning('Debe ingresar la cédula');
             return false;
         }
 
+        if ($('#tipoPersona').val() == 1) {
+            generarCertificadoProfesor();
+        }
         if ($('#tipoPersona').val() == 2) {
-            tipoPersona = "Estudiante";
+            generarCertificadoEstudiante();
         }
         if ($('#tipoPersona').val() == 3) {
-            tipoPersona = "PersonalExterno";
+            generarCertificadoPersonalExterno();
         }
 
-        window.location.href = "${pageContext.request.contextPath}/reportes/generarCertificado" + tipoPersona + "/" + $('numeroDocumento').val();
     }
+
+    function generarCertificadoProfesor() {
+        var tipoIdentificacion = $('#tipoIdentificacion').val();
+        var numeroIdentificacion = $('#numeroDocumento').val();
+
+        if (tipoIdentificacion != "" && numeroIdentificacion != "") {
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/proyectos/profesores",
+                data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                },
+                success: function (response) {
+                    if (response != "") {
+                        window.location.href = "${pageContext.request.contextPath}/reportes/generarCertificadoProfesor/" + tipoIdentificacion + "/" + numeroIdentificacion;
+                    } else {
+                        bootstrap_alert.warning('El profesor no existe');
+                    }
+                },
+                error: function (e) {
+                    bootstrap_alert.warning(e);
+                }
+            });
+        }
+    }
+
+    function generarCertificadoEstudiante() {
+        var tipoIdentificacion = $('#tipoIdentificacion').val();
+        var numeroIdentificacion = $('#numeroDocumento').val();
+
+        if (tipoIdentificacion != "" && numeroIdentificacion != "") {
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/proyectos/estudiantes",
+                data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                },
+                success: function (response) {
+                    if (response != "") {
+                        window.location.href = "${pageContext.request.contextPath}/reportes/generarCertificadoEstudiante/" + tipoIdentificacion + "/" + numeroIdentificacion;
+                    } else {
+                        bootstrap_alert.warning('El estudiante no existe');
+                    }
+                },
+                error: function (e) {
+                    bootstrap_alert.warning(e);
+                }
+            });
+        }
+    }
+
+    function generarCertificadoPersonalExterno() {
+        var tipoIdentificacion = $('#tipoIdentificacion').val();
+        var numeroIdentificacion = $('#numeroDocumento').val();
+
+        if (tipoIdentificacion != "" && numeroIdentificacion != "") {
+            $.ajax({
+                type: "POST",
+                url: "${pageContext.request.contextPath}/proyectos/personalExterno",
+                data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
+                beforeSend: function (xhr) {
+                    xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+                },
+                success: function (response) {
+                    if (response != "") {
+                        window.location.href = "${pageContext.request.contextPath}/reportes/generarCertificadoPersonalExterno/" + tipoIdentificacion + "/" + numeroIdentificacion;
+                    } else {
+                        bootstrap_alert.warning('El personal externo no existe');
+                    }
+                },
+                error: function (e) {
+                    bootstrap_alert.warning(e);
+                }
+            });
+        }
+    }
+
 
     bootstrap_alert = function () { };
     bootstrap_alert.warning = function (message) {

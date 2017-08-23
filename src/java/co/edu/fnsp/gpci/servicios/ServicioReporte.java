@@ -8,6 +8,8 @@ package co.edu.fnsp.gpci.servicios;
 import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
 import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
+import co.edu.fnsp.gpci.entidades.ProyectoPersonalExterno;
+import co.edu.fnsp.gpci.entidades.ProyectoProfesor;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
@@ -67,7 +69,17 @@ public class ServicioReporte implements IServicioReporte {
     }
 
     @Override
-    public List<ProyectoEstudiante> obtenerProyectosEstudiante(long idEstudiante) {
-        return repositorioReporte.obtenerProyectosEstudiante(idEstudiante);
+    public List<ProyectoEstudiante> obtenerProyectosCertificadoEstudiante(long idEstudiante) {
+        return repositorioReporte.obtenerProyectosCertificadoEstudiante(idEstudiante);
+    }
+
+    @Override
+    public List<ProyectoPersonalExterno> obtenerProyectosCertificadoPersonalExterno(long idPersonalExterno) {
+        return repositorioReporte.obtenerProyectosCertificadoPersonalExterno(idPersonalExterno);
+    }
+
+    @Override
+    public List<ProyectoProfesor> obtenerProyectosCertificadoProfesor(long idProfesor) {
+         return repositorioReporte.obtenerProyectosCertificadoProfesor(idProfesor);
     }
 }

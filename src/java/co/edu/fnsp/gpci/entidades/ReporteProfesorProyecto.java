@@ -223,5 +223,4 @@ public class ReporteProfesorProyecto {
     public void setNombreCompletoProyecto(String nombreCompletoProyecto) {
         this.nombreCompletoProyecto = nombreCompletoProyecto;
     }
-    
 }

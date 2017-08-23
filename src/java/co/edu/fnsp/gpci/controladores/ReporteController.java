@@ -6,12 +6,18 @@
 package co.edu.fnsp.gpci.controladores;
 
 import co.edu.fnsp.gpci.entidades.Estudiante;
+import co.edu.fnsp.gpci.entidades.PersonalExterno;
+import co.edu.fnsp.gpci.entidades.Profesor;
+import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
+import co.edu.fnsp.gpci.entidades.ProyectoPersonalExterno;
+import co.edu.fnsp.gpci.entidades.ProyectoProfesor;
 import co.edu.fnsp.gpci.entidades.ReporteFuenteFinanciacionProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacionEnum;
 import co.edu.fnsp.gpci.entidades.TipoPersona;
 import co.edu.fnsp.gpci.entidadesVista.BusquedaProyectos;
@@ -31,7 +37,6 @@ import org.apache.logging.log4j.Logger;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
-import org.apache.xmlbeans.XmlCursor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -171,20 +176,88 @@ public class ReporteController {
      * @param model
      * @return
      */
-    @RequestMapping(value = "/generarCertificadoParticipanteProyecto", method = RequestMethod.GET)
-    public String mostrarGeneracionCertificadoParticipanteProyecto(Model model) {
+    @RequestMapping(value = "/certificados", method = RequestMethod.GET)
+    public String mostrarGeneracionCertificados(Model model) {
 
         List<TipoPersona> tiposPersona = servicioMaestro.obtenerTiposPersona();
-        model.addAttribute("tiposPersona", tiposPersona);
+        List<TipoIdentificacion> tiposIdentificacion = servicioMaestro.obtenerTiposIdentificacion();
 
-        return "reportes/certificadoParticipanteProyecto";
+        model.addAttribute("tiposPersona", tiposPersona);
+        model.addAttribute("tiposIdentificacion", tiposIdentificacion);
+
+        return "reportes/certificados";
     }
 
-    @RequestMapping(value = "/generarCertificadoEstudiante/{numeroDocumento}", method = RequestMethod.GET)
-    public void generarCertificadoEstudiante(@PathVariable("numeroDocumento") long numeroDocumento, HttpServletResponse response, HttpServletRequest request) {
+    @RequestMapping(value = "/generarCertificadoProfesor/{tipoDocumento}/{numeroDocumento}", method = RequestMethod.GET)
+    public void generarCertificadoProfesor(@PathVariable("tipoDocumento") int tipoDocumento, @PathVariable("numeroDocumento") long numeroDocumento, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String nombreProfesor = "";
+            Profesor profesor = servicioProyecto.obtenerProfesor(tipoDocumento, numeroDocumento);
+            if (profesor != null) {
+                nombreProfesor = profesor.getNombres() + " " + profesor.getApellidos();
+            } else {
+                throw new IllegalArgumentException("El profesor no existe");
+            }
+
+            String filePath = request.getSession().getServletContext().getRealPath("/WEB-INF/plantillas/constancia_participacion_proyecto_profesor.docx");
+            XWPFDocument documento = new XWPFDocument(new FileInputStream(filePath));
+
+            reemplazarTexto(documento, "NOMBRE_PARTICIPANTE", nombreProfesor);
+            if (tipoDocumento == TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion()) {
+                reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
+            } else if (tipoDocumento == TipoIdentificacionEnum.PASAPORTE.getIdTipoIdentificacion()) {
+                reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.PASAPORTE.getNombre());
+            } else if (tipoDocumento == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
+                reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
+            }
+            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroDocumento));
+            List<ProyectoProfesor> proyectos = servicioReporte.obtenerProyectosCertificadoProfesor(profesor.getIdProfesor());
+            XWPFParagraph parrafoProyectos = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
+            reemplazarTexto(documento, "PROYECTOS_PARTICIPANTE", "");
+            XWPFRun run = parrafoProyectos.createRun();
+            String fontFamily = "Arial";
+            int fontSize = 12;
+            if (parrafoProyectos.getRuns().size() > 0) {
+                fontFamily = parrafoProyectos.getRuns().get(0).getFontFamily();
+                fontSize = parrafoProyectos.getRuns().get(0).getFontSize();
+            }
+            run.setFontFamily(fontFamily);
+            run.setFontSize(fontSize);
+            for (int i = 0; i < proyectos.size(); i++) {
+                ProyectoProfesor proyecto = proyectos.get(i);
+                run.setText((i + 1) + ". " + proyecto.getNombreCompletoProyecto());
+                run.addCarriageReturn();
+                run.addCarriageReturn();
+                run.setText("Rol: " + proyecto.getRol());
+                run.addCarriageReturn();
+                run.setText("Fecha inicio " + Util.obtenerFechaLargaFormateada(proyecto.getFechaInicio()));
+                run.addCarriageReturn();
+                run.setText("Fecha finalización: " + Util.obtenerFechaLargaFormateada(proyecto.getFechaFinalizacion()));
+                run.addCarriageReturn();
+                run.setText("Dedicación al proyecto: " + proyecto.getHorasSemana() + " horas semanales");
+                run.addCarriageReturn();
+                run.setText("Porcentaje de PI: " + proyecto.getPorcentajePI() + " horas semanales");
+                run.addCarriageReturn();
+                run.addCarriageReturn();
+            }
+            reemplazarTexto(documento, "FECHA_EXPEDICION", Util.obtenerFechaLargaFormateada(new Date()));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            documento.write(baos);
+
+            response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            response.setContentLength(baos.toByteArray().length);
+            response.setHeader("Content-Disposition", "attachment; filename=Certificado.docx");
+            FileCopyUtils.copy(baos.toByteArray(), response.getOutputStream());
+        } catch (Exception ex) {
+            logger.error(ex);
+        }
+    }
+
+    @RequestMapping(value = "/generarCertificadoEstudiante/{tipoDocumento}/{numeroDocumento}", method = RequestMethod.GET)
+    public void generarCertificadoEstudiante(@PathVariable("tipoDocumento") int tipoDocumento, @PathVariable("numeroDocumento") long numeroDocumento, HttpServletRequest request, HttpServletResponse response) {
         try {
             String nombreEstudiante = "";
-            Estudiante estudiante = servicioProyecto.obtenerEstudiante(TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion(), numeroDocumento);
+            Estudiante estudiante = servicioProyecto.obtenerEstudiante(tipoDocumento, numeroDocumento);
             if (estudiante != null) {
                 nombreEstudiante = estudiante.getNombres() + " " + estudiante.getApellidos();
             } else {
@@ -194,52 +267,44 @@ public class ReporteController {
             String filePath = request.getSession().getServletContext().getRealPath("/WEB-INF/plantillas/constancia_participacion_estudiante_personal_externo.docx");
             XWPFDocument documento = new XWPFDocument(new FileInputStream(filePath));
             reemplazarTexto(documento, "NOMBRE_PARTICIPANTE", nombreEstudiante);
-
-            List<ProyectoEstudiante> proyectos = servicioReporte.obtenerProyectosEstudiante(estudiante.getIdEstudiante());
-            XWPFParagraph parrafoInicial = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
+            if (tipoDocumento == TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion()) {
+                reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
+            } else if (tipoDocumento == TipoIdentificacionEnum.PASAPORTE.getIdTipoIdentificacion()) {
+                reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.PASAPORTE.getNombre());
+            } else if (tipoDocumento == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
+                reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
+            }            
+            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroDocumento));
+            List<ProyectoEstudiante> proyectos = servicioReporte.obtenerProyectosCertificadoEstudiante(estudiante.getIdEstudiante());
+            XWPFParagraph parrafoProyectos = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
             reemplazarTexto(documento, "PROYECTOS_PARTICIPANTE", "");
-            XmlCursor cursor = parrafoInicial.getCTP().newCursor();
-            XWPFParagraph parrafo = null;
+            XWPFRun run = parrafoProyectos.createRun();
+            String fontFamily = "Arial";
+            int fontSize = 12;
+            if (parrafoProyectos.getRuns().size() > 0) {
+                fontFamily = parrafoProyectos.getRuns().get(0).getFontFamily();
+                fontSize = parrafoProyectos.getRuns().get(0).getFontSize();
+            }
+            run.setFontFamily(fontFamily);
+            run.setFontSize(fontSize);
             for (ProyectoEstudiante proyecto : proyectos) {
-                parrafo = documento.insertNewParagraph(cursor);
-                parrafo.createRun().setText("Nombre del proyecto: " + proyecto.getNombreCompletoProyecto());
-                cursor = parrafo.getCTP().newCursor();
-
-                parrafo = documento.insertNewParagraph(cursor);
-                parrafo.createRun().setText("Grupo de Investigación: " + proyecto.getGrupoInvestigacion());
-                cursor = parrafo.getCTP().newCursor();
-
-                parrafo = documento.insertNewParagraph(cursor);
-                parrafo.createRun().setText("Fuente de Financiación: " + proyecto.getFuenteFinanciacion());
-                cursor = parrafo.getCTP().newCursor();
-
-                parrafo = documento.insertNewParagraph(cursor);
-                parrafo.createRun().setText("Código del Proyecto: " + proyecto.getCodigoProyecto());
-                cursor = parrafo.getCTP().newCursor();
-
-                parrafo = documento.insertNewParagraph(cursor);
-                parrafo.createRun().setText("Rol: " + proyecto.getRol());
-                cursor = parrafo.getCTP().newCursor();
-
-                parrafo = documento.insertNewParagraph(cursor);
-                parrafo.createRun().setText("Fecha inicio " + Util.obtenerFechaLargaFormateada(proyecto.getFechaInicio()));
-                cursor = parrafo.getCTP().newCursor();
-
-                parrafo = documento.insertNewParagraph(cursor);
-                parrafo.createRun().setText("Fecha finalización: " + Util.obtenerFechaLargaFormateada(proyecto.getFechaFinalizacion()));
-                cursor = parrafo.getCTP().newCursor();
-
-                parrafo = documento.insertNewParagraph(cursor);
-                parrafo.createRun().setText("Dedicación al proyecto: " + proyecto.getHorasSemana() + " horas semanales");
-                cursor = parrafo.getCTP().newCursor();
-
-                parrafo = documento.insertNewParagraph(cursor);
-                parrafo.createRun().setText("");
-                cursor = parrafo.getCTP().newCursor();
-
-                parrafo = documento.insertNewParagraph(cursor);
-                parrafo.createRun().setText("");
-                cursor = parrafo.getCTP().newCursor();
+                run.setText("Nombre del proyecto: " + proyecto.getNombreCompletoProyecto());
+                run.addCarriageReturn();
+                run.setText("Grupo de Investigación: " + proyecto.getGrupoInvestigacion());
+                run.addCarriageReturn();
+                run.setText("Fuente de Financiación: " + proyecto.getFuenteFinanciacion());
+                run.addCarriageReturn();
+                run.setText("Código del Proyecto: " + proyecto.getCodigoProyecto());
+                run.addCarriageReturn();
+                run.setText("Rol: " + proyecto.getRol());
+                run.addCarriageReturn();
+                run.setText("Fecha inicio " + Util.obtenerFechaLargaFormateada(proyecto.getFechaInicio()));
+                run.addCarriageReturn();
+                run.setText("Fecha finalización: " + Util.obtenerFechaLargaFormateada(proyecto.getFechaFinalizacion()));
+                run.addCarriageReturn();
+                run.setText("Dedicación al proyecto: " + proyecto.getHorasSemana() + " horas semanales");
+                run.addCarriageReturn();
+                run.addCarriageReturn();
             }
             reemplazarTexto(documento, "FECHA_EXPEDICION", Util.obtenerFechaLargaFormateada(new Date()));
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
@@ -247,7 +312,74 @@ public class ReporteController {
 
             response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
             response.setContentLength(baos.toByteArray().length);
-            response.setHeader("Content-Disposition", "attachment; filename=certificado");
+            response.setHeader("Content-Disposition", "attachment; filename=Certificado.docx");
+            FileCopyUtils.copy(baos.toByteArray(), response.getOutputStream());
+        } catch (Exception ex) {
+            logger.error(ex);
+        }
+    }
+
+    @RequestMapping(value = "/generarCertificadoPersonalExterno/{tipoDocumento}/{numeroDocumento}", method = RequestMethod.GET)
+    public void generarCertificadoPersonalExterno(@PathVariable("tipoDocumento") int tipoDocumento, @PathVariable("numeroDocumento") long numeroDocumento, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            String nombrePersonalExterno = "";
+            PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion(), numeroDocumento);
+            if (personalExterno != null) {
+                nombrePersonalExterno = personalExterno.getNombres() + " " + personalExterno.getApellidos();
+            } else {
+                throw new IllegalArgumentException("El personal externo no existe");
+            }
+
+            String filePath = request.getSession().getServletContext().getRealPath("/WEB-INF/plantillas/constancia_participacion_estudiante_personal_externo.docx");
+            XWPFDocument documento = new XWPFDocument(new FileInputStream(filePath));
+
+            reemplazarTexto(documento, "NOMBRE_PARTICIPANTE", nombrePersonalExterno);
+            if (tipoDocumento == TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion()) {
+                reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
+            } else if (tipoDocumento == TipoIdentificacionEnum.PASAPORTE.getIdTipoIdentificacion()) {
+                reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.PASAPORTE.getNombre());
+            } else if (tipoDocumento == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
+                reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
+            }            
+            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroDocumento));
+            List<ProyectoPersonalExterno> proyectos = servicioReporte.obtenerProyectosCertificadoPersonalExterno(personalExterno.getIdPersonalExterno());
+            XWPFParagraph parrafoProyectos = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
+            reemplazarTexto(documento, "PROYECTOS_PARTICIPANTE", "");
+            XWPFRun run = parrafoProyectos.createRun();
+            String fontFamily = "Arial";
+            int fontSize = 12;
+            if (parrafoProyectos.getRuns().size() > 0) {
+                fontFamily = parrafoProyectos.getRuns().get(0).getFontFamily();
+                fontSize = parrafoProyectos.getRuns().get(0).getFontSize();
+            }
+            run.setFontFamily(fontFamily);
+            run.setFontSize(fontSize);
+            for (ProyectoPersonalExterno proyecto : proyectos) {
+                run.setText("Nombre del proyecto: " + proyecto.getNombreCompletoProyecto());
+                run.addCarriageReturn();
+                run.setText("Grupo de Investigación: " + proyecto.getGrupoInvestigacion());
+                run.addCarriageReturn();
+                run.setText("Fuente de Financiación: " + proyecto.getFuenteFinanciacion());
+                run.addCarriageReturn();
+                run.setText("Código del Proyecto: " + proyecto.getCodigoProyecto());
+                run.addCarriageReturn();
+                run.setText("Rol: " + proyecto.getRol());
+                run.addCarriageReturn();
+                run.setText("Fecha inicio " + Util.obtenerFechaLargaFormateada(proyecto.getFechaInicio()));
+                run.addCarriageReturn();
+                run.setText("Fecha finalización: " + Util.obtenerFechaLargaFormateada(proyecto.getFechaFinalizacion()));
+                run.addCarriageReturn();
+                run.setText("Dedicación al proyecto: " + proyecto.getHorasSemana() + " horas semanales");
+                run.addCarriageReturn();
+                run.addCarriageReturn();
+            }
+            reemplazarTexto(documento, "FECHA_EXPEDICION", Util.obtenerFechaLargaFormateada(new Date()));
+            ByteArrayOutputStream baos = new ByteArrayOutputStream();
+            documento.write(baos);
+
+            response.setContentType("application/vnd.openxmlformats-officedocument.wordprocessingml.document");
+            response.setContentLength(baos.toByteArray().length);
+            response.setHeader("Content-Disposition", "attachment; filename=Certificado.docx");
             FileCopyUtils.copy(baos.toByteArray(), response.getOutputStream());
         } catch (Exception ex) {
             logger.error(ex);
@@ -268,8 +400,8 @@ public class ReporteController {
             }
         }
     }
-    
-        private static XWPFParagraph obtenerParrafo(XWPFDocument documento, String textoEncontrar) {
+
+    private static XWPFParagraph obtenerParrafo(XWPFDocument documento, String textoEncontrar) {
         for (XWPFParagraph parrafo : documento.getParagraphs()) {
             List<XWPFRun> runs = parrafo.getRuns();
             if (runs != null) {
