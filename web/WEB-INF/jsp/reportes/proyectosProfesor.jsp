@@ -15,9 +15,9 @@
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="tab1success">
                     <form:form method="POST" action="${pageContext.request.contextPath}/reportes/proyectosProfesor" modelAttribute="busquedaProyectos">
-                        <table class='table' style='font-size:12px;'> 
-                            <tr  class='text-success'>
-                                <td align="center"><b>Cédula docente</b></td>
+                         <table class="tablaForm"> 
+                             <tr>
+                                <td align="center">Cédula docente</td>
                                 <td>
                                     <form:input path="cedulaProfesor" class="form-control" maxlength="20" data-validation="required" data-validation-error-msg="Debe ingresar la cédula del docente"/>
                                 </td>
