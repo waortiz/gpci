@@ -8,7 +8,6 @@ package co.edu.fnsp.gpci.controladores;
 import co.edu.fnsp.gpci.entidades.Estudiante;
 import co.edu.fnsp.gpci.entidades.PersonalExterno;
 import co.edu.fnsp.gpci.entidades.Profesor;
-import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
 import co.edu.fnsp.gpci.entidades.ProyectoPersonalExterno;
 import co.edu.fnsp.gpci.entidades.ProyectoProfesor;
@@ -17,6 +16,7 @@ import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.SeguimientoProyectoProfesor;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacionEnum;
 import co.edu.fnsp.gpci.entidades.TipoPersona;
@@ -26,12 +26,32 @@ import co.edu.fnsp.gpci.servicios.IServicioProyecto;
 import co.edu.fnsp.gpci.servicios.IServicioReporte;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.JasperRunManager;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.HtmlExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporter;
+import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
+import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
+import net.sf.jasperreports.engine.util.JRLoader;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
+import net.sf.jasperreports.export.SimpleHtmlReportConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -188,11 +208,11 @@ public class ReporteController {
         return "reportes/certificados";
     }
 
-    @RequestMapping(value = "/generarCertificadoProfesor/{tipoDocumento}/{numeroDocumento}", method = RequestMethod.GET)
-    public void generarCertificadoProfesor(@PathVariable("tipoDocumento") int tipoDocumento, @PathVariable("numeroDocumento") long numeroDocumento, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/generarCertificadoProfesor/{tipoIdentificacion}/{numeroIdentificacion}", method = RequestMethod.GET)
+    public void generarCertificadoProfesor(@PathVariable("tipoIdentificacion") int tipoIdentificacion, @PathVariable("numeroIdentificacion") long numeroIdentificacion, HttpServletRequest request, HttpServletResponse response) {
         try {
             String nombreProfesor = "";
-            Profesor profesor = servicioProyecto.obtenerProfesor(tipoDocumento, numeroDocumento);
+            Profesor profesor = servicioProyecto.obtenerProfesor(tipoIdentificacion, numeroIdentificacion);
             if (profesor != null) {
                 nombreProfesor = profesor.getNombres() + " " + profesor.getApellidos();
             } else {
@@ -203,14 +223,14 @@ public class ReporteController {
             XWPFDocument documento = new XWPFDocument(new FileInputStream(filePath));
 
             reemplazarTexto(documento, "NOMBRE_PARTICIPANTE", nombreProfesor);
-            if (tipoDocumento == TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion()) {
+            if (tipoIdentificacion == TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
-            } else if (tipoDocumento == TipoIdentificacionEnum.PASAPORTE.getIdTipoIdentificacion()) {
+            } else if (tipoIdentificacion == TipoIdentificacionEnum.PASAPORTE.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.PASAPORTE.getNombre());
-            } else if (tipoDocumento == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
+            } else if (tipoIdentificacion == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
             }
-            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroDocumento));
+            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroIdentificacion));
             List<ProyectoProfesor> proyectos = servicioReporte.obtenerProyectosCertificadoProfesor(profesor.getIdProfesor());
             XWPFParagraph parrafoProyectos = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
             reemplazarTexto(documento, "PROYECTOS_PARTICIPANTE", "");
@@ -253,11 +273,11 @@ public class ReporteController {
         }
     }
 
-    @RequestMapping(value = "/generarCertificadoEstudiante/{tipoDocumento}/{numeroDocumento}", method = RequestMethod.GET)
-    public void generarCertificadoEstudiante(@PathVariable("tipoDocumento") int tipoDocumento, @PathVariable("numeroDocumento") long numeroDocumento, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/generarCertificadoEstudiante/{tipoIdentificacion}/{numeroIdentificacion}", method = RequestMethod.GET)
+    public void generarCertificadoEstudiante(@PathVariable("tipoIdentificacion") int tipoIdentificacion, @PathVariable("numeroIdentificacion") long numeroIdentificacion, HttpServletRequest request, HttpServletResponse response) {
         try {
             String nombreEstudiante = "";
-            Estudiante estudiante = servicioProyecto.obtenerEstudiante(tipoDocumento, numeroDocumento);
+            Estudiante estudiante = servicioProyecto.obtenerEstudiante(tipoIdentificacion, numeroIdentificacion);
             if (estudiante != null) {
                 nombreEstudiante = estudiante.getNombres() + " " + estudiante.getApellidos();
             } else {
@@ -267,14 +287,14 @@ public class ReporteController {
             String filePath = request.getSession().getServletContext().getRealPath("/WEB-INF/plantillas/constancia_participacion_estudiante_personal_externo.docx");
             XWPFDocument documento = new XWPFDocument(new FileInputStream(filePath));
             reemplazarTexto(documento, "NOMBRE_PARTICIPANTE", nombreEstudiante);
-            if (tipoDocumento == TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion()) {
+            if (tipoIdentificacion == TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
-            } else if (tipoDocumento == TipoIdentificacionEnum.PASAPORTE.getIdTipoIdentificacion()) {
+            } else if (tipoIdentificacion == TipoIdentificacionEnum.PASAPORTE.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.PASAPORTE.getNombre());
-            } else if (tipoDocumento == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
+            } else if (tipoIdentificacion == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
-            }            
-            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroDocumento));
+            }
+            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroIdentificacion));
             List<ProyectoEstudiante> proyectos = servicioReporte.obtenerProyectosCertificadoEstudiante(estudiante.getIdEstudiante());
             XWPFParagraph parrafoProyectos = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
             reemplazarTexto(documento, "PROYECTOS_PARTICIPANTE", "");
@@ -319,11 +339,11 @@ public class ReporteController {
         }
     }
 
-    @RequestMapping(value = "/generarCertificadoPersonalExterno/{tipoDocumento}/{numeroDocumento}", method = RequestMethod.GET)
-    public void generarCertificadoPersonalExterno(@PathVariable("tipoDocumento") int tipoDocumento, @PathVariable("numeroDocumento") long numeroDocumento, HttpServletRequest request, HttpServletResponse response) {
+    @RequestMapping(value = "/generarCertificadoPersonalExterno/{tipoIdentificacion}/{numeroIdentificacion}", method = RequestMethod.GET)
+    public void generarCertificadoPersonalExterno(@PathVariable("tipoIdentificacion") int tipoIdentificacion, @PathVariable("numeroIdentificacion") long numeroIdentificacion, HttpServletRequest request, HttpServletResponse response) {
         try {
             String nombrePersonalExterno = "";
-            PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion(), numeroDocumento);
+            PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion(), numeroIdentificacion);
             if (personalExterno != null) {
                 nombrePersonalExterno = personalExterno.getNombres() + " " + personalExterno.getApellidos();
             } else {
@@ -334,14 +354,14 @@ public class ReporteController {
             XWPFDocument documento = new XWPFDocument(new FileInputStream(filePath));
 
             reemplazarTexto(documento, "NOMBRE_PARTICIPANTE", nombrePersonalExterno);
-            if (tipoDocumento == TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion()) {
+            if (tipoIdentificacion == TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
-            } else if (tipoDocumento == TipoIdentificacionEnum.PASAPORTE.getIdTipoIdentificacion()) {
+            } else if (tipoIdentificacion == TipoIdentificacionEnum.PASAPORTE.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.PASAPORTE.getNombre());
-            } else if (tipoDocumento == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
+            } else if (tipoIdentificacion == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
-            }            
-            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroDocumento));
+            }
+            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroIdentificacion));
             List<ProyectoPersonalExterno> proyectos = servicioReporte.obtenerProyectosCertificadoPersonalExterno(personalExterno.getIdPersonalExterno());
             XWPFParagraph parrafoProyectos = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
             reemplazarTexto(documento, "PROYECTOS_PARTICIPANTE", "");
@@ -386,6 +406,60 @@ public class ReporteController {
         }
     }
 
+        /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/seguimientoProyectosProfesor", method = RequestMethod.GET)
+    public String mostrarSeguimientoProyectosProfesor(Model model) {
+
+        return "reportes/seguimientoProyectosProfesor";
+    }
+    
+    @RequestMapping(value = "/generarInformeSeguimientoProyectosProfesorHTML/{idProfesor}", method = RequestMethod.GET)
+    public void generarInformeSeguimientoProyectosProfesorHTML(@PathVariable("idProfesor") long idProfesor, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            JasperReport jasperReport = obtenerReporteCompilado("seguimientoProyectosProfesor", request);
+            List<SeguimientoProyectoProfesor> proyectos = servicioReporte.obtenerSeguimientoProyectosProfesor(idProfesor);
+            HashMap<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("SUBREPORT_DIR", request.getSession().getServletContext().getRealPath("/WEB-INF/reportes"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JRBeanCollectionDataSource(proyectos));
+            generarReporteHtml(jasperPrint, response);
+        } catch (Exception ex) {
+            logger.error(ex);
+        }
+    }
+
+    @RequestMapping(value = "/generarInformeSeguimientoProyectosProfesorPDF/{idProfesor}", method = RequestMethod.GET)
+    public void generarInformeSeguimientoProyectosProfesorPDF(@PathVariable("idProfesor") long idProfesor, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            JasperReport jasperReport = obtenerReporteCompilado("seguimientoProyectosProfesor", request);
+            List<SeguimientoProyectoProfesor> proyectos = servicioReporte.obtenerSeguimientoProyectosProfesor(idProfesor);
+            HashMap<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("SUBREPORT_DIR", request.getSession().getServletContext().getRealPath("/WEB-INF/reportes"));
+            byte[] bytes = JasperRunManager.runReportToPdf(jasperReport, parametros, new JRBeanCollectionDataSource(proyectos));
+            generarReportePDF(response, bytes);
+        } catch (Exception ex) {
+            logger.error(ex);
+        }
+    }
+
+    @RequestMapping(value = "/generarInformeSeguimientoProyectosProfesorExcel/{idProfesor}", method = RequestMethod.GET)
+    public void generarInformeSeguimientoProyectosProfesorExcel(@PathVariable("idProfesor") long idProfesor, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            JasperReport jasperReport = obtenerReporteCompilado("seguimientoProyectosProfesor", request);
+            List<SeguimientoProyectoProfesor> proyectos = servicioReporte.obtenerSeguimientoProyectosProfesor(idProfesor);
+            HashMap<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("SUBREPORT_DIR", request.getSession().getServletContext().getRealPath("/WEB-INF/reportes"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JRBeanCollectionDataSource(proyectos));
+            generarReporteExcel(jasperPrint, response);
+        } catch (Exception ex) {
+            logger.error(ex);
+        }
+    }
+
+    
     private static void reemplazarTexto(XWPFDocument documento, String textoEncontrar, String textoReemplazar) {
         for (XWPFParagraph parrafo : documento.getParagraphs()) {
             List<XWPFRun> runs = parrafo.getRuns();
@@ -415,6 +489,59 @@ public class ReporteController {
         }
 
         return null;
+    }
+
+    private JasperReport obtenerReporteCompilado(String fileName, HttpServletRequest request) throws JRException {
+        File reportFile = new File(request.getSession().getServletContext().getRealPath("/WEB-INF/reportes/" + fileName + ".jasper"));
+        if (!reportFile.exists()) {
+            JasperCompileManager.compileReportToFile(request.getSession().getServletContext().getRealPath("/WEB-INF/reportes/" + fileName + ".jrxml"), request.getSession().getServletContext().getRealPath("/WEB-INF/reportes/" + fileName + ".jasper"));
+        }
+        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(reportFile.getPath());
+
+        return jasperReport;
+    }
+
+    private void generarReporteHtml(JasperPrint jasperPrint, HttpServletResponse response) throws IOException, JRException {
+        HtmlExporter exporter = new HtmlExporter();
+        List<JasperPrint> jasperPrintList = new ArrayList<>();
+        jasperPrintList.add(jasperPrint);
+        exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList));
+        exporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
+        SimpleHtmlReportConfiguration configuration = new SimpleHtmlReportConfiguration();
+        exporter.setConfiguration(configuration);
+        exporter.exportReport();
+    }
+
+    private void generarReporteExcel(JasperPrint jasperPrint, HttpServletResponse response) throws IOException, JRException {
+        ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+        JRXlsExporter exporterXLS = new JRXlsExporter();
+
+        exporterXLS.setParameter(JRXlsExporterParameter.JASPER_PRINT, jasperPrint);
+        exporterXLS.setParameter(JRXlsExporterParameter.OUTPUT_STREAM, arrayOutputStream);
+        exporterXLS.setParameter(JRXlsExporterParameter.IS_ONE_PAGE_PER_SHEET, Boolean.FALSE);
+        exporterXLS.setParameter(JRXlsExporterParameter.IS_DETECT_CELL_TYPE, Boolean.TRUE);
+        exporterXLS.setParameter(JRXlsExporterParameter.IS_WHITE_PAGE_BACKGROUND, Boolean.FALSE);
+        exporterXLS.setParameter(JRXlsExporterParameter.IS_REMOVE_EMPTY_SPACE_BETWEEN_ROWS, Boolean.TRUE);
+        exporterXLS.exportReport();
+
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
+        response.setContentType("application/vnd.ms-excel");
+        response.setHeader("Content-disposition", "attachment; filename=InformeSeguimiento.xls");
+        response.setContentLength(arrayOutputStream.toByteArray().length);
+        FileCopyUtils.copy(arrayOutputStream.toByteArray(), response.getOutputStream());
+    }
+
+    private void generarReportePDF(HttpServletResponse response, byte[] bytes) throws JRException, IOException {
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
+        response.setContentType("application/pdf");
+        response.setContentLength(bytes.length);
+        FileCopyUtils.copy(bytes, response.getOutputStream());
     }
 
 }

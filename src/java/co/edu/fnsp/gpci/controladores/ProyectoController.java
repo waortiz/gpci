@@ -88,20 +88,7 @@ public class ProyectoController {
         ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
         BusquedaProyectos busquedaProyectos = new BusquedaProyectos();
         try {
-            busquedaProyectos.establecerFechaInicioIncial();
-            busquedaProyectos.establecerFechaInicioFinal();
-            
-            Date fechaFinal = Util.obtenerFecha(busquedaProyectos.getFechaFinal());
-            Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicial());
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(fechaInicial);
-            calendar.add(Calendar.HOUR, 11);
-            calendar.add(Calendar.MINUTE, 59);
-            calendar.add(Calendar.SECOND, 59);
-            fechaInicial = calendar.getTime();
-
-            proyectos = servicioProyecto.obtenerProyectos(fechaInicial, fechaFinal, busquedaProyectos.getCodigo(), busquedaProyectos.getDocumentoInvestigadorPrincipal());
+            proyectos = servicioProyecto.obtenerProyectos(null, null, "", "");
         } catch (Exception ex) {
             logger.error(ex);
         }
@@ -196,7 +183,8 @@ public class ProyectoController {
      * @return
      */
     @RequestMapping(value = "/crear", method = RequestMethod.POST)
-    public @ResponseBody String crearProyecto(@ModelAttribute("proyecto") Proyecto proyecto, Model model) {
+    public @ResponseBody
+    String crearProyecto(@ModelAttribute("proyecto") Proyecto proyecto, Model model) {
 
         try {
             if (proyecto.getIdProyecto() == 0) {
@@ -214,7 +202,7 @@ public class ProyectoController {
             }
 
             return "";
-            
+
         } catch (Exception exc) {
             logger.error(exc);
             throw exc;

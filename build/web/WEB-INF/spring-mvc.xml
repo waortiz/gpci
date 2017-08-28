@@ -67,6 +67,9 @@
             <mvc:exclude-mapping path="/reportes/generarCertificadoProfesor/**" />
             <mvc:exclude-mapping path="/reportes/generarCertificadoEstudiante/**" />
             <mvc:exclude-mapping path="/reportes/generarCertificadoPersonalExterno/**" />
+            <mvc:exclude-mapping path="/reportes/generarInformeSeguimientoProyectosProfesorHTML/**" />
+            <mvc:exclude-mapping path="/reportes/generarInformeSeguimientoProyectosProfesorPDF/**" />
+            <mvc:exclude-mapping path="/reportes/generarInformeSeguimientoProyectosProfesorExcel/**" />
             <ref bean="gpciInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

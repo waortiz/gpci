@@ -83,24 +83,12 @@ public class NovedadProyectoController {
         BusquedaProyectos busquedaProyectos = new BusquedaProyectos();
         ArrayList<ReporteProyecto> proyectos = new ArrayList<>();
         try {
-            busquedaProyectos.establecerFechaInicioIncial();
-            busquedaProyectos.establecerFechaInicioFinal();
-            
-            Date fechaFinal = Util.obtenerFecha(busquedaProyectos.getFechaFinal());
-            Date fechaInicial = Util.obtenerFecha(busquedaProyectos.getFechaInicial());
-
-            Calendar calendar = Calendar.getInstance();
-            calendar.setTime(fechaInicial);
-            calendar.add(Calendar.HOUR, 11);
-            calendar.add(Calendar.MINUTE, 59);
-            calendar.add(Calendar.SECOND, 59);
-            fechaInicial = calendar.getTime();
-
-            proyectos = servicioProyecto.obtenerProyectos(fechaInicial, fechaFinal, busquedaProyectos.getCodigo(), busquedaProyectos.getDocumentoInvestigadorPrincipal());
+            proyectos = servicioProyecto.obtenerProyectos(null, null, "", "");
         } catch (Exception ex) {
             logger.error(ex);
         }
 
+        model.addAttribute("proyectos", proyectos);
         model.addAttribute("busquedaProyectos", busquedaProyectos);
 
         return "novedades/proyectos";
@@ -259,6 +247,10 @@ public class NovedadProyectoController {
     @RequestMapping(value = "/documentoActa/{idActa}", method = RequestMethod.GET)
     public void obtenerDocumentoActa(@PathVariable("idActa") long idActa, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoActaProyecto(idActa);
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
         response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
@@ -364,6 +356,10 @@ public class NovedadProyectoController {
     @RequestMapping(value = "/documentoAdendaCambio/{idAdenda}", method = RequestMethod.GET)
     public void obtenerDocumentoAdendaCambio(@PathVariable("idAdenda") long idAdenda, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoAdendaCambioProyecto(idAdenda);
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
         response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
@@ -449,6 +445,10 @@ public class NovedadProyectoController {
     @RequestMapping(value = "/documentoAdendaIngreso/{idAdenda}", method = RequestMethod.GET)
     public void obtenerDocumentoAdendaIngreso(@PathVariable("idAdenda") long idAdenda, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoAdendaIngresoProyecto(idAdenda);
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
         response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
@@ -535,6 +535,10 @@ public class NovedadProyectoController {
     @RequestMapping(value = "/documentoAdendaRetiro/{idAdenda}", method = RequestMethod.GET)
     public void obtenerDocumentoAdendaRetiro(@PathVariable("idAdenda") long idAdenda, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoAdendaRetiroProyecto(idAdenda);
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
         response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
@@ -594,6 +598,10 @@ public class NovedadProyectoController {
     @RequestMapping(value = "/documentoAdicion/{idAdicion}", method = RequestMethod.GET)
     public void obtenerDocumentoAdicion(@PathVariable("idAdicion") long idAdicion, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoAdicionProyecto(idAdicion);
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
         response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
@@ -654,6 +662,10 @@ public class NovedadProyectoController {
     @RequestMapping(value = "/documentoProrroga/{idProrroga}", method = RequestMethod.GET)
     public void obtenerDocumentoProrroga(@PathVariable("idProrroga") long idProrroga, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoProrrogaProyecto(idProrroga);
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
         response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
@@ -713,6 +725,10 @@ public class NovedadProyectoController {
     @RequestMapping(value = "/documentoPlazo/{idPlazo}", method = RequestMethod.GET)
     public void obtenerDocumentoPlazo(@PathVariable("idPlazo") long idPlazo, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoPlazoProyecto(idPlazo);
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
         response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
@@ -769,6 +785,10 @@ public class NovedadProyectoController {
     @RequestMapping(value = "/documentoCumplimientoCompromiso/{idCumplimientoCompromisoProyecto}", method = RequestMethod.GET)
     public void obtenerDocumentoCumplimientoCompromisoProyecto(@PathVariable("idCumplimientoCompromisoProyecto") long idCumplimientoCompromisoProyecto, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoCumplimientoCompromisoProyecto(idCumplimientoCompromisoProyecto);
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
         response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");
@@ -869,6 +889,10 @@ public class NovedadProyectoController {
     @RequestMapping(value = "/documentoCumplimientoAlertaAval/{idCumplimientoAlertaAvalProyecto}", method = RequestMethod.GET)
     public void obtenerDocumentoCumplimientoAlertaAvalProyecto(@PathVariable("idCumplimientoAlertaAvalProyecto") long idCumplimientoAlertaAvalProyecto, HttpServletResponse response) throws IOException {
         Documento documento = servicioNovedadProyecto.obtenerDocumentoCumplimientoAlertaAvalProyecto(idCumplimientoAlertaAvalProyecto);
+        response.reset();
+        response.resetBuffer();
+        response.setHeader("Pragma", "No-cache");
+        response.setDateHeader("Expires", 0);
         response.setContentType(documento.getTipoContenido());
         response.setContentLength(documento.getContenido().length);
         response.setHeader("Content-Disposition", "attachment; filename=\"" + documento.getNombre() + "\"");

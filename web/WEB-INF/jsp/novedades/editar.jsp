@@ -2453,9 +2453,9 @@
                         },                        
                         success: function(response){
                            if(response != "") {
-                             var estudiante = JSON.parse(response);
-                             $('#nombresPersonaAdendaIngreso').val(estudiante.nombres);
-                             $('#apellidosPersonaAdendaIngreso').val(estudiante.apellidos);
+                             var persona = JSON.parse(response);
+                             $('#nombresPersonaAdendaIngreso').val(persona.nombres);
+                             $('#apellidosPersonaAdendaIngreso').val(persona.apellidos);
                            } else {
                              $('#nombresPersonaAdendaIngreso').val("");
                              $('#apellidosPersonaAdendaIngreso').val("");

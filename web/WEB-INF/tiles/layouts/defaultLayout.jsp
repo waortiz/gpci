@@ -12,7 +12,6 @@
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/estilos.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-datepicker3.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/bootstrap-select.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/paging.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/menu.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/metisMenu.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/font-awesome.min.css" />'>
@@ -26,7 +25,6 @@
         <script src='<c:url value="/resources/js/bootstrap.js" />'></script>  
         <script src='<c:url value="/resources/js/bootstrap-datepicker.min.js" />'></script>  
         <script src='<c:url value="/resources/js/bootstrap-datepicker.es.min.js" />' charset="UTF-8"></script>
-        <script src='<c:url value="/resources/js/paging.js" />'></script> 
         <script src='<c:url value="/resources/js/bootstrap-select.js" />'></script>
         <script src='<c:url value="/resources/js/knockout-3.4.2.js" />'></script>
         <script src='<c:url value="/resources/js/menu.js" />'></script>

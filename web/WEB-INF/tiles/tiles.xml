@@ -118,4 +118,8 @@
        <put-attribute name="title" value="Certificados" />  
        <put-attribute name="body" value="/WEB-INF/jsp/reportes/certificados.jsp" />  
    </definition>  
+   <definition name="reportes/seguimientoProyectosProfesor" extends="base-definition">  
+       <put-attribute name="title" value="Informe Seguimiento Proyectos Profesor" />  
+       <put-attribute name="body" value="/WEB-INF/jsp/reportes/seguimientoProyectosProfesor.jsp" />  
+   </definition>  
 </tiles-definitions>

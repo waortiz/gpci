@@ -47,21 +47,23 @@
                                     <form:input path="documentoInvestigadorPrincipal" class="form-control" maxlength="20" />
                                 </td>
                             </tr>
-                        </table>
-                        <table class="table"> 
                             <tr>
-                                <td align="right" style="width: 95%">
-                                    <a href='${pageContext.request.contextPath}/proyectos/crear'  title='Registrar Proyecto' >
-                                        <input type='button' class='btn-sm btn-success' value='Registrar proyecto' />
-                                    </a> 
-                                </td>
-                               <td align="right" style="width: 5%">
+                               <td colspan="4" align="right" style="vertical-align: middle">
                                    <input type="submit" value="Buscar" class="btn-sm btn-success" />
                                </td>
                             </tr>
                         </table>
                         <table class='table table-hover' style='font-size:12px;' id="proyectos"> 
                             <thead>
+                                <tr>
+                                    <td align="center"><input type="text" placeholder="" data-index="0" size="30"></td>
+                                    <td align="center"><input type="text" placeholder="" data-index="1" size="10"></td> 
+                                    <td align="center"><input type="text" placeholder="" data-index="2" size="10"></td> 
+                                    <td align="center"><input type="text" placeholder="" data-index="3" size="10"></td> 
+                                    <td align="center"><input type="text" placeholder="" data-index="4" size="10"></td> 
+                                    <td align="center"><input type="text" placeholder="" data-index="5" size="10"></td> 
+                                    <td align="center">&nbsp;</td> 
+                                </tr>                                 
                                 <tr  class='text-success'>
                                     <td align="center" width='20%'><strong>Nombre corto</strong></td>
                                     <td align="center" width='15%'><strong>Fecha de creación</strong></td> 
@@ -72,42 +74,33 @@
                                     <td align="center" width='10%'><strong>Modificar</strong></td>                                     
                                 </tr> 
                             </thead>
-                            <c:if test = "${proyectos.size() > 0}">
-                                <tbody>
-                                    <c:forEach var="proyecto" items="${proyectos}">   
-                                        <tr>
-                                            <td>
-                                                ${proyecto.getNombreCortoProyecto()}
-                                            </td>
-                                            <td align="center">
-                                                ${proyecto.getFechaCreacionFormateada()}
-                                            </td>
-                                            <td align="center">
-                                                ${proyecto.getFechaInicioFormateada()}
-                                            </td>
-                                            <td align="center">
-                                                ${proyecto.getFechaFinalizacionFormateada()}
-                                            </td>
-                                            <td align="center">
-                                                ${proyecto.getTipoProyecto()}
-                                            </td>   
-                                            <td align="center">
-                                                ${proyecto.getEstadoProyecto()}
-                                            </td>  
-                                            <td align="center">
-                                                <a href="${pageContext.request.contextPath}/proyectos/editar/${proyecto.getIdProyecto()}" class="btn-sm btn-warning">Editar</a>
-                                            </td>  
-                                        </tr>
-                                    </c:forEach>  
-                                </tbody>
-                            </c:if>
-                            <c:if test = "${proyectos.size() == 0}">
-                                <tfoot> 
+                            <tbody>
+                                <c:forEach var="proyecto" items="${proyectos}">   
                                     <tr>
-                                        <td colspan="7">No se encontraron proyectos</td>
+                                        <td>
+                                            ${proyecto.getNombreCortoProyecto()}
+                                        </td>
+                                        <td align="center">
+                                            ${proyecto.getFechaCreacionFormateada()}
+                                        </td>
+                                        <td align="center">
+                                            ${proyecto.getFechaInicioFormateada()}
+                                        </td>
+                                        <td align="center">
+                                            ${proyecto.getFechaFinalizacionFormateada()}
+                                        </td>
+                                        <td align="center">
+                                            ${proyecto.getTipoProyecto()}
+                                        </td>   
+                                        <td align="center">
+                                            ${proyecto.getEstadoProyecto()}
+                                        </td>  
+                                        <td align="center">
+                                            <a href="${pageContext.request.contextPath}/proyectos/editar/${proyecto.getIdProyecto()}" class="btn-sm btn-warning">Editar</a>
+                                        </td>  
                                     </tr>
-                                </tfoot>
-                            </c:if>
+                                </c:forEach>  
+                            </tbody>
                         </table>
                     </form:form>
                 </div>
@@ -117,7 +110,32 @@
 </div>
 <script type="text/javascript">
     $(document).ready(function () {
-        $('#proyectos').paging({limit: 10});
+        var proyectos = $('#proyectos').DataTable({
+            "language": {
+                "decimal": ".",
+                "thousands": ",",
+                "processing": "<span><b>Buscando registros</b></span>",
+                "lengthMenu": "Mostrar _MENU_ registros por página",
+                "zeroRecords": "No se encontraron registros",
+                "info": "Mostrando página _PAGE_ de _PAGES_",
+                "infoEmpty": "No hay registros disponibles",
+                "infoFiltered": "(Filtrado de _MAX_ registros totales)",
+                "search": "Buscar:",
+                "paginate": {
+                    "first": "Primero",
+                    "last": "Último",
+                    "next": "Próximo",
+                    "previous": "Anterior"
+                }
+            }
+        });
+
+        $(proyectos.table().container()).on('keyup', 'thead input', function () {
+            proyectos
+                    .column($(this).data('index'))
+                    .search(this.value)
+                    .draw();
+        });
     });
 
     $.validate({

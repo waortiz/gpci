@@ -27,7 +27,7 @@
                                         </c:forEach>
                                     </select>    
                                 </td>
-                                <td>Tipo de documento</td>
+                                <td>Tipo de identificación</td>
                                 <td>
                                     <select name="tipoIdentificacion" id="tipoIdentificacion" class="form-control">
                                         <option value=""></option>
@@ -36,8 +36,9 @@
                                     </c:forEach>
                                     </select>    
                                 </td>                                
+                                <td>Número de identificación</td>                                
                                 <td>
-                                    <input id="numeroDocumento" name="numeroDocumento" class="form-control" maxlength="20"/>
+                                    <input id="numeroIdentificacion" name="numeroIdentificacion" class="form-control" maxlength="20"/>
                                 </td>
                                 <td align="right">
                                     <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -63,8 +64,8 @@
             bootstrap_alert.warning('Debe seleccionar el tipo de identificación');
             return false;
         }
-        if ($('#numeroDocumento').val() == "") {
-            bootstrap_alert.warning('Debe ingresar la cédula');
+        if ($('#numeroIdentificacion').val() == "") {
+            bootstrap_alert.warning('Debe ingresar el número de identificación');
             return false;
         }
 
@@ -82,7 +83,7 @@
 
     function generarCertificadoProfesor() {
         var tipoIdentificacion = $('#tipoIdentificacion').val();
-        var numeroIdentificacion = $('#numeroDocumento').val();
+        var numeroIdentificacion = $('#numeroIdentificacion').val();
 
         if (tipoIdentificacion != "" && numeroIdentificacion != "") {
             $.ajax({
@@ -108,7 +109,7 @@
 
     function generarCertificadoEstudiante() {
         var tipoIdentificacion = $('#tipoIdentificacion').val();
-        var numeroIdentificacion = $('#numeroDocumento').val();
+        var numeroIdentificacion = $('#numeroIdentificacion').val();
 
         if (tipoIdentificacion != "" && numeroIdentificacion != "") {
             $.ajax({
@@ -134,7 +135,7 @@
 
     function generarCertificadoPersonalExterno() {
         var tipoIdentificacion = $('#tipoIdentificacion').val();
-        var numeroIdentificacion = $('#numeroDocumento').val();
+        var numeroIdentificacion = $('#numeroIdentificacion').val();
 
         if (tipoIdentificacion != "" && numeroIdentificacion != "") {
             $.ajax({

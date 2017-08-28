@@ -7,6 +7,10 @@ package co.edu.fnsp.gpci.repositorios;
 
 import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
+import co.edu.fnsp.gpci.entidades.CompromisoSeguimientoProyectoProfesor;
+import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
+import co.edu.fnsp.gpci.entidades.PlazoSeguimientoProyectoProfesor;
+import co.edu.fnsp.gpci.entidades.ProrrogaSeguimientoProyectoProfesor;
 import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
 import co.edu.fnsp.gpci.entidades.ProyectoPersonalExterno;
 import co.edu.fnsp.gpci.entidades.ProyectoProfesor;
@@ -15,6 +19,7 @@ import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.SeguimientoProyectoProfesor;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
 import java.util.List;
@@ -39,13 +44,17 @@ public class RepositorioReporte implements IRepositorioReporte {
     private SimpleJdbcCall obtenerFuentesFinanciacionProyectos;
     private SimpleJdbcCall obtenerProyectosEjecucionAtrasadosProfesor;
     private SimpleJdbcCall obtenerProyectosProfesor;
+    private SimpleJdbcCall obtenerSeguimientoProyectosProfesor;
+    private SimpleJdbcCall obtenerProrrogasSeguimientoProyectoProfesor;
+    private SimpleJdbcCall obtenerPlazosSeguimientoProyectoProfesor;
+    private SimpleJdbcCall obtenerCompromisosSeguimientoProyectoProfesor;
     private SimpleJdbcCall obtenerProyectosInscritos;
     private SimpleJdbcCall obtenerCantidadProyectosPorEstado;
     private SimpleJdbcCall obtenerCantidadProyectosPorEstadoPorAnyo;
     private SimpleJdbcCall obtenerProyectosCertificadoProfesor;
     private SimpleJdbcCall obtenerProyectosCertificadoEstudiante;
     private SimpleJdbcCall obtenerProyectosCertificadoPersonalExterno;
-    
+
     @Autowired
     public void setDataSource(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -56,6 +65,10 @@ public class RepositorioReporte implements IRepositorioReporte {
         this.obtenerFuentesFinanciacionProyectos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerFuentesFinanciacionProyectos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteFuenteFinanciacionProyecto.class));
         this.obtenerProyectosEjecucionAtrasadosProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosEjecucionAtrasadosProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProfesorProyecto.class));
         this.obtenerProyectosProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProfesorProyecto.class));
+        this.obtenerSeguimientoProyectosProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerSeguimientoProyectosProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(SeguimientoProyectoProfesor.class));
+        this.obtenerPlazosSeguimientoProyectoProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerPlazosSeguimientoProyectoProfesor").returningResultSet("plazos", BeanPropertyRowMapper.newInstance(PlazoSeguimientoProyectoProfesor.class));
+        this.obtenerProrrogasSeguimientoProyectoProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProrrogasSeguimientoProyectoProfesor").returningResultSet("prorrogas", BeanPropertyRowMapper.newInstance(ProrrogaSeguimientoProyectoProfesor.class));
+        this.obtenerCompromisosSeguimientoProyectoProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCompromisosSeguimientoProyectoProfesor").returningResultSet("compromisos", BeanPropertyRowMapper.newInstance(CompromisoSeguimientoProyectoProfesor.class));
         this.obtenerProyectosInscritos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosInscritos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyectoInscrito.class));
         this.obtenerCantidadProyectosPorEstado = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstado");
         this.obtenerCantidadProyectosPorEstadoPorAnyo = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstadoPorAnyo").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoPorEstadoPorAnyo.class));
@@ -81,7 +94,7 @@ public class RepositorioReporte implements IRepositorioReporte {
         Map resultado = obtenerProyectosPorGrupoInvestigacion.execute(parametros);
         ArrayList<ReporteProyectoPorGrupoInvestigacion> proyectos = (ArrayList<ReporteProyectoPorGrupoInvestigacion>) resultado.get("proyectos");
 
-        return proyectos;    
+        return proyectos;
     }
 
     @Override
@@ -91,12 +104,12 @@ public class RepositorioReporte implements IRepositorioReporte {
         Map resultado = obtenerFuentesFinanciacionProyectos.execute(parametros);
         ArrayList<ReporteFuenteFinanciacionProyecto> proyectos = (ArrayList<ReporteFuenteFinanciacionProyecto>) resultado.get("proyectos");
 
-        for(ReporteFuenteFinanciacionProyecto proyecto : proyectos) {
+        for (ReporteFuenteFinanciacionProyecto proyecto : proyectos) {
             proyecto.setMontoFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMonto()));
             proyecto.setMontoTotalFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoTotal()));
         }
-        
-        return proyectos;    
+
+        return proyectos;
     }
 
     @Override
@@ -107,12 +120,12 @@ public class RepositorioReporte implements IRepositorioReporte {
         Map resultado = obtenerProyectosEjecucionAtrasadosProfesor.execute(parametros);
         ArrayList<ReporteProfesorProyecto> proyectos = (ArrayList<ReporteProfesorProyecto>) resultado.get("proyectos");
 
-        for(ReporteProfesorProyecto proyecto : proyectos) {
+        for (ReporteProfesorProyecto proyecto : proyectos) {
             proyecto.setFechaInicioFormateada(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
             proyecto.setFechaFinalizacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
         }
-        
-        return proyectos;    
+
+        return proyectos;
     }
 
     @Override
@@ -123,14 +136,14 @@ public class RepositorioReporte implements IRepositorioReporte {
         Map resultado = obtenerProyectosProfesor.execute(parametros);
         ArrayList<ReporteProfesorProyecto> proyectos = (ArrayList<ReporteProfesorProyecto>) resultado.get("proyectos");
 
-        for(ReporteProfesorProyecto proyecto : proyectos) {
+        for (ReporteProfesorProyecto proyecto : proyectos) {
             proyecto.setFechaInicioFormateada(Util.obtenerFechaFormateada(proyecto.getFechaInicio()));
             proyecto.setFechaFinalizacionFormateada(Util.obtenerFechaFormateada(proyecto.getFechaFinalizacion()));
         }
-        
-        return proyectos;    
+
+        return proyectos;
     }
-    
+
     @Override
     public List<ReporteProyectoInscrito> obtenerProyectosInscritos() {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
@@ -138,7 +151,7 @@ public class RepositorioReporte implements IRepositorioReporte {
         Map resultado = obtenerProyectosInscritos.execute(parametros);
         ArrayList<ReporteProyectoInscrito> proyectos = (ArrayList<ReporteProyectoInscrito>) resultado.get("proyectos");
 
-        return proyectos;    
+        return proyectos;
     }
 
     @Override
@@ -153,7 +166,7 @@ public class RepositorioReporte implements IRepositorioReporte {
         cantidadProyectosPorEstado.setCantidadProyectosCancelados((int) resultado.get("varCantidadProyectosCancelados"));
         cantidadProyectosPorEstado.setCantidadProyectosEjecucion((int) resultado.get("varCantidadProyectosEjecucion"));
         cantidadProyectosPorEstado.setCantidadProyectosTrasladados((int) resultado.get("varCantidadProyectosTrasladados"));
-        
+
         return cantidadProyectosPorEstado;
     }
 
@@ -174,11 +187,9 @@ public class RepositorioReporte implements IRepositorioReporte {
         Map resultado = obtenerProyectosCertificadoProfesor.execute(parametros);
         ArrayList<ProyectoProfesor> proyectos = (ArrayList<ProyectoProfesor>) resultado.get("proyectos");
 
-        
-        return proyectos;        
+        return proyectos;
     }
 
-    
     @Override
     public List<ProyectoEstudiante> obtenerProyectosCertificadoEstudiante(long idEstudiante) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();
@@ -187,8 +198,7 @@ public class RepositorioReporte implements IRepositorioReporte {
         Map resultado = obtenerProyectosCertificadoEstudiante.execute(parametros);
         ArrayList<ProyectoEstudiante> proyectos = (ArrayList<ProyectoEstudiante>) resultado.get("proyectos");
 
-        
-        return proyectos;        
+        return proyectos;
     }
 
     @Override
@@ -199,8 +209,38 @@ public class RepositorioReporte implements IRepositorioReporte {
         Map resultado = obtenerProyectosCertificadoPersonalExterno.execute(parametros);
         ArrayList<ProyectoPersonalExterno> proyectos = (ArrayList<ProyectoPersonalExterno>) resultado.get("proyectos");
 
-        
-        return proyectos;        
+        return proyectos;
     }
-    
- }
+
+    @Override
+    public List<SeguimientoProyectoProfesor> obtenerSeguimientoProyectosProfesor(long idProfesor) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdProfesor", idProfesor);
+
+        Map resultado = obtenerSeguimientoProyectosProfesor.execute(parametros);
+        ArrayList<SeguimientoProyectoProfesor> proyectos = (ArrayList<SeguimientoProyectoProfesor>) resultado.get("proyectos");
+
+        MapSqlParameterSource parametrosInformacionAdicional = new MapSqlParameterSource();
+        for (SeguimientoProyectoProfesor proyecto : proyectos) {
+            parametrosInformacionAdicional.addValue("varIdProyecto", proyecto.getIdProyecto());
+
+            resultado = obtenerProrrogasSeguimientoProyectoProfesor.execute(parametrosInformacionAdicional);
+            ArrayList<ProrrogaSeguimientoProyectoProfesor> prorrogas = (ArrayList<ProrrogaSeguimientoProyectoProfesor>) resultado.get("prorrogas");
+            proyecto.setProrrogas(prorrogas);
+            for(ProrrogaSeguimientoProyectoProfesor prorroga : prorrogas ) {
+                prorroga.setMontoFormateado(Util.obtenerNumeroFormatoMoneda(prorroga.getMonto()));
+            }
+
+            resultado = obtenerPlazosSeguimientoProyectoProfesor.execute(parametrosInformacionAdicional);
+            ArrayList<PlazoSeguimientoProyectoProfesor> plazos = (ArrayList<PlazoSeguimientoProyectoProfesor>) resultado.get("plazos");
+            proyecto.setPlazos(plazos);
+
+            resultado = obtenerCompromisosSeguimientoProyectoProfesor.execute(parametrosInformacionAdicional);
+            ArrayList<CompromisoSeguimientoProyectoProfesor> compromisos = (ArrayList<CompromisoSeguimientoProyectoProfesor>) resultado.get("compromisos");
+            proyecto.setCompromisos(compromisos);
+        }
+
+        return proyectos;
+    }
+
+}

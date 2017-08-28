@@ -15,6 +15,7 @@ import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.SeguimientoProyectoProfesor;
 import co.edu.fnsp.gpci.repositorios.IRepositorioReporte;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,5 +82,10 @@ public class ServicioReporte implements IServicioReporte {
     @Override
     public List<ProyectoProfesor> obtenerProyectosCertificadoProfesor(long idProfesor) {
          return repositorioReporte.obtenerProyectosCertificadoProfesor(idProfesor);
+    }
+
+    @Override
+    public List<SeguimientoProyectoProfesor> obtenerSeguimientoProyectosProfesor(long idProfesor) {
+        return repositorioReporte.obtenerSeguimientoProyectosProfesor(idProfesor);
     }
 }
