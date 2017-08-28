@@ -15,6 +15,7 @@ import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.SeguimientoProyecto;
 import co.edu.fnsp.gpci.entidades.SeguimientoProyectoProfesor;
 import java.util.List;
 
@@ -47,4 +48,6 @@ public interface IServicioReporte {
     List<ProyectoPersonalExterno> obtenerProyectosCertificadoPersonalExterno(long idPersonalExterno);
 
     List<SeguimientoProyectoProfesor> obtenerSeguimientoProyectosProfesor(long idProfesor);
+
+    List<SeguimientoProyecto> obtenerSeguimientoProyecto(String codigo);
 }

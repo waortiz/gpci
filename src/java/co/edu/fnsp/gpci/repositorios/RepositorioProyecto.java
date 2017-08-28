@@ -44,6 +44,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     private SimpleJdbcCall ingresarProyecto;
     private SimpleJdbcCall actualizarProyecto;
     private SimpleJdbcCall obtenerProyecto;
+    private SimpleJdbcCall validarExistenciaProyectoPorCodigo;
     private SimpleJdbcCall obtenerProyectos;
     private SimpleJdbcCall obtenerProyectosNotificar;
     private SimpleJdbcCall ingresarNotificacionVencimientoPlazo;
@@ -105,6 +106,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         this.ingresarProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("IngresarProyecto");
         this.actualizarProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ActualizarProyecto");
         this.obtenerProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyecto");
+        this.validarExistenciaProyectoPorCodigo = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ValidarExistenciaProyectoPorCodigo");
         this.obtenerProyectos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyecto.class));
         this.obtenerProyectosNotificar = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosNotificar").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoNotificacion.class));
         this.ingresarNotificacionVencimientoPlazo = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ingresarNotificacionVencimientoPlazo");
@@ -347,6 +349,15 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     }
 
     @Override
+    public String obtenerCodigoProyecto(long idProyecto) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varIdProyecto", idProyecto);
+
+        Map resultado = obtenerProyecto.execute(parametros);
+        return (String) resultado.get("varCodigo");
+    }
+    
+    @Override
     public Proyecto obtenerProyecto(long idProyecto) {
         Proyecto proyecto = new Proyecto();
         MapSqlParameterSource parametros = new MapSqlParameterSource();
@@ -432,6 +443,18 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         return proyecto;
     }
 
+    @Override
+    public boolean existeProyecto(String codigo) {
+        boolean existe;
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varCodigo", codigo);
+
+        Map resultado = validarExistenciaProyectoPorCodigo.execute(parametros);
+        existe = ((boolean) resultado.get("varExiste"));
+        
+        return existe;
+    }
+    
     @Override
     public ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal, String codigo, String documentoInvestigadorPrincipal) {
         MapSqlParameterSource parametros = new MapSqlParameterSource();

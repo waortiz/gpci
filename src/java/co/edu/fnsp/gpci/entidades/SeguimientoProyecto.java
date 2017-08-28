@@ -12,17 +12,14 @@ import java.util.List;
  *
  * @author William
  */
-public class SeguimientoProyectoProfesor {
+public class SeguimientoProyecto {
 
     private long idProyecto;
-    private String nombreProfesor;
-    private String numeroIdentificacion;
-    private int cantidadProrrogas;
-    private int cantidadPlazos;
-    private int compromisosPendientes;
-    private int compromisosEntregados;
     private String nombreCompletoProyecto;
     private String codigoProyecto;
+    private String estadoProyecto;
+    private String investigadorPrincipal;
+    private String numeroActaInicio;
     private Date fechaInicio;
     private Date fechaFinalizacion;
     private int horasPlanTrabajo;
@@ -43,90 +40,6 @@ public class SeguimientoProyectoProfesor {
      */
     public void setIdProyecto(long idProyecto) {
         this.idProyecto = idProyecto;
-    }
-
-    /**
-     * @return the nombreProfesor
-     */
-    public String getNombreProfesor() {
-        return nombreProfesor;
-    }
-
-    /**
-     * @param nombreProfesor the nombreProfesor to set
-     */
-    public void setNombreProfesor(String nombreProfesor) {
-        this.nombreProfesor = nombreProfesor;
-    }
-
-    /**
-     * @return the numeroIdentificacion
-     */
-    public String getNumeroIdentificacion() {
-        return numeroIdentificacion;
-    }
-
-    /**
-     * @param numeroIdentificacion the numeroIdentificacion to set
-     */
-    public void setNumeroIdentificacion(String numeroIdentificacion) {
-        this.numeroIdentificacion = numeroIdentificacion;
-    }
-
-    /**
-     * @return the cantidadProrrogas
-     */
-    public int getCantidadProrrogas() {
-        return cantidadProrrogas;
-    }
-
-    /**
-     * @param cantidadProrrogas the cantidadProrrogas to set
-     */
-    public void setCantidadProrrogas(int cantidadProrrogas) {
-        this.cantidadProrrogas = cantidadProrrogas;
-    }
-
-    /**
-     * @return the cantidadPlazos
-     */
-    public int getCantidadPlazos() {
-        return cantidadPlazos;
-    }
-
-    /**
-     * @param cantidadPlazos the cantidadPlazos to set
-     */
-    public void setCantidadPlazos(int cantidadPlazos) {
-        this.cantidadPlazos = cantidadPlazos;
-    }
-
-    /**
-     * @return the compromisosPendientes
-     */
-    public int getCompromisosPendientes() {
-        return compromisosPendientes;
-    }
-
-    /**
-     * @param compromisosPendientes the compromisosPendientes to set
-     */
-    public void setCompromisosPendientes(int compromisosPendientes) {
-        this.compromisosPendientes = compromisosPendientes;
-    }
-
-    /**
-     * @return the compromisosEntregados
-     */
-    public int getCompromisosEntregados() {
-        return compromisosEntregados;
-    }
-
-    /**
-     * @param compromisosEntregados the compromisosEntregados to set
-     */
-    public void setCompromisosEntregados(int compromisosEntregados) {
-        this.compromisosEntregados = compromisosEntregados;
     }
 
     /**
@@ -155,6 +68,48 @@ public class SeguimientoProyectoProfesor {
      */
     public void setCodigoProyecto(String codigoProyecto) {
         this.codigoProyecto = codigoProyecto;
+    }
+
+    /**
+     * @return the estadoProyecto
+     */
+    public String getEstadoProyecto() {
+        return estadoProyecto;
+    }
+
+    /**
+     * @param estadoProyecto the estadoProyecto to set
+     */
+    public void setEstadoProyecto(String estadoProyecto) {
+        this.estadoProyecto = estadoProyecto;
+    }
+
+    /**
+     * @return the investigadorPrincipal
+     */
+    public String getInvestigadorPrincipal() {
+        return investigadorPrincipal;
+    }
+
+    /**
+     * @param investigadorPrincipal the investigadorPrincipal to set
+     */
+    public void setInvestigadorPrincipal(String investigadorPrincipal) {
+        this.investigadorPrincipal = investigadorPrincipal;
+    }
+
+    /**
+     * @return the numeroActaInicio
+     */
+    public String getNumeroActaInicio() {
+        return numeroActaInicio;
+    }
+
+    /**
+     * @param numeroActaInicio the numeroActaInicio to set
+     */
+    public void setNumeroActaInicio(String numeroActaInicio) {
+        this.numeroActaInicio = numeroActaInicio;
     }
 
     /**

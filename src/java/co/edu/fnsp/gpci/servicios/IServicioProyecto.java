@@ -28,6 +28,10 @@ public interface IServicioProyecto {
     Proyecto obtenerProyecto(long idProyecto);
 
     ArrayList<ReporteProyecto> obtenerProyectos(Date fechaInicio, Date fechaFinal, String codigo, String documentoInvestigadorPrincipal);
+    
+    boolean existeProyecto(String codigo);
+    
+    String obtenerCodigoProyecto(long idProyecto);
 
     Profesor obtenerProfesor(int idTipoIdentificacion, long numeroIdentificacion);
 

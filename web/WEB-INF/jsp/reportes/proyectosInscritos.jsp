@@ -17,13 +17,13 @@
                     <table id="proyectos" class="display table-report" cellspacing="0" width="100%">
                         <thead>
                             <tr>
-                                <td align="center"><input type="text" placeholder="" data-index="0" size="3"></td>
-                                <td align="center"><input type="text" placeholder="" data-index="1" size="10"></td> 
-                                <td align="center"><input type="text" placeholder="" data-index="2" size="6"></td> 
+                                <td align="center"><input type="text" placeholder="" data-index="0" size="10"></td>
+                                <td align="center"><input type="text" placeholder="" data-index="1" size="20"></td> 
+                                <td align="center"><input type="text" placeholder="" data-index="2" size="20"></td> 
                                 <td align="center"><input type="text" placeholder="" data-index="3" size="10"></td> 
                                 <td align="center"><input type="text" placeholder="" data-index="4" size="10"></td> 
-                                <td align="center"><input type="text" placeholder="" data-index="5" size="15"></td> 
-                                <td align="center"><input type="text" placeholder="" data-index="6" size="15"></td> 
+                                <td align="center"><input type="text" placeholder="" data-index="5" size="10"></td> 
+                                <td align="center"><input type="text" placeholder="" data-index="6" size="10"></td> 
                             </tr> 
                             <tr>
                                 <td align="center" width='10%'><strong>Código</strong></td> 

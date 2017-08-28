@@ -9,7 +9,7 @@ package co.edu.fnsp.gpci.entidades;
  *
  * @author William
  */
-public class CompromisoSeguimientoProyectoProfesor {
+public class CompromisoSeguimientoProyecto {
 
     private String descripcion;
     private String estado;

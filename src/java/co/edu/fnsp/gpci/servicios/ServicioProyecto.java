@@ -95,4 +95,14 @@ public class ServicioProyecto implements IServicioProyecto {
     public ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto) {
         return repositorioProyecto.obtenerAlertasAvalProyecto(idProyecto);
     }
+
+    @Override
+    public boolean existeProyecto(String codigo) {
+        return repositorioProyecto.existeProyecto(codigo);
+    }
+
+    @Override
+    public String obtenerCodigoProyecto(long idProyecto) {
+        return repositorioProyecto.obtenerCodigoProyecto(idProyecto);
+    }
 }

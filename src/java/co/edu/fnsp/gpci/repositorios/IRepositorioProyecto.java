@@ -45,4 +45,8 @@ public interface IRepositorioProyecto {
     ArrayList<ProyectoNotificacion> obtenerProyectosNotificar(int diasPreviosNotificacion);
 
     void ingresarNotificacionVencimientoPlazo(long idProyecto, int idTipoPersona, long idPersona);
+
+    boolean existeProyecto(String codigo);
+    
+    String obtenerCodigoProyecto(long idProyecto);
 }

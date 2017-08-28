@@ -16,6 +16,7 @@ import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.SeguimientoProyecto;
 import co.edu.fnsp.gpci.entidades.SeguimientoProyectoProfesor;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacion;
 import co.edu.fnsp.gpci.entidades.TipoIdentificacionEnum;
@@ -33,8 +34,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import net.sf.jasperreports.engine.JRException;
@@ -45,13 +44,10 @@ import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.JasperRunManager;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.export.HtmlExporter;
+import net.sf.jasperreports.engine.export.JRHtmlExporterParameter;
 import net.sf.jasperreports.engine.export.JRXlsExporter;
 import net.sf.jasperreports.engine.export.JRXlsExporterParameter;
-import net.sf.jasperreports.engine.export.ooxml.JRXlsxExporter;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleHtmlExporterOutput;
-import net.sf.jasperreports.export.SimpleHtmlReportConfiguration;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
@@ -406,7 +402,7 @@ public class ReporteController {
         }
     }
 
-        /**
+     /**
      *
      * @param model
      * @return
@@ -418,17 +414,20 @@ public class ReporteController {
     }
     
     @RequestMapping(value = "/generarInformeSeguimientoProyectosProfesorHTML/{idProfesor}", method = RequestMethod.GET)
-    public void generarInformeSeguimientoProyectosProfesorHTML(@PathVariable("idProfesor") long idProfesor, HttpServletRequest request, HttpServletResponse response) {
+    public String generarInformeSeguimientoProyectosProfesorHTML(@PathVariable("idProfesor") long idProfesor, Model model, HttpServletRequest request, HttpServletResponse response) {
         try {
             JasperReport jasperReport = obtenerReporteCompilado("seguimientoProyectosProfesor", request);
             List<SeguimientoProyectoProfesor> proyectos = servicioReporte.obtenerSeguimientoProyectosProfesor(idProfesor);
             HashMap<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("SUBREPORT_DIR", request.getSession().getServletContext().getRealPath("/WEB-INF/reportes"));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JRBeanCollectionDataSource(proyectos));
-            generarReporteHtml(jasperPrint, response);
+            String html = generarReporteHtml(jasperPrint, response);
+            model.addAttribute("html", html);
         } catch (Exception ex) {
             logger.error(ex);
         }
+        
+        return "reportes/reporteHTML";
     }
 
     @RequestMapping(value = "/generarInformeSeguimientoProyectosProfesorPDF/{idProfesor}", method = RequestMethod.GET)
@@ -450,6 +449,62 @@ public class ReporteController {
         try {
             JasperReport jasperReport = obtenerReporteCompilado("seguimientoProyectosProfesor", request);
             List<SeguimientoProyectoProfesor> proyectos = servicioReporte.obtenerSeguimientoProyectosProfesor(idProfesor);
+            HashMap<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("SUBREPORT_DIR", request.getSession().getServletContext().getRealPath("/WEB-INF/reportes"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JRBeanCollectionDataSource(proyectos));
+            generarReporteExcel(jasperPrint, response);
+        } catch (Exception ex) {
+            logger.error(ex);
+        }
+    }
+
+         /**
+     *
+     * @param model
+     * @return
+     */
+    @RequestMapping(value = "/seguimientoProyecto", method = RequestMethod.GET)
+    public String mostrarSeguimientoProyecto(Model model) {
+
+        return "reportes/seguimientoProyecto";
+    }
+    
+    @RequestMapping(value = "/generarInformeSeguimientoProyectoHTML/{codigo}", method = RequestMethod.GET)
+    public String generarInformeSeguimientoProyectoHTML(@PathVariable("codigo") String codigo, Model model, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            JasperReport jasperReport = obtenerReporteCompilado("seguimientoProyecto", request);
+            List<SeguimientoProyecto> proyectos = servicioReporte.obtenerSeguimientoProyecto(codigo);
+            HashMap<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("SUBREPORT_DIR", request.getSession().getServletContext().getRealPath("/WEB-INF/reportes"));
+            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JRBeanCollectionDataSource(proyectos));
+            String html = generarReporteHtml(jasperPrint, response);
+            model.addAttribute("html", html);
+        } catch (Exception ex) {
+            logger.error(ex);
+        }
+        
+        return "reportes/reporteHTML";
+    }
+
+    @RequestMapping(value = "/generarInformeSeguimientoProyectoPDF/{codigo}", method = RequestMethod.GET)
+    public void generarInformeSeguimientoProyectoPDF(@PathVariable("codigo") String codigo, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            JasperReport jasperReport = obtenerReporteCompilado("seguimientoProyecto", request);
+            List<SeguimientoProyecto> proyectos = servicioReporte.obtenerSeguimientoProyecto(codigo);
+            HashMap<String, Object> parametros = new HashMap<String, Object>();
+            parametros.put("SUBREPORT_DIR", request.getSession().getServletContext().getRealPath("/WEB-INF/reportes"));
+            byte[] bytes = JasperRunManager.runReportToPdf(jasperReport, parametros, new JRBeanCollectionDataSource(proyectos));
+            generarReportePDF(response, bytes);
+        } catch (Exception ex) {
+            logger.error(ex);
+        }
+    }
+
+    @RequestMapping(value = "/generarInformeSeguimientoProyectoExcel/{codigo}", method = RequestMethod.GET)
+    public void generarInformeSeguimientoProyectoExcel(@PathVariable("codigo") String codigo, HttpServletRequest request, HttpServletResponse response) {
+        try {
+            JasperReport jasperReport = obtenerReporteCompilado("seguimientoProyecto", request);
+            List<SeguimientoProyecto> proyectos = servicioReporte.obtenerSeguimientoProyecto(codigo);
             HashMap<String, Object> parametros = new HashMap<String, Object>();
             parametros.put("SUBREPORT_DIR", request.getSession().getServletContext().getRealPath("/WEB-INF/reportes"));
             JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parametros, new JRBeanCollectionDataSource(proyectos));
@@ -501,15 +556,14 @@ public class ReporteController {
         return jasperReport;
     }
 
-    private void generarReporteHtml(JasperPrint jasperPrint, HttpServletResponse response) throws IOException, JRException {
+    private String generarReporteHtml(JasperPrint jasperPrint, HttpServletResponse response) throws IOException, JRException {
         HtmlExporter exporter = new HtmlExporter();
-        List<JasperPrint> jasperPrintList = new ArrayList<>();
-        jasperPrintList.add(jasperPrint);
-        exporter.setExporterInput(SimpleExporterInput.getInstance(jasperPrintList));
-        exporter.setExporterOutput(new SimpleHtmlExporterOutput(response.getWriter()));
-        SimpleHtmlReportConfiguration configuration = new SimpleHtmlReportConfiguration();
-        exporter.setConfiguration(configuration);
+        StringBuffer sbHTML = new StringBuffer();
+        exporter.setParameter(JRHtmlExporterParameter.JASPER_PRINT, jasperPrint);
+        exporter.setParameter(JRHtmlExporterParameter.OUTPUT_STRING_BUFFER, sbHTML);
         exporter.exportReport();
+        
+        return sbHTML.toString();
     }
 
     private void generarReporteExcel(JasperPrint jasperPrint, HttpServletResponse response) throws IOException, JRException {

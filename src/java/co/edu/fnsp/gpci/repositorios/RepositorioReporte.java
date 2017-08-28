@@ -7,10 +7,9 @@ package co.edu.fnsp.gpci.repositorios;
 
 import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
-import co.edu.fnsp.gpci.entidades.CompromisoSeguimientoProyectoProfesor;
-import co.edu.fnsp.gpci.entidades.ObjetivoEspecifico;
-import co.edu.fnsp.gpci.entidades.PlazoSeguimientoProyectoProfesor;
-import co.edu.fnsp.gpci.entidades.ProrrogaSeguimientoProyectoProfesor;
+import co.edu.fnsp.gpci.entidades.CompromisoSeguimientoProyecto;
+import co.edu.fnsp.gpci.entidades.PlazoSeguimientoProyecto;
+import co.edu.fnsp.gpci.entidades.ProrrogaSeguimientoProyecto;
 import co.edu.fnsp.gpci.entidades.ProyectoEstudiante;
 import co.edu.fnsp.gpci.entidades.ProyectoPersonalExterno;
 import co.edu.fnsp.gpci.entidades.ProyectoProfesor;
@@ -19,6 +18,7 @@ import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.SeguimientoProyecto;
 import co.edu.fnsp.gpci.entidades.SeguimientoProyectoProfesor;
 import co.edu.fnsp.gpci.utilidades.Util;
 import java.util.ArrayList;
@@ -45,9 +45,10 @@ public class RepositorioReporte implements IRepositorioReporte {
     private SimpleJdbcCall obtenerProyectosEjecucionAtrasadosProfesor;
     private SimpleJdbcCall obtenerProyectosProfesor;
     private SimpleJdbcCall obtenerSeguimientoProyectosProfesor;
-    private SimpleJdbcCall obtenerProrrogasSeguimientoProyectoProfesor;
-    private SimpleJdbcCall obtenerPlazosSeguimientoProyectoProfesor;
-    private SimpleJdbcCall obtenerCompromisosSeguimientoProyectoProfesor;
+    private SimpleJdbcCall obtenerSeguimientoProyecto;
+    private SimpleJdbcCall obtenerProrrogasSeguimientoProyecto;
+    private SimpleJdbcCall obtenerPlazosSeguimientoProyecto;
+    private SimpleJdbcCall obtenerCompromisosSeguimientoProyecto;
     private SimpleJdbcCall obtenerProyectosInscritos;
     private SimpleJdbcCall obtenerCantidadProyectosPorEstado;
     private SimpleJdbcCall obtenerCantidadProyectosPorEstadoPorAnyo;
@@ -66,9 +67,10 @@ public class RepositorioReporte implements IRepositorioReporte {
         this.obtenerProyectosEjecucionAtrasadosProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosEjecucionAtrasadosProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProfesorProyecto.class));
         this.obtenerProyectosProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProfesorProyecto.class));
         this.obtenerSeguimientoProyectosProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerSeguimientoProyectosProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(SeguimientoProyectoProfesor.class));
-        this.obtenerPlazosSeguimientoProyectoProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerPlazosSeguimientoProyectoProfesor").returningResultSet("plazos", BeanPropertyRowMapper.newInstance(PlazoSeguimientoProyectoProfesor.class));
-        this.obtenerProrrogasSeguimientoProyectoProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProrrogasSeguimientoProyectoProfesor").returningResultSet("prorrogas", BeanPropertyRowMapper.newInstance(ProrrogaSeguimientoProyectoProfesor.class));
-        this.obtenerCompromisosSeguimientoProyectoProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCompromisosSeguimientoProyectoProfesor").returningResultSet("compromisos", BeanPropertyRowMapper.newInstance(CompromisoSeguimientoProyectoProfesor.class));
+        this.obtenerSeguimientoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerSeguimientoProyecto").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(SeguimientoProyecto.class));
+        this.obtenerPlazosSeguimientoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerPlazosSeguimientoProyecto").returningResultSet("plazos", BeanPropertyRowMapper.newInstance(PlazoSeguimientoProyecto.class));
+        this.obtenerProrrogasSeguimientoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProrrogasSeguimientoProyecto").returningResultSet("prorrogas", BeanPropertyRowMapper.newInstance(ProrrogaSeguimientoProyecto.class));
+        this.obtenerCompromisosSeguimientoProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCompromisosSeguimientoProyecto").returningResultSet("compromisos", BeanPropertyRowMapper.newInstance(CompromisoSeguimientoProyecto.class));
         this.obtenerProyectosInscritos = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosInscritos").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ReporteProyectoInscrito.class));
         this.obtenerCantidadProyectosPorEstado = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstado");
         this.obtenerCantidadProyectosPorEstadoPorAnyo = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerCantidadProyectosPorEstadoPorAnyo").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoPorEstadoPorAnyo.class));
@@ -224,19 +226,50 @@ public class RepositorioReporte implements IRepositorioReporte {
         for (SeguimientoProyectoProfesor proyecto : proyectos) {
             parametrosInformacionAdicional.addValue("varIdProyecto", proyecto.getIdProyecto());
 
-            resultado = obtenerProrrogasSeguimientoProyectoProfesor.execute(parametrosInformacionAdicional);
-            ArrayList<ProrrogaSeguimientoProyectoProfesor> prorrogas = (ArrayList<ProrrogaSeguimientoProyectoProfesor>) resultado.get("prorrogas");
+            resultado = obtenerProrrogasSeguimientoProyecto.execute(parametrosInformacionAdicional);
+            ArrayList<ProrrogaSeguimientoProyecto> prorrogas = (ArrayList<ProrrogaSeguimientoProyecto>) resultado.get("prorrogas");
             proyecto.setProrrogas(prorrogas);
-            for(ProrrogaSeguimientoProyectoProfesor prorroga : prorrogas ) {
+            for(ProrrogaSeguimientoProyecto prorroga : prorrogas ) {
                 prorroga.setMontoFormateado(Util.obtenerNumeroFormatoMoneda(prorroga.getMonto()));
             }
 
-            resultado = obtenerPlazosSeguimientoProyectoProfesor.execute(parametrosInformacionAdicional);
-            ArrayList<PlazoSeguimientoProyectoProfesor> plazos = (ArrayList<PlazoSeguimientoProyectoProfesor>) resultado.get("plazos");
+            resultado = obtenerPlazosSeguimientoProyecto.execute(parametrosInformacionAdicional);
+            ArrayList<PlazoSeguimientoProyecto> plazos = (ArrayList<PlazoSeguimientoProyecto>) resultado.get("plazos");
             proyecto.setPlazos(plazos);
 
-            resultado = obtenerCompromisosSeguimientoProyectoProfesor.execute(parametrosInformacionAdicional);
-            ArrayList<CompromisoSeguimientoProyectoProfesor> compromisos = (ArrayList<CompromisoSeguimientoProyectoProfesor>) resultado.get("compromisos");
+            resultado = obtenerCompromisosSeguimientoProyecto.execute(parametrosInformacionAdicional);
+            ArrayList<CompromisoSeguimientoProyecto> compromisos = (ArrayList<CompromisoSeguimientoProyecto>) resultado.get("compromisos");
+            proyecto.setCompromisos(compromisos);
+        }
+
+        return proyectos;
+    }
+
+    @Override
+    public List<SeguimientoProyecto> obtenerSeguimientoProyecto(String codigo) {
+        MapSqlParameterSource parametros = new MapSqlParameterSource();
+        parametros.addValue("varCodigo", codigo);
+
+        Map resultado = obtenerSeguimientoProyecto.execute(parametros);
+        ArrayList<SeguimientoProyecto> proyectos = (ArrayList<SeguimientoProyecto>) resultado.get("proyectos");
+
+        MapSqlParameterSource parametrosInformacionAdicional = new MapSqlParameterSource();
+        for (SeguimientoProyecto proyecto : proyectos) {
+            parametrosInformacionAdicional.addValue("varIdProyecto", proyecto.getIdProyecto());
+
+            resultado = obtenerProrrogasSeguimientoProyecto.execute(parametrosInformacionAdicional);
+            ArrayList<ProrrogaSeguimientoProyecto> prorrogas = (ArrayList<ProrrogaSeguimientoProyecto>) resultado.get("prorrogas");
+            proyecto.setProrrogas(prorrogas);
+            for(ProrrogaSeguimientoProyecto prorroga : prorrogas ) {
+                prorroga.setMontoFormateado(Util.obtenerNumeroFormatoMoneda(prorroga.getMonto()));
+            }
+
+            resultado = obtenerPlazosSeguimientoProyecto.execute(parametrosInformacionAdicional);
+            ArrayList<PlazoSeguimientoProyecto> plazos = (ArrayList<PlazoSeguimientoProyecto>) resultado.get("plazos");
+            proyecto.setPlazos(plazos);
+
+            resultado = obtenerCompromisosSeguimientoProyecto.execute(parametrosInformacionAdicional);
+            ArrayList<CompromisoSeguimientoProyecto> compromisos = (ArrayList<CompromisoSeguimientoProyecto>) resultado.get("compromisos");
             proyecto.setCompromisos(compromisos);
         }
 

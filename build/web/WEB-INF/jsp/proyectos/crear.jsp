@@ -1718,7 +1718,11 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                       $('#confirmacionAlmacenamientoProyecto').modal('show');
+                       if(response == "") {
+                          $('#confirmacionAlmacenamientoProyecto').modal('show');
+                       } else {
+                          bootstrap_alert_proyecto.warning(response);
+                       }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
                         bootstrap_alert_proyecto.warning("Error al almacenar el proyecto.");

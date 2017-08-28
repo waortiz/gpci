@@ -10,7 +10,7 @@
 
 <div class="container">
     <div class = "panel panel-success">
-        <div class = "panel-heading ">SEGUIMIENTO DE PROYECTOS POR DOCENTE</div>   
+        <div class = "panel-heading ">SEGUIMIENTO DE PROYECTO</div>   
         <div class = "panel-body">
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="tab1success">
@@ -27,9 +27,9 @@
                                         <option value="3">Excel</option>
                                     </select>    
                                 </td>
-                                <td align="center">Número de identificación:</td>
+                                <td align="center">Código:</td>
                                 <td align="center">
-                                    <input id="numeroIdentificacion" name="numeroIdentificacion" class="form-control" maxlength="20"/>
+                                    <input id="codigo" name="codigo" class="form-control" maxlength="20"/>
                                 </td>
                                 <td align="right">
                                     <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
@@ -51,38 +51,32 @@
             bootstrap_alert.warning('Debe seleccionar el tipo de formato');
             return false;
         }
-        if ($('#numeroIdentificacion').val() == "") {
-            bootstrap_alert.warning('Debe ingresar el número de identificación');
+        if ($('#codigo').val() == "") {
+            bootstrap_alert.warning('Debe ingresar el número código del proyecto');
             return false;
         }
-
-        var tipoIdentificacion = 1;
-        var numeroIdentificacion = $('#numeroIdentificacion').val();
-        if (tipoIdentificacion != "" && numeroIdentificacion != "") {
-            $.ajax({
-                type: "POST",
-                url: "${pageContext.request.contextPath}/proyectos/profesores",
-                data: "idTipoIdentificacion=" + tipoIdentificacion + "&numeroIdentificacion=" + numeroIdentificacion,
-                beforeSend: function (xhr) {
-                    xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
-                },
-                success: function (response) {
-                    if (response != "") {
-                        var profesor = JSON.parse(response);
-                        if($('#tipoFormato').val() == 3) {
-                          window.location.href = "${pageContext.request.contextPath}/reportes/generarInformeSeguimientoProyectosProfesor" + $('#tipoFormato option:selected').text() + "/" + profesor.idProfesor;
-                        } else {
-                          window.open("${pageContext.request.contextPath}/reportes/generarInformeSeguimientoProyectosProfesor" + $('#tipoFormato option:selected').text() + "/" + profesor.idProfesor, "_blank", "location=no,height=600,width=900");
-                        }
+        $.ajax({
+            type: "GET",
+            url: "${pageContext.request.contextPath}/proyectos/proyectoPorCodigo/" + $('#codigo').val(),
+            beforeSend: function (xhr) {
+                xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
+            },
+            success: function (response) {
+                var respuesta = JSON.parse(response);
+                if (respuesta.existe) {
+                    if($('#tipoFormato').val() == 3) {
+                      window.location.href = "${pageContext.request.contextPath}/reportes/generarInformeSeguimientoProyecto" + $('#tipoFormato option:selected').text() + "/" + $('#codigo').val();
                     } else {
-                        bootstrap_alert.warning('El profesor no existe');
+                      window.open("${pageContext.request.contextPath}/reportes/generarInformeSeguimientoProyecto" + $('#tipoFormato option:selected').text() + "/" + $('#codigo').val(), "_blank", "location=no,height=600,width=900");
                     }
-                },
-                error: function (e) {
-                    bootstrap_alert.warning(e);
+                } else {
+                    bootstrap_alert.warning('El proyecto no existe');
                 }
-            });
-        }
+            },
+            error: function (e) {
+                bootstrap_alert.warning(e);
+            }
+        });
     }
 
     bootstrap_alert = function () { };

@@ -196,8 +196,18 @@ public class ProyectoController {
                 proyecto.setEntidadesInternacionalesProyecto(new ArrayList<>());
             }
             if (proyecto.getIdProyecto() == 0) {
-                servicioProyecto.ingresarProyecto(proyecto);
+                if (!servicioProyecto.existeProyecto(proyecto.getCodigo())) {
+                    servicioProyecto.ingresarProyecto(proyecto);
+                } else {
+                    return "El código ya ha sido asignado a otro proyecto";
+                }
             } else {
+                String codigo = servicioProyecto.obtenerCodigoProyecto(proyecto.getIdProyecto());
+                if (!codigo.equalsIgnoreCase(proyecto.getCodigo())) {
+                    if (servicioProyecto.existeProyecto(proyecto.getCodigo())) {
+                        return "El código ya ha sido asignado a otro proyecto";
+                    }
+                }
                 servicioProyecto.actualizarProyecto(proyecto);
             }
 
@@ -377,6 +387,18 @@ public class ProyectoController {
         }
 
         return json;
+    }
+
+    @RequestMapping(value = "/proyectoPorCodigo/{codigo}", method = RequestMethod.GET)
+    public @ResponseBody
+    String validarExistenciaProyecto(@ModelAttribute(value = "codigo") String codigo, Model model) {
+
+        boolean existe = servicioProyecto.existeProyecto(codigo);
+        if (existe) {
+            return "{\"existe\":true}";
+        } else {
+            return "{\"existe\":false}";
+        }
     }
 
     @InitBinder

@@ -17,7 +17,7 @@
                     <form:form method="POST" action="${pageContext.request.contextPath}/reportes/proyectosProfesor" modelAttribute="busquedaProyectos">
                          <table class="tablaForm"> 
                              <tr>
-                                <td align="center">Cédula docente</td>
+                                <td align="center">Cédula docente:</td>
                                 <td>
                                     <form:input path="cedulaProfesor" class="form-control" maxlength="20" data-validation="required" data-validation-error-msg="Debe ingresar la cédula del docente"/>
                                 </td>

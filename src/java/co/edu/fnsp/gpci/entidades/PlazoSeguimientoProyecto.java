@@ -11,12 +11,10 @@ import java.util.Date;
  *
  * @author William
  */
-public class ProrrogaSeguimientoProyectoProfesor {
+public class PlazoSeguimientoProyecto {
 
     private int mesesAprobados;
     private Date fechaFin;
-    private long monto;
-    private String montoFormateado;
 
     /**
      * @return the mesesAprobados
@@ -45,33 +43,5 @@ public class ProrrogaSeguimientoProyectoProfesor {
     public void setFechaFin(Date fechaFin) {
         this.fechaFin = fechaFin;
     }
-
-    /**
-     * @return the monto
-     */
-    public long getMonto() {
-        return monto;
-    }
-
-    /**
-     * @param monto the monto to set
-     */
-    public void setMonto(long monto) {
-        this.monto = monto;
-    }
-
-    /**
-     * @return the montoFormateado
-     */
-    public String getMontoFormateado() {
-        return montoFormateado;
-    }
-
-    /**
-     * @param montoFormateado the montoFormateado to set
-     */
-    public void setMontoFormateado(String montoFormateado) {
-        this.montoFormateado = montoFormateado;
-    }    
     
 }

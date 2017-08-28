@@ -33,6 +33,7 @@
             <mvc:exclude-mapping path="/proyectos/estudiantes" />
             <mvc:exclude-mapping path="/proyectos/profesores" />
             <mvc:exclude-mapping path="/proyectos/personalExterno" />
+            <mvc:exclude-mapping path="/proyectos/proyectoPorCodigo/**" />
             <mvc:exclude-mapping path="/novedades/acta" />
             <mvc:exclude-mapping path="/novedades/documentoActa/**" />
             <mvc:exclude-mapping path="/novedades/eliminarActa/**" />
@@ -70,6 +71,10 @@
             <mvc:exclude-mapping path="/reportes/generarInformeSeguimientoProyectosProfesorHTML/**" />
             <mvc:exclude-mapping path="/reportes/generarInformeSeguimientoProyectosProfesorPDF/**" />
             <mvc:exclude-mapping path="/reportes/generarInformeSeguimientoProyectosProfesorExcel/**" />
+            <mvc:exclude-mapping path="/reportes/generarInformeSeguimientoProyectoHTML/**" />
+            <mvc:exclude-mapping path="/reportes/generarInformeSeguimientoProyectoPDF/**" />
+            <mvc:exclude-mapping path="/reportes/generarInformeSeguimientoProyectoExcel/**" />
+            <mvc:exclude-mapping path="/reportes/reporteHTML" />
             <ref bean="gpciInterceptor" />
         </mvc:interceptor>
     </mvc:interceptors>

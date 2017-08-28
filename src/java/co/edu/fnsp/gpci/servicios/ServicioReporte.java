@@ -15,6 +15,7 @@ import co.edu.fnsp.gpci.entidades.ReporteIntegranteProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoInscrito;
 import co.edu.fnsp.gpci.entidades.ReporteProyectoPorGrupoInvestigacion;
+import co.edu.fnsp.gpci.entidades.SeguimientoProyecto;
 import co.edu.fnsp.gpci.entidades.SeguimientoProyectoProfesor;
 import co.edu.fnsp.gpci.repositorios.IRepositorioReporte;
 import java.util.List;
@@ -87,5 +88,10 @@ public class ServicioReporte implements IServicioReporte {
     @Override
     public List<SeguimientoProyectoProfesor> obtenerSeguimientoProyectosProfesor(long idProfesor) {
         return repositorioReporte.obtenerSeguimientoProyectosProfesor(idProfesor);
+    }
+
+    @Override
+    public List<SeguimientoProyecto> obtenerSeguimientoProyecto(String codigo) {
+        return repositorioReporte.obtenerSeguimientoProyecto(codigo);
     }
 }
