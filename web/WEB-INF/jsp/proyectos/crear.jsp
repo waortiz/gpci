@@ -547,10 +547,18 @@
                                                         <td><input type="checkbox" id="cartaCesionDerechosPatrimonioProfesor" name="cartaCesionDerechosPatrimonioProfesor" cssClass="form-control" /></td>
                                                     </tr>
                                                 </table>
-                                                <table class="tablaForm">
+                                                <br />
+                                                <table class="tablaForm table">
                                                     <tr>
-                                                        <td>Horas semana plan:</td>
-                                                        <td>Meses dedicados plan:</td>
+                                                        <td colspan="2" align="center">Plan de trabajo</td>
+                                                        <td colspan="2" align="center">Fuera plan</td>
+                                                        <td rowspan="2" align="center" style="vertical-align: middle">%PI</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td align="center">Horas</td>
+                                                        <td align="center">Meses</td>
+                                                        <td align="center">Horas</td>
+                                                        <td align="center">Meses</td>
                                                     </tr>
                                                     <tr>
                                                         <td>
@@ -559,24 +567,13 @@
                                                         <td>
                                                             <input type="text" id="mesesDedicadosProfesor" name="mesesDedicadosProfesor" class="form-control numbersOnly" maxlength="5" />
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Horas semana fuera del plan:</td>
-                                                        <td>Meses fuera plan:</td>
-                                                    </tr>
-                                                    <tr>
                                                         <td>
                                                             <input type="text" id="horasSemanaFueraPlanProfesor" name="horasSemanaFueraPlanProfesor" class="form-control numbersOnly" maxlength="3" />
                                                         </td>
                                                         <td>
                                                             <input type="text" id="mesesFueraPlanProfesor" name="mesesFueraPlanProfesor" class="form-control numbersOnly" maxlength="5" />
                                                         </td>
-                                                    </tr>
-                                                    <tr>
-                                                         <td colspan="2">Porcentaje de propiedad intelectual:</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
+                                                        <td>
                                                             <input type="text" id="porcentajePIProfesor" name="porcentajePIProfesor" class="form-control numbersOnly" maxlength="3" />
                                                         </td>
                                                     </tr>

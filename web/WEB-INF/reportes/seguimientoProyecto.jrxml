@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="seguimientoProyectosProfesor" pageWidth="612" pageHeight="792" columnWidth="572" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4142e2ab-ab20-43b9-8556-eb79d0249b13">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<subDataset name="prorrogasDataset" uuid="1c6c09ad-1264-4118-ae5d-c997a40c9717"/>
+	<subDataset name="plazosDataset" uuid="9eeec8da-ba08-4caf-9ada-a6bd735e1511"/>
+	<subDataset name="compromisosDataset" uuid="52740ddf-d15e-4d07-b5ed-1b381dc6b89d"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\Desarrollo\\Java\\gpci\\web\\WEB-INF\\reportes"]]></defaultValueExpression>
+	</parameter>
+	<field name="nombreCompletoProyecto" class="java.lang.String"/>
+	<field name="codigoProyecto" class="java.lang.String"/>
+	<field name="fechaInicio" class="java.util.Date"/>
+	<field name="fechaFinalizacion" class="java.util.Date"/>
+	<field name="horasPlanTrabajo" class="java.lang.Integer"/>
+	<field name="horasFueraPlanTrabajo" class="java.lang.Integer"/>
+	<field name="prorrogas" class="java.util.List"/>
+	<field name="plazos" class="java.util.List"/>
+	<field name="compromisos" class="java.util.List"/>
+	<field name="estadoProyecto" class="java.lang.String"/>
+	<field name="numeroActaInicio" class="java.lang.String"/>
+	<field name="investigadorPrincipal" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="44" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="125" y="11" width="311" height="20" forecolor="#000000" backcolor="#CCCCCC" uuid="c3d75602-c5a1-42d6-8a9c-8f4d066a6f29"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="SansSerif" size="14" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Seguimiento de Proyecto]]></text>
+			</staticText>
+		</band>
+	</title>
+	<detail>
+		<band height="136" splitType="Stretch">
+			<textField>
+				<reportElement x="239" y="37" width="72" height="20" uuid="264c2557-43a9-4d3c-a0e1-1e6c21bef746"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{fechaInicio})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="168" y="37" width="71" height="20" uuid="96c9dd48-1553-4b22-889d-72e0d58c0203"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha inicial:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="37" width="65" height="20" uuid="9a4a3ff6-b17f-4ea1-a335-07d56cc4cd3e"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new SimpleDateFormat("dd/MM/yyyy").format($F{fechaFinalizacion})]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="311" y="37" width="93" height="20" uuid="9277f7aa-9b8b-41ae-87b2-e83758c949e8"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Fecha finalización:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="239" y="81" width="72" height="20" uuid="f7b688ac-992b-4ad7-8dfe-3fe3404b6fa6"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horasPlanTrabajo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="169" y="81" width="70" height="20" uuid="3bdc48a7-e211-4c20-b19a-dd312df8d2e7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horas plan:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="413" y="81" width="59" height="20" uuid="f8d5d775-f23e-4116-9dc0-d9ed66fe3263"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{horasFueraPlanTrabajo}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="312" y="81" width="100" height="20" uuid="541a8fc1-b8cb-4253-be19-5b48df56fe64"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Horas fuera de plan:]]></text>
+			</staticText>
+			<subreport>
+				<reportElement x="86" y="110" width="400" height="20" isRemoveLineWhenBlank="true" uuid="c48d6d7e-75e8-4b73-90f0-7c4f5d98b9be"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{prorrogas})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\seguimientoProyectosProfesorProrrogas.jasper"]]></subreportExpression>
+			</subreport>
+			<line>
+				<reportElement x="-1" y="105" width="571" height="1" uuid="c5ca15f0-75ce-45f8-bea6-0c8affde9fae"/>
+			</line>
+			<textField>
+				<reportElement x="50" y="13" width="81" height="20" uuid="9026ab40-743e-4df6-b78e-f534f84399c3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{codigoProyecto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="6" y="13" width="40" height="20" uuid="0bdea032-484f-421b-a3cc-f5355df6d5d1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Código:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="222" y="13" width="348" height="20" uuid="87041c15-6f39-468f-9108-ac8ae0b42428"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreCompletoProyecto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="169" y="13" width="53" height="20" uuid="83af0312-cbf6-4dcf-8f3e-71b2e9a4456d"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="SansSerif" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nombre:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="0" y="5" width="570" height="1" uuid="09fdc9fb-992e-4033-913f-876b12fd0d87"/>
+			</line>
+			<staticText>
+				<reportElement x="5" y="37" width="41" height="20" uuid="6ef3cf95-b307-4b7e-8391-143f52dcc0f3"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Estado:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="50" y="37" width="100" height="20" uuid="5e35abad-ba5f-4051-b14d-465a4cfc1a68"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{estadoProyecto}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="4" y="81" width="82" height="20" uuid="bffdb380-b352-4627-9c92-c8af42cf9b56"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Nro. Acta inicio:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="86" y="81" width="81" height="20" uuid="197517c4-3df4-44b6-bd15-33d12a8e2dbb"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{numeroActaInicio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="5" y="60" width="125" height="20" uuid="b3a260ca-c356-427f-b685-62610db62e76"/>
+				<textElement verticalAlignment="Middle">
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[Investigador principal:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="167" y="60" width="403" height="20" uuid="8ba2cadc-03d3-4ac1-8ecc-e70eafd4518b"/>
+				<textElement verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{investigadorPrincipal}]]></textFieldExpression>
+			</textField>
+		</band>
+		<band height="26">
+			<subreport>
+				<reportElement x="136" y="2" width="300" height="19" isRemoveLineWhenBlank="true" uuid="7639eacb-83d9-4382-99cd-c61c7a630695"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{plazos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\seguimientoProyectosProfesorPlazos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="22">
+			<subreport>
+				<reportElement x="86" y="0" width="400" height="18" isRemoveLineWhenBlank="true" uuid="c24bc837-21eb-4370-abd0-54352ffc84e2"/>
+				<dataSourceExpression><![CDATA[new net.sf.jasperreports.engine.data.JRBeanCollectionDataSource($F{compromisos})]]></dataSourceExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "\\seguimientoProyectosProfesorCompromisos.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

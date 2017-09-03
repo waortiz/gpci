@@ -62,16 +62,18 @@
                                     <td align="center"><input type="text" placeholder="" data-index="3" size="10"></td> 
                                     <td align="center"><input type="text" placeholder="" data-index="4" size="10"></td> 
                                     <td align="center"><input type="text" placeholder="" data-index="5" size="10"></td> 
+                                    <td align="center"><input type="text" placeholder="" data-index="6" size="10"></td> 
                                     <td align="center">&nbsp;</td> 
                                 </tr>                                 
                                 <tr  class='text-success'>
                                     <td align="center" width='20%'><strong>Nombre corto</strong></td>
-                                    <td align="center" width='15%'><strong>Fecha de creación</strong></td> 
-                                    <td align="center" width='15%'><strong>Fecha de inicio</strong></td> 
+                                    <td align="center" width='10%'><strong>Código</strong></td>
+                                    <td align="center" width='10%'><strong>Fecha de creación</strong></td> 
+                                    <td align="center" width='10%'><strong>Fecha de inicio</strong></td> 
                                     <td align="center" width='15%'><strong>Fecha finalizaci&oacute;n</strong></td> 
                                     <td align="center" width='15%'><strong>Tipo de proyecto</strong></td> 
                                     <td align="center" width='10%'><strong>Estado</strong></td> 
-                                    <td align="center" width='10%'><strong>Modificar</strong></td>                                     
+                                    <td align="center" width='10%'><strong>Modificar</strong></td> 
                                 </tr> 
                             </thead>
                             <tbody>
@@ -79,6 +81,9 @@
                                     <tr>
                                         <td>
                                             ${proyecto.getNombreCortoProyecto()}
+                                        </td>
+                                        <td align="center">
+                                            ${proyecto.getCodigo()}
                                         </td>
                                         <td align="center">
                                             ${proyecto.getFechaCreacionFormateada()}

@@ -14,6 +14,7 @@ import java.util.Date;
 public class ReporteProyecto {
    
     private long idProyecto;
+    private String codigo;
     private String nombreCortoProyecto;
     private Date fechaCreacion;
     private String fechaCreacionFormateada;
@@ -36,6 +37,20 @@ public class ReporteProyecto {
      */
     public void setIdProyecto(long idProyecto) {
         this.idProyecto = idProyecto;
+    }
+
+    /**
+     * @return the codigo
+     */
+    public String getCodigo() {
+        return codigo;
+    }
+
+    /**
+     * @param codigo the codigo to set
+     */
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
     }
 
     /**

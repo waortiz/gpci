@@ -16,47 +16,22 @@
             <div class="panel panel-success">
                 <div class="panel-heading">Novedades Proyecto</div>
                 <div class="panel-body">
-                    <table class="table table-hover tablaForm tablaFormLectura">
+                    <table class="table table-hover tablaForm">
                         <tr>
-                            <td width="33%"><strong>C&oacute;digo:</strong></td>
-                            <td width="33%"><strong>Nombre corto:</strong></td>
-                            <td width="33%"><strong>Convocatoria:</strong></td>
-                        </tr>
-                        <tr class="filaTablaLectura">
-                            <td>${proyecto.getCodigo()}</td>
-                            <td>${proyecto.getNombreCortoProyecto()}</td>
-                            <td>
-                                ${proyecto.getConvocatoria()}
-                            </td>
+                            <td width="33%"><strong>C&oacute;digo:</strong> ${proyecto.getCodigo()}</td>
+                            <td width="33%"><strong>Nombre corto:</strong> ${proyecto.getNombreCortoProyecto()}</td>
+                            <td width="33%"><strong>Convocatoria:</strong> ${proyecto.getConvocatoria()}</td>
                         </tr>
                         <tr>
-                           <td colspan="3"><strong>Nombre completo proyecto:</strong></td>
-                        </tr>
-                        <tr class="filaTablaLectura">
-                            <td colspan="3">${proyecto.getNombreCompletoProyecto()}</td>
+                           <td colspan="3"><strong>Nombre completo proyecto:</strong> ${proyecto.getNombreCompletoProyecto()}</td>
                         </tr>
                         <tr>
-                            <td><strong>Fecha de inicio:</strong></td>
-                            <td><strong>Fecha de finalizaci&oacute;n:</strong></td>
-                            <td><strong>Area tem&aacute;tica:</strong></td>
-                        </tr>
-                        <tr class="filaTablaLectura">
-                            <td>
-                                ${proyecto.getFechaInicio()}
-                            </td>
-                            <td>
-                                ${proyecto.getFechaFinalizacion()}
-                            <td>
-                                ${proyecto.getAreaTematica()}
-                            </td>
+                            <td><strong>Fecha de inicio:</strong> ${proyecto.getFechaInicio()}</td>
+                            <td><strong>Fecha de finalizaci&oacute;n:</strong> ${proyecto.getFechaFinalizacion()}</td>
+                            <td><strong>Area tem&aacute;tica:</strong> ${proyecto.getAreaTematica()}</td>
                         </tr>
                         <tr>
-                            <td><strong>Ingresado SIGEP:</strong></td>
-                            <td><strong>Ingresado SIIU:</strong></td>
-                            <td><strong>Ingresado SIU:</strong></td>
-                        </tr>
-                        <tr class="filaTablaLectura">
-                            <td>
+                            <td><strong>Ingresado SIGEP:</strong>                                
                                 <c:if test="${proyecto.isIngresadoSIGEP() == true}">
                                     Sí
                                 </c:if>
@@ -64,14 +39,15 @@
                                     No
                                 </c:if>
                             </td>
-                            <td>
+                            <td><strong>Ingresado SIIU:</strong>
                                 <c:if test="${proyecto.isIngresadoSIIU() == true}">
                                     Sí
                                 </c:if>
                                 <c:if test="${proyecto.isIngresadoSIIU() == false}">
                                     No
                                 </c:if>
-                            <td>
+                            </td>
+                            <td><strong>Ingresado SIU:</strong>
                                 <c:if test="${proyecto.isIngresadoSIU() == true}">
                                     Sí
                                 </c:if>
@@ -81,66 +57,31 @@
                             </td>
                         </tr>
                         <tr>
-                            <td><strong>Fecha ingresado SIGEP:</<strong></td>
-                            <td><strong>C&oacute;digo SIIU:</strong></td>
-                            <td><strong>C&oacute;digo SIU:</strong></td>
+                            <td><strong>Fecha ingresado SIGEP:</<strong> ${proyecto.getFechaIngresadoSIGEP()}</td>
+                            <td><strong>C&oacute;digo SIIU:</strong> ${proyecto.getCodigoSIIU()}</td>
+                            <td><strong>C&oacute;digo SIU:</strong> ${proyecto.getCodigoSIU()}</td>
                         </tr>
-                        <tr class="filaTablaLectura">
-                            <td>${proyecto.getFechaIngresadoSIGEP()}</td>
-                            <td>${proyecto.getCodigoSIIU()}</td>
-                            <td>${proyecto.getCodigoSIU()}</td>
-                        </tr>
-                     </table>
-                     <table class="table table-hover tablaForm tablaFormLectura">
                         <tr>
-                            <td><strong>C&oacute;digo COLCIENCIAS:</strong></td>
-                            <td><strong>Participaci&oacute;n internacional:</strong></td>
-                            <td><strong>Tipo de proyecto:</strong></td>
-                            <td><strong>Tipo de contrato:</strong></td>
-                        </tr>
-                        <tr class="filaTablaLectura">
-                            <td>${proyecto.getCodigoCOLCIENCIAS()}</td>
-                            <td>
+                            <td><strong>C&oacute;digo COLCIENCIAS:</strong> ${proyecto.getCodigoCOLCIENCIAS()}</td>
+                            <td><strong>Participaci&oacute;n internacional:</strong> 
                                 <c:if test="${proyecto.isParticipacionInternacional() == true}">
                                     Sí
                                 </c:if>
                                 <c:if test="${proyecto.isParticipacionInternacional() == false}">
                                     No
-                                </c:if>
+                                </c:if>                            
                             </td>
-                            <td>
-                                ${proyecto.getTipoProyecto()}
-                            </td>
-                            <td>
-                                ${proyecto.getTipoContrato()}
-                            </td>
-                        </tr>
-                     </table>
-                     <table class="table table-hover tablaForm tablaFormLectura">
-                        <tr>
-                            <td><strong>Enfoque metodol&oacute;gico:</strong></td>
-                            <td><strong>Riesgo &eacute;tico:</strong></td>
-                            <td><strong>Estado:</strong></td>
-                        </tr>
-                        <tr class="filaTablaLectura">
-                            <td>
-                                ${proyecto.getEnfoqueMetodologico()}
-                            </td>
-                            <td>
-                                ${proyecto.getRiesgoEtico()}
-                            </td>
-                            <td>
-                                ${proyecto.getEstado()}
-                            </td>
+                            <td><strong>Tipo de proyecto:</strong> ${proyecto.getTipoProyecto()}</td>
                         </tr>
                         <tr>
-                            <td colspan="3"><strong>Objetivo general:</strong></td>
+                            <td><strong>Tipo de contrato:</strong> ${proyecto.getTipoContrato()}</td>
+                            <td><strong>Enfoque metodol&oacute;gico:</strong> ${proyecto.getEnfoqueMetodologico()}</td>
+                            <td><strong>Riesgo &eacute;tico:</strong> ${proyecto.getRiesgoEtico()}</td>
                         </tr>
-                        <tr class="filaTablaLectura">
-                            <td colspan="3">
-                                ${proyecto.getObjetivoGeneral()}
-                            </td>
-                        </tr>                            
+                        <tr>
+                            <td><strong>Estado:</strong> ${proyecto.getEstado()}</td>
+                            <td colspan="2"><strong>Objetivo general:</strong> ${proyecto.getObjetivoGeneral()}</td>
+                        </tr>
                     </table>
                     <ul class="nav nav-tabs">
                           <li class="active"><a data-toggle="tab" href="#actasTab">Actas</a></li>

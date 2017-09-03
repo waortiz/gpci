@@ -35,7 +35,7 @@
     google.charts.setOnLoadCallback(drawChart);
     function drawChart() {
       var data = google.visualization.arrayToDataTable(${datosGrafico});
-      var options = {is3D: true, 'width':700, 'height':300};
+      var options = {is3D: true, 'width':600, 'height':250};
       var chart = new google.visualization.PieChart(document.getElementById('pieChart'));
       chart.draw(data, options);
     }
