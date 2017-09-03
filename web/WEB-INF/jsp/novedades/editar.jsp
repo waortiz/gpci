@@ -85,9 +85,7 @@
                     </table>
                     <ul class="nav nav-tabs">
                           <li class="active"><a data-toggle="tab" href="#actasTab">Actas</a></li>
-                          <li><a data-toggle="tab" href="#adendasCambioTab">Adenda Cambio</a></li>
-                          <li><a data-toggle="tab" href="#adendasIngresoTab">Adenda Ingreso</a></li>
-                          <li><a data-toggle="tab" href="#adendasRetiroTab">Adenda Retiro</a></li>
+                          <li><a data-toggle="tab" href="#adendasTab">Adendas</a></li>
                           <li><a data-toggle="tab" href="#adicionesTab">Adiciones</a></li>
                           <li><a data-toggle="tab" href="#prorrogasTab">Prórrogas</a></li>
                           <li><a data-toggle="tab" href="#plazosTab">Plazos</a></li>
@@ -246,675 +244,684 @@
                                 </div>  
                             </div>    
                         </div>
-                        <div id="adendasCambioTab" class="tab-pane fade">
-                            <div class="alert alert-info" style="margin-top:20px;">
-                                <strong>Adendas de Cambio</strong>
-                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaCambio(); return false;">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                </button>                            
-                            </div>
-                            <div id="alert_placeholder_adendas_cambio"></div>
-                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
-                              <thead>
-                                <tr class="table-row">
-                                    <td style="width: 5%;text-align: center"><strong>Tipo persona</strong></td>
-                                    <td style="width: 20%;text-align: center"><strong>Tipo de identificación nueva persona</strong></td>
-                                    <td style="width: 15%;text-align: center"><strong>Número de identificación nueva persona</strong></td>
-                                    <td style="width: 15%;text-align: center"><strong>Nombres nueva persona</strong></td>
-                                    <td style="width: 15%;text-align: center"><strong>Apellidos nueva persona</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Rol</strong></td>
-                                    <td style="width: 5%;text-align: center"><strong>Fecha de cambio</strong></td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                </tr>
-                              </thead>
-                              <tbody data-bind="foreach: { data: adendasCambio }">
-                                <tr class="table-row">
-                                    <td style="width: 5%">
-                                        <span data-bind="text: nombreTipoPersona" ></span>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <span data-bind="text: nombreTipoIdentificacionPersona" ></span>
-                                    </td>
-                                    <td style="width: 15%">
-                                        <span data-bind="text: numeroIdentificacionPersona" ></span>
-                                    </td>
-                                    <td style="width: 15%">
-                                        <span data-bind="text: nombresPersona" ></span>
-                                    </td>
-                                    <td style="width: 15%">
-                                        <span data-bind="text: apellidosPersona" ></span>
-                                    </td>
-                                    <td style="width: 10%">
-                                        <span data-bind="text: nombreRol" ></span>
-                                    </td>
-                                    <td style="width: 5%">
-                                        <span data-bind="text: fechaCambioFormateada" ></span>
-                                    </td>
-                                    <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdendaCambio" title="Ver adenda">
-                                            <i class="glyphicon glyphicon-download-alt"></i>
-                                        </button>
-                                    </td>
-                                    <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.eliminarAdendaCambio" title="Eliminar adenda">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                        </button>
-                                    </td>
-                                    <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.editarAdendaCambio" title="Editar adenda">
-                                            <i class="glyphicon glyphicon-edit"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <div class="modal fade" id="confirmacionEliminacionAdendaCambio" tabindex="-1" role="dialog" aria-labelledby="adendaCambioModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="alert alert-info">
-                                                <strong>Eliminar Adenda</strong>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
-                                                </button>
-                                            </div>
-                                        </div>
-                                        <div class="modal-body">
-                                            ¿Está seguro de eliminar la adenda?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                            <a class="btn btn-danger btn-ok" onclick="eliminarAdendaCambio();">Eliminar</a>
-                                        </div>
+                        <div id="adendasTab" class="tab-pane fade">
+                            <ul class="nav nav-tabs">
+                                <li class="active"><a data-toggle="tab" href="#adendasCambioTab">Cambio</a></li>
+                                <li><a data-toggle="tab" href="#adendasIngresoTab">Ingreso</a></li>
+                                <li><a data-toggle="tab" href="#adendasRetiroTab">Retiro</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div id="adendasCambioTab" class="tab-pane fade in active">
+                                    <div class="alert alert-info" style="margin-top:20px;">
+                                        <strong>Adendas de Cambio</strong>
+                                        <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaCambio(); return false;">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>                            
                                     </div>
-                                </div>
-                            </div>
-                            <div class="modal fade" id="adendaCambioModal" tabindex="-1" role="dialog" aria-labelledby="adendaCambioModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaCambio" modelAttribute="adendaCambioProyecto" enctype="multipart/form-data">
-                                            <div class="modal-header">
-                                                <div class="alert alert-info">
-                                                    <strong>Adenda de Cambio</strong>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
+                                    <div id="alert_placeholder_adendas_cambio"></div>
+                                    <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                      <thead>
+                                        <tr class="table-row">
+                                            <td style="width: 5%;text-align: center"><strong>Tipo persona</strong></td>
+                                            <td style="width: 20%;text-align: center"><strong>Tipo de identificación nueva persona</strong></td>
+                                            <td style="width: 15%;text-align: center"><strong>Número de identificación nueva persona</strong></td>
+                                            <td style="width: 15%;text-align: center"><strong>Nombres nueva persona</strong></td>
+                                            <td style="width: 15%;text-align: center"><strong>Apellidos nueva persona</strong></td>
+                                            <td style="width: 10%;text-align: center"><strong>Rol</strong></td>
+                                            <td style="width: 5%;text-align: center"><strong>Fecha de cambio</strong></td>
+                                            <td style="width: 5%">&nbsp;</td>
+                                            <td style="width: 5%">&nbsp;</td>
+                                            <td style="width: 5%">&nbsp;</td>
+                                        </tr>
+                                      </thead>
+                                      <tbody data-bind="foreach: { data: adendasCambio }">
+                                        <tr class="table-row">
+                                            <td style="width: 5%">
+                                                <span data-bind="text: nombreTipoPersona" ></span>
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: nombreTipoIdentificacionPersona" ></span>
+                                            </td>
+                                            <td style="width: 15%">
+                                                <span data-bind="text: numeroIdentificacionPersona" ></span>
+                                            </td>
+                                            <td style="width: 15%">
+                                                <span data-bind="text: nombresPersona" ></span>
+                                            </td>
+                                            <td style="width: 15%">
+                                                <span data-bind="text: apellidosPersona" ></span>
+                                            </td>
+                                            <td style="width: 10%">
+                                                <span data-bind="text: nombreRol" ></span>
+                                            </td>
+                                            <td style="width: 5%">
+                                                <span data-bind="text: fechaCambioFormateada" ></span>
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdendaCambio" title="Ver adenda">
+                                                    <i class="glyphicon glyphicon-download-alt"></i>
+                                                </button>
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarAdendaCambio" title="Eliminar adenda">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarAdendaCambio" title="Editar adenda">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <div class="modal fade" id="confirmacionEliminacionAdendaCambio" tabindex="-1" role="dialog" aria-labelledby="adendaCambioModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div class="alert alert-info">
+                                                        <strong>Eliminar Adenda</strong>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ¿Está seguro de eliminar la adenda?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                    <a class="btn btn-danger btn-ok" onclick="eliminarAdendaCambio();">Eliminar</a>
                                                 </div>
                                             </div>
-                                            <div class="modal-body">
-                                                <div id="alert_placeholder_adenda_cambio"></div>
-                                                <table class="tablaForm">
-                                                    <tr>
-                                                        <td colspan="3">Tipo persona</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">
-                                                            <select name="tipoPersonaAdendaCambio" id="tipoPersonaAdendaCambio" class="form-control">
-                                                                <option value=""></option>
-                                                            <c:forEach var="tipoPersona" items="${tiposPersona}">
-                                                                <option value="${tipoPersona.getIdTipoPersona()}">${tipoPersona.getNombre()}</option>
-                                                            </c:forEach>
-                                                            </select>    
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="45%">Tipo identificación persona anterior:</td>
-                                                        <td width="45%">Número identificación persona anterior:</td>
-                                                        <td width="10%">&nbsp;</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <select name="tipoIdentificacionPersonaAnteriorAdendaCambio" id="tipoIdentificacionPersonaAnteriorAdendaCambio" class="form-control">
-                                                                <option value=""></option>
-                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
-                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
-                                                            </c:forEach>
-                                                            </select>    
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAnteriorAdendaCambio" name="numeroIdentificacionPersonaAnteriorAdendaCambio" maxlength="20"/>
-                                                        </td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button class="btn btn-dark" onclick="buscarPersonaAnteriorAdendaCambio(); return false;">
-                                                                    <i class="glyphicon glyphicon-search"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <table class="tablaForm">
-                                                    <tr>
-                                                        <td>Nombres persona anterior:</td>
-                                                        <td>Apellidos persona anterior:</td>                                    
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" id="nombresPersonaAnteriorAdendaCambio" name="nombresPersonaAnteriorAdendaCambio" class="form-control" readonly />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="apellidosPersonaAnteriorAdendaCambio" name="apellidosPersonaAnteriorAdendaCambio" class="form-control" readonly />
-                                                        </td>                                    
-                                                    </tr>                                                        
-                                                </table>
-                                                <table class="tablaForm">
-                                                    <tr>
-                                                        <td width="45%">Tipo identificación nueva persona:</td>
-                                                        <td width="45%">Número identificación nueva persona:</td>
-                                                        <td width="10%">&nbsp;</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <select name="tipoIdentificacionPersonaAdendaCambio" id="tipoIdentificacionPersonaAdendaCambio" class="form-control">
-                                                                <option value=""></option>
-                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
-                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
-                                                            </c:forEach>
-                                                            </select>    
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaCambio" name="numeroIdentificacionPersonaAdendaCambio" maxlength="20"/>
-                                                        </td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button class="btn btn-dark" onclick="buscarPersonaAdendaCambio(); return false;">
-                                                                    <i class="glyphicon glyphicon-search"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                                <table class="tablaForm">
-                                                    <tr>
-                                                        <td>Nombres nueva persona:</td>
-                                                        <td>Apellidos nueva persona:</td>                                    
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <input type="text" id="nombresPersonaAdendaCambio" name="nombresPersonaAdendaCambio" class="form-control" readonly />
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" id="apellidosPersonaAdendaCambio" name="apellidosPersonaAdendaCambio" class="form-control" readonly />
-                                                        </td>                                    
-                                                    </tr>                                                        
-                                                    <tr>
-                                                        <td>Fecha de cambio</td>                                                        
-                                                        <td>Rol</td>                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="input-group date">
-                                                                <input id="fechaAdendaCambio" name="fechaAdendaCambio" class="form-control datepicker" readonly="true" />
-                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                                            </div>                                                        
-                                                        </td>
-                                                        <td>
-                                                            <select name="rolAdendaCambio" id="rolAdendaCambio" class="form-control">
-                                                                <option value=""></option>
-                                                            <c:forEach var="rol" items="${roles}">
-                                                                <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
-                                                            </c:forEach>
-                                                            </select>      
-                                                        </td>                                                        
-                                                    </tr>                                                    
-                                                    <tr>
-                                                        <td>Fecha acta</td>                                                        
-                                                        <td>Número acta</td>                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="input-group date">
-                                                                <input id="fechaActaAdendaCambio" name="fechaActaAdendaCambio" class="form-control datepicker" readonly="true" />
-                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                                            </div>                                                        
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" id="numeroActaAdendaCambio" name="numeroActaAdendaCambio" maxlength="45" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">Documento</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <input type="file" id="documentoAdendaCambio" name="documentoAdendaCambio" class="form-control" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">Observaciones</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <textarea id="observacionesAdendaCambio" name="observacionesAdendaCambio" class="form-control" rows="3"></textarea>
-                                                        </td>
-                                                    </tr>                                                    
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="submit" class="btn btn-primary">Aceptar</button>
-                                            </div>   
-                                            <input type="hidden" id="idAdendaCambio" name="idAdendaCambio" value="0"/>
-                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
-                                        </form:form>
+                                        </div>
                                     </div>
-                                </div>  
-                            </div>    
-                        </div>     
-                        <div id="adendasIngresoTab" class="tab-pane fade">
-                            <div class="alert alert-info" style="margin-top:20px;">
-                                <strong>Adendas de Ingreso</strong>
-                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaIngreso(); return false;">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                </button>                            
-                            </div>
-                            <div id="alert_placeholder_adendas_ingreso"></div>
-                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
-                              <thead>
-                                <tr class="table-row">
-                                    <td style="width: 10%;text-align: center"><strong>Tipo persona</strong></td>
-                                    <td style="width: 15%;text-align: center"><strong>Tipo de identificación</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
-                                    <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
-                                    <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Fecha de ingreso</strong></td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                </tr>
-                              </thead>
-                              <tbody data-bind="foreach: { data: adendasIngreso }">
-                                <tr class="table-row">
-                                    <td style="width: 15%">
-                                        <span data-bind="text: nombreTipoPersona" ></span>
-                                    </td>
-                                    <td style="width: 15%">
-                                        <span data-bind="text: nombreTipoIdentificacionPersona" ></span>
-                                    </td>
-                                    <td style="width: 10%">
-                                        <span data-bind="text: numeroIdentificacionPersona" ></span>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <span data-bind="text: nombresPersona" ></span>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <span data-bind="text: apellidosPersona" ></span>
-                                    </td>
-                                    <td style="width: 15%">
-                                        <span data-bind="text: fechaIngresoFormateada" ></span>
-                                    </td>
-                                    <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdendaIngreso" title="Ver adenda">
-                                            <i class="glyphicon glyphicon-download-alt"></i>
-                                        </button>
-                                    </td>
-                                    <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.eliminarAdendaIngreso" title="Eliminar adenda">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                        </button>
-                                    </td>
-                                    <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.editarAdendaIngreso" title="Editar adenda">
-                                            <i class="glyphicon glyphicon-edit"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <div class="modal fade" id="confirmacionEliminacionAdendaIngreso" tabindex="-1" role="dialog" aria-labelledby="adendaIngresoModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="alert alert-info">
-                                                <strong>Eliminar Adenda</strong>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
+                                    <div class="modal fade" id="adendaCambioModal" tabindex="-1" role="dialog" aria-labelledby="adendaCambioModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaCambio" modelAttribute="adendaCambioProyecto" enctype="multipart/form-data">
+                                                    <div class="modal-header">
+                                                        <div class="alert alert-info">
+                                                            <strong>Adenda de Cambio</strong>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div id="alert_placeholder_adenda_cambio"></div>
+                                                        <table class="tablaForm">
+                                                            <tr>
+                                                                <td colspan="3">Tipo persona</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3">
+                                                                    <select name="tipoPersonaAdendaCambio" id="tipoPersonaAdendaCambio" class="form-control">
+                                                                        <option value=""></option>
+                                                                    <c:forEach var="tipoPersona" items="${tiposPersona}">
+                                                                        <option value="${tipoPersona.getIdTipoPersona()}">${tipoPersona.getNombre()}</option>
+                                                                    </c:forEach>
+                                                                    </select>    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="45%">Tipo identificación persona anterior:</td>
+                                                                <td width="45%">Número identificación persona anterior:</td>
+                                                                <td width="10%">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <select name="tipoIdentificacionPersonaAnteriorAdendaCambio" id="tipoIdentificacionPersonaAnteriorAdendaCambio" class="form-control">
+                                                                        <option value=""></option>
+                                                                    <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                                    </c:forEach>
+                                                                    </select>    
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAnteriorAdendaCambio" name="numeroIdentificacionPersonaAnteriorAdendaCambio" maxlength="20"/>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        <button class="btn btn-dark" onclick="buscarPersonaAnteriorAdendaCambio(); return false;">
+                                                                            <i class="glyphicon glyphicon-search"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <table class="tablaForm">
+                                                            <tr>
+                                                                <td>Nombres persona anterior:</td>
+                                                                <td>Apellidos persona anterior:</td>                                    
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" id="nombresPersonaAnteriorAdendaCambio" name="nombresPersonaAnteriorAdendaCambio" class="form-control" readonly />
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="apellidosPersonaAnteriorAdendaCambio" name="apellidosPersonaAnteriorAdendaCambio" class="form-control" readonly />
+                                                                </td>                                    
+                                                            </tr>                                                        
+                                                        </table>
+                                                        <table class="tablaForm">
+                                                            <tr>
+                                                                <td width="45%">Tipo identificación nueva persona:</td>
+                                                                <td width="45%">Número identificación nueva persona:</td>
+                                                                <td width="10%">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <select name="tipoIdentificacionPersonaAdendaCambio" id="tipoIdentificacionPersonaAdendaCambio" class="form-control">
+                                                                        <option value=""></option>
+                                                                    <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                                    </c:forEach>
+                                                                    </select>    
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaCambio" name="numeroIdentificacionPersonaAdendaCambio" maxlength="20"/>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        <button class="btn btn-dark" onclick="buscarPersonaAdendaCambio(); return false;">
+                                                                            <i class="glyphicon glyphicon-search"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                        <table class="tablaForm">
+                                                            <tr>
+                                                                <td>Nombres nueva persona:</td>
+                                                                <td>Apellidos nueva persona:</td>                                    
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <input type="text" id="nombresPersonaAdendaCambio" name="nombresPersonaAdendaCambio" class="form-control" readonly />
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" id="apellidosPersonaAdendaCambio" name="apellidosPersonaAdendaCambio" class="form-control" readonly />
+                                                                </td>                                    
+                                                            </tr>                                                        
+                                                            <tr>
+                                                                <td>Fecha de cambio</td>                                                        
+                                                                <td>Rol</td>                                                        
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="input-group date">
+                                                                        <input id="fechaAdendaCambio" name="fechaAdendaCambio" class="form-control datepicker" readonly="true" />
+                                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                                    </div>                                                        
+                                                                </td>
+                                                                <td>
+                                                                    <select name="rolAdendaCambio" id="rolAdendaCambio" class="form-control">
+                                                                        <option value=""></option>
+                                                                    <c:forEach var="rol" items="${roles}">
+                                                                        <option value="${rol.getIdRol()}">${rol.getNombre()}</option>
+                                                                    </c:forEach>
+                                                                    </select>      
+                                                                </td>                                                        
+                                                            </tr>                                                    
+                                                            <tr>
+                                                                <td>Fecha acta</td>                                                        
+                                                                <td>Número acta</td>                                                        
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="input-group date">
+                                                                        <input id="fechaActaAdendaCambio" name="fechaActaAdendaCambio" class="form-control datepicker" readonly="true" />
+                                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                                    </div>                                                        
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="numeroActaAdendaCambio" name="numeroActaAdendaCambio" maxlength="45" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">Documento</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <input type="file" id="documentoAdendaCambio" name="documentoAdendaCambio" class="form-control" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">Observaciones</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <textarea id="observacionesAdendaCambio" name="observacionesAdendaCambio" class="form-control" rows="3"></textarea>
+                                                                </td>
+                                                            </tr>                                                    
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                                                    </div>   
+                                                    <input type="hidden" id="idAdendaCambio" name="idAdendaCambio" value="0"/>
+                                                    <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                                    <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
+                                                </form:form>
+                                            </div>
+                                        </div>  
+                                    </div>    
+                                </div>     
+                                <div id="adendasIngresoTab" class="tab-pane fade">
+                                    <div class="alert alert-info" style="margin-top:20px;">
+                                        <strong>Adendas de Ingreso</strong>
+                                        <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaIngreso(); return false;">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>                            
+                                    </div>
+                                    <div id="alert_placeholder_adendas_ingreso"></div>
+                                    <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                      <thead>
+                                        <tr class="table-row">
+                                            <td style="width: 10%;text-align: center"><strong>Tipo persona</strong></td>
+                                            <td style="width: 15%;text-align: center"><strong>Tipo de identificación</strong></td>
+                                            <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
+                                            <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
+                                            <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
+                                            <td style="width: 10%;text-align: center"><strong>Fecha de ingreso</strong></td>
+                                            <td style="width: 5%">&nbsp;</td>
+                                            <td style="width: 5%">&nbsp;</td>
+                                            <td style="width: 5%">&nbsp;</td>
+                                        </tr>
+                                      </thead>
+                                      <tbody data-bind="foreach: { data: adendasIngreso }">
+                                        <tr class="table-row">
+                                            <td style="width: 15%">
+                                                <span data-bind="text: nombreTipoPersona" ></span>
+                                            </td>
+                                            <td style="width: 15%">
+                                                <span data-bind="text: nombreTipoIdentificacionPersona" ></span>
+                                            </td>
+                                            <td style="width: 10%">
+                                                <span data-bind="text: numeroIdentificacionPersona" ></span>
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: nombresPersona" ></span>
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: apellidosPersona" ></span>
+                                            </td>
+                                            <td style="width: 15%">
+                                                <span data-bind="text: fechaIngresoFormateada" ></span>
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdendaIngreso" title="Ver adenda">
+                                                    <i class="glyphicon glyphicon-download-alt"></i>
                                                 </button>
-                                            </div>
-                                        </div>
-                                        <div class="modal-body">
-                                            ¿Está seguro de eliminar la adenda?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                            <a class="btn btn-danger btn-ok" onclick="eliminarAdendaIngreso();">Eliminar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal fade" id="adendaIngresoModal" tabindex="-1" role="dialog" aria-labelledby="adendaIngresoModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaIngreso" modelAttribute="adendaIngresoProyecto" enctype="multipart/form-data">
-                                            <div class="modal-header">
-                                                <div class="alert alert-info">
-                                                    <strong>Adenda de Ingreso</strong>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarAdendaIngreso" title="Eliminar adenda">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarAdendaIngreso" title="Editar adenda">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <div class="modal fade" id="confirmacionEliminacionAdendaIngreso" tabindex="-1" role="dialog" aria-labelledby="adendaIngresoModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div class="alert alert-info">
+                                                        <strong>Eliminar Adenda</strong>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ¿Está seguro de eliminar la adenda?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                    <a class="btn btn-danger btn-ok" onclick="eliminarAdendaIngreso();">Eliminar</a>
                                                 </div>
                                             </div>
-                                            <div class="modal-body">
-                                                <div id="alert_placeholder_adenda_ingreso"></div>
-                                                <table class="tablaForm">
-                                                    <tr>
-                                                        <td colspan="3">Tipo persona</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">
-                                                            <select name="tipoPersonaAdendaIngreso" id="tipoPersonaAdendaIngreso" class="form-control">
-                                                                <option value=""></option>
-                                                            <c:forEach var="tipoPersona" items="${tiposPersona}">
-                                                                <option value="${tipoPersona.getIdTipoPersona()}">${tipoPersona.getNombre()}</option>
-                                                            </c:forEach>
-                                                            </select>    
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="45%">Tipo de identificación:</td>
-                                                        <td width="45%">Número de identificación:</td>
-                                                        <td width="10%">&nbsp;</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <select name="tipoIdentificacionPersonaAdendaIngreso" id="tipoIdentificacionPersonaAdendaIngreso" class="form-control">
-                                                                <option value=""></option>
-                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
-                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
-                                                            </c:forEach>
-                                                            </select>    
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaIngreso" name="numeroIdentificacionPersonaAdendaIngreso" maxlength="20"/>
-                                                        </td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button class="btn btn-dark" onclick="buscarPersonaAdendaIngreso(); return false;">
-                                                                    <i class="glyphicon glyphicon-search"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">Nombres:</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">
-                                                            <input type="text" id="nombresPersonaAdendaIngreso" name="nombresPersonaAdendaIngreso" class="form-control" readonly />
-                                                        </td>
-                                                    <tr>
-                                                        <td colspan="3">Apellidos:</td>                                    
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">
-                                                            <input type="text" id="apellidosPersonaAdendaIngreso" name="apellidosPersonaAdendaIngreso" class="form-control" readonly />
-                                                        </td>                                    
-                                                    </tr>                                                        
-                                                 </table>
-                                                <table class="tablaForm">
-                                                    <tr>
-                                                        <td colspan="2">Fecha de ingreso</td>                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <div class="input-group date">
-                                                                <input id="fechaAdendaIngreso" name="fechaAdendaIngreso" class="form-control datepicker" readonly="true" />
-                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                                            </div>                                                        
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>Fecha acta</td>                                                        
-                                                        <td>Número acta</td>                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="input-group date">
-                                                                <input id="fechaActaAdendaIngreso" name="fechaActaAdendaIngreso" class="form-control datepicker" readonly="true" />
-                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                                            </div>                                                        
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" id="numeroActaAdendaIngreso" name="numeroActaAdendaIngreso" maxlength="45"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">Documento</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <input type="file" id="documentoAdendaIngreso" name="documentoAdendaIngreso" class="form-control" />
-                                                        </td>
-                                                    </tr>
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="submit" class="btn btn-primary">Aceptar</button>
-                                            </div>   
-                                            <input type="hidden" id="idAdendaIngreso" name="idAdendaIngreso" value="0"/>
-                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
-                                        </form:form>
+                                        </div>
                                     </div>
-                                </div>  
-                            </div>    
-                        </div>     
-                        <div id="adendasRetiroTab" class="tab-pane fade">
-                            <div class="alert alert-info" style="margin-top:20px;">
-                                <strong>Adendas de Retiro</strong>
-                                <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaRetiro(); return false;">
-                                    <i class="glyphicon glyphicon-plus"></i>
-                                </button>                            
-                            </div>
-                            <div id="alert_placeholder_adendas_retiro"></div>
-                            <table class="table table-hover tablaForm" style="width: 90%" align="center" >
-                              <thead>
-                                <tr class="table-row">
-                                    <td style="width: 5%;text-align: center"><strong>Tipo persona</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Tipo de identificación</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
-                                    <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
-                                    <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Motivo</strong></td>
-                                    <td style="width: 10%;text-align: center"><strong>Fecha de retiro</strong></td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                    <td style="width: 5%">&nbsp;</td>
-                                </tr>
-                              </thead>
-                              <tbody data-bind="foreach: { data: adendasRetiro }">
-                                <tr class="table-row">
-                                    <td style="width: 5%">
-                                        <span data-bind="text: nombreTipoPersona" ></span>
-                                    </td>
-                                    <td style="width: 10%">
-                                        <span data-bind="text: nombreTipoIdentificacionPersona" ></span>
-                                    </td>
-                                    <td style="width: 10%">
-                                        <span data-bind="text: numeroIdentificacionPersona" ></span>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <span data-bind="text: nombresPersona" ></span>
-                                    </td>
-                                    <td style="width: 20%">
-                                        <span data-bind="text: apellidosPersona" ></span>
-                                    </td>
-                                    <td style="width: 10%">
-                                        <span data-bind="text: motivo" ></span>
-                                    </td>
-                                    <td style="width: 10%">
-                                        <span data-bind="text: fechaRetiroFormateada" ></span>
-                                    </td>
-                                    <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdendaRetiro" title="Ver adenda">
-                                            <i class="glyphicon glyphicon-download-alt"></i>
-                                        </button>
-                                    </td>
-                                    <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.eliminarAdendaRetiro" title="Eliminar adenda">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                        </button>
-                                    </td>
-                                    <td style="width: 5%">
-                                        <button class="btn btn-dark" data-bind="click: $root.editarAdendaRetiro" title="Editar adenda">
-                                            <i class="glyphicon glyphicon-edit"></i>
-                                        </button>
-                                    </td>
-                                </tr>
-                              </tbody>
-                            </table>
-                            <div class="modal fade" id="confirmacionEliminacionAdendaRetiro" tabindex="-1" role="dialog" aria-labelledby="adendaRetiroModalLabel" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <div class="alert alert-info">
-                                                <strong>Eliminar Adenda</strong>
-                                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                    <span aria-hidden="true">&times;</span>
+                                    <div class="modal fade" id="adendaIngresoModal" tabindex="-1" role="dialog" aria-labelledby="adendaIngresoModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaIngreso" modelAttribute="adendaIngresoProyecto" enctype="multipart/form-data">
+                                                    <div class="modal-header">
+                                                        <div class="alert alert-info">
+                                                            <strong>Adenda de Ingreso</strong>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div id="alert_placeholder_adenda_ingreso"></div>
+                                                        <table class="tablaForm">
+                                                            <tr>
+                                                                <td colspan="3">Tipo persona</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3">
+                                                                    <select name="tipoPersonaAdendaIngreso" id="tipoPersonaAdendaIngreso" class="form-control">
+                                                                        <option value=""></option>
+                                                                    <c:forEach var="tipoPersona" items="${tiposPersona}">
+                                                                        <option value="${tipoPersona.getIdTipoPersona()}">${tipoPersona.getNombre()}</option>
+                                                                    </c:forEach>
+                                                                    </select>    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="45%">Tipo de identificación:</td>
+                                                                <td width="45%">Número de identificación:</td>
+                                                                <td width="10%">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <select name="tipoIdentificacionPersonaAdendaIngreso" id="tipoIdentificacionPersonaAdendaIngreso" class="form-control">
+                                                                        <option value=""></option>
+                                                                    <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                                    </c:forEach>
+                                                                    </select>    
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaIngreso" name="numeroIdentificacionPersonaAdendaIngreso" maxlength="20"/>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        <button class="btn btn-dark" onclick="buscarPersonaAdendaIngreso(); return false;">
+                                                                            <i class="glyphicon glyphicon-search"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3">Nombres:</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3">
+                                                                    <input type="text" id="nombresPersonaAdendaIngreso" name="nombresPersonaAdendaIngreso" class="form-control" readonly />
+                                                                </td>
+                                                            <tr>
+                                                                <td colspan="3">Apellidos:</td>                                    
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3">
+                                                                    <input type="text" id="apellidosPersonaAdendaIngreso" name="apellidosPersonaAdendaIngreso" class="form-control" readonly />
+                                                                </td>                                    
+                                                            </tr>                                                        
+                                                         </table>
+                                                        <table class="tablaForm">
+                                                            <tr>
+                                                                <td colspan="2">Fecha de ingreso</td>                                                        
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <div class="input-group date">
+                                                                        <input id="fechaAdendaIngreso" name="fechaAdendaIngreso" class="form-control datepicker" readonly="true" />
+                                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                                    </div>                                                        
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>Fecha acta</td>                                                        
+                                                                <td>Número acta</td>                                                        
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="input-group date">
+                                                                        <input id="fechaActaAdendaIngreso" name="fechaActaAdendaIngreso" class="form-control datepicker" readonly="true" />
+                                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                                    </div>                                                        
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="numeroActaAdendaIngreso" name="numeroActaAdendaIngreso" maxlength="45"/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">Documento</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <input type="file" id="documentoAdendaIngreso" name="documentoAdendaIngreso" class="form-control" />
+                                                                </td>
+                                                            </tr>
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                                                    </div>   
+                                                    <input type="hidden" id="idAdendaIngreso" name="idAdendaIngreso" value="0"/>
+                                                    <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                                    <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
+                                                </form:form>
+                                            </div>
+                                        </div>  
+                                    </div>    
+                                </div>     
+                                <div id="adendasRetiroTab" class="tab-pane fade">
+                                    <div class="alert alert-info" style="margin-top:20px;">
+                                        <strong>Adendas de Retiro</strong>
+                                        <button class="btn btn-dark" onclick="mostrarVentanaNuevaAdendaRetiro(); return false;">
+                                            <i class="glyphicon glyphicon-plus"></i>
+                                        </button>                            
+                                    </div>
+                                    <div id="alert_placeholder_adendas_retiro"></div>
+                                    <table class="table table-hover tablaForm" style="width: 90%" align="center" >
+                                      <thead>
+                                        <tr class="table-row">
+                                            <td style="width: 5%;text-align: center"><strong>Tipo persona</strong></td>
+                                            <td style="width: 10%;text-align: center"><strong>Tipo de identificación</strong></td>
+                                            <td style="width: 10%;text-align: center"><strong>Número de identificación</strong></td>
+                                            <td style="width: 20%;text-align: center"><strong>Nombres</strong></td>
+                                            <td style="width: 20%;text-align: center"><strong>Apellidos</strong></td>
+                                            <td style="width: 10%;text-align: center"><strong>Motivo</strong></td>
+                                            <td style="width: 10%;text-align: center"><strong>Fecha de retiro</strong></td>
+                                            <td style="width: 5%">&nbsp;</td>
+                                            <td style="width: 5%">&nbsp;</td>
+                                            <td style="width: 5%">&nbsp;</td>
+                                        </tr>
+                                      </thead>
+                                      <tbody data-bind="foreach: { data: adendasRetiro }">
+                                        <tr class="table-row">
+                                            <td style="width: 5%">
+                                                <span data-bind="text: nombreTipoPersona" ></span>
+                                            </td>
+                                            <td style="width: 10%">
+                                                <span data-bind="text: nombreTipoIdentificacionPersona" ></span>
+                                            </td>
+                                            <td style="width: 10%">
+                                                <span data-bind="text: numeroIdentificacionPersona" ></span>
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: nombresPersona" ></span>
+                                            </td>
+                                            <td style="width: 20%">
+                                                <span data-bind="text: apellidosPersona" ></span>
+                                            </td>
+                                            <td style="width: 10%">
+                                                <span data-bind="text: motivo" ></span>
+                                            </td>
+                                            <td style="width: 10%">
+                                                <span data-bind="text: fechaRetiroFormateada" ></span>
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.verDocumentoAdendaRetiro" title="Ver adenda">
+                                                    <i class="glyphicon glyphicon-download-alt"></i>
                                                 </button>
-                                            </div>
-                                        </div>
-                                        <div class="modal-body">
-                                            ¿Está seguro de eliminar la adenda?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-                                            <a class="btn btn-danger btn-ok" onclick="eliminarAdendaRetiro();">Eliminar</a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="modal fade" id="adendaRetiroModal" tabindex="-1" role="dialog" aria-labelledby="adendaRetiroModalLabel" aria-hidden="true">
-                                <div class="modal-dialog" role="document">
-                                    <div class="modal-content">
-                                        <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaRetiro" modelAttribute="adendaRetiroProyecto" enctype="multipart/form-data">
-                                            <div class="modal-header">
-                                                <div class="alert alert-info">
-                                                    <strong>Adenda de Retiro</strong>
-                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                        <span aria-hidden="true">&times;</span>
-                                                    </button>
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.eliminarAdendaRetiro" title="Eliminar adenda">
+                                                    <i class="glyphicon glyphicon-trash"></i>
+                                                </button>
+                                            </td>
+                                            <td style="width: 5%">
+                                                <button class="btn btn-dark" data-bind="click: $root.editarAdendaRetiro" title="Editar adenda">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <div class="modal fade" id="confirmacionEliminacionAdendaRetiro" tabindex="-1" role="dialog" aria-labelledby="adendaRetiroModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <div class="alert alert-info">
+                                                        <strong>Eliminar Adenda</strong>
+                                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                            <span aria-hidden="true">&times;</span>
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                                <div class="modal-body">
+                                                    ¿Está seguro de eliminar la adenda?
+                                                </div>
+                                                <div class="modal-footer">
+                                                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
+                                                    <a class="btn btn-danger btn-ok" onclick="eliminarAdendaRetiro();">Eliminar</a>
                                                 </div>
                                             </div>
-                                            <div class="modal-body">
-                                                <div id="alert_placeholder_adenda_retiro"></div>
-                                                <table class="tablaForm">
-                                                    <tr>
-                                                        <td colspan="3">Tipo persona</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">
-                                                            <select name="tipoPersonaAdendaRetiro" id="tipoPersonaAdendaRetiro" class="form-control">
-                                                                <option value=""></option>
-                                                            <c:forEach var="tipoPersona" items="${tiposPersona}">
-                                                                <option value="${tipoPersona.getIdTipoPersona()}">${tipoPersona.getNombre()}</option>
-                                                            </c:forEach>
-                                                            </select>    
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td width="45%">Tipo de identificación:</td>
-                                                        <td width="45%">Número de identificación:</td>
-                                                        <td width="10%">&nbsp;</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <select name="tipoIdentificacionPersonaAdendaRetiro" id="tipoIdentificacionPersonaAdendaRetiro" class="form-control">
-                                                                <option value=""></option>
-                                                            <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
-                                                                <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
-                                                            </c:forEach>
-                                                            </select>    
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaRetiro" name="numeroIdentificacionPersonaAdendaRetiro" maxlength="20"/>
-                                                        </td>
-                                                        <td>
-                                                            <div class="btn-group">
-                                                                <button class="btn btn-dark" onclick="buscarPersonaAdendaRetiro(); return false;">
-                                                                    <i class="glyphicon glyphicon-search"></i>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">Nombres:</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">
-                                                            <input type="text" id="nombresPersonaAdendaRetiro" name="nombresPersonaAdendaRetiro" class="form-control" readonly />
-                                                        </td>
-                                                    </tr>                                                        
-                                                    <tr>
-                                                        <td colspan="3">Apellidos:</td>                                    
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="3">
-                                                            <input type="text" id="apellidosPersonaAdendaRetiro" name="apellidosPersonaAdendaRetiro" class="form-control" readonly />
-                                                        </td>                                    
-                                                    </tr>                                                        
-                                                 </table>
-                                                <table class="tablaForm">
-                                                    <tr>
-                                                        <td colspna="2">Fecha de retiro</td>                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspna="2">
-                                                            <div class="input-group date">
-                                                                <input id="fechaAdendaRetiro" name="fechaAdendaRetiro" class="form-control datepicker" readonly="true" />
-                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                                            </div>                                                        
-                                                        </td>
-                                                    </tr>                                                    
-                                                    <tr>
-                                                        <td>Fecha acta</td>                                                        
-                                                        <td>Número acta</td>                                                        
-                                                    </tr>
-                                                    <tr>
-                                                        <td>
-                                                            <div class="input-group date">
-                                                                <input id="fechaActaAdendaRetiro" name="fechaActaAdendaRetiro" class="form-control datepicker" readonly="true" />
-                                                                <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                                            </div>                                                        
-                                                        </td>
-                                                        <td>
-                                                            <input type="text" class="form-control" id="numeroActaAdendaRetiro" name="numeroActaAdendaRetiro" maxlength="45"/>
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">Documento</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <input type="file" id="documentoAdendaRetiro" name="documentoAdendaRetiro" class="form-control" />
-                                                        </td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">Motivo</td>
-                                                    </tr>
-                                                    <tr>
-                                                        <td colspan="2">
-                                                            <textarea id="motivoAdendaRetiro" name="motivoAdendaRetiro" class="form-control" rows="5"></textarea>
-                                                        </td>
-                                                    </tr>                                                    
-                                                </table>
-                                            </div>
-                                            <div class="modal-footer">
-                                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
-                                                <button type="submit" class="btn btn-primary">Aceptar</button>
-                                            </div>   
-                                            <input type="hidden" id="idAdendaRetiro" name="idAdendaRetiro" value="0"/>
-                                            <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                            <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
-                                        </form:form>
+                                        </div>
                                     </div>
-                                </div>  
-                            </div>    
-                        </div>     
+                                    <div class="modal fade" id="adendaRetiroModal" tabindex="-1" role="dialog" aria-labelledby="adendaRetiroModalLabel" aria-hidden="true">
+                                        <div class="modal-dialog" role="document">
+                                            <div class="modal-content">
+                                                <form:form method="POST" action="${pageContext.request.contextPath}/novedades/adendaRetiro" modelAttribute="adendaRetiroProyecto" enctype="multipart/form-data">
+                                                    <div class="modal-header">
+                                                        <div class="alert alert-info">
+                                                            <strong>Adenda de Retiro</strong>
+                                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                                <span aria-hidden="true">&times;</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                    <div class="modal-body">
+                                                        <div id="alert_placeholder_adenda_retiro"></div>
+                                                        <table class="tablaForm">
+                                                            <tr>
+                                                                <td colspan="3">Tipo persona</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3">
+                                                                    <select name="tipoPersonaAdendaRetiro" id="tipoPersonaAdendaRetiro" class="form-control">
+                                                                        <option value=""></option>
+                                                                    <c:forEach var="tipoPersona" items="${tiposPersona}">
+                                                                        <option value="${tipoPersona.getIdTipoPersona()}">${tipoPersona.getNombre()}</option>
+                                                                    </c:forEach>
+                                                                    </select>    
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td width="45%">Tipo de identificación:</td>
+                                                                <td width="45%">Número de identificación:</td>
+                                                                <td width="10%">&nbsp;</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <select name="tipoIdentificacionPersonaAdendaRetiro" id="tipoIdentificacionPersonaAdendaRetiro" class="form-control">
+                                                                        <option value=""></option>
+                                                                    <c:forEach var="tipoIdentificacion" items="${tiposIdentificacion}">
+                                                                        <option value="${tipoIdentificacion.getIdTipoIdentificacion()}">${tipoIdentificacion.getNombre()}</option>
+                                                                    </c:forEach>
+                                                                    </select>    
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaRetiro" name="numeroIdentificacionPersonaAdendaRetiro" maxlength="20"/>
+                                                                </td>
+                                                                <td>
+                                                                    <div class="btn-group">
+                                                                        <button class="btn btn-dark" onclick="buscarPersonaAdendaRetiro(); return false;">
+                                                                            <i class="glyphicon glyphicon-search"></i>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3">Nombres:</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3">
+                                                                    <input type="text" id="nombresPersonaAdendaRetiro" name="nombresPersonaAdendaRetiro" class="form-control" readonly />
+                                                                </td>
+                                                            </tr>                                                        
+                                                            <tr>
+                                                                <td colspan="3">Apellidos:</td>                                    
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="3">
+                                                                    <input type="text" id="apellidosPersonaAdendaRetiro" name="apellidosPersonaAdendaRetiro" class="form-control" readonly />
+                                                                </td>                                    
+                                                            </tr>                                                        
+                                                         </table>
+                                                        <table class="tablaForm">
+                                                            <tr>
+                                                                <td colspna="2">Fecha de retiro</td>                                                        
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspna="2">
+                                                                    <div class="input-group date">
+                                                                        <input id="fechaAdendaRetiro" name="fechaAdendaRetiro" class="form-control datepicker" readonly="true" />
+                                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                                    </div>                                                        
+                                                                </td>
+                                                            </tr>                                                    
+                                                            <tr>
+                                                                <td>Fecha acta</td>                                                        
+                                                                <td>Número acta</td>                                                        
+                                                            </tr>
+                                                            <tr>
+                                                                <td>
+                                                                    <div class="input-group date">
+                                                                        <input id="fechaActaAdendaRetiro" name="fechaActaAdendaRetiro" class="form-control datepicker" readonly="true" />
+                                                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                                                    </div>                                                        
+                                                                </td>
+                                                                <td>
+                                                                    <input type="text" class="form-control" id="numeroActaAdendaRetiro" name="numeroActaAdendaRetiro" maxlength="45"/>
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">Documento</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <input type="file" id="documentoAdendaRetiro" name="documentoAdendaRetiro" class="form-control" />
+                                                                </td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">Motivo</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2">
+                                                                    <textarea id="motivoAdendaRetiro" name="motivoAdendaRetiro" class="form-control" rows="5"></textarea>
+                                                                </td>
+                                                            </tr>                                                    
+                                                        </table>
+                                                    </div>
+                                                    <div class="modal-footer">
+                                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+                                                        <button type="submit" class="btn btn-primary">Aceptar</button>
+                                                    </div>   
+                                                    <input type="hidden" id="idAdendaRetiro" name="idAdendaRetiro" value="0"/>
+                                                    <input type="hidden" id="${_csrf.parameterName}" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                                    <input type="hidden" id="idProyecto" name="idProyecto" value="${proyecto.getIdProyecto()}" />
+                                                </form:form>
+                                            </div>
+                                        </div>  
+                                    </div>    
+                                </div>     
+                            </div>
+                        </div>
                         <div id="adicionesTab" class="tab-pane fade">
                           <div class="alert alert-info" style="margin-top:20px;">
                                 <strong>Adiciones</strong>
