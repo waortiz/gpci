@@ -1036,7 +1036,7 @@ CREATE TABLE `opcionesmenu` (
 
 LOCK TABLES `opcionesmenu` WRITE;
 /*!40000 ALTER TABLE `opcionesmenu` DISABLE KEYS */;
-INSERT INTO `opcionesmenu` VALUES (2,'Proyectos',1,NULL,2,'fa fa-ticket fa-fw',NULL,1),(3,'Novedades',1,NULL,3,'fa fa-ticket fa-fw',NULL,1),(4,'Registrar',2,2,1,NULL,'/proyectos/crear',1),(5,'Consultar',2,2,2,NULL,'/proyectos/proyectos',1),(6,'Proyectos',2,3,1,NULL,'/novedades/proyectos',1),(7,'Reportes',1,NULL,4,'glyphicon glyphicon-list-alt',NULL,1),(8,'Integrantes por proyectos',2,7,1,NULL,'/reportes/integrantesProyectos',1),(10,'Proyectos por grupo de investigación',2,7,3,NULL,'/reportes/proyectosPorGrupoInvestigacion',1),(11,'Fuente de financiación por proyecto',2,7,4,NULL,'/reportes/fuentesFinanciacionProyectos',1),(12,'Proyectos en ejecución y atrasados por docente',2,7,5,NULL,'/reportes/proyectosEjecucionAtrasadosProfesor',1),(13,'Proyectos por docente',2,7,6,NULL,'/reportes/proyectosProfesor',1),(14,'Seguimiento de proyectos por docente',2,7,7,NULL,'/reportes/seguimientoProyectosProfesor',1),(15,'Inscripción de proyectos',2,7,9,NULL,'/reportes/proyectosInscritos',1),(16,'Administrar',1,NULL,4,'fa fa-dashboard fa-fw',NULL,1),(17,'Crear usuario',2,16,1,NULL,'/usuarios/crear',1),(18,'Usuarios',2,16,2,NULL,'/usuarios/usuarios',1),(19,'Privilegios',2,16,4,NULL,'/privilegios/privilegios',1),(20,'Crear privilegio',2,16,3,NULL,'/privilegios/crear',1),(21,'Editar Proyecto',2,2,3,'','/proyectos/editar',0),(22,'Editar Novedades',2,3,3,'','/novedades/editar',0),(23,'Editar Privilegios Usuario',2,16,4,'','/usuarios/privilegios',0),(24,'Editar Privilegio',2,16,5,'','/privilegios/editar',0),(25,'Certificados',2,7,9,'','/reportes/certificados',1),(26,'Seguimiento de Proyecto',2,7,8,'','/reportes/seguimientoProyecto',1);
+INSERT INTO `opcionesmenu` VALUES (2,'Proyectos',1,NULL,2,'fa fa-ticket fa-fw',NULL,1),(3,'Novedades',1,NULL,3,'fa fa-ticket fa-fw',NULL,1),(4,'Registrar',2,2,1,NULL,'/proyectos/crear',1),(5,'Consultar',2,2,2,NULL,'/proyectos/proyectos',1),(6,'Proyectos',2,3,1,NULL,'/novedades/proyectos',1),(7,'Reportes',1,NULL,4,'glyphicon glyphicon-list-alt',NULL,1),(8,'Integrantes por proyectos',2,7,1,NULL,'/reportes/integrantesProyectos',1),(10,'Proyectos por grupo de investigación',2,7,3,NULL,'/reportes/proyectosPorGrupoInvestigacion',1),(11,'Fuente de financiación por proyecto',2,7,4,NULL,'/reportes/fuentesFinanciacionProyectos',1),(12,'Proyectos en ejecución y atrasados por docente',2,7,5,NULL,'/reportes/proyectosEjecucionAtrasadosProfesor',1),(13,'Proyectos por docente',2,7,6,NULL,'/reportes/proyectosProfesor',1),(14,'Seguimiento de proyectos por docente',2,7,7,NULL,'/reportes/seguimientoProyectosProfesor',1),(15,'Inscripción de proyectos',2,7,9,NULL,'/reportes/proyectosInscritos',1),(16,'Administrar',1,NULL,6,'fa fa-dashboard fa-fw',NULL,1),(17,'Crear usuario',2,16,1,NULL,'/usuarios/crear',1),(18,'Usuarios',2,16,2,NULL,'/usuarios/usuarios',1),(19,'Privilegios',2,16,4,NULL,'/privilegios/privilegios',1),(20,'Crear privilegio',2,16,3,NULL,'/privilegios/crear',1),(21,'Editar Proyecto',2,2,3,'','/proyectos/editar',0),(22,'Editar Novedades',2,3,3,'','/novedades/editar',0),(23,'Editar Privilegios Usuario',2,16,4,'','/usuarios/privilegios',0),(24,'Editar Privilegio',2,16,5,'','/privilegios/editar',0),(25,'Certificados',2,27,1,'','/reportes/certificados',1),(26,'Seguimiento de Proyecto',2,7,8,'','/reportes/seguimientoProyecto',1),(27,'Constancias',1,NULL,5,'glyphicon glyphicon-check',NULL,1);
 /*!40000 ALTER TABLE `opcionesmenu` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1063,7 +1063,7 @@ CREATE TABLE `opcionesmenuprivilegios` (
 
 LOCK TABLES `opcionesmenuprivilegios` WRITE;
 /*!40000 ALTER TABLE `opcionesmenuprivilegios` DISABLE KEYS */;
-INSERT INTO `opcionesmenuprivilegios` VALUES (3,4),(3,5),(3,6),(3,8),(3,10),(3,11),(3,12),(3,13),(3,14),(3,15),(3,17),(3,18),(3,19),(3,20),(3,21),(3,22),(3,23),(3,24),(3,25),(3,26),(4,8);
+INSERT INTO `opcionesmenuprivilegios` VALUES (3,4),(3,5),(3,6),(3,8),(3,10),(3,11),(3,12),(3,13),(3,14),(3,15),(3,17),(3,18),(3,19),(3,20),(3,21),(3,22),(3,23),(3,24),(3,25),(3,26),(3,27),(4,8);
 /*!40000 ALTER TABLE `opcionesmenuprivilegios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1790,7 +1790,7 @@ CREATE TABLE `usuarios` (
 
 LOCK TABLES `usuarios` WRITE;
 /*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'William','Ortiz Álvarez','william','123','waortiz@gmail.com'),(2,'Juan David','Ortiz Perea','juan','123','juan@hotmail.com'),(3,'javier','mejía','javier','123','javier@hotmail.com'),(4,'pepe','ramirez','pepipo','123','pepe@pepe.com'),(5,'petra','petra','petra','123','petra@hotmail.com'),(6,'Ana','Ortiz','Ana','123','ana@hotmail.com'),(7,'Sof�a','Pelaez','Sofia','123','sofia@hotmail.com'),(8,'Yesika','Lopera','yessy','123','yesika@gmail.com'),(9,'Sandra','Gomez','sandra','123','sandra@hotmail.com'),(10,'Fabián Andrés','Mejía','fabian','123','fabian@hotmail.com'),(14,'William Alexis','Perea','william1','1','waortiz@hotmail.com'),(15,'William Alexis','Perea','william3','1','waortiz@hotmail.com');
+INSERT INTO `usuarios` VALUES (1,'William','Ortiz Álvarez','william','123','waortiz@gmail.com'),(2,'Juan David','Ortiz Perea','juan','123','juan@hotmail.com'),(3,'javier','mejía','javier','123','javier@hotmail.com'),(4,'pepe','ramirez','pepipo','123','pepe@pepe.com'),(5,'petra','petra','petra','123','petra@hotmail.com'),(6,'Ana','Ortiz','Ana','123','ana@hotmail.com'),(7,'Sofía','Pelaez','Sofia','123','sofia@hotmail.com'),(8,'Yesika','Lopera','yessy','123','yesika@gmail.com'),(9,'Sandra','Gomez','sandra','123','sandra@hotmail.com'),(10,'Fabián Andrés','Mejía','fabian','123','fabian@hotmail.com'),(14,'William Alexis','Perea','william1','1','waortiz@hotmail.com'),(15,'William Alexis','Perea','william3','1','waortiz@hotmail.com');
 /*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -7381,6 +7381,7 @@ BEGIN
    IF varFechaInicio IS NOT NULL AND varFechaFinal  IS NOT NULL THEN
 		SELECT 
 		   pro.idProyecto, 
+           pro.codigo,
 		   pro.nombreCortoProyecto,
 		   pro.fechaCreacion,
 		   pro.fechaInicio,
@@ -7412,6 +7413,7 @@ BEGIN
 	ELSE
 		SELECT 
 		   pro.idProyecto, 
+           pro.codigo,
 		   pro.nombreCortoProyecto,
 		   pro.fechaCreacion,
 		   pro.fechaInicio,
@@ -8277,4 +8279,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-08-28 18:45:42
+-- Dump completed on 2017-09-04 12:41:52
