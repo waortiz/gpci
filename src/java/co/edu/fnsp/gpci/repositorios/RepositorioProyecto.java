@@ -169,6 +169,10 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varFechaInicio", proyecto.getFechaInicio());
         parametros.addValue("varFechaFinalizacion", proyecto.getFechaFinalizacion());
         parametros.addValue("varIdAreaTematica", proyecto.getAreaTematica().getIdAreaTematica());
+        parametros.addValue("varCodigoSIIU", proyecto.getCodigoSIIU());
+        parametros.addValue("varIngresadoSIIU", proyecto.isIngresadoSIIU());
+        parametros.addValue("varCodigoSIU", proyecto.getCodigoSIU());
+        parametros.addValue("varIngresadoSIU", proyecto.isIngresadoSIU());
         parametros.addValue("varCodigoCOLCIENCIAS", proyecto.getCodigoCOLCIENCIAS());
         parametros.addValue("varCodigo", proyecto.getCodigo());
         parametros.addValue("varParticipacionInternacional", proyecto.isParticipacionInternacional());
@@ -178,7 +182,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varIdEnfoqueMetodologico", proyecto.getEnfoqueMetodologico().getIdEnfoqueMetodologico());
         parametros.addValue("varIdConvocatoria", proyecto.getConvocatoria().getIdConvocatoria());
         parametros.addValue("varObjetivoGeneral", proyecto.getObjetivoGeneral());
-        parametros.addValue("varidUsuarioCreacion", proyecto.getUsuarioCreacion().getIdUsuario());
+        parametros.addValue("varIdUsuarioCreacion", proyecto.getUsuarioCreacion().getIdUsuario());
         Map resultado = ingresarProyecto.execute(parametros);
 
         long idProyecto = (long) resultado.get("varIdProyecto");
@@ -325,6 +329,10 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varFechaInicio", proyecto.getFechaInicio());
         parametros.addValue("varFechaFinalizacion", proyecto.getFechaFinalizacion());
         parametros.addValue("varIdAreaTematica", proyecto.getAreaTematica().getIdAreaTematica());
+        parametros.addValue("varCodigoSIIU", proyecto.getCodigoSIIU());
+        parametros.addValue("varIngresadoSIIU", proyecto.isIngresadoSIIU());
+        parametros.addValue("varCodigoSIU", proyecto.getCodigoSIU());
+        parametros.addValue("varIngresadoSIU", proyecto.isIngresadoSIU());
         parametros.addValue("varCodigoCOLCIENCIAS", proyecto.getCodigoCOLCIENCIAS());
         parametros.addValue("varCodigo", proyecto.getCodigo());
         parametros.addValue("varParticipacionInternacional", proyecto.isParticipacionInternacional());

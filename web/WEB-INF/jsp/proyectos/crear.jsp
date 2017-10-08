@@ -89,8 +89,8 @@
                             </tr>
                             <tr>
                                 <td><form:checkbox path="ingresadoSIGEP" disabled="true" /></td>
-                                <td><form:checkbox path="ingresadoSIIU" disabled="true" /></td>
-                                <td><form:checkbox path="ingresadoSIU" disabled="true" /></td>
+                                <td><form:checkbox path="ingresadoSIIU" /></td>
+                                <td><form:checkbox path="ingresadoSIU" /></td>
                             </tr>
                             <tr>
                                 <td>Fecha ingresado SIGEP:</td>
@@ -101,8 +101,8 @@
                                 <td>
                                     <form:input path="fechaIngresadoSIGEP" class="form-control" readonly="true"/>
                                 </td>
-                                <td><form:input path="codigoSIIU" maxlength="50" class="form-control" readonly="true"/></td>
-                                <td><form:input path="codigoSIU"  maxlength="50" class="form-control" readonly="true"/></td>
+                                <td><form:input path="codigoSIIU" maxlength="50" class="form-control" /></td>
+                                <td><form:input path="codigoSIU"  maxlength="50" class="form-control" /></td>
                             </tr>
                          </table>                            
                          <table class="tablaForm">  
