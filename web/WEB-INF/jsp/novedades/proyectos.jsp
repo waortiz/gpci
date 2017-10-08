@@ -15,7 +15,7 @@
         </div>
     </c:if>            
     <div class = "panel panel-success">
-        <div class = "panel-heading ">PROYECTOS</div>   
+        <div class = "panel-heading ">Proyectos</div>   
         <div class = "panel-body">
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="tab1success">
