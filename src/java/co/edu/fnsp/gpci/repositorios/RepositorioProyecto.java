@@ -386,6 +386,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         proyecto.getAreaTematica().setNombre((String) resultado.get("varAreaTematica"));
         proyecto.setIngresadoSIGEP((boolean) resultado.get("varIngresadoSIGEP"));
         proyecto.setIngresadoSIU((boolean) resultado.get("varIngresadoSIU"));
+        proyecto.setIngresadoSIIU((boolean) resultado.get("varIngresadoSIIU"));
         proyecto.setCodigoSIIU((String) resultado.get("varCodigoSIIU"));
         proyecto.setCodigoCOLCIENCIAS((String) resultado.get("varCodigoCOLCIENCIAS"));
         proyecto.setCodigoSIU((String) resultado.get("varCodigoSIU"));
