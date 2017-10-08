@@ -922,7 +922,7 @@ CREATE TABLE `gruposinvestigacionproyectos` (
 
 LOCK TABLES `gruposinvestigacionproyectos` WRITE;
 /*!40000 ALTER TABLE `gruposinvestigacionproyectos` DISABLE KEYS */;
-INSERT INTO `gruposinvestigacionproyectos` VALUES (1,2,1),(1,4,1),(1,5,1),(1,8,1),(1,17,0),(1,25,1),(1,26,1),(2,25,0),(3,25,0),(4,25,0),(5,25,0),(6,18,0),(6,25,0),(7,18,0),(9,18,1),(10,18,0),(11,18,0),(12,18,0),(17,17,1);
+INSERT INTO `gruposinvestigacionproyectos` VALUES (1,2,1),(1,3,1),(1,4,1),(1,5,1),(1,8,1),(1,17,0),(1,25,1),(1,26,1),(1,27,1),(2,25,0),(3,25,0),(4,25,0),(5,25,0),(6,18,0),(6,25,0),(7,18,0),(9,18,1),(10,18,0),(11,18,0),(12,18,0),(17,17,1);
 /*!40000 ALTER TABLE `gruposinvestigacionproyectos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -1400,6 +1400,10 @@ CREATE TABLE `proyectos` (
   `objetivoGeneral` varchar(300) COLLATE utf8_spanish_ci NOT NULL,
   `fechaCreacion` datetime NOT NULL,
   `idUsuarioCreacion` bigint(20) NOT NULL,
+  `codigoSIU` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `codigoSIIU` varchar(50) COLLATE utf8_spanish_ci DEFAULT NULL,
+  `ingresadoSIIU` tinyint(1) DEFAULT NULL,
+  `ingresadoSIU` tinyint(1) DEFAULT NULL,
   PRIMARY KEY (`idProyecto`),
   UNIQUE KEY `codigo_UNIQUE` (`codigo`),
   KEY `proyectos_areastematicas_idareatematica_idx` (`idAreaTematica`),
@@ -1416,7 +1420,7 @@ CREATE TABLE `proyectos` (
   CONSTRAINT `proyectos_riegoseticos_idriesgoetico` FOREIGN KEY (`idRiesgoEtico`) REFERENCES `riesgoseticos` (`idRiesgoEtico`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `proyectos_tiposcontrato_idtipocontrato` FOREIGN KEY (`idTipoContrato`) REFERENCES `tiposcontrato` (`idTipoContrato`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `proyectos_tiposproyecto_idtipoproyecto` FOREIGN KEY (`idTipoProyecto`) REFERENCES `tiposproyecto` (`idTipoProyecto`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8 COLLATE=utf8_spanish_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -1425,7 +1429,7 @@ CREATE TABLE `proyectos` (
 
 LOCK TABLES `proyectos` WRITE;
 /*!40000 ALTER TABLE `proyectos` DISABLE KEYS */;
-INSERT INTO `proyectos` VALUES (1,'Gestión de Niños','Gestión','2017-05-09 00:00:00','2017-05-25 00:00:00',2,'SE4','1',1,1,3,1,1,2,'DESARROLLAR','2016-05-28 14:31:03',1),(2,'Programa especial de la niñez','Programa especial de la niñez','2017-05-02 00:00:00','2017-05-28 00:00:00',2,'86786','464',1,1,3,1,1,2,'Crear conciencia del cuidado de los niños','2017-05-28 16:02:36',1),(3,'Creación de Niños U de A','Creación de Niños','2017-05-02 00:00:00','2017-05-28 00:00:00',2,'86786','789',1,1,3,1,1,2,'Ninguno en especiÃ¡l','2017-05-28 16:09:32',1),(4,'Proyecto de Integración Colectiva','Proyecto de Integración Colectiva','2017-05-03 00:00:00','2017-05-28 00:00:00',2,'dasdas','56789',0,1,3,1,1,2,'Desarrollar la plataforma de tecnología de la colectividad','2017-05-28 16:10:08',1),(5,'Gestión de Niños','Gestión de Niños','2017-05-09 00:00:00','2017-05-19 00:00:00',2,'54','31312',0,1,3,1,1,2,'Crear árboles','2014-05-28 16:21:25',1),(8,'Nutrición Callejera en Medellín','Nutrición Callejera','2017-05-16 00:00:00','2017-05-29 00:00:00',2,'88','4234',1,1,3,1,1,2,'Crear un sistema','2017-05-29 08:50:45',1),(9,'Social Completo','Social','2017-05-09 00:00:00','2017-05-24 00:00:00',2,'76','646',0,1,3,1,1,2,'Trabajo social','2017-05-29 12:10:28',1),(15,'Pruebas 1','Pruebas 1','2017-07-01 00:00:00','2017-07-30 00:00:00',2,'6','34',0,1,3,1,1,2,'Desarrollo','2015-07-01 14:33:53',1),(16,'Pruebas 1','Pruebas 1','2017-07-01 00:00:00','2017-07-30 00:00:00',2,'6','890',0,1,3,1,1,2,'Desarrollo','2017-07-01 14:35:00',1),(17,'Proyecto 1','Proyecto 1','2017-07-01 00:00:00','2017-07-31 00:00:00',2,'89','786',0,1,3,1,1,2,'Pruebas de guía de información','2017-07-01 17:29:49',1),(18,'Perea','William Alexis','2017-07-02 00:00:00','2017-07-31 00:00:00',4,'5','57',1,1,3,1,1,7,'Ninguno','2017-07-02 20:00:16',1),(20,'Prueba 1','Prueba 1','2017-07-02 00:00:00','2017-07-31 00:00:00',2,'5','4368',0,1,3,1,1,2,'Desarrollo','2017-07-02 20:04:39',1),(21,'Prueba 1','Prueba 1','2017-07-02 00:00:00','2017-07-31 00:00:00',2,'5','21345',0,1,3,1,1,2,'Desarrollo','2017-07-02 20:16:37',1),(25,'DESARROLLO DE TELEASISTENCIA PARA LA TERCERA EDAD','TELELLAMADA','2017-08-11 00:00:00','2017-10-08 00:00:00',5,'5685ASD','6543',1,2,3,1,2,7,'DESARROLLAR PLATAFORMA DE FACILITACIÓN','2017-08-11 12:43:17',1),(26,'Desarrollo integral de planes de acción','Desarrollo de Planes','2017-08-28 00:00:00','2017-10-01 00:00:00',1,'3467','2',0,2,2,1,1,5,'Desarrollar el plan','2017-08-28 18:31:55',1);
+INSERT INTO `proyectos` VALUES (1,'Gestión de Niños','Gestión','2017-05-09 00:00:00','2017-05-25 00:00:00',2,'SE4','1',1,1,3,1,1,2,'DESARROLLAR','2016-05-28 14:31:03',1,NULL,NULL,0,0),(2,'Programa especial de la niñez','Programa especial de la niñez','2017-05-02 00:00:00','2017-05-28 00:00:00',2,'86786','464',1,1,3,1,1,2,'Crear conciencia del cuidado de los niños','2017-05-28 16:02:36',1,NULL,NULL,0,0),(3,'Creación de Niños U de A','Creación de Niños','2017-05-02 00:00:00','2017-05-28 00:00:00',2,'86786','789',1,1,3,1,1,2,'Ninguno en especiÃ¡l','2017-05-28 16:09:32',1,'56656','4234',1,1),(4,'Proyecto de Integración Colectiva','Proyecto de Integración Colectiva','2017-05-03 00:00:00','2017-05-28 00:00:00',2,'dasdas','56789',0,1,3,1,1,2,'Desarrollar la plataforma de tecnología de la colectividad','2017-05-28 16:10:08',1,NULL,NULL,0,0),(5,'Gestión de Niños','Gestión de Niños','2017-05-09 00:00:00','2017-05-19 00:00:00',2,'54','31312',0,1,3,1,1,2,'Crear árboles','2014-05-28 16:21:25',1,NULL,NULL,0,0),(8,'Nutrición Callejera en Medellín','Nutrición Callejera','2017-05-16 00:00:00','2017-05-29 00:00:00',2,'88','4234',1,1,3,1,1,2,'Crear un sistema','2017-05-29 08:50:45',1,NULL,NULL,0,0),(9,'Social Completo','Social','2017-05-09 00:00:00','2017-05-24 00:00:00',2,'76','646',0,1,3,1,1,2,'Trabajo social','2017-05-29 12:10:28',1,NULL,NULL,0,0),(15,'Pruebas 1','Pruebas 1','2017-07-01 00:00:00','2017-07-30 00:00:00',2,'6','34',0,1,3,1,1,2,'Desarrollo','2015-07-01 14:33:53',1,NULL,NULL,0,0),(16,'Pruebas 1','Pruebas 1','2017-07-01 00:00:00','2017-07-30 00:00:00',2,'6','890',0,1,3,1,1,2,'Desarrollo','2017-07-01 14:35:00',1,NULL,NULL,0,0),(17,'Proyecto 1','Proyecto 1','2017-07-01 00:00:00','2017-07-31 00:00:00',2,'89','786',0,1,3,1,1,2,'Pruebas de guía de información','2017-07-01 17:29:49',1,NULL,NULL,0,0),(18,'Perea','William Alexis','2017-07-02 00:00:00','2017-07-31 00:00:00',4,'5','57',1,1,3,1,1,7,'Ninguno','2017-07-02 20:00:16',1,NULL,NULL,0,0),(20,'Prueba 1','Prueba 1','2017-07-02 00:00:00','2017-07-31 00:00:00',2,'5','4368',0,1,3,1,1,2,'Desarrollo','2017-07-02 20:04:39',1,NULL,NULL,0,0),(21,'Prueba 1','Prueba 1','2017-07-02 00:00:00','2017-07-31 00:00:00',2,'5','21345',0,1,3,1,1,2,'Desarrollo','2017-07-02 20:16:37',1,NULL,NULL,0,0),(25,'DESARROLLO DE TELEASISTENCIA PARA LA TERCERA EDAD','TELELLAMADA','2017-08-11 00:00:00','2017-10-08 00:00:00',5,'5685ASD','6543',1,2,3,1,2,7,'DESARROLLAR PLATAFORMA DE FACILITACIÓN','2017-08-11 12:43:17',1,NULL,NULL,0,0),(26,'Desarrollo integral de planes de acción','Desarrollo de Planes','2017-08-28 00:00:00','2017-10-01 00:00:00',1,'3467','2',0,2,2,1,1,5,'Desarrollar el plan','2017-08-28 18:31:55',1,NULL,NULL,0,0),(27,'Proyecto de Prueba','Proyecto Prueba','2017-10-08 00:00:00','2017-10-29 00:00:00',4,'9898','5678768',1,2,2,2,1,7,'Pruebas','2017-10-08 08:08:31',1,'67676','5454',1,1);
 /*!40000 ALTER TABLE `proyectos` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -2994,6 +2998,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `ActualizarProyecto`(
    varIdAreaTematica int(11),
    varCodigoCOLCIENCIAS varchar(50),
    varCodigo varchar(15),
+   varCodigoSIU varchar(50),
+   varCodigoSIIU varchar(50),
+   varIngresadoSIIU tinyint(1),
+   varIngresadoSIU tinyint(1),
    varParticipacionInternacional tinyint(1),
    varIdTipoProyecto int(11),
    varIdRiesgoEtico int(11),
@@ -3018,7 +3026,11 @@ idRiesgoEtico  = varIdRiesgoEtico,
 idTipoContrato = varIdTipoContrato,
 idEnfoqueMetodologico = varIdEnfoqueMetodologico,
 idConvocatoria = varIdConvocatoria,
-objetivoGeneral = varObjetivoGeneral
+objetivoGeneral = varObjetivoGeneral,
+codigoSIU  = varCodigoSIU,
+codigoSIIU = varCodigoSIIU,
+ingresadoSIIU = varIngresadoSIIU,
+ingresadoSIU = varIngresadoSIU
 WHERE idProyecto = varIdProyecto;
 
 END ;;
@@ -5143,6 +5155,10 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `IngresarProyecto`(
    varIdAreaTematica int(11),
    varCodigoCOLCIENCIAS varchar(50),
    varCodigo varchar(15),
+   varCodigoSIU varchar(50),
+   varCodigoSIIU varchar(50),
+   varIngresadoSIIU tinyint(1),
+   varIngresadoSIU tinyint(1),   
    varParticipacionInternacional tinyint(1),
    varIdTipoProyecto int(11),
    varIdRiesgoEtico int(11),
@@ -5163,6 +5179,10 @@ INSERT INTO proyectos
 `idAreaTematica`,
 `codigoCOLCIENCIAS`,
 `codigo`,
+ codigoSIU,
+ codigoSIIU,
+ ingresadoSIIU,
+ ingresadoSIU,
 `participacionInternacional`,
 `idTipoProyecto`,
 `idRiesgoEtico`,
@@ -5181,6 +5201,10 @@ varfechaFinalizacion,
 varidAreaTematica,
 varcodigoCOLCIENCIAS,
 varcodigo,
+varCodigoSIU,
+varCodigoSIIU,
+varIngresadoSIIU,
+varIngresadoSIU,
 varparticipacionInternacional,
 varidTipoProyecto,
 varidRiesgoEtico,
@@ -7295,11 +7319,11 @@ SELECT
    pro.idAreaTematica,
    atem.nombre areaTematica,
    0,
-   0,
-   0,
-   '',
+   pro.ingresadoSIIU,
+   pro.ingresadoSIU,
+   pro.codigoSIIU,
    pro.codigoCOLCIENCIAS,
-   '',
+   pro.codigoSIU,
    pro.codigo,
    pro.participacionInternacional,
    pro.idTipoProyecto,
@@ -8279,4 +8303,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-09-04 12:41:52
+-- Dump completed on 2017-10-08  8:39:48
