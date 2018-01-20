@@ -44,6 +44,7 @@ import co.edu.fnsp.gpci.servicios.IServicioMaestro;
 import co.edu.fnsp.gpci.servicios.IServicioProyecto;
 import co.edu.fnsp.gpci.utilidades.Util;
 import com.google.gson.Gson;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -115,7 +116,7 @@ public class ProyectoController {
             fechaInicial = calendar.getTime();
 
             proyectos = servicioProyecto.obtenerProyectos(fechaInicial, fechaFinal, busquedaProyectos.getCodigo(), busquedaProyectos.getDocumentoInvestigadorPrincipal());
-        } catch (Exception ex) {
+        } catch (ParseException ex) {
             logger.error(ex);
         }
 
