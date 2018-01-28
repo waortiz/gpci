@@ -2769,7 +2769,6 @@
             function limpiarDatosVentanaPersonalExternoProyecto() {
                 $('#consecutivo').val("");
                 $('#tipoIdentificacionPersonalExterno').val("");
-                $('#descripcionTipoIdentificacionPersonalExterno').val("");
                 $('#numeroIdentificacionPersonalExterno').val("");
                 $('#nombresPersonalExterno').val("");
                 $('#apellidosPersonalExterno').val("");
