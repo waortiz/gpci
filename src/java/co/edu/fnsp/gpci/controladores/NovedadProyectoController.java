@@ -36,6 +36,7 @@ import co.edu.fnsp.gpci.utilidades.Util;
 import com.google.gson.Gson;
 import co.edu.fnsp.gpci.entidades.TipoPersonaEnum;
 import java.io.IOException;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -110,7 +111,7 @@ public class NovedadProyectoController {
             fechaInicial = calendar.getTime();
             
             proyectos = servicioNovedadProyecto.obtenerProyectos(fechaInicial, fechaFinal, busquedaProyectos.getCodigo(), busquedaProyectos.getDocumentoInvestigadorPrincipal());
-        } catch (Exception ex) {
+        } catch (ParseException ex) {
             logger.error(ex);
         }
 
@@ -434,7 +435,7 @@ public class NovedadProyectoController {
         } catch (IllegalArgumentException exc) {
             logger.error(exc);
             json = "{\"error\":\"" + exc.getMessage() + "\"}";
-        } catch (Exception exc) {
+        } catch (IOException | ParseException exc) {
             logger.error(exc);
             throw exc;
         }
@@ -651,7 +652,7 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(prorrogas);
 
-        } catch (Exception exc) {
+        } catch (IOException | ParseException exc) {
             logger.error(exc);
             throw exc;
         }
@@ -714,7 +715,7 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(plazos);
 
-        } catch (Exception exc) {
+        } catch (IOException | ParseException exc) {
             logger.error(exc);
             throw exc;
         }
@@ -774,7 +775,7 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(cumplimientoCompromisos);
 
-        } catch (Exception exc) {
+        } catch (IOException | ParseException exc) {
             logger.error(exc);
             throw exc;
         }
@@ -831,7 +832,7 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(compromisoHomologados);
 
-        } catch (Exception exc) {
+        } catch (ParseException exc) {
             logger.error(exc);
             throw exc;
         }
@@ -878,7 +879,7 @@ public class NovedadProyectoController {
             Gson gson = new Gson();
             json = gson.toJson(cumplimientosAlertasAval);
 
-        } catch (Exception exc) {
+        } catch (IOException | ParseException exc) {
             logger.error(exc);
             throw exc;
         }

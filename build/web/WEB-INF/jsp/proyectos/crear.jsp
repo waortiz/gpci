@@ -1634,7 +1634,7 @@
                     }
                 });
                 $('#removerGrupoInvestigacion').click(function () {
-                   var gruposInvestigacionRemover = new Array();
+                   var gruposInvestigacionRemover = [];
                    var contador = 0;
                    for(i = 0; i < proyectoModel.gruposInvestigacion().length; i++) {
                       if(proyectoModel.gruposInvestigacion()[i].seleccionado()) {
@@ -1662,7 +1662,7 @@
                      proyectoModel.idGrupoInvestigacionPrincipal(0);
                    }    
                    $('#seleccionarTodosGruposInvestigacion').prop('checked' , false);
-                   ordenarOpcionesMenu($('#gruposInvestigacionPorAsignar option'));
+                   ordenarOpciones($('#gruposInvestigacionPorAsignar option'));
                 });                    
             });
             
@@ -1684,22 +1684,22 @@
             });
             
             $('#proyecto').submit(function (evt) {
-                if (proyectoModel.gruposInvestigacion().length == 0) {
+                if (proyectoModel.gruposInvestigacion().length === 0) {
                     bootstrap_alert_proyecto.warning('Debe asignar al menos un grupo de investigación');
                     return false;
                 }
                                 
-                if ($('#ingresadoSIGEP1').is(':checked') && $('#fechaIngresadoSIGEP').val() == "") {
+                if ($('#ingresadoSIGEP1').is(':checked') && $('#fechaIngresadoSIGEP').val() === "") {
                     bootstrap_alert_proyecto.warning('Debe ingresar la fecha de ingresado SIGEP');
                     return false;
                 } 
 
-                if ($('#ingresadoSIIU1').is(':checked') && $('#codigoSIIU').val() == "") {
+                if ($('#ingresadoSIIU1').is(':checked') && $('#codigoSIIU').val() === "") {
                     bootstrap_alert_proyecto.warning('Debe ingresar el código SIIU');
                     return false;
                 } 
 
-                if ($('#ingresadoSIU1').is(':checked') && $('#codigoSIU').val() == "") {
+                if ($('#ingresadoSIU1').is(':checked') && $('#codigoSIU').val() === "") {
                     bootstrap_alert_proyecto.warning('Debe ingresar el código SIU');
                     return false;
                 } 
@@ -1715,7 +1715,7 @@
                         xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                     },
                     success: function (response) {
-                       if(response == "") {
+                       if(response === "") {
                           $('#confirmacionAlmacenamientoProyecto').modal('show');
                        } else {
                           bootstrap_alert_proyecto.warning(response);
@@ -1734,7 +1734,7 @@
            $('#convocatoriaForm').submit(function (evt) {
                 evt.preventDefault();
                 var formData = new FormData(this);
-                if ($('#nombreConvocatoria').val() == "") {
+                if ($('#nombreConvocatoria').val() === "") {
                     bootstrap_alert_convocatoria.warning('Debe ingresar el nombre');
                     return false;
                 }
@@ -1754,7 +1754,7 @@
                             $('#nombreConvocatoria').val("");
                             var convocatoria = JSON.parse(response);
                             $('#convocatoria').append("<option value='" + convocatoria.idConvocatoria + "'>" + convocatoria.nombre + "</option>");
-                            ordenarOpcionesMenu($('#convocatoria option'));
+                            ordenarOpciones($('#convocatoria option'));
                             $('#convocatoria').val(convocatoria.idConvocatoria);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
@@ -1765,7 +1765,7 @@
            $('#areaTematicaForm').submit(function (evt) {
                 evt.preventDefault();
                 var formData = new FormData(this);
-                if ($('#nombreAreaTematica').val() == "") {
+                if ($('#nombreAreaTematica').val() === "") {
                     bootstrap_alert_areaTematica.warning('Debe ingresar el nombre');
                     return false;
                 }
@@ -1785,7 +1785,7 @@
                             $('#nombreConvocatoria').val("");
                             var areaTematica = JSON.parse(response);
                             $('#areaTematica').append("<option value='" + areaTematica.idAreaTematica + "'>" + areaTematica.nombre + "</option>");
-                            ordenarOpcionesMenu($('#areaTematica option'));
+                            ordenarOpciones($('#areaTematica option'));
                             $('#areaTematica').val(areaTematica.idAreaTematica);
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
@@ -1793,7 +1793,7 @@
                     }});
             });            
 
-            function ordenarOpcionesMenu(options) {
+            function ordenarOpciones(options) {
                 var arr = options.map(function (_, o) {
                     return {
                         t: $(o).text(),
@@ -1856,13 +1856,13 @@
                 self.idGrupoInvestigacionPrincipal = ko.observable(idGrupoInvestigacionPrincipal);
                 self.objetivosEspecificos = ko.observableArray(objetivosEspecificos);
                 self.adicionarObjetivoEspecifico = function () {
-                    if ($('#objetivoEspecifico').val() == "") {
+                    if ($('#objetivoEspecifico').val() === "") {
                         bootstrap_alert_objetivosEspecificos.warning('Debe ingresar el objetivo específico');
                         return false;
                     }
                     $('#objetivosEspecificosModal').modal('toggle');
                     bootstrap_alert_objetivosEspecificos.removeWarning();
-                    if($('#consecutivo').val() == "") {
+                    if($('#consecutivo').val() === "") {
                         self.objetivosEspecificos.push({
                             idObjetivoEspecifico: ko.observable(0),
                             consecutivo: ko.observable(self.objetivosEspecificos().length + 1),
@@ -1872,7 +1872,7 @@
                         var consecutivo = parseInt($('#consecutivo').val(), 10);
                         var indice = 0;
                         for(i = 0; i < self.objetivosEspecificos().length; i++) {
-                           if(self.objetivosEspecificos()[i].consecutivo() == consecutivo){
+                           if(self.objetivosEspecificos()[i].consecutivo() === consecutivo){
                               indice = i; 
                               break;
                            }
@@ -1894,17 +1894,17 @@
 
                 self.compromisosProyecto = ko.observableArray(compromisosProyecto);
                 self.adicionarCompromisoProyecto = function () {
-                    if ($('#compromisoProyecto').val() == "") {
+                    if ($('#compromisoProyecto').val() === "") {
                         bootstrap_alert_compromisos_proyecto.warning('Debe ingresar el compromiso');
                         return false;
                     }
-                    if ($('#tipoCompromiso').val() == "") {
+                    if ($('#tipoCompromiso').val() === "") {
                         bootstrap_alert_compromisos_proyecto.warning('Debe seleccionar el tipo de compromiso');
                         return false;
                     }
                     $('#compromisosProyectoModal').modal('toggle');
                     bootstrap_alert_compromisos_proyecto.removeWarning();
-                    if($('#consecutivo').val() == "") {
+                    if($('#consecutivo').val() === "") {
                         self.compromisosProyecto.push({
                             idCompromisoProyecto: ko.observable(0),
                             consecutivo: ko.observable(self.compromisosProyecto().length + 1),
@@ -1917,7 +1917,7 @@
                         var consecutivo = parseInt($('#consecutivo').val(), 10);
                         var indice = 0;
                         for(i = 0; i < self.compromisosProyecto().length; i++) {
-                           if(self.compromisosProyecto()[i].consecutivo() == consecutivo){
+                           if(self.compromisosProyecto()[i].consecutivo() === consecutivo){
                               indice = i; 
                               break;
                            }
@@ -1942,60 +1942,60 @@
 
                 self.profesoresProyecto = ko.observableArray(profesoresProyecto);
                 self.adicionarProfesorProyecto = function () {
-                    if ($('#tipoIdentificacionProfesor').val() == "") {
+                    if ($('#tipoIdentificacionProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe seleccionar el tipo de identificación');
                         return false;
                     }
-                    if ($('#numeroIdentificacionProfesor').val() == "") {
+                    if ($('#numeroIdentificacionProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe ingresar el número de identificación');
                         return false;
                     }
-                    if ($('#nombresProfesor').val() == "") {
+                    if ($('#nombresProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe ingresar los nombres');
                         return false;
                     }
-                    if ($('#apellidosProfesor').val() == "") {
+                    if ($('#apellidosProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe ingresar los apellidos');
                         return false;
                     }                    
-                    if ($('#correoElectronicoProfesor').val() == "") {
+                    if ($('#correoElectronicoProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe ingresar el correo electrónico');
                         return false;
                     }                    
-                    if ($('#contactoProfesor').val() == "") {
+                    if ($('#contactoProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe ingresar el contacto');
                         return false;
                     }                    
-                    if ($('#facultadProfesor').val() == "") {
+                    if ($('#facultadProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe seleccionar la facultad');
                         return false;
                     }
-                    if ($('#rolProfesor').val() == "") {
+                    if ($('#rolProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe seleccionar el rol');
                         return false;
                     }
-                    if ($('#tipoVinculacion').val() == "") {
+                    if ($('#tipoVinculacion').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe seleccionar el tipo vinculación a la U de A');
                         return false;
                     }
-                    if ($('#porcentajePIProfesor').val() == "") {
+                    if ($('#porcentajePIProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe ingresar el porcentaje de propiedad intelectual');
                         return false;
                     }
-                    if ($('#horasSemanaProfesor').val() == "") {
+                    if ($('#horasSemanaProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe ingresar las horas semanales');
                         return false;
                     }
-                    if ($('#mesesDedicadosProfesor').val() == "") {
+                    if ($('#mesesDedicadosProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe ingresar los meses dedicados');
                         return false;
                     }
                     
-                    if($('#consecutivo').val() == "") {
+                    if($('#consecutivo').val() === "") {
                         
                         for(i = 0; i < self.profesoresProyecto().length; i++) {
-                            if(self.profesoresProyecto()[i].idTipoIdentificacion() == $('#tipoIdentificacionProfesor').val() && 
-                               self.profesoresProyecto()[i].numeroIdentificacion() == $('#numeroIdentificacionProfesor').val()) {
+                            if(self.profesoresProyecto()[i].idTipoIdentificacion() === $('#tipoIdentificacionProfesor').val() && 
+                               self.profesoresProyecto()[i].numeroIdentificacion() === $('#numeroIdentificacionProfesor').val()) {
                                bootstrap_alert_profesores_proyecto.warning('El profesor ya hace parte del proyecto');
                                return false;                               
                             }
@@ -2028,7 +2028,7 @@
                             var consecutivo = parseInt($('#consecutivo').val(), 10);
                             var indice = 0;
                             for(i = 0; i < self.profesoresProyecto().length; i++) {
-                                if(self.profesoresProyecto()[i].consecutivo() == consecutivo){
+                                if(self.profesoresProyecto()[i].consecutivo() === consecutivo){
                                    indice = i; 
                                    break;
                                 }
@@ -2085,60 +2085,60 @@
 
                 self.estudiantesProyecto = ko.observableArray(estudiantesProyecto);
                 self.adicionarEstudianteProyecto = function () {
-                    if ($('#tipoIdentificacionEstudiante').val() == "") {
+                    if ($('#tipoIdentificacionEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe seleccionar el tipo de identificación');
                         return false;
                     }
-                    if ($('#numeroIdentificacionEstudiante').val() == "") {
+                    if ($('#numeroIdentificacionEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar el número de identificación');
                         return false;
                     }
-                    if ($('#nombresEstudiante').val() == "") {
+                    if ($('#nombresEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar los nombres');
                         return false;
                     }
-                    if ($('#apellidosEstudiante').val() == "") {
+                    if ($('#apellidosEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar los apellidos');
                         return false;
                     }                    
-                    if ($('#correoElectronicoEstudiante').val() == "") {
+                    if ($('#correoElectronicoEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar el correo electrónico');
                         return false;
                     }                    
-                    if ($('#contactoEstudiante').val() == "") {
+                    if ($('#contactoEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar el contacto');
                         return false;
                     }                    
-                    if ($('#tipoEstudiante').val() == "") {
+                    if ($('#tipoEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe seleccionar el tipo de estudiante');
                         return false;
                     }
-                    if ($('#programaEstudiante').val() == "") {
+                    if ($('#programaEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe seleccionar el programa');
                         return false;
                     }
-                    if ($('#rolEstudiante').val() == "") {
+                    if ($('#rolEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe seleccionar el rol');
                         return false;
                     }
-                    if ($('#porcentajePropiedadIntelectualEstudiante').val() == "") {
+                    if ($('#porcentajePropiedadIntelectualEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar el porcentaje de propiedad intelectual');
                         return false;
                     }
-                    if ($('#horasSemanaEstudiante').val() == "") {
+                    if ($('#horasSemanaEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar las horas semanales');
                         return false;
                     }
-                    if ($('#mesesDedicadosEstudiante').val() == "") {
+                    if ($('#mesesDedicadosEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar los meses dedicados');
                         return false;
                     }
                     
-                    if($('#consecutivo').val() == "") {
+                    if($('#consecutivo').val() === "") {
                         
                         for(i = 0; i < self.estudiantesProyecto().length; i++) {
-                            if(self.estudiantesProyecto()[i].idTipoIdentificacion() == $('#tipoIdentificacionEstudiante').val() && 
-                               self.estudiantesProyecto()[i].numeroIdentificacion() == $('#numeroIdentificacionEstudiante').val()) {
+                            if(self.estudiantesProyecto()[i].idTipoIdentificacion() === $('#tipoIdentificacionEstudiante').val() && 
+                               self.estudiantesProyecto()[i].numeroIdentificacion() === $('#numeroIdentificacionEstudiante').val()) {
                                bootstrap_alert_estudiantes_proyecto.warning('El estudiante ya hace parte del proyecto');
                                return false;                               
                             }
@@ -2168,7 +2168,7 @@
                             var consecutivo = parseInt($('#consecutivo').val(), 10);
                             var indice = 0;
                             for(i = 0; i < self.estudiantesProyecto().length; i++) {
-                                if(self.estudiantesProyecto()[i].consecutivo() == consecutivo){
+                                if(self.estudiantesProyecto()[i].consecutivo() === consecutivo){
                                    indice = i; 
                                    break;
                                 }
@@ -2221,52 +2221,52 @@
 
                 self.personalExternoProyecto = ko.observableArray(personalExternoProyecto);
                 self.adicionarPersonalExternoProyecto = function () {
-                    if ($('#tipoIdentificacionPersonalExterno').val() == "") {
+                    if ($('#tipoIdentificacionPersonalExterno').val() === "") {
                         bootstrap_alert_personalExternoProyecto.warning('Debe seleccionar el tipo de identificación');
                         return false;
                     }
-                    if ($('#numeroIdentificacionPersonalExterno').val() == "") {
+                    if ($('#numeroIdentificacionPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar el número de identificación');
                         return false;
                     }
-                    if ($('#nombresPersonalExterno').val() == "") {
+                    if ($('#nombresPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar los nombres');
                         return false;
                     }
-                    if ($('#apellidosPersonalExterno').val() == "") {
+                    if ($('#apellidosPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar los apellidos');
                         return false;
                     }                    
-                    if ($('#correoElectronicoPersonalExterno').val() == "") {
+                    if ($('#correoElectronicoPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar el correo electrónico');
                         return false;
                     }                    
-                    if ($('#entidadPersonalExterno').val() == "") {
+                    if ($('#entidadPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar la entidad');
                         return false;
                     }                    
-                    if ($('#rolPersonalExterno').val() == "") {
+                    if ($('#rolPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe seleccionar el rol');
                         return false;
                     }
-                    if ($('#porcentajePropiedadIntelectualPersonalExterno').val() == "") {
+                    if ($('#porcentajePropiedadIntelectualPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar el porcentaje de propiedad intelectual');
                         return false;
                     }
-                    if ($('#horasSemanaPersonalExterno').val() == "") {
+                    if ($('#horasSemanaPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar las horas semanales');
                         return false;
                     }
-                    if ($('#mesesDedicadosPersonalExterno').val() == "") {
+                    if ($('#mesesDedicadosPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar los meses dedicados');
                         return false;
                     }
                     
-                    if($('#consecutivo').val() == "") {
+                    if($('#consecutivo').val() === "") {
                         
                         for(i = 0; i < self.personalExternoProyecto().length; i++) {
-                            if(self.personalExternoProyecto()[i].idTipoIdentificacion() == $('#tipoIdentificacionPersonalExterno').val() && 
-                               self.personalExternoProyecto()[i].numeroIdentificacion() == $('#numeroIdentificacionPersonalExterno').val()) {
+                            if(self.personalExternoProyecto()[i].idTipoIdentificacion() === $('#tipoIdentificacionPersonalExterno').val() && 
+                               self.personalExternoProyecto()[i].numeroIdentificacion() === $('#numeroIdentificacionPersonalExterno').val()) {
                                bootstrap_alert_personalExterno_proyecto.warning('El personal externo ya hace parte del proyecto');
                                return false;                               
                             }
@@ -2292,7 +2292,7 @@
                             var consecutivo = parseInt($('#consecutivo').val(), 10);
                             var indice = 0;
                             for(i = 0; i < self.personalExternoProyecto().length; i++) {
-                                if(self.personalExternoProyecto()[i].consecutivo() == consecutivo){
+                                if(self.personalExternoProyecto()[i].consecutivo() === consecutivo){
                                    indice = i; 
                                    break;
                                 }
@@ -2339,13 +2339,13 @@
  
                 self.entidadesInternacionalesProyecto = ko.observableArray(entidadesInternacionalesProyecto);
                 self.adicionarEntidadInternacional = function () {
-                    if ($('#entidadInternacionalProyecto').val() == "") {
+                    if ($('#entidadInternacionalProyecto').val() === "") {
                         bootstrap_alert_entidadInternacional_proyecto.warning('Debe ingresar la entidad internacional');
                         return false;
                     }
                     $('#entidadesInternacionalesModal').modal('toggle');
                     bootstrap_alert_entidadInternacional_proyecto.removeWarning();
-                    if($('#consecutivo').val() == "") {
+                    if($('#consecutivo').val() === "") {
                         self.entidadesInternacionalesProyecto.push({
                             idEntidadInternacionalProyecto: ko.observable(0),
                             consecutivo: ko.observable(self.entidadesInternacionalesProyecto().length + 1),
@@ -2355,7 +2355,7 @@
                         var consecutivo = parseInt($('#consecutivo').val(), 10);
                         var indice = 0;
                         for(i = 0; i < self.entidadesInternacionalesProyecto().length; i++) {
-                           if(self.entidadesInternacionalesProyecto()[i].consecutivo() == consecutivo){
+                           if(self.entidadesInternacionalesProyecto()[i].consecutivo() === consecutivo){
                               indice = i; 
                               break;
                            }
@@ -2377,23 +2377,23 @@
 
                 self.fuentesFinanciacionProyecto = ko.observableArray(fuentesFinanciacionProyecto);
                 self.adicionarFuenteFinanciacionProyecto = function () {
-                    if ($('#fuenteFinanciacion').val() == "") {
+                    if ($('#fuenteFinanciacion').val() === "") {
                         bootstrap_alert_fuenteFinanciacion_proyecto.warning('Debe seleccionar la fuente de financiación');
                         return false;
                     }
-                    if ($('#tipoFuenteFinanciacionProyecto').val() == "") {
+                    if ($('#tipoFuenteFinanciacionProyecto').val() === "") {
                         bootstrap_alert_fuenteFinanciacion_proyecto.warning('Debe seleccionar el tipo de fuente de financiación');
                         return false;
                     }
-                    if ($('#montoEspecies').val() == "") {
+                    if ($('#montoEspecies').val() === "") {
                         bootstrap_alert_fuenteFinanciacion_proyecto.warning('Debe ingresar el monto en especies');
                         return false;
                     }
-                    if ($('#montoFrescos').val() == "") {
+                    if ($('#montoFrescos').val() === "") {
                         bootstrap_alert_fuenteFinanciacion_proyecto.warning('Debe ingresar el monto en recursos frescos');
                         return false;
                     }                    
-                    if($('#consecutivo').val() == "") {
+                    if($('#consecutivo').val() === "") {
                         self.fuentesFinanciacionProyecto.push({
                             idFuenteFinanciacionProyecto: ko.observable(0),
                             idFuenteFinanciacion: ko.observable($('#fuenteFinanciacion').val()),
@@ -2410,7 +2410,7 @@
                             var consecutivo = parseInt($('#consecutivo').val(), 10);
                             var indice = 0;
                             for(i = 0; i < self.fuentesFinanciacionProyecto().length; i++) {
-                                if(self.fuentesFinanciacionProyecto()[i].consecutivo() == consecutivo){
+                                if(self.fuentesFinanciacionProyecto()[i].consecutivo() === consecutivo){
                                    indice = i; 
                                    break;
                                 }
@@ -2445,25 +2445,25 @@
                 
                 self.alertasAvalProyecto = ko.observableArray(alertasAvalProyecto);
                 self.adicionarAlertaAvalProyecto = function () {
-                    if ($('#descripcionAlertaAvalProyecto').val() == "") {
+                    if ($('#descripcionAlertaAvalProyecto').val() === "") {
                         bootstrap_alert_alertas_aval_proyecto.warning('Debe ingresar la descripción');
                         return false;
                     }
-                    if ($('#tipoAvalProyecto').val() == "") {
+                    if ($('#tipoAvalProyecto').val() === "") {
                         bootstrap_alert_alertas_aval_proyecto.warning('Debe seleccionar el tipo de aval');
                         return false;
                     }
-                    if ($('#fechaActaAlertaAvalProyecto').val() == "") {
+                    if ($('#fechaActaAlertaAvalProyecto').val() === "") {
                         bootstrap_alert_alertas_aval_proyecto.warning('Debe ingresar la fecha del acta');
                         return false;
                     }
-                    if ($('#numeroActaAlertaAvalProyecto').val() == "") {
+                    if ($('#numeroActaAlertaAvalProyecto').val() === "") {
                         bootstrap_alert_alertas_aval_proyecto.warning('Debe ingresar el número de acta');
                         return false;
                     }
                     $('#alertasAvalProyectoModal').modal('toggle');
                     bootstrap_alert_alertas_aval_proyecto.removeWarning();
-                    if($('#consecutivo').val() == "") {
+                    if($('#consecutivo').val() === "") {
                         self.alertasAvalProyecto.push({
                             idAlertaAvalProyecto: ko.observable(0),
                             consecutivo: ko.observable(self.alertasAvalProyecto().length + 1),
@@ -2477,7 +2477,7 @@
                         var consecutivo = parseInt($('#consecutivo').val(), 10);
                         var indice = 0;
                         for(i = 0; i < self.alertasAvalProyecto().length; i++) {
-                           if(self.alertasAvalProyecto()[i].consecutivo() == consecutivo){
+                           if(self.alertasAvalProyecto()[i].consecutivo() === consecutivo){
                               indice = i; 
                               break;
                            }
@@ -2505,15 +2505,15 @@
                 };
             };
 
-            var objetivosEspecificos = new Array();
-            var profesoresProyecto = new Array();   
-            var estudiantesProyecto = new Array();
-            var personalExternoProyecto = new Array();
-            var compromisosProyecto = new Array();
-            var entidadesInternacionalesProyecto = new Array();
-            var fuentesFinanciacionProyecto = new Array();
-            var alertasAvalProyecto = new Array();
-            var gruposInvestigacion = new Array();
+            var objetivosEspecificos = [];
+            var profesoresProyecto = [];   
+            var estudiantesProyecto = [];
+            var personalExternoProyecto = [];
+            var compromisosProyecto = [];
+            var entidadesInternacionalesProyecto = [];
+            var fuentesFinanciacionProyecto = [];
+            var alertasAvalProyecto = [];
+            var gruposInvestigacion = [];
             
             var objetivoEspecificoEliminar = null;
             var profesorProyectoEliminar = null;
@@ -2645,7 +2645,7 @@
                 var tipoIdentificacion = $('#tipoIdentificacionProfesor').val();
                 var numeroIdentificacion = $('#numeroIdentificacionProfesor').val();
 
-                if(tipoIdentificacion != "" && numeroIdentificacion != ""){
+                if(tipoIdentificacion !== "" && numeroIdentificacion !== ""){
                       $.ajax({
                         type: "POST",
                         url: "${pageContext.request.contextPath}/proyectos/profesores",
@@ -2654,7 +2654,7 @@
                            xhr.setRequestHeader("X-CSRF-Token", $('#_csrf').val());
                         },                        
                         success: function(response){
-                           if(response != "") {
+                           if(response !== "") {
                              var profesor = JSON.parse(response);
                              $('#nombresProfesor').val(profesor.nombres);
                              $('#apellidosProfesor').val(profesor.apellidos);
@@ -2672,11 +2672,11 @@
                         }
                     });
                 } else {
-                    if ($('#tipoIdentificacionProfesor').val() == "") {
+                    if ($('#tipoIdentificacionProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe seleccionar el tipo de identificación');
                         return false;
                     }
-                    if ($('#numeroIdentificacionProfesor').val() == "") {
+                    if ($('#numeroIdentificacionProfesor').val() === "") {
                         bootstrap_alert_profesores_proyecto.warning('Debe ingresar el número de identificación');
                         return false;
                     }
@@ -2715,7 +2715,7 @@
                 var tipoIdentificacion = $('#tipoIdentificacionEstudiante').val();
                 var numeroIdentificacion = $('#numeroIdentificacionEstudiante').val();
 
-                if(tipoIdentificacion != "" && numeroIdentificacion != ""){
+                if(tipoIdentificacion !== "" && numeroIdentificacion !== ""){
                       $.ajax({
                         type: "POST",
                         url: "${pageContext.request.contextPath}/proyectos/estudiantes",
@@ -2744,11 +2744,11 @@
                         }
                     });
                 } else {
-                    if ($('#tipoIdentificacionEstudiante').val() == "") {
+                    if ($('#tipoIdentificacionEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe seleccionar el tipo de identificación');
                         return false;
                     }
-                    if ($('#numeroIdentificacionEstudiante').val() == "") {
+                    if ($('#numeroIdentificacionEstudiante').val() === "") {
                         bootstrap_alert_estudiantes_proyecto.warning('Debe ingresar el número de identificación');
                         return false;
                     }
@@ -2811,11 +2811,11 @@
                         }
                     });
                 } else {
-                    if ($('#tipoIdentificacionPersonalExterno').val() == "") {
+                    if ($('#tipoIdentificacionPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe seleccionar el tipo de identificación');
                         return false;
                     }
-                    if ($('#numeroIdentificacionPersonalExterno').val() == "") {
+                    if ($('#numeroIdentificacionPersonalExterno').val() === "") {
                         bootstrap_alert_personalExterno_proyecto.warning('Debe ingresar el número de identificación');
                         return false;
                     }
