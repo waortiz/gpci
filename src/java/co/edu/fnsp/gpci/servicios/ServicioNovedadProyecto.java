@@ -22,6 +22,7 @@ import co.edu.fnsp.gpci.repositorios.IRepositorioNovedadProyecto;
 import java.util.ArrayList;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
 import org.springframework.transaction.TransactionDefinition;
@@ -41,6 +42,9 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
+    @Value( "${jdbc.timeout}" )
+    private int timeout;
+        
     @Override
     public Proyecto obtenerProyecto(long idProyecto) {
         return repositorioNovedadProyecto.obtenerProyecto(idProyecto);
@@ -53,7 +57,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void guardarActaProyecto(long idProyecto, ActaProyecto actaProyecto, Documento documento) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.guardarActaProyecto(idProyecto, actaProyecto, documento);
@@ -76,7 +81,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void eliminarActaProyecto(long idActa) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.eliminarActaProyecto(idActa);
@@ -89,7 +95,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void guardarAdicionProyecto(long idProyecto, AdicionProyecto actaProyecto, Documento documento) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.guardarAdicionProyecto(idProyecto, actaProyecto, documento);
@@ -112,7 +119,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void eliminarAdicionProyecto(long idAdicion) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.eliminarAdicionProyecto(idAdicion);
@@ -125,7 +133,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void guardarProrrogaProyecto(long idProyecto, ProrrogaProyecto prorrogaProyecto, Documento documento) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.guardarProrrogaProyecto(idProyecto, prorrogaProyecto, documento);
@@ -148,7 +157,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void eliminarProrrogaProyecto(long idProrroga) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.eliminarProrrogaProyecto(idProrroga);
@@ -161,7 +171,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void guardarPlazoProyecto(long idProyecto, PlazoProyecto plazoProyecto, Documento documento) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.guardarPlazoProyecto(idProyecto, plazoProyecto, documento);
@@ -184,7 +195,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void eliminarPlazoProyecto(long idPlazo) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.eliminarPlazoProyecto(idPlazo);
@@ -197,7 +209,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void guardarAdendaCambioProyecto(long idProyecto, AdendaCambioProyecto adendaCambioProyecto, Documento documento) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.guardarAdendaCambioProyecto(idProyecto, adendaCambioProyecto, documento);
@@ -233,7 +246,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void guardarAdendaIngresoProyecto(long idProyecto, AdendaIngresoProyecto adendaIngresoProyecto, Documento documento) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.guardarAdendaIngresoProyecto(idProyecto, adendaIngresoProyecto, documento);
@@ -269,7 +283,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void guardarAdendaRetiroProyecto(long idProyecto, AdendaRetiroProyecto adendaRetiroProyecto, Documento documento) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.guardarAdendaRetiroProyecto(idProyecto, adendaRetiroProyecto, documento);
@@ -292,7 +307,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void eliminarAdendaRetiroProyecto(long idAdenda) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.eliminarAdendaRetiroProyecto(idAdenda);
@@ -305,7 +321,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void guardarCumplimientoCompromisoProyecto(long idProyecto, CumplimientoCompromisoProyecto cumplimientoCompromisoProyecto, Documento documento) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.guardarCumplimientoCompromisoProyecto(idProyecto, cumplimientoCompromisoProyecto, documento);
@@ -328,7 +345,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void eliminarCumplimientoCompromisoProyecto(long idCumplimientoCompromiso) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.eliminarCumplimientoCompromisoProyecto(idCumplimientoCompromiso);
@@ -341,7 +359,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void guardarCumplimientoAlertaAvalProyecto(long idProyecto, CumplimientoAlertaAvalProyecto cumplimientoAlertaAvalProyecto, Documento documento) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.guardarCumplimientoAlertaAvalProyecto(idProyecto, cumplimientoAlertaAvalProyecto, documento);
@@ -364,7 +383,8 @@ public class ServicioNovedadProyecto implements IServicioNovedadProyecto {
 
     @Override
     public void eliminarCumplimientoAlertaAvalProyecto(long idCumplimientoAlertaAvalProyecto) {
-        TransactionDefinition txDef = new DefaultTransactionDefinition();
+        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
+        txDef.setTimeout(timeout);
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioNovedadProyecto.eliminarCumplimientoAlertaAvalProyecto(idCumplimientoAlertaAvalProyecto);

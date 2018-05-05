@@ -7087,10 +7087,10 @@ DELIMITER ;
 DELIMITER ;;
 CREATE DEFINER=`root`@`localhost` PROCEDURE `ObtenerPrivilegiosUsuario`(IN varIdUsuario bigint)
 begin
-	select pri.idprivilegio, pri.nombre, pri.codigo
-    from privilegios pri
-    inner join privilegiosusuario priu on priu.idprivilegio = pri.idprivilegio
-    where priu.idusuario = varIdUsuario;
+	select per.pf_id idprivilegio, ma.rol_nombre nombre, ma.rol_codigo codigo
+    from spv.ma_rol ma
+    inner join spv.us_perfil per on per.pf_rol = ma.rol_id
+    where per.pf_usuario = varIdUsuario;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -8303,4 +8303,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-14 12:04:00
+-- Dump completed on 2018-05-02 21:02:16
