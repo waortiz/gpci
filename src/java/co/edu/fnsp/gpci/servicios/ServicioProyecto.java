@@ -16,9 +16,9 @@ import co.edu.fnsp.gpci.repositorios.IRepositorioProyecto;
 import java.util.ArrayList;
 import java.util.Date;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.PlatformTransactionManager;
+import org.springframework.transaction.TransactionDefinition;
 import org.springframework.transaction.TransactionStatus;
 import org.springframework.transaction.support.DefaultTransactionDefinition;
 
@@ -35,13 +35,9 @@ public class ServicioProyecto implements IServicioProyecto {
     @Autowired
     private PlatformTransactionManager transactionManager;
 
-    @Value( "${jdbc.timeout}" )
-    private int timeout;
-        
     @Override
     public void ingresarProyecto(Proyecto proyecto) {
-        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
-        txDef.setTimeout(timeout);
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioProyecto.ingresarProyecto(proyecto);
@@ -54,8 +50,7 @@ public class ServicioProyecto implements IServicioProyecto {
 
     @Override
     public void actualizarProyecto(Proyecto proyecto) {
-        DefaultTransactionDefinition  txDef = new DefaultTransactionDefinition();
-        txDef.setTimeout(timeout);
+        TransactionDefinition txDef = new DefaultTransactionDefinition();
         TransactionStatus txStatus = transactionManager.getTransaction(txDef);
         try {
             repositorioProyecto.actualizarProyecto(proyecto);
