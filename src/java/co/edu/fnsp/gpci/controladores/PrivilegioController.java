@@ -106,20 +106,20 @@ public class PrivilegioController {
             model.addAttribute("mensaje", "Privilegio eliminado exitosamente");
         } catch (Exception exc) {
             logger.error(exc);
-            model.addAttribute("mensajeError", "No se puedo eliminar el privilegio");
+            model.addAttribute("mensajeError", "No se pudo eliminar el privilegio");
         }
         model.addAttribute("privilegios", servicioSeguridad.obtenerPrivilegios());
 
-        return "privilegios/privilegios";
+        return "privilegios/index";
     }
 
-    @RequestMapping(value = "/privilegios", method = RequestMethod.GET)
-    public String obtenerUsuarios(Model model) {
+    @RequestMapping(value = "/index", method = RequestMethod.GET)
+    public String obtenerPrivilegios(Model model) {
 
         List<Privilegio> privilegios = servicioSeguridad.obtenerPrivilegios();
         model.addAttribute("privilegios", privilegios);
 
-        return "privilegios/privilegios";
+        return "privilegios/index";
     }
 
     @InitBinder
