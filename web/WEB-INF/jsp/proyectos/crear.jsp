@@ -255,7 +255,7 @@
                                                 <table class="tablaForm">
                                                     <tr>
                                                         <td>
-                                                            <input id="objetivoEspecifico" name="objetivoEspecifico" class="form-control" maxlength="300" />
+                                                            <input id="objetivoEspecifico" name="objetivoEspecifico" class="form-control" maxlength="800" />
                                                             <input type="hidden" id="consecutivo" name="consecutivo" />
                                                         </td>
                                                     </tr>
@@ -357,7 +357,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input id="compromisoProyecto" name="compromisoProyecto" class="form-control" maxlength="100"></input>
+                                                            <input id="compromisoProyecto" name="compromisoProyecto" class="form-control" maxlength="800"></input>
                                                             <input type="hidden" id="consecutivo" name="consecutivo" />
                                                         </td>
                                                     </tr>
