@@ -366,7 +366,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input id="soporteCompromisoProyecto" name="soporteCompromisoProyecto" class="form-control" maxlength="200"></input>
+                                                            <input id="soporteCompromisoProyecto" name="soporteCompromisoProyecto" class="form-control" maxlength="800"></input>
                                                             <input type="hidden" id="consecutivo" name="consecutivo" />
                                                         </td>
                                                     </tr>

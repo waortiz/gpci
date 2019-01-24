@@ -1649,7 +1649,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
-                                                            <input id="descripcionCompromisoHomologadoProyecto" name="descripcionCompromisoHomologadoProyecto" class="form-control" maxlength="200"></textarea>
+                                                            <input id="descripcionCompromisoHomologadoProyecto" name="descripcionCompromisoHomologadoProyecto" class="form-control" maxlength="800"></textarea>
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -1672,7 +1672,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
-                                                            <textarea id="observacionesCompromisoHomologadoProyecto" name="observacionesCompromisoHomologadoProyecto" class="form-control" rows="3"></textarea>
+                                                            <textarea id="observacionesCompromisoHomologadoProyecto" name="observacionesCompromisoHomologadoProyecto" class="form-control" rows="3" maxlength="800"></textarea>
                                                         </td>
                                                     </tr>
                                                 </table>
