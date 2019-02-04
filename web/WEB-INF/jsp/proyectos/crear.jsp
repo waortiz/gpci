@@ -473,7 +473,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionProfesor" name="numeroIdentificacionProfesor" maxlength="20"/>
+                                                            <input type="text" class="integersOnly form-control" id="numeroIdentificacionProfesor" name="numeroIdentificacionProfesor" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -562,16 +562,16 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="text" id="horasSemanaProfesor" name="horasSemanaProfesor" class="form-control numbersOnly" maxlength="3" />
+                                                            <input type="text" id="horasSemanaProfesor" name="horasSemanaProfesor" class="form-control integersOnly" maxlength="3" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="mesesDedicadosProfesor" name="mesesDedicadosProfesor" class="form-control numbersOnly" maxlength="5" />
+                                                            <input type="text" id="mesesDedicadosProfesor" name="mesesDedicadosProfesor" class="form-control integersOnly" maxlength="5" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="horasSemanaFueraPlanProfesor" name="horasSemanaFueraPlanProfesor" class="form-control numbersOnly" maxlength="3" />
+                                                            <input type="text" id="horasSemanaFueraPlanProfesor" name="horasSemanaFueraPlanProfesor" class="form-control integersOnly" maxlength="3" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="mesesFueraPlanProfesor" name="mesesFueraPlanProfesor" class="form-control numbersOnly" maxlength="5" />
+                                                            <input type="text" id="mesesFueraPlanProfesor" name="mesesFueraPlanProfesor" class="form-control integersOnly" maxlength="5" />
                                                         </td>
                                                         <td>
                                                             <input type="text" id="porcentajePIProfesor" name="porcentajePIProfesor" class="form-control numbersOnly" maxlength="3" />
@@ -711,7 +711,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionEstudiante" name="numeroIdentificacionEstudiante" maxlength="20"/>
+                                                            <input type="text" class="integersOnly form-control" id="numeroIdentificacionEstudiante" name="numeroIdentificacionEstudiante" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -782,13 +782,13 @@
                                                             <input type="text" id="porcentajePropiedadIntelectualEstudiante" name="porcentajePIEstudiante" class="form-control numbersOnly" maxlength="3" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="horasSemanaEstudiante" name="horasSemanaEstudiante" class="form-control numbersOnly" maxlength="3" />
+                                                            <input type="text" id="horasSemanaEstudiante" name="horasSemanaEstudiante" class="form-control integersOnly" maxlength="3" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="mesesDedicadosEstudiante" name="mesesDedicadosEstudiante" class="form-control numbersOnly" maxlength="5" />
+                                                            <input type="text" id="mesesDedicadosEstudiante" name="mesesDedicadosEstudiante" class="form-control integersOnly" maxlength="5" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="semestreEstudiante" name="semestreEstudiante" class="form-control numbersOnly" maxlength="2" />
+                                                            <input type="text" id="semestreEstudiante" name="semestreEstudiante" class="form-control integersOnly" maxlength="2" />
                                                         </td>
                                                     </tr>                                
                                                     <tr>
@@ -936,7 +936,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonalExterno" name="numeroIdentificacionPersonalExterno" maxlength="20"/>
+                                                            <input type="text" class="integersOnly form-control" id="numeroIdentificacionPersonalExterno" name="numeroIdentificacionPersonalExterno" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -997,10 +997,10 @@
                                                             <input type="text" id="porcentajePropiedadIntelectualPersonalExterno" name="porcentajePropiedadIntelectualPersonalExterno" class="form-control numbersOnly" maxlength="3" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="horasSemanaPersonalExterno" name="horasSemanaPersonalExterno" class="form-control numbersOnly" maxlength="3" />
+                                                            <input type="text" id="horasSemanaPersonalExterno" name="horasSemanaPersonalExterno" class="form-control integersOnly" maxlength="3" />
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="mesesDedicadosPersonalExterno" name="mesesDedicadosPersonalExterno" class="form-control numbersOnly" maxlength="5" />
+                                                            <input type="text" id="mesesDedicadosPersonalExterno" name="mesesDedicadosPersonalExterno" class="form-control integersOnly" maxlength="5" />
                                                         </td>
                                                     </tr>                                
                                                 </table>
@@ -1682,7 +1682,11 @@
             $('.numbersOnly').keyup(function () {
                 this.value = this.value.replace(/[^0-9\.]/g, '');
             });
-            
+
+            $('.integersOnly').keyup(function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
+            });
+
             $('#proyecto').submit(function (evt) {
                 if (proyectoModel.gruposInvestigacion().length === 0) {
                     bootstrap_alert_proyecto.warning('Debe asignar al menos un grupo de investigación');
