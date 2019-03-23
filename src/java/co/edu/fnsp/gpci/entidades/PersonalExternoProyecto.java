@@ -15,7 +15,7 @@ public class PersonalExternoProyecto {
     private int idTipoIdentificacion;
     private String nombres;
     private String apellidos;
-    private long numeroIdentificacion;
+    private String numeroIdentificacion;
     private String correoElectronico;
     private String entidad;
     private String descripcionRol;
@@ -112,14 +112,14 @@ public class PersonalExternoProyecto {
     /**
      * @return the numeroIdentificacion
      */
-    public long getNumeroIdentificacion() {
+    public String getNumeroIdentificacion() {
         return numeroIdentificacion;
     }
 
     /**
      * @param numeroIdentificacion the numeroIdentificacion to set
      */
-    public void setNumeroIdentificacion(long numeroIdentificacion) {
+    public void setNumeroIdentificacion(String numeroIdentificacion) {
         this.numeroIdentificacion = numeroIdentificacion;
     }
 

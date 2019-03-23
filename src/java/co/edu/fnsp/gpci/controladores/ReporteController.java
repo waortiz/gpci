@@ -205,7 +205,7 @@ public class ReporteController {
     }
 
     @RequestMapping(value = "/generarCertificadoProfesor/{tipoIdentificacion}/{numeroIdentificacion}", method = RequestMethod.GET)
-    public void generarCertificadoProfesor(@PathVariable("tipoIdentificacion") int tipoIdentificacion, @PathVariable("numeroIdentificacion") long numeroIdentificacion, HttpServletRequest request, HttpServletResponse response) {
+    public void generarCertificadoProfesor(@PathVariable("tipoIdentificacion") int tipoIdentificacion, @PathVariable("numeroIdentificacion") String numeroIdentificacion, HttpServletRequest request, HttpServletResponse response) {
         try {
             String nombreProfesor = "";
             Profesor profesor = servicioProyecto.obtenerProfesor(tipoIdentificacion, numeroIdentificacion);
@@ -226,7 +226,7 @@ public class ReporteController {
             } else if (tipoIdentificacion == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
             }
-            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroIdentificacion));
+            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", numeroIdentificacion);
             List<ProyectoProfesor> proyectos = servicioReporte.obtenerProyectosCertificadoProfesor(profesor.getIdProfesor());
             XWPFParagraph parrafoProyectos = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
             reemplazarTexto(documento, "PROYECTOS_PARTICIPANTE", "");
@@ -270,7 +270,7 @@ public class ReporteController {
     }
 
     @RequestMapping(value = "/generarCertificadoEstudiante/{tipoIdentificacion}/{numeroIdentificacion}", method = RequestMethod.GET)
-    public void generarCertificadoEstudiante(@PathVariable("tipoIdentificacion") int tipoIdentificacion, @PathVariable("numeroIdentificacion") long numeroIdentificacion, HttpServletRequest request, HttpServletResponse response) {
+    public void generarCertificadoEstudiante(@PathVariable("tipoIdentificacion") int tipoIdentificacion, @PathVariable("numeroIdentificacion") String numeroIdentificacion, HttpServletRequest request, HttpServletResponse response) {
         try {
             String nombreEstudiante = "";
             Estudiante estudiante = servicioProyecto.obtenerEstudiante(tipoIdentificacion, numeroIdentificacion);
@@ -290,7 +290,7 @@ public class ReporteController {
             } else if (tipoIdentificacion == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
             }
-            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroIdentificacion));
+            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", numeroIdentificacion);
             List<ProyectoEstudiante> proyectos = servicioReporte.obtenerProyectosCertificadoEstudiante(estudiante.getIdEstudiante());
             XWPFParagraph parrafoProyectos = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
             reemplazarTexto(documento, "PROYECTOS_PARTICIPANTE", "");
@@ -336,7 +336,7 @@ public class ReporteController {
     }
 
     @RequestMapping(value = "/generarCertificadoPersonalExterno/{tipoIdentificacion}/{numeroIdentificacion}", method = RequestMethod.GET)
-    public void generarCertificadoPersonalExterno(@PathVariable("tipoIdentificacion") int tipoIdentificacion, @PathVariable("numeroIdentificacion") long numeroIdentificacion, HttpServletRequest request, HttpServletResponse response) {
+    public void generarCertificadoPersonalExterno(@PathVariable("tipoIdentificacion") int tipoIdentificacion, @PathVariable("numeroIdentificacion") String numeroIdentificacion, HttpServletRequest request, HttpServletResponse response) {
         try {
             String nombrePersonalExterno = "";
             PersonalExterno personalExterno = servicioProyecto.obtenerPersonalExterno(TipoIdentificacionEnum.CEDULA_CIUDADANIA.getIdTipoIdentificacion(), numeroIdentificacion);
@@ -357,7 +357,7 @@ public class ReporteController {
             } else if (tipoIdentificacion == TipoIdentificacionEnum.CEDULA_EXTRANJERIA.getIdTipoIdentificacion()) {
                 reemplazarTexto(documento, "TIPO_IDENTIFICACION", TipoIdentificacionEnum.CEDULA_CIUDADANIA.getNombre());
             }
-            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", Long.toString(numeroIdentificacion));
+            reemplazarTexto(documento, "DOCUMENTO_PARTICIPANTE", numeroIdentificacion);
             List<ProyectoPersonalExterno> proyectos = servicioReporte.obtenerProyectosCertificadoPersonalExterno(personalExterno.getIdPersonalExterno());
             XWPFParagraph parrafoProyectos = obtenerParrafo(documento, "PROYECTOS_PARTICIPANTE");
             reemplazarTexto(documento, "PROYECTOS_PARTICIPANTE", "");

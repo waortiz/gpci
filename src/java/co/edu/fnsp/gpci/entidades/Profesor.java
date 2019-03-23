@@ -15,7 +15,7 @@ public class Profesor {
     private TipoIdentificacion tipoIdentificacion = new TipoIdentificacion();
     private String nombres;
     private String apellidos;
-    private long numeroIdentificacion;
+    private String numeroIdentificacion;
     private String correoElectronico;
     private String contacto;   
     
@@ -78,14 +78,14 @@ public class Profesor {
     /**
      * @return the numeroIdentificacion
      */
-    public long getNumeroIdentificacion() {
+    public String getNumeroIdentificacion() {
         return numeroIdentificacion;
     }
 
     /**
      * @param numeroIdentificacion the numeroIdentificacion to set
      */
-    public void setNumeroIdentificacion(long numeroIdentificacion) {
+    public void setNumeroIdentificacion(String numeroIdentificacion) {
         this.numeroIdentificacion = numeroIdentificacion;
     }
 

@@ -18,7 +18,7 @@ public class Estudiante {
     private String apellidos;
     private int idTipoEstudiante;
     private String descripcionTipoEstudiante;
-    private long numeroIdentificacion;
+    private String numeroIdentificacion;
     private String correoElectronico;
     private String contacto;
 
@@ -67,14 +67,14 @@ public class Estudiante {
     /**
      * @return the numeroIdentificacion
      */
-    public long getNumeroIdentificacion() {
+    public String getNumeroIdentificacion() {
         return numeroIdentificacion;
     }
 
     /**
      * @param numeroIdentificacion the numeroIdentificacion to set
      */
-    public void setNumeroIdentificacion(long numeroIdentificacion) {
+    public void setNumeroIdentificacion(String numeroIdentificacion) {
         this.numeroIdentificacion = numeroIdentificacion;
     }
 

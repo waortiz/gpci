@@ -473,7 +473,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="integersOnly form-control" id="numeroIdentificacionProfesor" name="numeroIdentificacionProfesor" maxlength="20"/>
+                                                            <input type="text" class="form-control" id="numeroIdentificacionProfesor" name="numeroIdentificacionProfesor" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -711,7 +711,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="integersOnly form-control" id="numeroIdentificacionEstudiante" name="numeroIdentificacionEstudiante" maxlength="20"/>
+                                                            <input type="text" class="form-control" id="numeroIdentificacionEstudiante" name="numeroIdentificacionEstudiante" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">
@@ -936,7 +936,7 @@
                                                             </select>    
                                                         </td>
                                                         <td>
-                                                            <input type="text" class="integersOnly form-control" id="numeroIdentificacionPersonalExterno" name="numeroIdentificacionPersonalExterno" maxlength="20"/>
+                                                            <input type="text" class="form-control" id="numeroIdentificacionPersonalExterno" name="numeroIdentificacionPersonalExterno" maxlength="20"/>
                                                         </td>
                                                         <td>
                                                             <div class="btn-group">

@@ -379,7 +379,7 @@
                                                                     </select>    
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAnteriorAdendaCambio" name="numeroIdentificacionPersonaAnteriorAdendaCambio" maxlength="20"/>
+                                                                    <input type="text" class="form-control" id="numeroIdentificacionPersonaAnteriorAdendaCambio" name="numeroIdentificacionPersonaAnteriorAdendaCambio" maxlength="20"/>
                                                                 </td>
                                                                 <td>
                                                                     <div class="btn-group">
@@ -420,7 +420,7 @@
                                                                     </select>    
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaCambio" name="numeroIdentificacionPersonaAdendaCambio" maxlength="20"/>
+                                                                    <input type="text" class="form-control" id="numeroIdentificacionPersonaAdendaCambio" name="numeroIdentificacionPersonaAdendaCambio" maxlength="20"/>
                                                                 </td>
                                                                 <td>
                                                                     <div class="btn-group">
@@ -633,7 +633,7 @@
                                                                     </select>    
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaIngreso" name="numeroIdentificacionPersonaAdendaIngreso" maxlength="20"/>
+                                                                    <input type="text" class="form-control" id="numeroIdentificacionPersonaAdendaIngreso" name="numeroIdentificacionPersonaAdendaIngreso" maxlength="20"/>
                                                                 </td>
                                                                 <td>
                                                                     <div class="btn-group">
@@ -836,7 +836,7 @@
                                                                     </select>    
                                                                 </td>
                                                                 <td>
-                                                                    <input type="text" class="numbersOnly form-control" id="numeroIdentificacionPersonaAdendaRetiro" name="numeroIdentificacionPersonaAdendaRetiro" maxlength="20"/>
+                                                                    <input type="text" class="form-control" id="numeroIdentificacionPersonaAdendaRetiro" name="numeroIdentificacionPersonaAdendaRetiro" maxlength="20"/>
                                                                 </td>
                                                                 <td>
                                                                     <div class="btn-group">
@@ -1188,7 +1188,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <input type="text" id="mesesAprobadosProrroga" name="mesesAprobadosProrroga" class="form-control numbersOnly" maxlength="4">
+                                                            <input type="text" id="mesesAprobadosProrroga" name="mesesAprobadosProrroga" class="form-control integersOnly" maxlength="4">
                                                         </td>
                                                         <td>
                                                             <input id="montoAprobadoProrroga" name="montoAprobadoProrroga" class="form-control currencyField" maxlength="20" />
@@ -1347,7 +1347,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="2">
-                                                            <input type="text" id="mesesAprobadosPlazo" name="mesesAprobadosPlazo" class="form-control numbersOnly" maxlength="4">
+                                                            <input type="text" id="mesesAprobadosPlazo" name="mesesAprobadosPlazo" class="form-control integersOnly" maxlength="4">
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -1851,10 +1851,10 @@
                 });                
             });
 
-            jQuery('.numbersOnly').keyup(function () {
-                this.value = this.value.replace(/[^0-9\.]/g, '');
+            $('.integersOnly').keyup(function () {
+                this.value = this.value.replace(/[^0-9]/g, '');
             });
-
+            
             $.validate({
                 validateOnBlur: false, // disable validation when input looses focus
                 errorMessagePosition: 'top', // Instead of 'inline' which is default

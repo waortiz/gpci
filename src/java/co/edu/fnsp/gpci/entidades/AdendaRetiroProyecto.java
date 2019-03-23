@@ -25,7 +25,7 @@ public class AdendaRetiroProyecto {
     private int idTipoPersona;
     private String nombreTipoPersona;
     private int idTipoIdentificacionPersona;
-    private long numeroIdentificacionPersona;
+    private String numeroIdentificacionPersona;
     private String nombresPersona;
     private String apellidosPersona;
 
@@ -228,14 +228,14 @@ public class AdendaRetiroProyecto {
     /**
      * @return the numeroIdentificacionPersona
      */
-    public long getNumeroIdentificacionPersona() {
+    public String getNumeroIdentificacionPersona() {
         return numeroIdentificacionPersona;
     }
 
     /**
      * @param numeroIdentificacionPersona the numeroIdentificacionPersona to set
      */
-    public void setNumeroIdentificacionPersona(long numeroIdentificacionPersona) {
+    public void setNumeroIdentificacionPersona(String numeroIdentificacionPersona) {
         this.numeroIdentificacionPersona = numeroIdentificacionPersona;
     }
 

@@ -33,11 +33,11 @@ public interface IServicioProyecto {
     
     String obtenerCodigoProyecto(long idProyecto);
 
-    Profesor obtenerProfesor(int idTipoIdentificacion, long numeroIdentificacion);
+    Profesor obtenerProfesor(int idTipoIdentificacion, String numeroIdentificacion);
 
-    Estudiante obtenerEstudiante(int idTipoIdentificacion, long numeroIdentificacion);
+    Estudiante obtenerEstudiante(int idTipoIdentificacion, String numeroIdentificacion);
 
-    PersonalExterno obtenerPersonalExterno(int idTipoIdentificacion, long numeroIdentificacion);
+    PersonalExterno obtenerPersonalExterno(int idTipoIdentificacion, String numeroIdentificacion);
 
     ArrayList<CompromisoProyecto> obtenerCompromisosProyecto(long idProyecto);
 

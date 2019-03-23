@@ -26,13 +26,13 @@ public class AdendaCambioProyecto {
 
     private int idTipoIdentificacionPersonaAnterior;
     private String nombreTipoIdentificacionPersonaAnterior;
-    private long numeroIdentificacionPersonaAnterior;
+    private String numeroIdentificacionPersonaAnterior;
     private String nombresPersonaAnterior;
     private String apellidosPersonaAnterior;
 
     private int idTipoIdentificacionPersona;
     private String nombreTipoIdentificacionPersona;
-    private long numeroIdentificacionPersona;
+    private String numeroIdentificacionPersona;
     private String nombresPersona;
     private String apellidosPersona;
     private String nombreRol;
@@ -212,14 +212,14 @@ public class AdendaCambioProyecto {
     /**
      * @return the numeroIdentificacionPersona
      */
-    public long getNumeroIdentificacionPersona() {
+    public String getNumeroIdentificacionPersona() {
         return numeroIdentificacionPersona;
     }
 
     /**
      * @param numeroIdentificacionPersona the numeroIdentificacionPersona to set
      */
-    public void setNumeroIdentificacionPersona(long numeroIdentificacionPersona) {
+    public void setNumeroIdentificacionPersona(String numeroIdentificacionPersona) {
         this.numeroIdentificacionPersona = numeroIdentificacionPersona;
     }
 
@@ -310,14 +310,14 @@ public class AdendaCambioProyecto {
     /**
      * @return the numeroIdentificacionPersonaAnterior
      */
-    public long getNumeroIdentificacionPersonaAnterior() {
+    public String getNumeroIdentificacionPersonaAnterior() {
         return numeroIdentificacionPersonaAnterior;
     }
 
     /**
      * @param numeroIdentificacionPersonaAnterior the numeroIdentificacionPersonaAnterior to set
      */
-    public void setNumeroIdentificacionPersonaAnterior(long numeroIdentificacionPersonaAnterior) {
+    public void setNumeroIdentificacionPersonaAnterior(String numeroIdentificacionPersonaAnterior) {
         this.numeroIdentificacionPersonaAnterior = numeroIdentificacionPersonaAnterior;
     }
 

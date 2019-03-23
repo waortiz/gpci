@@ -20,7 +20,7 @@ public class AdendaIngresoProyecto {
     private String numeroActaAdendaIngreso;
     private int tipoPersonaAdendaIngreso;
     private int tipoIdentificacionPersonaAdendaIngreso;
-    private long numeroIdentificacionPersonaAdendaIngreso;
+    private String numeroIdentificacionPersonaAdendaIngreso;
     private MultipartFile documentoAdendaIngreso;
 
     /**
@@ -124,14 +124,14 @@ public class AdendaIngresoProyecto {
     /**
      * @return the numeroIdentificacionPersonaAdendaIngreso
      */
-    public long getNumeroIdentificacionPersonaAdendaIngreso() {
+    public String getNumeroIdentificacionPersonaAdendaIngreso() {
         return numeroIdentificacionPersonaAdendaIngreso;
     }
 
     /**
      * @param numeroIdentificacionPersonaAdendaIngreso the numeroIdentificacionPersonaAdendaIngreso to set
      */
-    public void setNumeroIdentificacionPersonaAdendaIngreso(long numeroIdentificacionPersonaAdendaIngreso) {
+    public void setNumeroIdentificacionPersonaAdendaIngreso(String numeroIdentificacionPersonaAdendaIngreso) {
         this.numeroIdentificacionPersonaAdendaIngreso = numeroIdentificacionPersonaAdendaIngreso;
     }
 

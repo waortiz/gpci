@@ -20,9 +20,9 @@ public class AdendaCambioProyecto {
     private String numeroActaAdendaCambio;
     private int tipoPersonaAdendaCambio;
     private int tipoIdentificacionPersonaAnteriorAdendaCambio;
-    private long numeroIdentificacionPersonaAnteriorAdendaCambio;
+    private String numeroIdentificacionPersonaAnteriorAdendaCambio;
     private int tipoIdentificacionPersonaAdendaCambio;
-    private long numeroIdentificacionPersonaAdendaCambio;
+    private String numeroIdentificacionPersonaAdendaCambio;
     private int rolAdendaCambio;
     private String observacionesAdendaCambio;    
     private MultipartFile documentoAdendaCambio;
@@ -114,14 +114,14 @@ public class AdendaCambioProyecto {
     /**
      * @return the numeroIdentificacionPersonaAdendaCambio
      */
-    public long getNumeroIdentificacionPersonaAdendaCambio() {
+    public String getNumeroIdentificacionPersonaAdendaCambio() {
         return numeroIdentificacionPersonaAdendaCambio;
     }
 
     /**
      * @param numeroIdentificacionPersonaAdendaCambio the numeroIdentificacionPersonaAdendaCambio to set
      */
-    public void setNumeroIdentificacionPersonaAdendaCambio(long numeroIdentificacionPersonaAdendaCambio) {
+    public void setNumeroIdentificacionPersonaAdendaCambio(String numeroIdentificacionPersonaAdendaCambio) {
         this.numeroIdentificacionPersonaAdendaCambio = numeroIdentificacionPersonaAdendaCambio;
     }
 
@@ -198,14 +198,14 @@ public class AdendaCambioProyecto {
     /**
      * @return the numeroIdentificacionPersonaAnteriorAdendaCambio
      */
-    public long getNumeroIdentificacionPersonaAnteriorAdendaCambio() {
+    public String getNumeroIdentificacionPersonaAnteriorAdendaCambio() {
         return numeroIdentificacionPersonaAnteriorAdendaCambio;
     }
 
     /**
      * @param numeroIdentificacionPersonaAnteriorAdendaCambio the numeroIdentificacionPersonaAnteriorAdendaCambio to set
      */
-    public void setNumeroIdentificacionPersonaAnteriorAdendaCambio(long numeroIdentificacionPersonaAnteriorAdendaCambio) {
+    public void setNumeroIdentificacionPersonaAnteriorAdendaCambio(String numeroIdentificacionPersonaAnteriorAdendaCambio) {
         this.numeroIdentificacionPersonaAnteriorAdendaCambio = numeroIdentificacionPersonaAnteriorAdendaCambio;
     }
 }

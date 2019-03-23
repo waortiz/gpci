@@ -19,7 +19,7 @@ public class AdendaRetiroProyecto {
     private String numeroActaAdendaRetiro;
     private int tipoPersonaAdendaRetiro;
     private int tipoIdentificacionPersonaAdendaRetiro;
-    private long numeroIdentificacionPersonaAdendaRetiro;
+    private String numeroIdentificacionPersonaAdendaRetiro;
     private String motivoAdendaRetiro;    
     private MultipartFile documentoAdendaRetiro;
 
@@ -124,14 +124,14 @@ public class AdendaRetiroProyecto {
     /**
      * @return the numeroIdentificacionPersonaAdendaRetiro
      */
-    public long getNumeroIdentificacionPersonaAdendaRetiro() {
+    public String getNumeroIdentificacionPersonaAdendaRetiro() {
         return numeroIdentificacionPersonaAdendaRetiro;
     }
 
     /**
      * @param numeroIdentificacionPersonaAdendaRetiro the numeroIdentificacionPersonaAdendaRetiro to set
      */
-    public void setNumeroIdentificacionPersonaAdendaRetiro(long numeroIdentificacionPersonaAdendaRetiro) {
+    public void setNumeroIdentificacionPersonaAdendaRetiro(String numeroIdentificacionPersonaAdendaRetiro) {
         this.numeroIdentificacionPersonaAdendaRetiro = numeroIdentificacionPersonaAdendaRetiro;
     }
 

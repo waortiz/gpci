@@ -11,20 +11,20 @@ package co.edu.fnsp.gpci.entidadesVista;
  */
 public class BusquedaPersona {
 
-    private long numeroIdentificacion;
+    private String numeroIdentificacion;
     private int idTipoIdentificacion;
     
     /**
      * @return the numeroIdentificacion
      */
-    public long getNumeroIdentificacion() {
+    public String getNumeroIdentificacion() {
         return numeroIdentificacion;
     }
 
     /**
      * @param numeroIdentificacion the numeroIdentificacion to set
      */
-    public void setNumeroIdentificacion(long numeroIdentificacion) {
+    public void setNumeroIdentificacion(String numeroIdentificacion) {
         this.numeroIdentificacion = numeroIdentificacion;
     }
 

@@ -679,7 +679,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     }
 
     @Override
-    public Profesor obtenerProfesor(int idTipoIdentificacion, long numeroIdentificacion) {
+    public Profesor obtenerProfesor(int idTipoIdentificacion, String numeroIdentificacion) {
         Profesor profesor = null;
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varNumeroIdentificacion", numeroIdentificacion);
@@ -770,7 +770,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     }
 
     @Override
-    public Estudiante obtenerEstudiante(int idTipoIdentificacion, long numeroIdentificacion) {
+    public Estudiante obtenerEstudiante(int idTipoIdentificacion, String numeroIdentificacion) {
         Estudiante estudiante = null;
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varNumeroIdentificacion", numeroIdentificacion);
@@ -850,7 +850,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
     }
 
     @Override
-    public PersonalExterno obtenerPersonalExterno(int idTipoIdentificacion, long numeroIdentificacion) {
+    public PersonalExterno obtenerPersonalExterno(int idTipoIdentificacion, String numeroIdentificacion) {
         PersonalExterno personalExterno = null;
         MapSqlParameterSource parametros = new MapSqlParameterSource();
         parametros.addValue("varNumeroIdentificacion", numeroIdentificacion);
