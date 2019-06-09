@@ -1720,7 +1720,7 @@
                     },
                     success: function (response) {
                        if(response === "") {
-                          $('#confirmacionAlmacenamientoProyecto').modal('show');
+                          $('#confirmacionAlmacenamientoProyecto').modal({backdrop: 'static', keyboard: false}) ;
                        } else {
                           bootstrap_alert_proyecto.warning(response);
                        }
@@ -1888,12 +1888,12 @@
                 };
                 self.eliminarObjetivoEspecifico = function (objetivoEspecifico) {
                     objetivoEspecificoEliminar = objetivoEspecifico;
-                    $('#confirmacionEliminacionObjetivoEspecifico').modal('show');                    
+                    $('#confirmacionEliminacionObjetivoEspecifico').modal({backdrop: 'static', keyboard: false}) ;                    
                 };
                 self.editarObjetivoEspecifico = function (objetivoEspecifico) {
                     $('#objetivoEspecifico').val(objetivoEspecifico.descripcion());
                     $('#consecutivo').val(objetivoEspecifico.consecutivo());
-                    $('#objetivosEspecificosModal').modal('show'); 
+                    $('#objetivosEspecificosModal').modal({backdrop: 'static', keyboard: false}) ; 
                 };
 
                 self.compromisosProyecto = ko.observableArray(compromisosProyecto);
@@ -1934,14 +1934,14 @@
                 };
                 self.eliminarCompromisoProyecto = function (compromisoProyecto) {
                     compromisoProyectoEliminar = compromisoProyecto;
-                    $('#confirmacionEliminacionCompromisoProyecto').modal('show');                    
+                    $('#confirmacionEliminacionCompromisoProyecto').modal({backdrop: 'static', keyboard: false}) ;                    
                 };
                 self.editarCompromisoProyecto = function (compromisoProyecto) {
                     $('#compromisoProyecto').val(compromisoProyecto.descripcion());
                     $('#soporteCompromisoProyecto').val(compromisoProyecto.soporte());
                     $('#consecutivo').val(compromisoProyecto.consecutivo());
                     $('#tipoCompromiso').val(compromisoProyecto.idTipoCompromiso());
-                    $('#compromisosProyectoModal').modal('show'); 
+                    $('#compromisosProyectoModal').modal({backdrop: 'static', keyboard: false}) ; 
                 };
 
                 self.profesoresProyecto = ko.observableArray(profesoresProyecto);
@@ -2064,7 +2064,7 @@
                 };
                 self.eliminarProfesorProyecto = function (profesorProyecto) {
                     profesorProyectoEliminar = profesorProyecto;
-                    $('#confirmacionEliminacionProfesorProyecto').modal('show');                    
+                    $('#confirmacionEliminacionProfesorProyecto').modal({backdrop: 'static', keyboard: false}) ;                    
                 };
                 self.editarProfesorProyecto = function (profesorProyecto) {
                     $('#consecutivo').val(profesorProyecto.consecutivo());
@@ -2084,7 +2084,7 @@
                     $('#horasSemanaFueraPlanProfesor').val(profesorProyecto.horasSemanaFueraPlan());
                     $('#mesesFueraPlanProfesor').val(profesorProyecto.mesesFueraPlan());
                     
-                    $('#profesorProyectoModal').modal('show');
+                    $('#profesorProyectoModal').modal({backdrop: 'static', keyboard: false}) ;
                 };
 
                 self.estudiantesProyecto = ko.observableArray(estudiantesProyecto);
@@ -2202,7 +2202,7 @@
                 };
                 self.eliminarEstudianteProyecto = function (estudianteProyecto) {
                     estudianteProyectoEliminar = estudianteProyecto;
-                    $('#confirmacionEliminacionEstudianteProyecto').modal('show');                    
+                    $('#confirmacionEliminacionEstudianteProyecto').modal({backdrop: 'static', keyboard: false}) ;                    
                 };
                 self.editarEstudianteProyecto = function (estudianteProyecto) {
                     $('#consecutivo').val(estudianteProyecto.consecutivo());
@@ -2220,7 +2220,7 @@
                     $('#mesesDedicadosEstudiante').val(estudianteProyecto.mesesDedicados());
                     $('#semestreEstudiante').val(estudianteProyecto.semestre());
                     
-                    $('#estudianteProyectoModal').modal('show');
+                    $('#estudianteProyectoModal').modal({backdrop: 'static', keyboard: false}) ;
                 };
 
                 self.personalExternoProyecto = ko.observableArray(personalExternoProyecto);
@@ -2322,7 +2322,7 @@
                 };
                 self.eliminarPersonalExternoProyecto = function (personalExternoProyecto) {
                     personalExternoProyectoEliminar = personalExternoProyecto;
-                    $('#confirmacionEliminacionPersonalExternoProyecto').modal('show');                    
+                    $('#confirmacionEliminacionPersonalExternoProyecto').modal({backdrop: 'static', keyboard: false}) ;                    
                 };
                 self.editarPersonalExternoProyecto = function (personalExterno) {
                     $('#consecutivo').val(personalExterno.consecutivo());
@@ -2338,7 +2338,7 @@
                     $('#mesesDedicadosPersonalExterno').val(personalExterno.mesesDedicados());
                     $('#cartaCesionDerechosPatrimonioPersonalExterno').prop('checked', personalExterno.cartaCesionDerechosPatrimonio());
                     
-                    $('#personalExternoProyectoModal').modal('show');
+                    $('#personalExternoProyectoModal').modal({backdrop: 'static', keyboard: false}) ;
                 };
  
                 self.entidadesInternacionalesProyecto = ko.observableArray(entidadesInternacionalesProyecto);
@@ -2371,12 +2371,12 @@
                 };
                 self.eliminarEntidadInternacionalProyecto = function (entidadInternacionalProyecto) {
                     entidadInternacionalProyectoEliminar = entidadInternacionalProyecto;
-                    $('#confirmacionEliminacionEntidadInternacionalProyecto').modal('show');                    
+                    $('#confirmacionEliminacionEntidadInternacionalProyecto').modal({backdrop: 'static', keyboard: false}) ;                    
                 };
                 self.editarEntidadInternacionalProyecto = function (entidadInternacionalProyecto) {
                     $('#entidadInternacionalProyecto').val(entidadInternacionalProyecto.nombre());
                     $('#consecutivo').val(entidadInternacionalProyecto.consecutivo());
-                    $('#entidadesInternacionalesModal').modal('show'); 
+                    $('#entidadesInternacionalesModal').modal({backdrop: 'static', keyboard: false}) ; 
                 };
 
                 self.fuentesFinanciacionProyecto = ko.observableArray(fuentesFinanciacionProyecto);
@@ -2435,7 +2435,7 @@
                 };
                 self.eliminarFuenteFinanciacionProyecto = function (fuenteFinanciacionProyecto) {
                     fuenteFinanciacionProyectoEliminar = fuenteFinanciacionProyecto;
-                    $('#confirmacionEliminacionFuenteFinanciacionProyecto').modal('show');                    
+                    $('#confirmacionEliminacionFuenteFinanciacionProyecto').modal({backdrop: 'static', keyboard: false}) ;                    
                 };
                 self.editarFuenteFinanciacionProyecto = function (fuenteFinanciacionProyecto) {
                     $('#consecutivo').val(fuenteFinanciacionProyecto.consecutivo());
@@ -2444,7 +2444,7 @@
                     $('#montoEspecies').val(fuenteFinanciacionProyecto.montoEspeciesFormateado());
                     $('#montoFrescos').val(fuenteFinanciacionProyecto.montoFrescosFormateado());
                     
-                    $('#fuenteFinanciacionProyectoModal').modal('show');
+                    $('#fuenteFinanciacionProyectoModal').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 
                 self.alertasAvalProyecto = ko.observableArray(alertasAvalProyecto);
@@ -2497,7 +2497,7 @@
                 };
                 self.eliminarAlertaAvalProyecto = function (alertaAvalProyecto) {
                     alertaAvalProyectoEliminar = alertaAvalProyecto;
-                    $('#confirmacionEliminacionAlertaAvalProyecto').modal('show');                    
+                    $('#confirmacionEliminacionAlertaAvalProyecto').modal({backdrop: 'static', keyboard: false}) ;                    
                 };
                 self.editarAlertaAvalProyecto = function (alertaAvalProyecto) {
                     $('#descripcionAlertaAvalProyecto').val(alertaAvalProyecto.descripcion());
@@ -2505,7 +2505,7 @@
                     $('#tipoAvalProyecto').val(alertaAvalProyecto.idTipoAval());
                     $('#fechaActaAlertaAvalProyecto').val(alertaAvalProyecto.fechaActa());
                     $('#numeroActaAlertaAvalProyecto').val(alertaAvalProyecto.numeroActa());
-                    $('#alertasAvalProyectoModal').modal('show'); 
+                    $('#alertasAvalProyectoModal').modal({backdrop: 'static', keyboard: false}) ; 
                 };
             };
 
@@ -2567,7 +2567,7 @@
                 $('#alert_placeholder_convocatoria').html('');
             };
             function mostrarVentanaNuevaConvocatoria() {
-                $('#convocatoriaModal').modal('show'); 
+                $('#convocatoriaModal').modal({backdrop: 'static', keyboard: false}) ; 
             }
 
             bootstrap_alert_areaTematica = function () { };
@@ -2578,7 +2578,7 @@
                 $('#alert_placeholder_areaTematica').html('');
             };
             function mostrarVentanaNuevaAreaTematica() {
-                $('#areaTematicaModal').modal('show'); 
+                $('#areaTematicaModal').modal({backdrop: 'static', keyboard: false}) ; 
             }
 
             bootstrap_alert_objetivosEspecificos = function () { };
@@ -2590,7 +2590,7 @@
             };
             function mostrarVentanaNuevoObjetivoEspecifico() {
                 limpiarDatosVentanaObjetivoEspecifico();
-                $('#objetivosEspecificosModal').modal('show'); 
+                $('#objetivosEspecificosModal').modal({backdrop: 'static', keyboard: false}) ; 
             }
             function limpiarDatosVentanaObjetivoEspecifico() {
                 $('#objetivoEspecifico').val("");
@@ -2606,7 +2606,7 @@
             };
             function mostrarVentanaNuevoCompromisoProyecto() {
                 limpiarDatosVentanaCompromisoProyecto();
-                $('#compromisosProyectoModal').modal('show'); 
+                $('#compromisosProyectoModal').modal({backdrop: 'static', keyboard: false}) ; 
             }
             function limpiarDatosVentanaCompromisoProyecto() {
                 $('#consecutivo').val("");
@@ -2624,7 +2624,7 @@
             };
             function mostrarVentanaNuevoProfesorProyecto() {
                 limpiarDatosVentanaProfesorProyecto();
-                $('#profesorProyectoModal').modal('show'); 
+                $('#profesorProyectoModal').modal({backdrop: 'static', keyboard: false}) ; 
             }
             function limpiarDatosVentanaProfesorProyecto() {
                 $('#consecutivo').val("");
@@ -2696,7 +2696,7 @@
             };
             function mostrarVentanaNuevoEstudianteProyecto() {
                 limpiarDatosVentanaEstudianteProyecto();
-                $('#estudianteProyectoModal').modal('show'); 
+                $('#estudianteProyectoModal').modal({backdrop: 'static', keyboard: false}) ; 
             }
             function limpiarDatosVentanaEstudianteProyecto() {
                 $('#consecutivo').val("");
@@ -2768,7 +2768,7 @@
             };
             function mostrarVentanaNuevoPersonalExternoProyecto() {
                 limpiarDatosVentanaPersonalExternoProyecto();
-                $('#personalExternoProyectoModal').modal('show'); 
+                $('#personalExternoProyectoModal').modal({backdrop: 'static', keyboard: false}) ; 
             }
             function limpiarDatosVentanaPersonalExternoProyecto() {
                 $('#consecutivo').val("");
@@ -2835,7 +2835,7 @@
             };
             function mostrarVentanaNuevaEntidadInternacionalProyecto() {
                 limpiarDatosVentanaEntidadInternacional();
-                $('#entidadesInternacionalesModal').modal('show'); 
+                $('#entidadesInternacionalesModal').modal({backdrop: 'static', keyboard: false}) ; 
             }
             function limpiarDatosVentanaEntidadInternacional() {
                 $('#entidadInternacionalProyecto').val("");
@@ -2851,7 +2851,7 @@
             };
             function mostrarVentanaNuevaFuenteFinanciacionProyecto() {
                 limpiarDatosVentanaFuenteFinanciacionProyecto();
-                $('#fuenteFinanciacionProyectoModal').modal('show'); 
+                $('#fuenteFinanciacionProyectoModal').modal({backdrop: 'static', keyboard: false}) ; 
             }
             function limpiarDatosVentanaFuenteFinanciacionProyecto() {
                 $('#fuenteFinanciacion').val("");
@@ -2870,7 +2870,7 @@
             };
             function mostrarVentanaNuevaAlertaAvalProyecto() {
                 limpiarDatosVentanaAlertaAvalProyecto();
-                $('#alertasAvalProyectoModal').modal('show'); 
+                $('#alertasAvalProyectoModal').modal({backdrop: 'static', keyboard: false}) ; 
             }
             function limpiarDatosVentanaAlertaAvalProyecto() {
                 $('#consecutivo').val("");

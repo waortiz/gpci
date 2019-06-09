@@ -28,6 +28,7 @@
                                 <td align="center"><input type="text" placeholder="" data-index="8" size="15"></td> 
                                 <td align="center"><input type="text" placeholder="" data-index="9" size="15"></td> 
                                 <td align="center"><input type="text" placeholder="" data-index="10" size="15"></td> 
+                                <td align="center"><input type="text" placeholder="" data-index="11" size="15"></td> 
                             </tr> 
                             <tr>
                                 <td align="center" width='5%'><strong>Año</strong></td>
@@ -38,6 +39,7 @@
                                 <td align="center" width='5%'><strong>Monto</strong></td> 
                                 <td align="center" width='15%'><strong>Otras fuentes de financiación</strong></td> 
                                 <td align="center" width='10%'><strong>Tipo de fuente</strong></td> 
+                                <td align="center" width='5%'><strong>Monto</strong></td> 
                                 <td align="center" width='10%'><strong>Investigador principal</strong></td> 
                                 <td align="center" width='5%'><strong>Monto Total</strong></td> 
                                 <td align="center" width='15%'><strong>Grupo de investigación</strong></td> 
@@ -65,10 +67,13 @@
                                         ${reporte.getMontoFormateado()}
                                     </td>   
                                     <td align="center">
-                                        ${reporte.getFuenteFinanciacion()}
+                                        ${reporte.getFuenteFinanciacionSecundaria()}
                                     </td>   
                                     <td align="center">
-                                        ${reporte.getTipoFuenteFinanciacion()}
+                                        ${reporte.getTipoFuenteFinanciacionSecundaria()}
+                                    </td>   
+                                    <td align="center">
+                                        ${reporte.getMontoFuenteFinanciacionSecundariaFormateado()}
                                     </td>   
                                     <td align="center">
                                         ${reporte.getInvestigadorPrincipal()}

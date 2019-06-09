@@ -636,10 +636,16 @@ public class NovedadProyectoController {
             prorrogaProyectoGuardar.setDescripcion(prorrogaProyecto.getDescripcionProrroga());
             prorrogaProyectoGuardar.setMesesAprobados(prorrogaProyecto.getMesesAprobadosProrroga());
             prorrogaProyectoGuardar.setNumeroActa(prorrogaProyecto.getNumeroActaProrroga());
-            prorrogaProyectoGuardar.setFechaActa(Util.obtenerFecha(prorrogaProyecto.getFechaActaProrroga()));
+            if(prorrogaProyecto.getFechaActaProrroga() != null && !prorrogaProyecto.getFechaActaProrroga().isEmpty()) {
+               prorrogaProyectoGuardar.setFechaActa(Util.obtenerFecha(prorrogaProyecto.getFechaActaProrroga()));
+            }
             prorrogaProyectoGuardar.setNumeroActaCODI(prorrogaProyecto.getNumeroActaCODIProrroga());
-            prorrogaProyectoGuardar.setFechaActaCODI(Util.obtenerFecha(prorrogaProyecto.getFechaActaCODIProrroga()));
-            prorrogaProyectoGuardar.setMontoAprobado(Util.obtenerNumero(prorrogaProyecto.getMontoAprobadoProrroga()));
+            if(prorrogaProyecto.getFechaActaCODIProrroga() != null && !prorrogaProyecto.getFechaActaCODIProrroga().isEmpty()) {
+               prorrogaProyectoGuardar.setFechaActaCODI(Util.obtenerFecha(prorrogaProyecto.getFechaActaCODIProrroga()));
+            }
+            if(prorrogaProyecto.getMontoAprobadoProrroga() != null && !prorrogaProyecto.getMontoAprobadoProrroga().isEmpty()) {
+               prorrogaProyectoGuardar.setMontoAprobado(Util.obtenerNumero(prorrogaProyecto.getMontoAprobadoProrroga()));
+            }
             Documento documento = null;
             if (prorrogaProyecto.getDocumentoProrroga() != null && prorrogaProyecto.getDocumentoProrroga().getBytes().length > 0) {
                 documento = new Documento();
@@ -699,8 +705,12 @@ public class NovedadProyectoController {
             plazoProyectoGuardar.setIdPlazo(plazoProyecto.getIdPlazo());
             plazoProyectoGuardar.setDescripcion(plazoProyecto.getDescripcionPlazo());
             plazoProyectoGuardar.setMesesAprobados(plazoProyecto.getMesesAprobadosPlazo());
-            plazoProyectoGuardar.setFechaActa(Util.obtenerFecha(plazoProyecto.getFechaActaPlazo()));
-            plazoProyectoGuardar.setFechaActaCODI(Util.obtenerFecha(plazoProyecto.getFechaActaCODIPlazo()));
+            if(plazoProyecto.getFechaActaPlazo() != null && !plazoProyecto.getFechaActaPlazo().isEmpty()) {
+               plazoProyectoGuardar.setFechaActa(Util.obtenerFecha(plazoProyecto.getFechaActaPlazo()));
+            }
+            if(plazoProyecto.getFechaActaCODIPlazo() != null && !plazoProyecto.getFechaActaCODIPlazo().isEmpty()) {
+               plazoProyectoGuardar.setFechaActaCODI(Util.obtenerFecha(plazoProyecto.getFechaActaCODIPlazo()));
+            }
             plazoProyectoGuardar.setNumeroActa(plazoProyecto.getNumeroActaPlazo());
             plazoProyectoGuardar.setNumeroActaCODI(plazoProyecto.getNumeroActaCODIPlazo());
             Documento documento = null;

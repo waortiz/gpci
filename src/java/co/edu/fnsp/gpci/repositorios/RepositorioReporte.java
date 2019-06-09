@@ -108,6 +108,9 @@ public class RepositorioReporte implements IRepositorioReporte {
 
         for (ReporteFuenteFinanciacionProyecto proyecto : proyectos) {
             proyecto.setMontoFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMonto()));
+            if(proyecto.getMontoFuenteFinanciacionSecundaria() != null) {
+               proyecto.setMontoFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFuenteFinanciacionSecundaria()));
+            }
             proyecto.setMontoTotalFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoTotal()));
         }
 

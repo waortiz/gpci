@@ -1089,10 +1089,9 @@
                             <table class="table table-hover tablaForm" style="width: 90%" align="center" >
                                 <thead>
                                     <tr class="table-row">
-                                        <td style="width: 25%;text-align: center"><strong>Descripción</strong></td>
-                                        <td style="width: 10%;text-align: center"><strong>Meses aprobados</strong></td>
-                                        <td style="width: 20%;text-align: center"><strong>Monto aprobado</strong></td>
-                                        <td style="width: 15%;text-align: center"><strong>Fecha acta</strong></td>
+                                        <td style="width: 30%;text-align: center"><strong>Descripción</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Meses aprobados</strong></td>
+                                        <td style="width: 20%;text-align: center"><strong>Fecha acta</strong></td>
                                         <td style="width: 15%;text-align: center"><strong>Número del acta</strong></td>
                                         <td style="width: 5%">&nbsp;</td>
                                         <td style="width: 5%">&nbsp;</td>
@@ -1101,16 +1100,13 @@
                                 </thead>
                                 <tbody data-bind="foreach: { data: prorrogas }">
                                     <tr class="table-row">
-                                    <td style="width: 25%">
+                                    <td style="width: 30%">
                                         <span data-bind="text: descripcion" ></span>
                                     </td>
-                                    <td style="width: 10%">
+                                    <td style="width: 20%">
                                         <span data-bind="text: mesesAprobados" ></span>
                                     </td>
                                     <td style="width: 20%">
-                                        <span data-bind="text: montoAprobadoFormateado" ></span>
-                                    </td>
-                                    <td style="width: 15%">
                                         <span data-bind="text: fechaActaFormateada" ></span>
                                     </td>
                                     <td style="width: 15%">
@@ -1183,15 +1179,11 @@
                                                         </td>
                                                     </tr>
                                                     <tr>
-                                                        <td>Meses aprobados</td>
-                                                        <td>Monto aprobado</td>
+                                                        <td colspan="2">Meses aprobados</td>
                                                     </tr>
                                                     <tr>
-                                                        <td>
+                                                        <td colspan="2">
                                                             <input type="text" id="mesesAprobadosProrroga" name="mesesAprobadosProrroga" class="form-control integersOnly" maxlength="4">
-                                                        </td>
-                                                        <td>
-                                                            <input id="montoAprobadoProrroga" name="montoAprobadoProrroga" class="form-control currencyField" maxlength="20" />
                                                         </td>
                                                     </tr>
                                                     <tr>
@@ -2644,26 +2636,6 @@
                     bootstrap_alert_prorroga.warning('Debe ingresar los meses aprobados');
                     return false;
                 }
-                if ($('#montoAprobadoProrroga').val() == "") {
-                    bootstrap_alert_prorroga.warning('Debe ingresar el monto aprobado');
-                    return false;
-                }
-                if ($('#fechaActaProrroga').val() == "") {
-                    bootstrap_alert_prorroga.warning('Debe ingresar la fecha del acta');
-                    return false;
-                }
-                if ($('#numeroActaProrroga').val() == "") {
-                    bootstrap_alert_prorroga.warning('Debe ingresar el número del acta');
-                    return false;
-                }
-                if ($('#fechaActaCODIProrroga').val() == "") {
-                    bootstrap_alert_prorroga.warning('Debe ingresar la fecha del acta CODI');
-                    return false;
-                }
-                if ($('#numeroActaCODIProrroga').val() == "") {
-                    bootstrap_alert_prorroga.warning('Debe ingresar el número del acta CODI');
-                    return false;
-                }
                 if ($('#idProrroga').val() == 0 && $('#documentoProrroga').prop('files').length == 0) {
                     bootstrap_alert_prorroga.warning('Debe seleccionar el archivo');
                     return false;
@@ -2703,7 +2675,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_prorrogas.warning("Error al almacenar el prórroga");
+                        bootstrap_alert_prorrogas.warning("Error al almacenar la prórroga");
                     }});
             });
 
@@ -2736,7 +2708,7 @@
                         }
                     },
                     error: function (xhr, ajaxOptions, thrownError) {
-                        bootstrap_alert_prorrogas.warning("Error al eliminar el prórroga");
+                        bootstrap_alert_prorrogas.warning("Error al eliminar la prórroga");
                     }});
             }
 
@@ -2749,22 +2721,6 @@
                 }
                 if ($('#mesesAprobadosPlazo').val() == "") {
                     bootstrap_alert_plazo.warning('Debe ingresar los meses aprobados');
-                    return false;
-                }
-                if ($('#fechaActaPlazo').val() == "") {
-                    bootstrap_alert_plazo.warning('Debe ingresar la fecha del acta');
-                    return false;
-                }
-                if ($('#numeroActaPlazo').val() == "") {
-                    bootstrap_alert_plazo.warning('Debe ingresar el número del acta');
-                    return false;
-                }
-                if ($('#fechaActaCODIPlazo').val() == "") {
-                    bootstrap_alert_plazo.warning('Debe ingresar la fecha del acta CODI');
-                    return false;
-                }
-                if ($('#numeroActaCODIPlazo').val() == "") {
-                    bootstrap_alert_plazo.warning('Debe ingresar el número del acta CODI');
                     return false;
                 }
                 if ($('#idPlazo').val() == 0 && $('#documentoPlazo').prop('files').length == 0) {
@@ -3120,7 +3076,7 @@
                 };
                 self.eliminarActa = function (acta) {
                     actaEliminar = acta;
-                    $('#confirmacionEliminacionActa').modal('show');
+                    $('#confirmacionEliminacionActa').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 self.editarActa = function (acta) {
                     $('#idActa').val(acta.idActa());
@@ -3128,7 +3084,7 @@
                     $('#numeroActa').val(acta.numero());
                     $('#fechaActa').val(acta.fechaFormateada());
                     $('#observacionesActa').val(acta.observaciones());
-                    $('#actaModal').modal('show');
+                    $('#actaModal').modal({backdrop: 'static', keyboard: false}) ;
                 };
 
                 self.adendasCambio = ko.observableArray(adendasCambio);
@@ -3137,7 +3093,7 @@
                 };
                 self.eliminarAdendaCambio = function (adenda) {
                     adendaCambioEliminar = adenda;
-                    $('#confirmacionEliminacionAdendaCambio').modal('show');
+                    $('#confirmacionEliminacionAdendaCambio').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 self.editarAdendaCambio = function (adenda) {
                     $('#idAdendaCambio').val(adenda.idAdenda());
@@ -3155,7 +3111,7 @@
                     $('#fechaActaAdendaCambio').val(adenda.fechaActaFormateada());
                     $('#numeroActaAdendaCambio').val(adenda.numeroActa());
                     $('#observacionesAdendaCambio').val(adenda.observaciones());
-                    $('#adendaCambioModal').modal('show');
+                    $('#adendaCambioModal').modal({backdrop: 'static', keyboard: false}) ;
                 };
 
                 self.adendasIngreso = ko.observableArray(adendasIngreso);
@@ -3164,7 +3120,7 @@
                 };
                 self.eliminarAdendaIngreso = function (adenda) {
                     adendaIngresoEliminar = adenda;
-                    $('#confirmacionEliminacionAdendaIngreso').modal('show');
+                    $('#confirmacionEliminacionAdendaIngreso').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 self.editarAdendaIngreso = function (adenda) {
                     $('#idAdendaIngreso').val(adenda.idAdenda());
@@ -3176,7 +3132,7 @@
                     $('#nombresPersonaAdendaIngreso').val(adenda.nombresPersona());
                     $('#apellidosPersonaAdendaIngreso').val(adenda.apellidosPersona());
                     $('#numeroActaAdendaIngreso').val(adenda.numeroActa());
-                    $('#adendaIngresoModal').modal('show');
+                    $('#adendaIngresoModal').modal({backdrop: 'static', keyboard: false}) ;
                 };
 
                 self.adendasRetiro = ko.observableArray(adendasRetiro);
@@ -3185,7 +3141,7 @@
                 };
                 self.eliminarAdendaRetiro = function (adenda) {
                     adendaRetiroEliminar = adenda;
-                    $('#confirmacionEliminacionAdendaRetiro').modal('show');
+                    $('#confirmacionEliminacionAdendaRetiro').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 self.editarAdendaRetiro = function (adenda) {
                     $('#idAdendaRetiro').val(adenda.idAdenda());
@@ -3198,7 +3154,7 @@
                     $('#apellidosPersonaAdendaRetiro').val(adenda.apellidosPersona());
                     $('#numeroActaAdendaRetiro').val(adenda.numeroActa());
                     $('#motivoAdendaRetiro').val(adenda.motivo());
-                    $('#adendaRetiroModal').modal('show');
+                    $('#adendaRetiroModal').modal({backdrop: 'static', keyboard: false}) ;
                 };
 
                 self.adiciones = ko.observableArray(adiciones);
@@ -3207,7 +3163,7 @@
                 };
                 self.eliminarAdicion = function (adicion) {
                     adicionEliminar = adicion;
-                    $('#confirmacionEliminacionAdicion').modal('show');
+                    $('#confirmacionEliminacionAdicion').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 self.editarAdicion = function (adicion) {
                     $('#idAdicion').val(adicion.idAdicion());
@@ -3217,7 +3173,7 @@
                     $('#numeroActaCODIAdicion').val(adicion.numeroActaCODI());
                     $('#fechaActaAdicion').val(adicion.fechaActaFormateada());
                     $('#numeroActaAdicion').val(adicion.numeroActa());
-                    $('#adicionModal').modal('show');
+                    $('#adicionModal').modal({backdrop: 'static', keyboard: false}) ;
                 };
 
                 self.prorrogas = ko.observableArray(prorrogas);
@@ -3226,7 +3182,7 @@
                 };
                 self.eliminarProrroga = function (prorroga) {
                     prorrogaEliminar = prorroga;
-                    $('#confirmacionEliminacionProrroga').modal('show');
+                    $('#confirmacionEliminacionProrroga').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 self.editarProrroga = function (prorroga) {
                     $('#idProrroga').val(prorroga.idProrroga());
@@ -3237,7 +3193,7 @@
                     $('#numeroActaCODIProrroga').val(prorroga.numeroActaCODI());
                     $('#fechaActaProrroga').val(prorroga.fechaActaFormateada());
                     $('#numeroActaProrroga').val(prorroga.numeroActa());
-                    $('#prorrogaModal').modal('show');
+                    $('#prorrogaModal').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 
                 self.plazos = ko.observableArray(plazos);
@@ -3246,7 +3202,7 @@
                 };
                 self.eliminarPlazo = function (plazo) {
                     plazoEliminar = plazo;
-                    $('#confirmacionEliminacionPlazo').modal('show');
+                    $('#confirmacionEliminacionPlazo').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 self.editarPlazo = function (plazo) {
                     $('#idPlazo').val(plazo.idPlazo());
@@ -3256,7 +3212,7 @@
                     $('#numeroActaCODIPlazo').val(plazo.numeroActaCODI());
                     $('#fechaActaPlazo').val(plazo.fechaActaFormateada());
                     $('#numeroActaPlazo').val(plazo.numeroActa());
-                    $('#plazoModal').modal('show');
+                    $('#plazoModal').modal({backdrop: 'static', keyboard: false}) ;
                 };                
                 
                 self.cumplimientoCompromisosProyecto = ko.observableArray(cumplimientoCompromisosProyecto);
@@ -3265,20 +3221,20 @@
                 };
                 self.eliminarCumplimientoCompromisoProyecto = function (cumplimientoCompromisoProyecto) {
                     cumplimientoCompromisoEliminarProyecto = cumplimientoCompromisoProyecto;
-                    $('#confirmacionEliminacionCumplimientoCompromisoProyecto').modal('show');
+                    $('#confirmacionEliminacionCumplimientoCompromisoProyecto').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 self.editarCumplimientoCompromisoProyecto = function (cumplimientoCompromisoProyecto) {
                     $('#idCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.idCumplimientoCompromisoProyecto());
                     $('#compromisoProyecto').val(cumplimientoCompromisoProyecto.idCompromisoProyecto());
                     $('#fechaActaCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.fechaActaFormateada());
                     $('#numeroActaCumplimientoCompromisoProyecto').val(cumplimientoCompromisoProyecto.numeroActa());
-                    $('#cumplimientoCompromisoProyectoModal').modal('show');
+                    $('#cumplimientoCompromisoProyectoModal').modal({backdrop: 'static', keyboard: false}) ;
                 };                 
 
                 self.compromisosHomologadosProyecto = ko.observableArray(compromisosHomologadosProyecto);
                 self.eliminarCompromisoHomologadoProyecto = function (compromisoHomologadoProyecto) {
                     compromisoHomologadoEliminarProyecto = compromisoHomologadoProyecto;
-                    $('#confirmacionEliminacionCompromisoHomologadoProyecto').modal('show');
+                    $('#confirmacionEliminacionCompromisoHomologadoProyecto').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 self.editarCompromisoHomologadoProyecto = function (compromisoHomologadoProyecto) {
                     $('#idCompromisoHomologadoProyecto').val(compromisoHomologadoProyecto.idCompromisoHomologadoProyecto());
@@ -3288,7 +3244,7 @@
                     $('#numeroActaCompromisoHomologadoProyecto').val(compromisoHomologadoProyecto.numeroActa());
                     $('#descripcionCompromisoHomologadoProyecto').val(compromisoHomologadoProyecto.descripcion());
                     $('#observacionesCompromisoHomologadoProyecto').val(compromisoHomologadoProyecto.observaciones());
-                    $('#compromisoHomologadoProyectoModal').modal('show');
+                    $('#compromisoHomologadoProyectoModal').modal({backdrop: 'static', keyboard: false}) ;
                 };                 
 
                 self.cumplimientoAlertasAvalProyecto = ko.observableArray(cumplimientoAlertasAvalProyecto);
@@ -3297,14 +3253,14 @@
                 };
                 self.eliminarCumplimientoAlertaAvalProyecto = function (cumplimientoAlertaAvalProyecto) {
                     cumplimientoAlertaAvalEliminarProyecto = cumplimientoAlertaAvalProyecto;
-                    $('#confirmacionEliminacionCumplimientoAlertaAvalProyecto').modal('show');
+                    $('#confirmacionEliminacionCumplimientoAlertaAvalProyecto').modal({backdrop: 'static', keyboard: false}) ;
                 };
                 self.editarCumplimientoAlertaAvalProyecto = function (cumplimientoAlertaAvalProyecto) {
                     $('#idCumplimientoAlertaAvalProyecto').val(cumplimientoAlertaAvalProyecto.idCumplimientoAlertaAvalProyecto());
                     $('#alertaAvalProyecto').val(cumplimientoAlertaAvalProyecto.idAlertaAvalProyecto());
                     $('#fechaActaCumplimientoAlertaAvalProyecto').val(cumplimientoAlertaAvalProyecto.fechaActaFormateada());
                     $('#numeroActaCumplimientoAlertaAvalProyecto').val(cumplimientoAlertaAvalProyecto.numeroActa());
-                    $('#cumplimientoAlertaAvalProyectoModal').modal('show');
+                    $('#cumplimientoAlertaAvalProyectoModal').modal({backdrop: 'static', keyboard: false}) ;
                 };                  
             };
 
@@ -3380,7 +3336,7 @@
             };
             function mostrarVentanaNuevaActa() {
                 limpiarDatosVentanaActa();
-                $('#actaModal').modal('show');
+                $('#actaModal').modal({backdrop: 'static', keyboard: false}) ;
             }
             function limpiarDatosVentanaActa() {
                 $('#idActa').val(0);
@@ -3411,7 +3367,7 @@
             };
             function mostrarVentanaNuevaAdendaCambio() {
                 limpiarDatosVentanaAdendaCambio();
-                $('#adendaCambioModal').modal('show');
+                $('#adendaCambioModal').modal({backdrop: 'static', keyboard: false}) ;
             }
             function limpiarDatosVentanaAdendaCambio() {
                 $('#idAdendaCambio').val(0);
@@ -3451,7 +3407,7 @@
             };
             function mostrarVentanaNuevaAdendaIngreso() {
                 limpiarDatosVentanaAdendaIngreso();
-                $('#adendaIngresoModal').modal('show');
+                $('#adendaIngresoModal').modal({backdrop: 'static', keyboard: false}) ;
             }
             function limpiarDatosVentanaAdendaIngreso() {
                 $('#idAdendaIngreso').val(0);
@@ -3486,7 +3442,7 @@
             };
             function mostrarVentanaNuevaAdendaRetiro() {
                 limpiarDatosVentanaAdendaRetiro();
-                $('#adendaRetiroModal').modal('show');
+                $('#adendaRetiroModal').modal({backdrop: 'static', keyboard: false}) ;
             }
             function limpiarDatosVentanaAdendaRetiro() {
                 $('#idAdendaRetiro').val(0);
@@ -3521,7 +3477,7 @@
             };
             function mostrarVentanaNuevaAdicion() {
                 limpiarDatosVentanaActa();
-                $('#adicionModal').modal('show');
+                $('#adicionModal').modal({backdrop: 'static', keyboard: false}) ;
             }
             function limpiarDatosVentanaAdicion() {
                 $('#idAdicion').val(0);
@@ -3553,7 +3509,7 @@
             };
             function mostrarVentanaNuevaProrroga() {
                 limpiarDatosVentanaProrroga();
-                $('#prorrogaModal').modal('show');
+                $('#prorrogaModal').modal({backdrop: 'static', keyboard: false}) ;
             }
             function limpiarDatosVentanaProrroga() {
                 $('#idProrroga').val(0);
@@ -3586,7 +3542,7 @@
             };
             function mostrarVentanaNuevaPlazo() {
                 limpiarDatosVentanaPlazo();
-                $('#plazoModal').modal('show');
+                $('#plazoModal').modal({backdrop: 'static', keyboard: false}) ;
             }
             function limpiarDatosVentanaPlazo() {
                 $('#idPlazo').val(0);
@@ -3618,7 +3574,7 @@
             };
             function mostrarVentanaNuevaCumplimientoCompromisoProyecto() {
                 limpiarDatosVentanaCumplimientoCompromisoProyecto();
-                $('#cumplimientoCompromisoProyectoModal').modal('show');
+                $('#cumplimientoCompromisoProyectoModal').modal({backdrop: 'static', keyboard: false}) ;
             }
             function limpiarDatosVentanaCumplimientoCompromisoProyecto() {
                 $('#idCumplimientoCompromisoProyecto').val(0);
@@ -3647,7 +3603,7 @@
             };
             function mostrarVentanaNuevaCompromisoHomologadoProyecto() {
                 limpiarDatosVentanaCompromisoHomologadoProyecto();
-                $('#compromisoHomologadoProyectoModal').modal('show');
+                $('#compromisoHomologadoProyectoModal').modal({backdrop: 'static', keyboard: false}) ;
             }
             function limpiarDatosVentanaCompromisoHomologadoProyecto() {
                 $('#idCompromisoHomologadoProyecto').val(0);
@@ -3679,7 +3635,7 @@
             };
             function mostrarVentanaNuevaCumplimientoAlertaAvalProyecto() {
                 limpiarDatosVentanaCumplimientoAlertaAvalProyecto();
-                $('#cumplimientoAlertaAvalProyectoModal').modal('show');
+                $('#cumplimientoAlertaAvalProyectoModal').modal({backdrop: 'static', keyboard: false}) ;
             }
             function limpiarDatosVentanaCumplimientoAlertaAvalProyecto() {
                 $('#idCumplimientoAlertaAvalProyecto').val(0);

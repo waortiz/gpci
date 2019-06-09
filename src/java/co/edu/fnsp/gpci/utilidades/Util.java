@@ -210,15 +210,35 @@ public class Util {
 
             for (int i = 0; i < prorrogasProyecto.size(); i++) {
                 ProrrogaProyecto prorrogaProyecto = prorrogasProyecto.get(i);
+                String montoAprobado = "";
+                String fechaActaCODI = "";
+                String fechaActa = "";
+                String numeroActa = "";
+                String numeroActaCODI = "";
+                if(prorrogaProyecto.getMontoAprobado() != null) {
+                   montoAprobado = decimalFormat.format(prorrogaProyecto.getMontoAprobado()); 
+                } 
+                if(prorrogaProyecto.getNumeroActa() != null){
+                   numeroActa = prorrogaProyecto.getNumeroActa();
+                }
+                if(prorrogaProyecto.getFechaActa() != null) {
+                  fechaActa = simpleDateFormat.format(prorrogaProyecto.getFechaActa());
+                }
+                if(prorrogaProyecto.getNumeroActaCODI() != null){
+                  numeroActaCODI = prorrogaProyecto.getNumeroActaCODI();
+                }
+                if(prorrogaProyecto.getFechaActaCODI() != null){
+                  fechaActaCODI = simpleDateFormat.format(prorrogaProyecto.getFechaActaCODI());
+                }
                 jscriptArray = jscriptArray
                         + "{idProrroga: ko.observable(" + prorrogaProyecto.getIdProrroga() + "),"
                         + "mesesAprobados:ko.observable(" + prorrogaProyecto.getMesesAprobados() + "),"
                         + "montoAprobado:ko.observable(" + prorrogaProyecto.getMontoAprobado() + "),"
-                        + "montoAprobadoFormateado:ko.observable('" + decimalFormat.format(prorrogaProyecto.getMontoAprobado()) + "'),"
-                        + "numeroActa:ko.observable('" + prorrogaProyecto.getNumeroActa() + "'),"
-                        + "fechaActaFormateada:ko.observable('" + simpleDateFormat.format(prorrogaProyecto.getFechaActa()) + "'),"
-                        + "numeroActaCODI:ko.observable('" + prorrogaProyecto.getNumeroActaCODI() + "'),"
-                        + "fechaActaCODIFormateada:ko.observable('" + simpleDateFormat.format(prorrogaProyecto.getFechaActaCODI()) + "'),"
+                        + "montoAprobadoFormateado:ko.observable('" + montoAprobado + "'),"
+                        + "numeroActa:ko.observable('" + numeroActa + "'),"
+                        + "fechaActaFormateada:ko.observable('" + fechaActa + "'),"
+                        + "numeroActaCODI:ko.observable('" + numeroActaCODI + "'),"
+                        + "fechaActaCODIFormateada:ko.observable('" + fechaActaCODI + "'),"
                         + "descripcion:ko.observable('" + prorrogaProyecto.getDescripcion() + "')"
                         + "}";
                 if (i < prorrogasProyecto.size() - 1) {
@@ -240,14 +260,30 @@ public class Util {
 
             for (int i = 0; i < plazosProyecto.size(); i++) {
                 PlazoProyecto plazoProyecto = plazosProyecto.get(i);
+                String fechaActaCODI = "";
+                String fechaActa = "";
+                String numeroActa = "";
+                String numeroActaCODI = "";
+                if(plazoProyecto.getNumeroActa() != null){
+                   numeroActa = plazoProyecto.getNumeroActa();
+                }
+                if(plazoProyecto.getFechaActa() != null) {
+                  fechaActa = simpleDateFormat.format(plazoProyecto.getFechaActa());
+                }
+                if(plazoProyecto.getNumeroActaCODI() != null){
+                  numeroActaCODI = plazoProyecto.getNumeroActaCODI();
+                }
+                if(plazoProyecto.getFechaActaCODI() != null){
+                  fechaActaCODI = simpleDateFormat.format(plazoProyecto.getFechaActaCODI());
+                }                
                 jscriptArray = jscriptArray
                         + "{idPlazo: ko.observable(" + plazoProyecto.getIdPlazo() + "),"
                         + "mesesAprobados:ko.observable(" + plazoProyecto.getMesesAprobados() + "),"
                         + "descripcion:ko.observable('" + plazoProyecto.getDescripcion() + "'),"
-                        + "numeroActa:ko.observable('" + plazoProyecto.getNumeroActa() + "'),"
-                        + "fechaActaFormateada:ko.observable('" + simpleDateFormat.format(plazoProyecto.getFechaActa()) + "'),"
-                        + "numeroActaCODI:ko.observable('" + plazoProyecto.getNumeroActaCODI() + "'),"
-                        + "fechaActaCODIFormateada:ko.observable('" + simpleDateFormat.format(plazoProyecto.getFechaActaCODI()) + "'),"
+                        + "numeroActa:ko.observable('" + numeroActa + "'),"
+                        + "fechaActaFormateada:ko.observable('" + fechaActa + "'),"
+                        + "numeroActaCODI:ko.observable('" + numeroActaCODI + "'),"
+                        + "fechaActaCODIFormateada:ko.observable('" + fechaActaCODI + "'),"
                         + "}";
                 if (i < plazosProyecto.size() - 1) {
                     jscriptArray = jscriptArray + ",";

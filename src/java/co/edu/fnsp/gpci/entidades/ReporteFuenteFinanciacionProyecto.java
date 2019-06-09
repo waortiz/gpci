@@ -10,16 +10,17 @@ package co.edu.fnsp.gpci.entidades;
  * @author William
  */
 public class ReporteFuenteFinanciacionProyecto {
-
     private int anyoCreacion;
     private String nombreCompletoProyecto;
     private String codigo;
     private String estadoProyecto;
     private String fuenteFinanciacionPrincipal;
-    private String fuenteFinanciacion;
-    private String tipoFuenteFinanciacion;
     private long monto;
     private String montoFormateado;
+    private String fuenteFinanciacionSecundaria;
+    private String tipoFuenteFinanciacionSecundaria;
+    private Long montoFuenteFinanciacionSecundaria;
+    private String montoFuenteFinanciacionSecundariaFormateado;
     private long montoTotal;
     private String montoTotalFormateado;
     private String investigadorPrincipal;
@@ -124,34 +125,6 @@ public class ReporteFuenteFinanciacionProyecto {
     }
 
     /**
-     * @return the fuenteFinanciacion
-     */
-    public String getFuenteFinanciacion() {
-        return fuenteFinanciacion;
-    }
-
-    /**
-     * @param fuenteFinanciacion the fuenteFinanciacion to set
-     */
-    public void setFuenteFinanciacion(String fuenteFinanciacion) {
-        this.fuenteFinanciacion = fuenteFinanciacion;
-    }
-
-    /**
-     * @return the tipoFuenteFinanciacion
-     */
-    public String getTipoFuenteFinanciacion() {
-        return tipoFuenteFinanciacion;
-    }
-
-    /**
-     * @param tipoFuenteFinanciacion the tipoFuenteFinanciacion to set
-     */
-    public void setTipoFuenteFinanciacion(String tipoFuenteFinanciacion) {
-        this.tipoFuenteFinanciacion = tipoFuenteFinanciacion;
-    }
-
-    /**
      * @return the monto
      */
     public long getMonto() {
@@ -205,6 +178,63 @@ public class ReporteFuenteFinanciacionProyecto {
      */
     public void setMontoTotalFormateado(String montoTotalFormateado) {
         this.montoTotalFormateado = montoTotalFormateado;
+    }
+
+
+    /**
+     * @return the montoFuenteFinanciacionSecundaria
+     */
+    public Long getMontoFuenteFinanciacionSecundaria() {
+        return montoFuenteFinanciacionSecundaria;
+    }
+
+    /**
+     * @param montoFuenteFinanciacionSecundaria the montoFuenteFinanciacionSecundaria to set
+     */
+    public void setMontoFuenteFinanciacionSecundaria(Long montoFuenteFinanciacionSecundaria) {
+        this.montoFuenteFinanciacionSecundaria = montoFuenteFinanciacionSecundaria;
+    }
+
+    /**
+     * @return the montoFuenteFinanciacionSecundariaFormateado
+     */
+    public String getMontoFuenteFinanciacionSecundariaFormateado() {
+        return montoFuenteFinanciacionSecundariaFormateado;
+    }
+
+    /**
+     * @param montoFuenteFinanciacionSecundariaFormateado the montoFuenteFinanciacionSecundariaFormateado to set
+     */
+    public void setMontoFuenteFinanciacionSecundariaFormateado(String montoFuenteFinanciacionSecundariaFormateado) {
+        this.montoFuenteFinanciacionSecundariaFormateado = montoFuenteFinanciacionSecundariaFormateado;
+    }
+
+    /**
+     * @return the fuenteFinanciacionSecundaria
+     */
+    public String getFuenteFinanciacionSecundaria() {
+        return fuenteFinanciacionSecundaria;
+    }
+
+    /**
+     * @param fuenteFinanciacionSecundaria the fuenteFinanciacionSecundaria to set
+     */
+    public void setFuenteFinanciacionSecundaria(String fuenteFinanciacionSecundaria) {
+        this.fuenteFinanciacionSecundaria = fuenteFinanciacionSecundaria;
+    }
+
+    /**
+     * @return the tipoFuenteFinanciacionSecundaria
+     */
+    public String getTipoFuenteFinanciacionSecundaria() {
+        return tipoFuenteFinanciacionSecundaria;
+    }
+
+    /**
+     * @param tipoFuenteFinanciacionSecundaria the tipoFuenteFinanciacionSecundaria to set
+     */
+    public void setTipoFuenteFinanciacionSecundaria(String tipoFuenteFinanciacionSecundaria) {
+        this.tipoFuenteFinanciacionSecundaria = tipoFuenteFinanciacionSecundaria;
     }
     
 }

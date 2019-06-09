@@ -10,7 +10,7 @@
 
 <div class="container">
     <div class = "panel panel-success">
-        <div class = "panel-heading ">PROYECTOS INSCRITOS</div>   
+        <div class = "panel-heading ">PROYECTOS REGISTRADOS</div>   
         <div class = "panel-body">
             <div class="tab-content">
                 <div class="tab-pane fade in active" id="tab1success">

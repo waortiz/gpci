@@ -808,8 +808,12 @@ public class RepositorioNovedadProyecto implements IRepositorioNovedadProyecto {
         ArrayList<ProrrogaProyecto> prorrogasProyecto = (ArrayList<ProrrogaProyecto>) resultadoProrrogasProyecto.get("prorrogasProyecto");
         for (ProrrogaProyecto prorrogaProyecto : prorrogasProyecto) {
             prorrogaProyecto.setFechaActaFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFechaActa()));
-            prorrogaProyecto.setFechaActaCODIFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFechaActaCODI()));
-            prorrogaProyecto.setMontoAprobadoFormateado(Util.obtenerNumeroFormatoMoneda(prorrogaProyecto.getMontoAprobado()));
+            if(prorrogaProyecto.getFechaActaCODI() != null) {
+               prorrogaProyecto.setFechaActaCODIFormateada(Util.obtenerFechaFormateada(prorrogaProyecto.getFechaActaCODI()));
+            }
+            if(prorrogaProyecto.getMontoAprobado() != null) {
+               prorrogaProyecto.setMontoAprobadoFormateado(Util.obtenerNumeroFormatoMoneda(prorrogaProyecto.getMontoAprobado()));
+            }
         }
 
         return prorrogasProyecto;

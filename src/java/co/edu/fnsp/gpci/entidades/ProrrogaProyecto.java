@@ -22,7 +22,7 @@ public class ProrrogaProyecto {
     private String fechaActaCODIFormateada;
     private String numeroActaCODI;
     private int mesesAprobados;
-    private long montoAprobado;
+    private Long montoAprobado;
     private String montoAprobadoFormateado;
 
     /**
@@ -154,14 +154,14 @@ public class ProrrogaProyecto {
     /**
      * @return the montoAprobado
      */
-    public long getMontoAprobado() {
+    public Long getMontoAprobado() {
         return montoAprobado;
     }
 
     /**
      * @param montoAprobado the montoAprobado to set
      */
-    public void setMontoAprobado(long montoAprobado) {
+    public void setMontoAprobado(Long montoAprobado) {
         this.montoAprobado = montoAprobado;
     }
 
