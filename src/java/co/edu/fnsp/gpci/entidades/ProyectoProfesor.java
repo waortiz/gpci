@@ -13,6 +13,7 @@ import java.util.Date;
  */
 public class ProyectoProfesor {
 
+    private long idProyecto;
     private String nombreCompletoProyecto;
     private Date fechaInicio;
     private Date fechaFinalizacion;
@@ -102,6 +103,20 @@ public class ProyectoProfesor {
      */
     public void setHorasSemana(int horasSemana) {
         this.horasSemana = horasSemana;
+    }
+
+    /**
+     * @return the idProyecto
+     */
+    public long getIdProyecto() {
+        return idProyecto;
+    }
+
+    /**
+     * @param idProyecto the idProyecto to set
+     */
+    public void setIdProyecto(long idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
 }

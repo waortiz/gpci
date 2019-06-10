@@ -306,6 +306,8 @@ public class ReporteController {
             for (ProyectoEstudiante proyecto : proyectos) {
                 run.setText("Nombre del proyecto: " + proyecto.getNombreCompletoProyecto());
                 run.addCarriageReturn();
+                run.setText("Programa: " + proyecto.getDescripcionPrograma());
+                run.addCarriageReturn();
                 run.setText("Grupo de Investigación: " + proyecto.getGrupoInvestigacion());
                 run.addCarriageReturn();
                 run.setText("Fuente de Financiación: " + proyecto.getFuenteFinanciacion());

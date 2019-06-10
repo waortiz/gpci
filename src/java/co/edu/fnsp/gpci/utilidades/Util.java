@@ -28,6 +28,7 @@ import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
@@ -691,4 +692,24 @@ public class Util {
         return (long) decimalFormat.parse(numero);
     }
 
+    public static int obtenerMeses(Date fechaInicial, Date fechaFinal){
+        int numberOfMonths = 0;
+        Calendar fechaInicialCalendar = Calendar.getInstance();
+        fechaInicialCalendar.setTime(fechaInicial);
+        Calendar fechaFinalCalendar = Calendar.getInstance();
+        fechaFinalCalendar.setTime(fechaFinal);
+        
+        int year = 0; 
+        int months = 0;
+           
+        year = fechaFinalCalendar.get(Calendar.YEAR) - fechaInicialCalendar.get(Calendar.YEAR);
+        months = (fechaFinalCalendar.get(Calendar.MONTH)+1) - ((fechaInicialCalendar.get(Calendar.MONTH) +1) );
+        if(fechaFinalCalendar.get(Calendar.DAY_OF_MONTH) < (fechaInicialCalendar.get(Calendar.DAY_OF_MONTH)) )     
+        {
+              months--;
+        }
+        numberOfMonths = months + (year * 12);
+ 
+        return numberOfMonths;
+    }
 }

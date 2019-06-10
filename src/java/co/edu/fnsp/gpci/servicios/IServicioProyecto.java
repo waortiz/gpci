@@ -42,4 +42,5 @@ public interface IServicioProyecto {
     ArrayList<CompromisoProyecto> obtenerCompromisosProyecto(long idProyecto);
 
     ArrayList<AlertaAvalProyecto> obtenerAlertasAvalProyecto(long idProyecto);
+   
 }

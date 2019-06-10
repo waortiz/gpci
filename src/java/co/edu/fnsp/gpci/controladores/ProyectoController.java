@@ -268,9 +268,18 @@ public class ProyectoController {
         ProyectoEdicion proyectoEdicion = new ProyectoEdicion();
         Proyecto proyecto = servicioProyecto.obtenerProyecto(idProyecto);
         proyectoEdicion.setIdProyecto(idProyecto);
+        
+        proyectoEdicion.setNumeroActa(proyecto.getNumeroActa());
+        proyectoEdicion.setNumeroConvocatoria(proyecto.getNumeroConvocatoria());
+        if(proyecto.getAnyoConvocatoria() != null) {
+           proyectoEdicion.setAnyoConvocatoria(proyecto.getAnyoConvocatoria().toString());
+        }
+        proyectoEdicion.setFechaElaboracionActa(Util.obtenerFechaFormateada(proyecto.getFechaElaboracionActa()));
+        
         proyectoEdicion.setIdGrupoInvestigacionPrincipal(proyecto.getIdGrupoInvestigacionPrincipal());
         proyectoEdicion.setAreaTematica(Integer.toString(proyecto.getAreaTematica().getIdAreaTematica()));
         proyectoEdicion.setCodigo(proyecto.getCodigo());
+        proyectoEdicion.setTiempoProyecto(proyecto.getTiempoProyecto());
         proyectoEdicion.setCodigoCOLCIENCIAS(proyecto.getCodigoCOLCIENCIAS());
         proyectoEdicion.setCodigoSIIU(proyecto.getCodigoSIIU());
         proyectoEdicion.setCodigoSIU(proyecto.getCodigoSIU());

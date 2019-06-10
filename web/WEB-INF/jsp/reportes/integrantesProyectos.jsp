@@ -29,7 +29,8 @@
                                 <td align="center" width='10%'><strong>Año</strong></td>
                                 <td align="center" width='10%'><strong>Código</strong></td> 
                                 <td align="center" width='20%'><strong>Nombre</strong></td> 
-                                <td align="center" width='10%'><strong>Tipo</strong></td> 
+                                <td align="center" width='10%'><strong>Tipo Integrante</strong></td> 
+                                <td align="center" width='10%'><strong>Tipo Estudiante</strong></td> 
                                 <td align="center" width='15%'><strong>Documento</strong></td> 
                                 <td align="center" width='20%'><strong>Integrante</strong></td> 
                                 <td align="center" width='15%'><strong>Rol</strong></td> 
@@ -49,6 +50,9 @@
                                     </td>
                                     <td align="center">
                                         ${reporte.getTipoIntegrante()}
+                                    </td>
+                                    <td align="center">
+                                        ${reporte.getTipo()}
                                     </td>
                                     <td align="center">
                                         ${reporte.getNumeroIdentificacionIntegrante()}

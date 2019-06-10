@@ -15,14 +15,22 @@ public class ReporteFuenteFinanciacionProyecto {
     private String codigo;
     private String estadoProyecto;
     private String fuenteFinanciacionPrincipal;
-    private long monto;
-    private String montoFormateado;
+
+    private long montoFrescos;
+    private String montoFrescosFormateado;
+    private long montoEspecies;
+    private String montoEspeciesFormateado;
+    private String totalRecursosFormateado;
+    
     private String fuenteFinanciacionSecundaria;
     private String tipoFuenteFinanciacionSecundaria;
-    private Long montoFuenteFinanciacionSecundaria;
-    private String montoFuenteFinanciacionSecundariaFormateado;
-    private long montoTotal;
-    private String montoTotalFormateado;
+
+    private Long montoFrescosFuenteFinanciacionSecundaria;
+    private String montoFrescosFuenteFinanciacionSecundariaFormateado;
+    private Long montoEspeciesFuenteFinanciacionSecundaria;
+    private String montoEspeciesFuenteFinanciacionSecundariaFormateado;
+    private String totalRecursosFuenteFinanciacionSecundariaFormateado;
+
     private String investigadorPrincipal;
     private String grupoInvestigacion;
 
@@ -125,88 +133,59 @@ public class ReporteFuenteFinanciacionProyecto {
     }
 
     /**
-     * @return the monto
+     * @return the montoFrescos
      */
-    public long getMonto() {
-        return monto;
+    public long getMontoFrescos() {
+        return montoFrescos;
     }
 
     /**
-     * @param monto the monto to set
+     * @param montoFrescos the montoFrescos to set
      */
-    public void setMonto(long monto) {
-        this.monto = monto;
+    public void setMontoFrescos(long montoFrescos) {
+        this.montoFrescos = montoFrescos;
     }
 
     /**
-     * @return the montoFormateado
+     * @return the montoFrescosFormateado
      */
-    public String getMontoFormateado() {
-        return montoFormateado;
+    public String getMontoFrescosFormateado() {
+        return montoFrescosFormateado;
     }
 
     /**
-     * @param montoFormateado the montoFormateado to set
+     * @param montoFrescosFormateado the montoFrescosFormateado to set
      */
-    public void setMontoFormateado(String montoFormateado) {
-        this.montoFormateado = montoFormateado;
+    public void setMontoFrescosFormateado(String montoFrescosFormateado) {
+        this.montoFrescosFormateado = montoFrescosFormateado;
     }
 
     /**
-     * @return the montoTotal
+     * @return the montoEspecies
      */
-    public long getMontoTotal() {
-        return montoTotal;
+    public long getMontoEspecies() {
+        return montoEspecies;
     }
 
     /**
-     * @param montoTotal the montoTotal to set
+     * @param montoEspecies the montoEspecies to set
      */
-    public void setMontoTotal(long montoTotal) {
-        this.montoTotal = montoTotal;
+    public void setMontoEspecies(long montoEspecies) {
+        this.montoEspecies = montoEspecies;
     }
 
     /**
-     * @return the montoTotalFormateado
+     * @return the montoEspeciesFormateado
      */
-    public String getMontoTotalFormateado() {
-        return montoTotalFormateado;
+    public String getMontoEspeciesFormateado() {
+        return montoEspeciesFormateado;
     }
 
     /**
-     * @param montoTotalFormateado the montoTotalFormateado to set
+     * @param montoEspeciesFormateado the montoEspeciesFormateado to set
      */
-    public void setMontoTotalFormateado(String montoTotalFormateado) {
-        this.montoTotalFormateado = montoTotalFormateado;
-    }
-
-
-    /**
-     * @return the montoFuenteFinanciacionSecundaria
-     */
-    public Long getMontoFuenteFinanciacionSecundaria() {
-        return montoFuenteFinanciacionSecundaria;
-    }
-
-    /**
-     * @param montoFuenteFinanciacionSecundaria the montoFuenteFinanciacionSecundaria to set
-     */
-    public void setMontoFuenteFinanciacionSecundaria(Long montoFuenteFinanciacionSecundaria) {
-        this.montoFuenteFinanciacionSecundaria = montoFuenteFinanciacionSecundaria;
-    }
-
-    /**
-     * @return the montoFuenteFinanciacionSecundariaFormateado
-     */
-    public String getMontoFuenteFinanciacionSecundariaFormateado() {
-        return montoFuenteFinanciacionSecundariaFormateado;
-    }
-
-    /**
-     * @param montoFuenteFinanciacionSecundariaFormateado the montoFuenteFinanciacionSecundariaFormateado to set
-     */
-    public void setMontoFuenteFinanciacionSecundariaFormateado(String montoFuenteFinanciacionSecundariaFormateado) {
-        this.montoFuenteFinanciacionSecundariaFormateado = montoFuenteFinanciacionSecundariaFormateado;
+    public void setMontoEspeciesFormateado(String montoEspeciesFormateado) {
+        this.montoEspeciesFormateado = montoEspeciesFormateado;
     }
 
     /**
@@ -236,5 +215,88 @@ public class ReporteFuenteFinanciacionProyecto {
     public void setTipoFuenteFinanciacionSecundaria(String tipoFuenteFinanciacionSecundaria) {
         this.tipoFuenteFinanciacionSecundaria = tipoFuenteFinanciacionSecundaria;
     }
-    
+
+    /**
+     * @return the montoFrescosFuenteFinanciacionSecundaria
+     */
+    public Long getMontoFrescosFuenteFinanciacionSecundaria() {
+        return montoFrescosFuenteFinanciacionSecundaria;
+    }
+
+    /**
+     * @param montoFrescosFuenteFinanciacionSecundaria the montoFrescosFuenteFinanciacionSecundaria to set
+     */
+    public void setMontoFrescosFuenteFinanciacionSecundaria(Long montoFrescosFuenteFinanciacionSecundaria) {
+        this.montoFrescosFuenteFinanciacionSecundaria = montoFrescosFuenteFinanciacionSecundaria;
+    }
+
+    /**
+     * @return the montoFrescosFuenteFinanciacionSecundariaFormateado
+     */
+    public String getMontoFrescosFuenteFinanciacionSecundariaFormateado() {
+        return montoFrescosFuenteFinanciacionSecundariaFormateado;
+    }
+
+    /**
+     * @param montoFrescosFuenteFinanciacionSecundariaFormateado the montoFrescosFuenteFinanciacionSecundariaFormateado to set
+     */
+    public void setMontoFrescosFuenteFinanciacionSecundariaFormateado(String montoFrescosFuenteFinanciacionSecundariaFormateado) {
+        this.montoFrescosFuenteFinanciacionSecundariaFormateado = montoFrescosFuenteFinanciacionSecundariaFormateado;
+    }
+
+    /**
+     * @return the montoEspeciesFuenteFinanciacionSecundaria
+     */
+    public Long getMontoEspeciesFuenteFinanciacionSecundaria() {
+        return montoEspeciesFuenteFinanciacionSecundaria;
+    }
+
+    /**
+     * @param montoEspeciesFuenteFinanciacionSecundaria the montoEspeciesFuenteFinanciacionSecundaria to set
+     */
+    public void setMontoEspeciesFuenteFinanciacionSecundaria(Long montoEspeciesFuenteFinanciacionSecundaria) {
+        this.montoEspeciesFuenteFinanciacionSecundaria = montoEspeciesFuenteFinanciacionSecundaria;
+    }
+
+    /**
+     * @return the montoEspeciesFuenteFinanciacionSecundariaFormateado
+     */
+    public String getMontoEspeciesFuenteFinanciacionSecundariaFormateado() {
+        return montoEspeciesFuenteFinanciacionSecundariaFormateado;
+    }
+
+    /**
+     * @param montoEspeciesFuenteFinanciacionSecundariaFormateado the montoEspeciesFuenteFinanciacionSecundariaFormateado to set
+     */
+    public void setMontoEspeciesFuenteFinanciacionSecundariaFormateado(String montoEspeciesFuenteFinanciacionSecundariaFormateado) {
+        this.montoEspeciesFuenteFinanciacionSecundariaFormateado = montoEspeciesFuenteFinanciacionSecundariaFormateado;
+    }
+
+    /**
+     * @return the totalRecursosFormateado
+     */
+    public String getTotalRecursosFormateado() {
+        return totalRecursosFormateado;
+    }
+
+    /**
+     * @param totalRecursosFormateado the totalRecursosFormateado to set
+     */
+    public void setTotalRecursosFormateado(String totalRecursosFormateado) {
+        this.totalRecursosFormateado = totalRecursosFormateado;
+    }
+
+    /**
+     * @return the totalRecursosFuenteFinanciacionSecundariaFormateado
+     */
+    public String getTotalRecursosFuenteFinanciacionSecundariaFormateado() {
+        return totalRecursosFuenteFinanciacionSecundariaFormateado;
+    }
+
+    /**
+     * @param totalRecursosFuenteFinanciacionSecundariaFormateado the totalRecursosFuenteFinanciacionSecundariaFormateado to set
+     */
+    public void setTotalRecursosFuenteFinanciacionSecundariaFormateado(String totalRecursosFuenteFinanciacionSecundariaFormateado) {
+        this.totalRecursosFuenteFinanciacionSecundariaFormateado = totalRecursosFuenteFinanciacionSecundariaFormateado;
+    }
 }

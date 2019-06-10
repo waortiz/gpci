@@ -36,6 +36,11 @@ public class ProyectoEdicion {
     private long idProyecto;
     private String nombreCompletoProyecto;
     private String nombreCortoProyecto;
+    private String numeroActa;
+    private String numeroConvocatoria;
+    private String anyoConvocatoria;
+    private int tiempoProyecto;
+    private String fechaElaboracionActa;
     private String fechaInicio;
     private String fechaFinalizacion;
     private String fechaIngresadoSIGEP;
@@ -800,5 +805,75 @@ public class ProyectoEdicion {
      */
     public void setCompromisosHomologadosProyecto(ArrayList<CompromisoHomologadoProyecto> compromisosHomologadosProyecto) {
         this.compromisosHomologadosProyecto = compromisosHomologadosProyecto;
+    }
+
+    /**
+     * @return the numeroActa
+     */
+    public String getNumeroActa() {
+        return numeroActa;
+    }
+
+    /**
+     * @param numeroActa the numeroActa to set
+     */
+    public void setNumeroActa(String numeroActa) {
+        this.numeroActa = numeroActa;
+    }
+
+    /**
+     * @return the numeroConvocatoria
+     */
+    public String getNumeroConvocatoria() {
+        return numeroConvocatoria;
+    }
+
+    /**
+     * @param numeroConvocatoria the numeroConvocatoria to set
+     */
+    public void setNumeroConvocatoria(String numeroConvocatoria) {
+        this.numeroConvocatoria = numeroConvocatoria;
+    }
+
+    /**
+     * @return the anyoConvocatoria
+     */
+    public String getAnyoConvocatoria() {
+        return anyoConvocatoria;
+    }
+
+    /**
+     * @param anyoConvocatoria the anyoConvocatoria to set
+     */
+    public void setAnyoConvocatoria(String anyoConvocatoria) {
+        this.anyoConvocatoria = anyoConvocatoria;
+    }
+
+    /**
+     * @return the fechaElaboracionActa
+     */
+    public String getFechaElaboracionActa() {
+        return fechaElaboracionActa;
+    }
+
+    /**
+     * @param fechaElaboracionActa the fechaElaboracionActa to set
+     */
+    public void setFechaElaboracionActa(String fechaElaboracionActa) {
+        this.fechaElaboracionActa = fechaElaboracionActa;
+    }
+    
+    /**
+     * @return the tiempoProyecto
+     */
+    public int getTiempoProyecto() {
+        return tiempoProyecto;
+    }
+
+    /**
+     * @param tiempoProyecto the tiempoProyecto to set
+     */
+    public void setTiempoProyecto(int tiempoProyecto) {
+        this.tiempoProyecto = tiempoProyecto;
     }
 }

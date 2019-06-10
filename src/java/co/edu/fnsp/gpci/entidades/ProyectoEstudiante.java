@@ -12,6 +12,8 @@ import java.util.Date;
  * @author William
  */
 public class ProyectoEstudiante {
+
+    private long idProyecto;
     private String nombreCompletoProyecto;
     private String grupoInvestigacion;
     private String fuenteFinanciacion;
@@ -20,7 +22,9 @@ public class ProyectoEstudiante {
     private Date fechaInicio;
     private Date fechaFinalizacion;
     private int horasSemana;
-
+    private int idPrograma;
+    private String descripcionPrograma;
+    
     /**
      * @return the nombreCompletoProyecto
      */
@@ -132,5 +136,46 @@ public class ProyectoEstudiante {
     public void setHorasSemana(int horasSemana) {
         this.horasSemana = horasSemana;
     }
-   
+
+        /**
+     * @return the idPrograma
+     */
+    public int getIdPrograma() {
+        return idPrograma;
+    }
+
+    /**
+     * @param idPrograma the idPrograma to set
+     */
+    public void setIdPrograma(int idPrograma) {
+        this.idPrograma = idPrograma;
+    }
+
+    /**
+     * @return the descripcionPrograma
+     */
+    public String getDescripcionPrograma() {
+        return descripcionPrograma;
+    }
+
+    /**
+     * @param descripcionPrograma the descripcionPrograma to set
+     */
+    public void setDescripcionPrograma(String descripcionPrograma) {
+        this.descripcionPrograma = descripcionPrograma;
+    }
+
+    /**
+     * @return the idProyecto
+     */
+    public long getIdProyecto() {
+        return idProyecto;
+    }
+
+    /**
+     * @param idProyecto the idProyecto to set
+     */
+    public void setIdProyecto(long idProyecto) {
+        this.idProyecto = idProyecto;
+    }
 }

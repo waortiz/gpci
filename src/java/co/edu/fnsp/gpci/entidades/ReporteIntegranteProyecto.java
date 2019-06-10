@@ -15,6 +15,7 @@ public class ReporteIntegranteProyecto {
     private String nombreCortoProyecto;
     private String codigo;
     private String tipoIntegrante;
+    private String tipo;
     private String numeroIdentificacionIntegrante;
     private String integrante;
     private String rolIntegrante;
@@ -117,6 +118,17 @@ public class ReporteIntegranteProyecto {
         this.rolIntegrante = rolIntegrante;
     }
     
-    
+    /**
+     * @return the tipo
+     */
+    public String getTipo() {
+        return tipo;
+    }
 
+    /**
+     * @param tipo the tipo to set
+     */
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
 }

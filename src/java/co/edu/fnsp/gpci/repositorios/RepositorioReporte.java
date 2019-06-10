@@ -5,6 +5,9 @@
  */
 package co.edu.fnsp.gpci.repositorios;
 
+import co.edu.fnsp.gpci.entidades.AdendaCambioProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaIngresoProyecto;
+import co.edu.fnsp.gpci.entidades.AdendaRetiroProyecto;
 import co.edu.fnsp.gpci.entidades.ProyectoPorEstadoPorAnyo;
 import co.edu.fnsp.gpci.entidades.CantidadProyectosPorEstado;
 import co.edu.fnsp.gpci.entidades.CompromisoSeguimientoProyecto;
@@ -55,7 +58,15 @@ public class RepositorioReporte implements IRepositorioReporte {
     private SimpleJdbcCall obtenerProyectosCertificadoProfesor;
     private SimpleJdbcCall obtenerProyectosCertificadoEstudiante;
     private SimpleJdbcCall obtenerProyectosCertificadoPersonalExterno;
-
+    private SimpleJdbcCall obtenerAdendasIngresoEstudianteProyecto;
+    private SimpleJdbcCall obtenerAdendasCambioIngresoEstudianteProyecto;
+    private SimpleJdbcCall obtenerAdendasCambioRetiroEstudianteProyecto;
+    private SimpleJdbcCall obtenerAdendasRetiroEstudianteProyecto;
+    private SimpleJdbcCall obtenerAdendasIngresoProfesorProyecto;
+    private SimpleJdbcCall obtenerAdendasCambioIngresoProfesorProyecto;
+    private SimpleJdbcCall obtenerAdendasCambioRetiroProfesorProyecto;
+    private SimpleJdbcCall obtenerAdendasRetiroProfesorProyecto;
+    
     @Autowired
     public void setDataSource(DataSource dataSource) {
         JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource);
@@ -77,6 +88,14 @@ public class RepositorioReporte implements IRepositorioReporte {
         this.obtenerProyectosCertificadoProfesor = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosCertificadoProfesor").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoProfesor.class));
         this.obtenerProyectosCertificadoEstudiante = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosCertificadoEstudiante").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoEstudiante.class));
         this.obtenerProyectosCertificadoPersonalExterno = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerProyectosCertificadoPersonalExterno").returningResultSet("proyectos", BeanPropertyRowMapper.newInstance(ProyectoPersonalExterno.class));
+        this.obtenerAdendasIngresoEstudianteProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasIngresoEstudianteProyecto").returningResultSet("adendasIngresoEstudianteProyecto", BeanPropertyRowMapper.newInstance(AdendaIngresoProyecto.class));
+        this.obtenerAdendasRetiroEstudianteProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasRetiroEstudianteProyecto").returningResultSet("adendasRetiroEstudianteProyecto", BeanPropertyRowMapper.newInstance(AdendaRetiroProyecto.class));
+        this.obtenerAdendasCambioIngresoEstudianteProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasCambioIngresoEstudianteProyecto").returningResultSet("adendasCambioIngresoEstudianteProyecto", BeanPropertyRowMapper.newInstance(AdendaCambioProyecto.class));
+        this.obtenerAdendasCambioRetiroEstudianteProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasCambioRetiroEstudianteProyecto").returningResultSet("adendasCambioRetiroEstudianteProyecto", BeanPropertyRowMapper.newInstance(AdendaCambioProyecto.class));
+        this.obtenerAdendasIngresoProfesorProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasIngresoProfesorProyecto").returningResultSet("adendasIngresoProfesorProyecto", BeanPropertyRowMapper.newInstance(AdendaIngresoProyecto.class));
+        this.obtenerAdendasRetiroProfesorProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasRetiroProfesorProyecto").returningResultSet("adendasRetiroProfesorProyecto", BeanPropertyRowMapper.newInstance(AdendaRetiroProyecto.class));
+        this.obtenerAdendasCambioIngresoProfesorProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasCambioIngresoProfesorProyecto").returningResultSet("adendasCambioIngresoProfesorProyecto", BeanPropertyRowMapper.newInstance(AdendaCambioProyecto.class));
+        this.obtenerAdendasCambioRetiroProfesorProyecto = new SimpleJdbcCall(jdbcTemplate).withProcedureName("ObtenerAdendasCambioRetiroProfesorProyecto").returningResultSet("adendasCambioRetiroProfesorProyecto", BeanPropertyRowMapper.newInstance(AdendaCambioProyecto.class));
     }
 
     @Override
@@ -107,11 +126,23 @@ public class RepositorioReporte implements IRepositorioReporte {
         ArrayList<ReporteFuenteFinanciacionProyecto> proyectos = (ArrayList<ReporteFuenteFinanciacionProyecto>) resultado.get("proyectos");
 
         for (ReporteFuenteFinanciacionProyecto proyecto : proyectos) {
-            proyecto.setMontoFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMonto()));
-            if(proyecto.getMontoFuenteFinanciacionSecundaria() != null) {
-               proyecto.setMontoFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFuenteFinanciacionSecundaria()));
+            proyecto.setMontoFrescosFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFrescos()));
+            proyecto.setMontoEspeciesFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoEspecies()));
+            proyecto.setTotalRecursosFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFrescos() + proyecto.getMontoEspecies()));
+
+            if(proyecto.getMontoFrescosFuenteFinanciacionSecundaria() != null) {
+               proyecto.setMontoFrescosFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFrescosFuenteFinanciacionSecundaria()));
+               proyecto.setTotalRecursosFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFrescosFuenteFinanciacionSecundaria()));
             }
-            proyecto.setMontoTotalFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoTotal()));
+            if(proyecto.getMontoEspeciesFuenteFinanciacionSecundaria() != null) {
+               proyecto.setMontoEspeciesFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoEspeciesFuenteFinanciacionSecundaria()));
+               proyecto.setTotalRecursosFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoEspeciesFuenteFinanciacionSecundaria()));
+            }
+            if(proyecto.getMontoFrescosFuenteFinanciacionSecundaria() != null &&
+               proyecto.getMontoEspeciesFuenteFinanciacionSecundaria() != null) {
+               proyecto.setTotalRecursosFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFrescosFuenteFinanciacionSecundaria() + 
+                       proyecto.getMontoEspeciesFuenteFinanciacionSecundaria())); 
+            }
         }
 
         return proyectos;
@@ -192,6 +223,40 @@ public class RepositorioReporte implements IRepositorioReporte {
         Map resultado = obtenerProyectosCertificadoProfesor.execute(parametros);
         ArrayList<ProyectoProfesor> proyectos = (ArrayList<ProyectoProfesor>) resultado.get("proyectos");
 
+        for(ProyectoProfesor proyectoProfesor : proyectos) {
+            MapSqlParameterSource parametrosAdenda = new MapSqlParameterSource();
+            parametrosAdenda.addValue("varIdProyecto", proyectoProfesor.getIdProyecto());
+            parametrosAdenda.addValue("varIdProfesor", idProfesor);
+            
+            Map resultadoAdendasIngreso = obtenerAdendasIngresoProfesorProyecto.execute(parametrosAdenda);
+            ArrayList<AdendaIngresoProyecto> adendasIngreso = (ArrayList<AdendaIngresoProyecto>) resultadoAdendasIngreso.get("adendasIngresoProfesorProyecto");
+            for (AdendaIngresoProyecto adendaProyecto : adendasIngreso) {
+                proyectoProfesor.setFechaInicio(adendaProyecto.getFechaIngreso());
+                break;
+            }
+        
+            Map resultadoAdendasIngresoCambio = obtenerAdendasCambioIngresoProfesorProyecto.execute(parametrosAdenda);
+            ArrayList<AdendaCambioProyecto> adendasCambioIngreso = (ArrayList<AdendaCambioProyecto>) resultadoAdendasIngresoCambio.get("adendasCambioIngresoProfesorProyecto");
+            for (AdendaCambioProyecto adendaProyecto : adendasCambioIngreso) {
+               proyectoProfesor.setFechaInicio(adendaProyecto.getFechaCambio());
+               break;
+            }
+
+            Map resultadoAdendasRetiroCambio = obtenerAdendasCambioRetiroProfesorProyecto.execute(parametrosAdenda);
+            ArrayList<AdendaCambioProyecto> adendasCambioRetiro = (ArrayList<AdendaCambioProyecto>) resultadoAdendasRetiroCambio.get("adendasCambioRetiroProfesorProyecto");
+            for (AdendaCambioProyecto adendaProyecto : adendasCambioRetiro) {
+               proyectoProfesor.setFechaFinalizacion(adendaProyecto.getFechaCambio());
+               break;
+            }
+
+            Map resultadoAdendasRetiro = obtenerAdendasRetiroProfesorProyecto.execute(parametrosAdenda);
+            ArrayList<AdendaRetiroProyecto> adendasRetiro = (ArrayList<AdendaRetiroProyecto>) resultadoAdendasRetiro.get("adendasRetiroProfesorProyecto");
+            for (AdendaRetiroProyecto adendaProyecto : adendasRetiro) {
+                proyectoProfesor.setFechaFinalizacion(adendaProyecto.getFechaRetiro());
+                break;
+            }
+        }
+
         return proyectos;
     }
 
@@ -202,6 +267,39 @@ public class RepositorioReporte implements IRepositorioReporte {
 
         Map resultado = obtenerProyectosCertificadoEstudiante.execute(parametros);
         ArrayList<ProyectoEstudiante> proyectos = (ArrayList<ProyectoEstudiante>) resultado.get("proyectos");
+        for(ProyectoEstudiante proyectoEstudiante : proyectos) {
+            MapSqlParameterSource parametrosAdenda = new MapSqlParameterSource();
+            parametrosAdenda.addValue("varIdProyecto", proyectoEstudiante.getIdProyecto());
+            parametrosAdenda.addValue("varIdEstudiante", idEstudiante);
+            
+            Map resultadoAdendasIngreso = obtenerAdendasIngresoEstudianteProyecto.execute(parametrosAdenda);
+            ArrayList<AdendaIngresoProyecto> adendasIngreso = (ArrayList<AdendaIngresoProyecto>) resultadoAdendasIngreso.get("adendasIngresoEstudianteProyecto");
+            for (AdendaIngresoProyecto adendaProyecto : adendasIngreso) {
+                proyectoEstudiante.setFechaInicio(adendaProyecto.getFechaIngreso());
+                break;
+            }
+        
+            Map resultadoAdendasIngresoCambio = obtenerAdendasCambioIngresoEstudianteProyecto.execute(parametrosAdenda);
+            ArrayList<AdendaCambioProyecto> adendasCambioIngreso = (ArrayList<AdendaCambioProyecto>) resultadoAdendasIngresoCambio.get("adendasCambioIngresoEstudianteProyecto");
+            for (AdendaCambioProyecto adendaProyecto : adendasCambioIngreso) {
+               proyectoEstudiante.setFechaInicio(adendaProyecto.getFechaCambio());
+               break;
+            }
+
+            Map resultadoAdendasRetiroCambio = obtenerAdendasCambioRetiroEstudianteProyecto.execute(parametrosAdenda);
+            ArrayList<AdendaCambioProyecto> adendasCambioRetiro = (ArrayList<AdendaCambioProyecto>) resultadoAdendasRetiroCambio.get("adendasCambioRetiroEstudianteProyecto");
+            for (AdendaCambioProyecto adendaProyecto : adendasCambioRetiro) {
+               proyectoEstudiante.setFechaFinalizacion(adendaProyecto.getFechaCambio());
+               break;
+            }
+
+            Map resultadoAdendasRetiro = obtenerAdendasRetiroEstudianteProyecto.execute(parametrosAdenda);
+            ArrayList<AdendaRetiroProyecto> adendasRetiro = (ArrayList<AdendaRetiroProyecto>) resultadoAdendasRetiro.get("adendasRetiroEstudianteProyecto");
+            for (AdendaRetiroProyecto adendaProyecto : adendasRetiro) {
+                proyectoEstudiante.setFechaFinalizacion(adendaProyecto.getFechaRetiro());
+                break;
+            }
+        }
 
         return proyectos;
     }

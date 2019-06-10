@@ -23,6 +23,8 @@ import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ProyectoNotificacion;
 import co.edu.fnsp.gpci.utilidades.Util;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
@@ -183,6 +185,12 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varIdConvocatoria", proyecto.getConvocatoria().getIdConvocatoria());
         parametros.addValue("varObjetivoGeneral", proyecto.getObjetivoGeneral());
         parametros.addValue("varIdUsuarioCreacion", proyecto.getUsuarioCreacion().getIdUsuario());
+        
+        parametros.addValue("varNumeroActa", proyecto.getNumeroActa());
+        parametros.addValue("varNumeroConvocatoria", proyecto.getNumeroConvocatoria());
+        parametros.addValue("varAnyoConvocatoria", proyecto.getAnyoConvocatoria());
+        parametros.addValue("varFechaElaboracionActa", proyecto.getFechaElaboracionActa());
+        
         Map resultado = ingresarProyecto.execute(parametros);
 
         long idProyecto = (long) resultado.get("varIdProyecto");
@@ -342,7 +350,11 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         parametros.addValue("varIdEnfoqueMetodologico", proyecto.getEnfoqueMetodologico().getIdEnfoqueMetodologico());
         parametros.addValue("varIdConvocatoria", proyecto.getConvocatoria().getIdConvocatoria());
         parametros.addValue("varObjetivoGeneral", proyecto.getObjetivoGeneral());
-
+        parametros.addValue("varNumeroActa", proyecto.getNumeroActa());
+        parametros.addValue("varNumeroConvocatoria", proyecto.getNumeroConvocatoria());
+        parametros.addValue("varAnyoConvocatoria", proyecto.getAnyoConvocatoria());
+        parametros.addValue("varFechaElaboracionActa", proyecto.getFechaElaboracionActa());
+        
         actualizarProyecto.execute(parametros);
 
         this.ActualizarObjetivosEspecificos(proyecto);
@@ -381,6 +393,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         if (resultado.get("varFechaIngresadoSIGEP") != null) {
             proyecto.setFechaIngresadoSIGEP((Date) resultado.get("varFechaIngresadoSIGEP"));
         }
+        proyecto.setTiempoProyecto(Util.obtenerMeses(proyecto.getFechaInicio(),  proyecto.getFechaFinalizacion()));
         proyecto.setAreaTematica(new AreaTematica());
         proyecto.getAreaTematica().setIdAreaTematica((int) resultado.get("varIdAreaTematica"));
         proyecto.getAreaTematica().setNombre((String) resultado.get("varAreaTematica"));
@@ -407,6 +420,19 @@ public class RepositorioProyecto implements IRepositorioProyecto {
         proyecto.getEstado().setIdEstadoProyecto((int) resultado.get("varIdEstado"));
         proyecto.getEstado().setNombre((String) resultado.get("varEstado"));
 
+        if(resultado.get("varNumeroActa") != null) {
+            proyecto.setNumeroActa((String) resultado.get("varNumeroActa"));
+        }
+        if(resultado.get("varNumeroConvocatoria") != null) {
+            proyecto.setNumeroConvocatoria((String) resultado.get("varNumeroConvocatoria"));
+        }
+        if(resultado.get("varAnyoConvocatoria") != null) {
+            proyecto.setAnyoConvocatoria((int) resultado.get("varAnyoConvocatoria"));
+        }
+        if (resultado.get("varFechaElaboracionActa") != null) {
+            proyecto.setFechaElaboracionActa((Date) resultado.get("varFechaElaboracionActa"));
+        }
+        
         Map resultadoObjetivos = obtenerObjetivosEspecificosProyecto.execute(parametros);
         ArrayList<ObjetivoEspecifico> objetivosEspecificos = (ArrayList<ObjetivoEspecifico>) resultadoObjetivos.get("objetivosEspecificosProyecto");
         proyecto.setObjetivosEspecificos(objetivosEspecificos);
@@ -790,7 +816,7 @@ public class RepositorioProyecto implements IRepositorioProyecto {
 
         return estudiante;
     }
-
+  
     private void ActualizarPersonalExternoProyecto(Proyecto proyecto) {
         MapSqlParameterSource parametrosConsultaPersonalExternoProyecto = new MapSqlParameterSource();
         parametrosConsultaPersonalExternoProyecto.addValue("varIdProyecto", proyecto.getIdProyecto());

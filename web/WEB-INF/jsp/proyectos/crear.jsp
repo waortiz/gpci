@@ -20,15 +20,33 @@
                     <form:form method="POST" action="${pageContext.request.contextPath}/proyectos/crear" modelAttribute="proyecto">
                         <table class="tablaForm">
                             <tr>
-                                <td width="30%">C&oacute;digo:</td>
-                                <td width="30%">Nombre corto:</td>
-                                <td width="35%">Convocatoria:</td>
-                                <td width="5%">&nbsp;</td>
+                                <td>C&oacute;digo:</td>
+                                <td colspan="2">Número del acta:</td>
+                                <td>Fecha de elaboración acta:</td>
                             </tr>
                             <tr>
                                 <td><form:input path="codigo" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el código" maxlength="15" /></td>
-                                <td><form:input path="nombreCortoProyecto" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el nombre corto" maxlength="100" /></td>
+                                <td colspan="2"><form:input path="numeroActa" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el número del acta" maxlength="20" /></td>
                                 <td>
+                                    <div class="input-group date">
+                                        <form:input path="fechaElaboracionActa" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de elaboración del acta" readonly="true" />
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">Nombre del proyecto:</td>
+                                <td>Nombre corto:</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3"><form:input path="nombreCompletoProyecto" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el nombre completo" maxlength="300" /></td>
+                                <td><form:input path="nombreCortoProyecto" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el nombre corto" maxlength="100" /></td>
+                            </tr>
+                            <tr>
+                                <td colspan="4">Nombre de la convocatoria</td>
+                            </tr>
+                            <tr>
+                                <td colspan="3">
                                     <div class="selectContainer">  
                                         <form:select path="convocatoria" data-validation="required" data-validation-error-msg="Debe seleccionar la convocatoria" cssClass="form-control">
                                             <form:option value=""></form:option>
@@ -43,29 +61,85 @@
                                 </td>
                             </tr>
                             <tr>
-                                <td colspan="4">Nombre completo proyecto:</td>
+                                <td colspan="2">Número convocatoria:</td>
+                                <td colspan="2">Año convocatoria:</td>
                             </tr>
                             <tr>
-                                <td colspan="4"><form:input path="nombreCompletoProyecto" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el nombre completo" maxlength="300" /></td>
+                                <td colspan="2"><form:input path="numeroConvocatoria" data-validation="required" data-validation-error-msg="Debe ingresar el número de la convocatoria" name="numeroConvocatoria" class="form-control" maxlength="20" /></td>
+                                <td colspan="2"><form:input path="anyoConvocatoria" data-validation="required" data-validation-error-msg="Debe ingresar e año de la convocatoria" name="anyoConvocatoria" class="form-control integersOnly" maxlength="4" /></td>
                             </tr>
                             <tr>
-                                <td>Fecha de inicio:</td>
-                                <td>Fecha de finalizaci&oacute;n:</td>
-                                <td>Area tem&aacute;tica:</td>
-                                <td>&nbsp;</td>
+                                <td colspan="4">Grupos de investigación/Cod COL</td>
+                            </tr> 
+                            <tr>
+                                <td colspan="4">
+                                    <table align="center">
+                                        <tr>
+                                            <td rowspan="2">
+                                                <select name="gruposInvestigacionPorAsignar" id="gruposInvestigacionPorAsignar" class="form-control" multiple="true" style="width:500px; height: 80px">
+                                                    <c:forEach var="grupoInvestigacion" items="${gruposInvestigacionPorAsignar}">
+                                                        <option value="${grupoInvestigacion.getIdGrupoInvestigacion()}">${grupoInvestigacion.getNombre()}</option>
+                                                    </c:forEach>
+                                                </select>
+                                            </td>
+                                            <td>
+                                                <a href="JavaScript:void(0);" id="asignarGrupoInvestigacion"><span class="glyphicon glyphicon-arrow-right"></span></a><br><br>
+                                                <a href="JavaScript:void(0);" id="removerGrupoInvestigacion"><span class="glyphicon glyphicon-arrow-left"></span></a>
+                                            </td>
+                                            <td rowspan="2" style="vertical-align: top">
+                                                <table class="table table-striped header-fixed" style="width: 500px" align="center" id="tablaGruposInvestigacion">
+                                                    <thead>
+                                                        <tr class="table-row">
+                                                            <th style="width: 70%;text-align: center">Grupo investigación/Cod COL</th>
+                                                            <th style="width: 20%;text-align: center">Principal</th>
+                                                            <th style="width: 10%;text-align: center" align="center"><input type="checkbox" id="seleccionarTodosGruposInvestigacion" title="Seleccionar todos" /></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody data-bind="foreach: { data: gruposInvestigacion }">
+                                                        <tr class="table-row">
+                                                            <td style="width: 70%">
+                                                                <span data-bind="text: nombre" ></span>
+                                                                <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'gruposInvestigacion[' + $index() + '].nombre'  }">
+                                                            </td>
+                                                            <td style="width: 20%" align="center">
+                                                                <input type="radio" data-bind="attr : {'name': 'principal'}, value: idGrupoInvestigacion, checked: $root.idGrupoInvestigacionPrincipal">
+                                                                <input type="hidden" data-bind="value: idGrupoInvestigacion, attr: { 'name': 'gruposInvestigacion[' + $index() + '].idGrupoInvestigacion'  }" />
+                                                            </td>
+                                                            <td style="width: 10%" align="center">
+                                                                <input type="checkbox" class="seleccionGrupoInvestigacion" data-bind="checked: seleccionado" />
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </td>
+                            </tr>                            
+                         </table>
+                         <table class="tablaForm">  
+                            <tr>
+                                <td>Tipo de proyecto:</td>
+                                <td>Tipo de contrato:</td>
+                                <td colspan="2">Area tem&aacute;tica:</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <div class="input-group date">
-                                        <form:input path="fechaInicio" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" />
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                    </div>
+                                    <div class="selectContainer">
+                                        <form:select path="tipoProyecto" data-validation="required" data-validation-error-msg="Debe seleccionar el tipo de proyecto" cssClass="form-control">
+                                            <form:option value=""></form:option>
+                                            <form:options items="${tiposProyecto}" itemLabel="nombre" itemValue="idTipoProyecto"/>
+                                        </form:select>
+                                    </div>  
                                 </td>
                                 <td>
-                                    <div class="input-group date">
-                                        <form:input path="fechaFinalizacion" class="form-control datepicker" data-date-format="dd/mm/yyyy" data-validation="required" data-validation-error-msg="Debe ingresar fecha de finalización" readonly="true"/>
-                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
-                                    </div>
+                                    <div class="selectContainer">  
+                                        <form:select path="tipoContrato" data-validation="required" data-validation-error-msg="Debe seleccionar el tipo de contrato" cssClass="form-control">
+                                            <form:option value=""></form:option>
+                                            <form:options items="${tiposContrato}" itemLabel="nombre" itemValue="idTipoContrato" />
+                                        </form:select>
+                                    </div>  
+                                </td>
                                 <td>
                                     <div class="selectContainer">
                                         <form:select path="areaTematica" data-validation="required" data-validation-error-msg="Debe seleccionar el área temática" cssClass="form-control">
@@ -83,54 +157,36 @@
                          </table>
                          <table class="tablaForm">  
                             <tr>
-                                <td>Ingresado SIGEP:</td>
-                                <td>Ingresado SIIU:</td>
-                                <td>Ingresado SIU:</td>
-                            </tr>
-                            <tr>
-                                <td><form:checkbox path="ingresadoSIGEP" disabled="true" /></td>
-                                <td><form:checkbox path="ingresadoSIIU" /></td>
-                                <td><form:checkbox path="ingresadoSIU" /></td>
-                            </tr>
-                            <tr>
-                                <td>Fecha ingresado SIGEP:</td>
-                                <td>C&oacute;digo SIIU:</td>
-                                <td>C&oacute;digo SIU</td>
+                                <td>Fecha de inicio:</td>
+                                <td>Fecha de finalizaci&oacute;n:</td>
+                                <td>Tiempo (meses)</td>
                             </tr>
                             <tr>
                                 <td>
-                                    <form:input path="fechaIngresadoSIGEP" class="form-control" readonly="true"/>
+                                    <div class="input-group date">
+                                        <form:input path="fechaInicio" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" />
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    </div>
                                 </td>
-                                <td><form:input path="codigoSIIU" maxlength="50" class="form-control" /></td>
-                                <td><form:input path="codigoSIU"  maxlength="50" class="form-control" /></td>
+                                <td>
+                                    <div class="input-group date">
+                                        <form:input path="fechaFinalizacion" class="form-control datepicker" data-date-format="dd/mm/yyyy" data-validation="required" data-validation-error-msg="Debe ingresar fecha de finalización" readonly="true"/>
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
+                                    </div>
+                                </td>
+                                <td>
+                                    <form:input path="tiempoProyecto" class="form-control" readonly="true"/>
+                                </td>
                             </tr>
-                         </table>                            
+                         </table>
                          <table class="tablaForm">  
                             <tr>
                                 <td>C&oacute;digo COLCIENCIAS:</td>
                                 <td>Participaci&oacute;n internacional:</td>
-                                <td>Tipo de proyecto:</td>
-                                <td>Tipo de contrato:</td>
                             </tr>
                             <tr>
                                 <td><form:input path="codigoCOLCIENCIAS" class="form-control" maxlength="50" /></td>
                                 <td><form:checkbox path="participacionInternacional" /></td>
-                                <td>
-                                    <div class="selectContainer">
-                                        <form:select path="tipoProyecto" data-validation="required" data-validation-error-msg="Debe seleccionar el tipo de proyecto" cssClass="form-control">
-                                            <form:option value=""></form:option>
-                                            <form:options items="${tiposProyecto}" itemLabel="nombre" itemValue="idTipoProyecto"/>
-                                        </form:select>
-                                    </div>  
-                                </td>
-                                <td>
-                                    <div class="selectContainer">  
-                                        <form:select path="tipoContrato" data-validation="required" data-validation-error-msg="Debe seleccionar el tipo de contrato" cssClass="form-control">
-                                            <form:option value=""></form:option>
-                                            <form:options items="${tiposContrato}" itemLabel="nombre" itemValue="idTipoContrato" />
-                                        </form:select>
-                                    </div>  
-                                </td>
                             </tr>
                          </table>                            
                          <table class="tablaForm">  
@@ -165,54 +221,32 @@
                                     </div>
                                 </td>
                             </tr>
+                         </table>  
+                         <table class="tablaForm">  
                             <tr>
-                                <td colspan="3">Grupos de investigación</td>
-                            </tr> 
+                                <td>Ingresado SIGEP:</td>
+                                <td>Ingresado SIIU:</td>
+                                <td>Ingresado SIU:</td>
+                            </tr>
                             <tr>
-                                <td colspan="3">
-                                    <table align="center">
-                                        <tr>
-                                            <td rowspan="2">
-                                                <select name="gruposInvestigacionPorAsignar" id="gruposInvestigacionPorAsignar" class="form-control" multiple="true" style="width:500px; height: 80px">
-                                                    <c:forEach var="grupoInvestigacion" items="${gruposInvestigacionPorAsignar}">
-                                                        <option value="${grupoInvestigacion.getIdGrupoInvestigacion()}">${grupoInvestigacion.getNombre()}</option>
-                                                    </c:forEach>
-                                                </select>
-                                            </td>
-                                            <td>
-                                                <a href="JavaScript:void(0);" id="asignarGrupoInvestigacion"><span class="glyphicon glyphicon-arrow-right"></span></a><br><br>
-                                                <a href="JavaScript:void(0);" id="removerGrupoInvestigacion"><span class="glyphicon glyphicon-arrow-left"></span></a>
-                                            </td>
-                                            <td rowspan="2" style="vertical-align: top">
-                                                <table class="table table-striped header-fixed" style="width: 500px" align="center" id="tablaGruposInvestigacion">
-                                                    <thead>
-                                                        <tr class="table-row">
-                                                            <th style="width: 70%;text-align: center">Grupo investigación</th>
-                                                            <th style="width: 20%;text-align: center">Principal</th>
-                                                            <th style="width: 10%;text-align: center" align="center"><input type="checkbox" id="seleccionarTodosGruposInvestigacion" title="Seleccionar todos" /></th>
-                                                        </tr>
-                                                    </thead>
-                                                    <tbody data-bind="foreach: { data: gruposInvestigacion }">
-                                                        <tr class="table-row">
-                                                            <td style="width: 70%">
-                                                                <span data-bind="text: nombre" ></span>
-                                                                <input type="hidden" class="form-control" data-bind="value: nombre, attr: { 'name': 'gruposInvestigacion[' + $index() + '].nombre'  }">
-                                                            </td>
-                                                            <td style="width: 20%" align="center">
-                                                                <input type="radio" data-bind="attr : {'name': 'principal'}, value: idGrupoInvestigacion, checked: $root.idGrupoInvestigacionPrincipal">
-                                                                <input type="hidden" data-bind="value: idGrupoInvestigacion, attr: { 'name': 'gruposInvestigacion[' + $index() + '].idGrupoInvestigacion'  }" />
-                                                            </td>
-                                                            <td style="width: 10%" align="center">
-                                                                <input type="checkbox" class="seleccionGrupoInvestigacion" data-bind="checked: seleccionado" />
-                                                            </td>
-                                                        </tr>
-                                                    </tbody>
-                                                </table>
-                                            </td>
-                                        </tr>
-                                    </table>
+                                <td><form:checkbox path="ingresadoSIGEP" disabled="true" /></td>
+                                <td><form:checkbox path="ingresadoSIIU" /></td>
+                                <td><form:checkbox path="ingresadoSIU" /></td>
+                            </tr>
+                            <tr>
+                                <td>Fecha ingresado SIGEP:</td>
+                                <td>C&oacute;digo SIIU:</td>
+                                <td>C&oacute;digo SIU</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <form:input path="fechaIngresadoSIGEP" class="form-control" readonly="true"/>
                                 </td>
-                            </tr>                            
+                                <td><form:input path="codigoSIIU" maxlength="50" class="form-control" /></td>
+                                <td><form:input path="codigoSIU"  maxlength="50" class="form-control" /></td>
+                            </tr>
+                         </table>                            
+                         <table class="tablaForm">  
                             <tr>
                                 <td colspan="3">Objetivo general:</td>
                             </tr>
