@@ -164,13 +164,13 @@
                             <tr>
                                 <td>
                                     <div class="input-group date">
-                                        <form:input path="fechaInicio" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" />
+                                        <form:input path="fechaInicio" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" onchange="calcularMeses()" />
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group date">
-                                        <form:input path="fechaFinalizacion" class="form-control datepicker" data-date-format="dd/mm/yyyy" data-validation="required" data-validation-error-msg="Debe ingresar fecha de finalización" readonly="true"/>
+                                        <form:input path="fechaFinalizacion" class="form-control datepicker" data-date-format="dd/mm/yyyy" data-validation="required" data-validation-error-msg="Debe ingresar fecha de finalización" readonly="true" onchange="calcularMeses()"/>
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                 </td>
@@ -2924,5 +2924,24 @@
             bootstrap_alert_proyecto.removeWarning = function () {
                 $('#alert_placeholder_proyecto').html('');
             };
+
+         function calcularMeses() {
+            var partesFechaInicio = $('#fechaInicio').val().split("/");
+            var partesFechaFinalizacion = $('#fechaFinalizacion').val().split("/");
             
+            var fechaInicio = new Date(partesFechaInicio[2], parseInt(partesFechaInicio[1], 10) - 1, partesFechaInicio[0]);
+            var fechaFinalizacion = new Date(partesFechaFinalizacion[2], parseInt(partesFechaFinalizacion[1], 10) - 1, partesFechaFinalizacion[0]);
+            
+            var months;
+            months = (fechaFinalizacion.getFullYear() - fechaInicio.getFullYear()) * 12;
+            months -= fechaInicio.getMonth() + 1;
+            months += fechaFinalizacion.getMonth();
+            // edit: increment months if fechaFinalizacion comes later in its month than d1 in its month
+            if (fechaFinalizacion.getDate() >= fechaInicio.getDate())
+                months++
+            
+            // end edit
+            months = months <= 0 ? 0 : months;
+            $('#tiempoProyecto').val(months);
+         }
         </script>
