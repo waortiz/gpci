@@ -116,10 +116,6 @@
                     {
                     extend: 'excel',
                     text: 'Excel'
-                    },
-                    {
-                    extend: 'print',
-                    text: 'HTML'
                     }
             ],  
             columnDefs: [

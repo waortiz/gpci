@@ -39,6 +39,7 @@
         <script src='<c:url value="/resources/js/raphael-min.js" />'></script>
         <script src='<c:url value="/resources/js/morris.js" />'></script>
         <script src='<c:url value="/resources/js/chart.loader.js" />'></script>
+        <script src='<c:url value="/resources/js/moment.js" />'></script>
     </head>
     <body>
         <header id="header">

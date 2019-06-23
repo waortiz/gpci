@@ -209,7 +209,7 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActa" name="fechaActa" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActa" name="fechaActa" class="form-control datepicker" maxlength="10" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
@@ -451,7 +451,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <div class="input-group date">
-                                                                        <input id="fechaAdendaCambio" name="fechaAdendaCambio" class="form-control datepicker" readonly="true" />
+                                                                        <input id="fechaAdendaCambio" name="fechaAdendaCambio" class="form-control datepicker" maxlength="10"/>
                                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                                     </div>                                                        
                                                                 </td>
@@ -471,7 +471,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <div class="input-group date">
-                                                                        <input id="fechaActaAdendaCambio" name="fechaActaAdendaCambio" class="form-control datepicker" readonly="true" />
+                                                                        <input id="fechaActaAdendaCambio" name="fechaActaAdendaCambio" class="form-control datepicker" maxlength="10" />
                                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                                     </div>                                                        
                                                                 </td>
@@ -666,7 +666,7 @@
                                                             <tr>
                                                                 <td colspan="2">
                                                                     <div class="input-group date">
-                                                                        <input id="fechaAdendaIngreso" name="fechaAdendaIngreso" class="form-control datepicker" readonly="true" />
+                                                                        <input id="fechaAdendaIngreso" name="fechaAdendaIngreso" class="form-control datepicker" maxlength="10" />
                                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                                     </div>                                                        
                                                                 </td>
@@ -678,7 +678,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <div class="input-group date">
-                                                                        <input id="fechaActaAdendaIngreso" name="fechaActaAdendaIngreso" class="form-control datepicker" readonly="true" />
+                                                                        <input id="fechaActaAdendaIngreso" name="fechaActaAdendaIngreso" class="form-control datepicker" maxlength="10" />
                                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                                     </div>                                                        
                                                                 </td>
@@ -870,7 +870,7 @@
                                                             <tr>
                                                                 <td colspna="2">
                                                                     <div class="input-group date">
-                                                                        <input id="fechaAdendaRetiro" name="fechaAdendaRetiro" class="form-control datepicker" readonly="true" />
+                                                                        <input id="fechaAdendaRetiro" name="fechaAdendaRetiro" class="form-control datepicker" maxlength="10" />
                                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                                     </div>                                                        
                                                                 </td>
@@ -882,7 +882,7 @@
                                                             <tr>
                                                                 <td>
                                                                     <div class="input-group date">
-                                                                        <input id="fechaActaAdendaRetiro" name="fechaActaAdendaRetiro" class="form-control datepicker" readonly="true" />
+                                                                        <input id="fechaActaAdendaRetiro" name="fechaActaAdendaRetiro" class="form-control datepicker" maxlength="10" />
                                                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                                     </div>                                                        
                                                                 </td>
@@ -1036,12 +1036,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaAdicion" name="fechaActaAdicion" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaAdicion" name="fechaActaAdicion" class="form-control datepicker" maxlength="10" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input id="numeroActaAdicion" name="numeroActaAdicion" class="form-control datepicker" maxlength="45" />
+                                                            <input id="numeroActaAdicion" name="numeroActaAdicion" class="form-control" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1051,12 +1051,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaCODIAdicion" name="fechaActaCODIAdicion" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaCODIAdicion" name="fechaActaCODIAdicion" class="form-control datepicker" maxlength="10" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input id="numeroActaCODIAdicion" name="numeroActaCODIAdicion" class="form-control datepicker" maxlength="45" />
+                                                            <input id="numeroActaCODIAdicion" name="numeroActaCODIAdicion" class="form-control" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1193,12 +1193,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaProrroga" name="fechaActaProrroga" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaProrroga" name="fechaActaProrroga" class="form-control datepicker" maxlength="10" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input id="numeroActaProrroga" name="numeroActaProrroga" class="form-control datepicker" maxlength="45" />
+                                                            <input id="numeroActaProrroga" name="numeroActaProrroga" class="form-control" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1208,12 +1208,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaCODIProrroga" name="fechaActaCODIProrroga" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaCODIProrroga" name="fechaActaCODIProrroga" class="form-control datepicker" maxlength="10" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input id="numeroActaCODIProrroga" name="numeroActaCODIProrroga" class="form-control datepicker" maxlength="45" />
+                                                            <input id="numeroActaCODIProrroga" name="numeroActaCODIProrroga" class="form-control" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1349,12 +1349,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaPlazo" name="fechaActaPlazo" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaPlazo" name="fechaActaPlazo" class="form-control datepicker" maxlength="10"/>
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="numeroActaPlazo" name="numeroActaPlazo" class="form-control datepicker" maxlength="45" />
+                                                            <input type="text" id="numeroActaPlazo" name="numeroActaPlazo" class="form-control" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1364,12 +1364,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaCODIPlazo" name="fechaActaCODIPlazo" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaCODIPlazo" name="fechaActaCODIPlazo" class="form-control datepicker" maxlength="10"/>
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="numeroActaCODIPlazo" name="numeroActaCODIPlazo" class="form-control datepicker" maxlength="45" />
+                                                            <input type="text" id="numeroActaCODIPlazo" name="numeroActaCODIPlazo" class="form-control" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1498,12 +1498,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaCumplimientoCompromisoProyecto" name="fechaActaCumplimientoCompromisoProyecto" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaCumplimientoCompromisoProyecto" name="fechaActaCumplimientoCompromisoProyecto" class="form-control datepicker" maxlength="10"/>
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="numeroActaCumplimientoCompromisoProyecto" name="numeroActaCumplimientoCompromisoProyecto" class="form-control datepicker" maxlength="45" />
+                                                            <input type="text" id="numeroActaCumplimientoCompromisoProyecto" name="numeroActaCumplimientoCompromisoProyecto" class="form-control" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1651,12 +1651,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaCompromisoHomologadoProyecto" name="fechaActaCompromisoHomologadoProyecto" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaCompromisoHomologadoProyecto" name="fechaActaCompromisoHomologadoProyecto" class="form-control datepicker" maxlength="10"/>
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="numeroActaCompromisoHomologadoProyecto" name="numeroActaCompromisoHomologadoProyecto" class="form-control datepicker" maxlength="45" />
+                                                            <input type="text" id="numeroActaCompromisoHomologadoProyecto" name="numeroActaCompromisoHomologadoProyecto" class="form-control" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1785,12 +1785,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaCumplimientoAlertaAvalProyecto" name="fechaActaCumplimientoAlertaAvalProyecto" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaCumplimientoAlertaAvalProyecto" name="fechaActaCumplimientoAlertaAvalProyecto" class="form-control datepicker" maxlength="10"/>
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input type="text" id="numeroActaCumplimientoAlertaAvalProyecto" name="numeroActaCumplimientoAlertaAvalProyecto" class="form-control datepicker" maxlength="45" />
+                                                            <input type="text" id="numeroActaCumplimientoAlertaAvalProyecto" name="numeroActaCumplimientoAlertaAvalProyecto" class="form-control" maxlength="45" />
                                                         </td>
                                                     </tr>                                                    
                                                     <tr>
@@ -1846,7 +1846,7 @@
             $('.integersOnly').keyup(function () {
                 this.value = this.value.replace(/[^0-9]/g, '');
             });
-            
+           
             $.validate({
                 validateOnBlur: false, // disable validation when input looses focus
                 errorMessagePosition: 'top', // Instead of 'inline' which is default

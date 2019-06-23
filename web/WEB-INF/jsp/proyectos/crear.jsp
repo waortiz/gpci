@@ -29,7 +29,7 @@
                                 <td colspan="2"><form:input path="numeroActa" class="form-control" data-validation="required" data-validation-error-msg="Debe ingresar el número del acta" maxlength="20" /></td>
                                 <td>
                                     <div class="input-group date">
-                                        <form:input path="fechaElaboracionActa" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de elaboración del acta" readonly="true" />
+                                        <form:input path="fechaElaboracionActa" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de elaboración del acta" maxlength="10" />
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                 </td>
@@ -164,13 +164,13 @@
                             <tr>
                                 <td>
                                     <div class="input-group date">
-                                        <form:input path="fechaInicio" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" readonly="true" onchange="calcularMeses()" />
+                                        <form:input path="fechaInicio" class="form-control datepicker" data-validation="required" data-validation-error-msg="Debe ingresar la fecha de inicio" maxlength="10" onchange="calcularMeses()" />
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                 </td>
                                 <td>
                                     <div class="input-group date">
-                                        <form:input path="fechaFinalizacion" class="form-control datepicker" data-date-format="dd/mm/yyyy" data-validation="required" data-validation-error-msg="Debe ingresar fecha de finalización" readonly="true" onchange="calcularMeses()"/>
+                                        <form:input path="fechaFinalizacion" class="form-control datepicker" data-date-format="dd/mm/yyyy" data-validation="required" data-validation-error-msg="Debe ingresar fecha de finalización" maxlength="10" onchange="calcularMeses()"/>
                                         <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                     </div>
                                 </td>
@@ -1314,12 +1314,12 @@
                                                     <tr>
                                                         <td>
                                                             <div class="input-group date">
-                                                                <input id="fechaActaAlertaAvalProyecto" name="fechaActaAlertaAvalProyecto" class="form-control datepicker" readonly="true" />
+                                                                <input id="fechaActaAlertaAvalProyecto" name="fechaActaAlertaAvalProyecto" class="form-control datepicker" maxlength="10" />
                                                                 <span class="input-group-addon"><i class="glyphicon glyphicon-th"></i></span>
                                                             </div>                                                        
                                                         </td>
                                                         <td>
-                                                            <input id="numeroActaAlertaAvalProyecto" name="numeroActaAlertaAvalProyecto" class="form-control datepicker" maxlength="45" />
+                                                            <input id="numeroActaAlertaAvalProyecto" name="numeroActaAlertaAvalProyecto" class="form-control" maxlength="45" />
                                                         </td>
                                                     </tr>
                                                 </table>
