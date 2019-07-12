@@ -360,7 +360,7 @@
                                         <i class="glyphicon glyphicon-plus"></i>
                                     </button>                            
                                 </div>  
-                                <div class="modal fade" id="compromisosProyectoModal" tabindex="-1" role="dialog" aria-labelledby="compromisoProyectoModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="compromisosProyectoModal" role="dialog" aria-labelledby="compromisoProyectoModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -379,7 +379,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td>
-                                                            <select name="tipoCompromiso" id="tipoCompromiso" class="form-control">
+                                                            <select name="tipoCompromiso" id="tipoCompromiso" style="width: 100%" class="js-select-basic-single js-states form-control">
                                                                 <option value=""></option>
                                                             <c:forEach var="tipoCompromiso" items="${tiposCompromiso}">
                                                                 <option value="${tipoCompromiso.getIdTipoCompromiso()}">${tipoCompromiso.getNombre()}</option>
@@ -716,7 +716,7 @@
                                         <i class="glyphicon glyphicon-plus"></i>
                                     </button>
                                 </div>
-                                <div class="modal fade" id="estudianteProyectoModal" tabindex="-1" role="dialog" aria-labelledby="estudianteModalLabel" aria-hidden="true">
+                                <div class="modal fade" id="estudianteProyectoModal" role="dialog" aria-labelledby="estudianteModalLabel" aria-hidden="true">
                                     <div class="modal-dialog" role="document">
                                         <div class="modal-content">
                                             <div class="modal-header">
@@ -830,7 +830,7 @@
                                                     </tr>
                                                     <tr>
                                                         <td colspan="4">
-                                                            <select name="programaEstudiante" id="programaEstudiante" class="form-control">
+                                                            <select name="programaEstudiante" id="programaEstudiante" style="width: 100%" class="js-select-basic-single js-states form-control">
                                                                 <option value=""></option>
                                                             <c:forEach var="programa" items="${programas}">
                                                                 <option value="${programa.getIdPrograma()}">${programa.getNombre()}</option>
@@ -1974,7 +1974,7 @@
                     $('#compromisoProyecto').val(compromisoProyecto.descripcion());
                     $('#soporteCompromisoProyecto').val(compromisoProyecto.soporte());
                     $('#consecutivo').val(compromisoProyecto.consecutivo());
-                    $('#tipoCompromiso').val(compromisoProyecto.idTipoCompromiso());
+                    $('#tipoCompromiso').val(compromisoProyecto.idTipoCompromiso()).trigger('change.select2');
                     $('#compromisosProyectoModal').modal({backdrop: 'static', keyboard: false}) ; 
                 };
 
@@ -2246,7 +2246,7 @@
                     $('#apellidosEstudiante').val(estudianteProyecto.apellidos());
                     $('#correoElectronicoEstudiante').val(estudianteProyecto.correoElectronico());
                     $('#contactoEstudiante').val(estudianteProyecto.contacto());
-                    $('#programaEstudiante').val(estudianteProyecto.idPrograma());
+                    $('#programaEstudiante').val(estudianteProyecto.idPrograma()).trigger('change.select2');
                     $('#tipoEstudiante').val(estudianteProyecto.idTipoEstudiante());
                     $('#rolEstudiante').val(estudianteProyecto.idRol());
                     $('#porcentajePropiedadIntelectualEstudiante').val(estudianteProyecto.porcentajePropiedadIntelectual());
@@ -2644,7 +2644,7 @@
             }
             function limpiarDatosVentanaCompromisoProyecto() {
                 $('#consecutivo').val("");
-                $('#tipoCompromiso').val("");
+                $('#tipoCompromiso').val("").trigger('change.select2');
                 $('#compromisoProyecto').val("");
                 $('#soporteCompromisoProyecto').val("");
             }
@@ -2741,7 +2741,7 @@
                 $('#apellidosEstudiante').val("");
                 $('#contactoEstudiante').val("");
                 $('#correoElectronicoEstudiante').val("");
-                $('#programaEstudiante').val("");
+                $('#programaEstudiante').val("").trigger('change.select2');
                 $('#rolEstudiante').val("");
                 $('#tipoEstudiante').val("");
                 $('#porcentajePropiedadIntelectualEstudiante').val("");

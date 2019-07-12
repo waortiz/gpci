@@ -17,7 +17,8 @@
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/font-awesome.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/jquery.dataTables.min.css" />'>
         <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/buttons.dataTables.min.css" />'>
-        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/morris.css" /> '>        
+        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/morris.css" /> '>       
+        <link rel="stylesheet" type="text/css" href='<c:url value="/resources/css/select2.min.css"/>'>
                 
         <script src='<c:url value="/resources/js/jquery-3.2.1.js" />'></script>
         <script src='<c:url value="/resources/js/jquery-ui.js" />'></script>
@@ -27,6 +28,7 @@
         <script src='<c:url value="/resources/js/bootstrap-datepicker.es.min.js" />' charset="UTF-8"></script>
         <script src='<c:url value="/resources/js/bootstrap-select.js" />'></script>
         <script src='<c:url value="/resources/js/knockout-3.4.2.js" />'></script>
+        <script src='<c:url value="/resources/js/select2.min.js" />' type="text/javascript" ></script>
         <script src='<c:url value="/resources/js/menu.js" />'></script>
         <script src='<c:url value="/resources/js/metisMenu.min.js" />'></script>
         <script src='<c:url value="/resources/js/jquery.formatCurrency-1.4.0.min.js" />'></script>
@@ -40,6 +42,7 @@
         <script src='<c:url value="/resources/js/morris.js" />'></script>
         <script src='<c:url value="/resources/js/chart.loader.js" />'></script>
         <script src='<c:url value="/resources/js/moment.js" />'></script>
+        <script src='<c:url value="/resources/js/funciones.js" />' type="text/javascript"></script>
     </head>
     <body>
         <header id="header">
