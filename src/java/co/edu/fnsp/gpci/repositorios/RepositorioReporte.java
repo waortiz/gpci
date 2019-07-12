@@ -128,21 +128,8 @@ public class RepositorioReporte implements IRepositorioReporte {
         for (ReporteFuenteFinanciacionProyecto proyecto : proyectos) {
             proyecto.setMontoFrescosFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFrescos()));
             proyecto.setMontoEspeciesFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoEspecies()));
-            proyecto.setTotalRecursosFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFrescos() + proyecto.getMontoEspecies()));
-
-            if(proyecto.getMontoFrescosFuenteFinanciacionSecundaria() != null) {
-               proyecto.setMontoFrescosFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFrescosFuenteFinanciacionSecundaria()));
-               proyecto.setTotalRecursosFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFrescosFuenteFinanciacionSecundaria()));
-            }
-            if(proyecto.getMontoEspeciesFuenteFinanciacionSecundaria() != null) {
-               proyecto.setMontoEspeciesFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoEspeciesFuenteFinanciacionSecundaria()));
-               proyecto.setTotalRecursosFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoEspeciesFuenteFinanciacionSecundaria()));
-            }
-            if(proyecto.getMontoFrescosFuenteFinanciacionSecundaria() != null &&
-               proyecto.getMontoEspeciesFuenteFinanciacionSecundaria() != null) {
-               proyecto.setTotalRecursosFuenteFinanciacionSecundariaFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getMontoFrescosFuenteFinanciacionSecundaria() + 
-                       proyecto.getMontoEspeciesFuenteFinanciacionSecundaria())); 
-            }
+            proyecto.setSubtotalRecursosFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getSubtotalRecursos()));
+            proyecto.setTotalRecursosFormateado(Util.obtenerNumeroFormatoMoneda(proyecto.getTotalRecursos()));
         }
 
         return proyectos;

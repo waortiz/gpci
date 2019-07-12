@@ -29,23 +29,17 @@
                                 <td align="center"><input type="text" placeholder="" data-index="9" size="15"></td> 
                                 <td align="center"><input type="text" placeholder="" data-index="10" size="15"></td> 
                                 <td align="center"><input type="text" placeholder="" data-index="11" size="15"></td> 
-                                <td align="center"><input type="text" placeholder="" data-index="12" size="15"></td> 
-                                <td align="center"><input type="text" placeholder="" data-index="13" size="15"></td> 
-                                <td align="center"><input type="text" placeholder="" data-index="14" size="15"></td> 
                             </tr> 
                             <tr>
                                 <td align="center" width='5%'><strong>Año</strong></td>
                                 <td align="center" width='5%'><strong>Estado</strong></td> 
                                 <td align="center" width='5%'><strong>Código</strong></td> 
                                 <td align="center" width='10%'><strong>Nombre completo</strong></td> 
-                                <td align="center" width='15%'><strong>Fuente financiación principal</strong></td> 
-                                <td align="center" width='5%'><strong>Recursos frescos</strong></td> 
-                                <td align="center" width='5%'><strong>Recursos en especie</strong></td> 
-                                <td align="center" width='5%'><strong>Total de recursos</strong></td> 
-                                <td align="center" width='15%'><strong>Otras fuentes de financiación</strong></td> 
                                 <td align="center" width='10%'><strong>Tipo de fuente</strong></td> 
+                                <td align="center" width='15%'><strong>Fuente financiación</strong></td> 
                                 <td align="center" width='5%'><strong>Recursos frescos</strong></td> 
                                 <td align="center" width='5%'><strong>Recursos en especie</strong></td> 
+                                <td align="center" width='5%'><strong>Subtotal de recursos</strong></td> 
                                 <td align="center" width='5%'><strong>Total de recursos</strong></td> 
                                 <td align="center" width='10%'><strong>Investigador principal</strong></td> 
                                 <td align="center" width='15%'><strong>Grupo de investigación</strong></td> 
@@ -67,7 +61,10 @@
                                         ${reporte.getNombreCompletoProyecto()}
                                     </td>
                                     <td align="center">
-                                        ${reporte.getFuenteFinanciacionPrincipal()}
+                                        ${reporte.getTipoFuenteFinanciacion()}
+                                    </td>   
+                                    <td align="center">
+                                        ${reporte.getFuenteFinanciacion()}
                                     </td>   
                                     <td align="center">
                                         ${reporte.getMontoFrescosFormateado()}
@@ -76,22 +73,10 @@
                                         ${reporte.getMontoEspeciesFormateado()}
                                     </td>   
                                     <td align="center">
+                                        ${reporte.getSubtotalRecursosFormateado()}
+                                    </td>   
+                                    <td align="center">
                                         ${reporte.getTotalRecursosFormateado()}
-                                    </td>   
-                                    <td align="center">
-                                        ${reporte.getFuenteFinanciacionSecundaria()}
-                                    </td>   
-                                    <td align="center">
-                                        ${reporte.getTipoFuenteFinanciacionSecundaria()}
-                                    </td>   
-                                    <td align="center">
-                                        ${reporte.getMontoFrescosFuenteFinanciacionSecundariaFormateado()}
-                                    </td>   
-                                    <td align="center">
-                                        ${reporte.getMontoEspeciesFuenteFinanciacionSecundariaFormateado()}
-                                    </td>   
-                                    <td align="center">
-                                        ${reporte.getTotalRecursosFuenteFinanciacionSecundariaFormateado()}
                                     </td>   
                                     <td align="center">
                                         ${reporte.getInvestigadorPrincipal()}
@@ -116,6 +101,10 @@
                     {
                     extend: 'excel',
                     text: 'Excel'
+                    },
+                    {
+                    extend: 'print',
+                    text: 'HTML'
                     }
             ],  
             columnDefs: [

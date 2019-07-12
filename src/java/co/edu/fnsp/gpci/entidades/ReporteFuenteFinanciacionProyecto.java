@@ -10,26 +10,26 @@ package co.edu.fnsp.gpci.entidades;
  * @author William
  */
 public class ReporteFuenteFinanciacionProyecto {
+
     private int anyoCreacion;
     private String nombreCompletoProyecto;
     private String codigo;
     private String estadoProyecto;
-    private String fuenteFinanciacionPrincipal;
+    private String fuenteFinanciacion;
 
     private long montoFrescos;
     private String montoFrescosFormateado;
     private long montoEspecies;
     private String montoEspeciesFormateado;
+    private String subtotalRecursosFormateado;
+    private long subtotalRecursos;
+    private long totalRecursos;
     private String totalRecursosFormateado;
     
-    private String fuenteFinanciacionSecundaria;
-    private String tipoFuenteFinanciacionSecundaria;
+    private String tipoFuenteFinanciacion;
 
-    private Long montoFrescosFuenteFinanciacionSecundaria;
-    private String montoFrescosFuenteFinanciacionSecundariaFormateado;
-    private Long montoEspeciesFuenteFinanciacionSecundaria;
-    private String montoEspeciesFuenteFinanciacionSecundariaFormateado;
-    private String totalRecursosFuenteFinanciacionSecundariaFormateado;
+    private long totalRecursosFuenteFinanciacion;
+    private String totalRecursosFuenteFinanciacionFormateado;
 
     private String investigadorPrincipal;
     private String grupoInvestigacion;
@@ -119,20 +119,6 @@ public class ReporteFuenteFinanciacionProyecto {
     }
 
     /**
-     * @return the fuenteFinanciacionPrincipal
-     */
-    public String getFuenteFinanciacionPrincipal() {
-        return fuenteFinanciacionPrincipal;
-    }
-
-    /**
-     * @param fuenteFinanciacionPrincipal the fuenteFinanciacionPrincipal to set
-     */
-    public void setFuenteFinanciacionPrincipal(String fuenteFinanciacionPrincipal) {
-        this.fuenteFinanciacionPrincipal = fuenteFinanciacionPrincipal;
-    }
-
-    /**
      * @return the montoFrescos
      */
     public long getMontoFrescos() {
@@ -189,87 +175,17 @@ public class ReporteFuenteFinanciacionProyecto {
     }
 
     /**
-     * @return the fuenteFinanciacionSecundaria
+     * @return the fuenteFinanciacion
      */
-    public String getFuenteFinanciacionSecundaria() {
-        return fuenteFinanciacionSecundaria;
+    public String getFuenteFinanciacion() {
+        return fuenteFinanciacion;
     }
 
     /**
-     * @param fuenteFinanciacionSecundaria the fuenteFinanciacionSecundaria to set
+     * @param fuenteFinanciacion the fuenteFinanciacion to set
      */
-    public void setFuenteFinanciacionSecundaria(String fuenteFinanciacionSecundaria) {
-        this.fuenteFinanciacionSecundaria = fuenteFinanciacionSecundaria;
-    }
-
-    /**
-     * @return the tipoFuenteFinanciacionSecundaria
-     */
-    public String getTipoFuenteFinanciacionSecundaria() {
-        return tipoFuenteFinanciacionSecundaria;
-    }
-
-    /**
-     * @param tipoFuenteFinanciacionSecundaria the tipoFuenteFinanciacionSecundaria to set
-     */
-    public void setTipoFuenteFinanciacionSecundaria(String tipoFuenteFinanciacionSecundaria) {
-        this.tipoFuenteFinanciacionSecundaria = tipoFuenteFinanciacionSecundaria;
-    }
-
-    /**
-     * @return the montoFrescosFuenteFinanciacionSecundaria
-     */
-    public Long getMontoFrescosFuenteFinanciacionSecundaria() {
-        return montoFrescosFuenteFinanciacionSecundaria;
-    }
-
-    /**
-     * @param montoFrescosFuenteFinanciacionSecundaria the montoFrescosFuenteFinanciacionSecundaria to set
-     */
-    public void setMontoFrescosFuenteFinanciacionSecundaria(Long montoFrescosFuenteFinanciacionSecundaria) {
-        this.montoFrescosFuenteFinanciacionSecundaria = montoFrescosFuenteFinanciacionSecundaria;
-    }
-
-    /**
-     * @return the montoFrescosFuenteFinanciacionSecundariaFormateado
-     */
-    public String getMontoFrescosFuenteFinanciacionSecundariaFormateado() {
-        return montoFrescosFuenteFinanciacionSecundariaFormateado;
-    }
-
-    /**
-     * @param montoFrescosFuenteFinanciacionSecundariaFormateado the montoFrescosFuenteFinanciacionSecundariaFormateado to set
-     */
-    public void setMontoFrescosFuenteFinanciacionSecundariaFormateado(String montoFrescosFuenteFinanciacionSecundariaFormateado) {
-        this.montoFrescosFuenteFinanciacionSecundariaFormateado = montoFrescosFuenteFinanciacionSecundariaFormateado;
-    }
-
-    /**
-     * @return the montoEspeciesFuenteFinanciacionSecundaria
-     */
-    public Long getMontoEspeciesFuenteFinanciacionSecundaria() {
-        return montoEspeciesFuenteFinanciacionSecundaria;
-    }
-
-    /**
-     * @param montoEspeciesFuenteFinanciacionSecundaria the montoEspeciesFuenteFinanciacionSecundaria to set
-     */
-    public void setMontoEspeciesFuenteFinanciacionSecundaria(Long montoEspeciesFuenteFinanciacionSecundaria) {
-        this.montoEspeciesFuenteFinanciacionSecundaria = montoEspeciesFuenteFinanciacionSecundaria;
-    }
-
-    /**
-     * @return the montoEspeciesFuenteFinanciacionSecundariaFormateado
-     */
-    public String getMontoEspeciesFuenteFinanciacionSecundariaFormateado() {
-        return montoEspeciesFuenteFinanciacionSecundariaFormateado;
-    }
-
-    /**
-     * @param montoEspeciesFuenteFinanciacionSecundariaFormateado the montoEspeciesFuenteFinanciacionSecundariaFormateado to set
-     */
-    public void setMontoEspeciesFuenteFinanciacionSecundariaFormateado(String montoEspeciesFuenteFinanciacionSecundariaFormateado) {
-        this.montoEspeciesFuenteFinanciacionSecundariaFormateado = montoEspeciesFuenteFinanciacionSecundariaFormateado;
+    public void setFuenteFinanciacion(String fuenteFinanciacion) {
+        this.fuenteFinanciacion = fuenteFinanciacion;
     }
 
     /**
@@ -287,16 +203,86 @@ public class ReporteFuenteFinanciacionProyecto {
     }
 
     /**
-     * @return the totalRecursosFuenteFinanciacionSecundariaFormateado
+     * @return the tipoFuenteFinanciacion
      */
-    public String getTotalRecursosFuenteFinanciacionSecundariaFormateado() {
-        return totalRecursosFuenteFinanciacionSecundariaFormateado;
+    public String getTipoFuenteFinanciacion() {
+        return tipoFuenteFinanciacion;
     }
 
     /**
-     * @param totalRecursosFuenteFinanciacionSecundariaFormateado the totalRecursosFuenteFinanciacionSecundariaFormateado to set
+     * @param tipoFuenteFinanciacion the tipoFuenteFinanciacion to set
      */
-    public void setTotalRecursosFuenteFinanciacionSecundariaFormateado(String totalRecursosFuenteFinanciacionSecundariaFormateado) {
-        this.totalRecursosFuenteFinanciacionSecundariaFormateado = totalRecursosFuenteFinanciacionSecundariaFormateado;
+    public void setTipoFuenteFinanciacion(String tipoFuenteFinanciacion) {
+        this.tipoFuenteFinanciacion = tipoFuenteFinanciacion;
+    }
+
+    /**
+     * @return the totalRecursosFuenteFinanciacion
+     */
+    public long getTotalRecursosFuenteFinanciacion() {
+        return totalRecursosFuenteFinanciacion;
+    }
+
+    /**
+     * @param totalRecursosFuenteFinanciacion the totalRecursosFuenteFinanciacion to set
+     */
+    public void setTotalRecursosFuenteFinanciacion(long totalRecursosFuenteFinanciacion) {
+        this.totalRecursosFuenteFinanciacion = totalRecursosFuenteFinanciacion;
+    }
+
+    /**
+     * @return the totalRecursosFuenteFinanciacionFormateado
+     */
+    public String getTotalRecursosFuenteFinanciacionFormateado() {
+        return totalRecursosFuenteFinanciacionFormateado;
+    }
+
+    /**
+     * @param totalRecursosFuenteFinanciacionFormateado the totalRecursosFuenteFinanciacionFormateado to set
+     */
+    public void setTotalRecursosFuenteFinanciacionFormateado(String totalRecursosFuenteFinanciacionFormateado) {
+        this.totalRecursosFuenteFinanciacionFormateado = totalRecursosFuenteFinanciacionFormateado;
+    }
+
+     /**
+     * @return the totalRecursos
+     */
+    public long getTotalRecursos() {
+        return totalRecursos;
+    }
+
+    /**
+     * @param totalRecursos the totalRecursos to set
+     */
+    public void setTotalRecursos(long totalRecursos) {
+        this.totalRecursos = totalRecursos;
+    }
+
+    /**
+     * @return the subtotalRecursos
+     */
+    public long getSubtotalRecursos() {
+        return subtotalRecursos;
+    }
+
+    /**
+     * @param subtotalRecursos the subtotalRecursos to set
+     */
+    public void setSubtotalRecursos(long subtotalRecursos) {
+        this.subtotalRecursos = subtotalRecursos;
+    }
+
+    /**
+     * @return the subtotalRecursosFormateado
+     */
+    public String getSubtotalRecursosFormateado() {
+        return subtotalRecursosFormateado;
+    }
+
+    /**
+     * @param subtotalRecursosFormateado the subtotalRecursosFormateado to set
+     */
+    public void setSubtotalRecursosFormateado(String subtotalRecursosFormateado) {
+        this.subtotalRecursosFormateado = subtotalRecursosFormateado;
     }
 }
