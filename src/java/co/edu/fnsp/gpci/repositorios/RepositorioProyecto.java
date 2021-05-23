@@ -23,8 +23,6 @@ import co.edu.fnsp.gpci.entidades.PersonalExternoProyecto;
 import co.edu.fnsp.gpci.entidades.ProfesorProyecto;
 import co.edu.fnsp.gpci.entidades.ProyectoNotificacion;
 import co.edu.fnsp.gpci.utilidades.Util;
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Map;
